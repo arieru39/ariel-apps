@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>「やれない理由」が「可能」に変わる対話アプリ｜オントロジカル・コーチング</title>
+<style>
+  :root{
+    --bg:#0f1820;            /* 深い夜色 */
+    --bg-soft:#1a2632;
+    --card:#1f2d3a;
+    --card-soft:#243343;
+    --ink:#f4ecd8;           /* 温かいクリーム */
+    --ink-soft:#c7bea8;
+    --muted:#8a8579;
+    --line:#36475a;
+    --accent:#e07a3a;        /* スタンドの炎色 */
+    --accent-soft:#3a2a20;
+    --possibility:#7fb89a;   /* 可能性の緑 */
+    --pos-soft:#1d3028;
+    --fact:#9fc7d8;          /* 事実の青 */
+    --assess:#d99b9b;        /* 解釈の朱 */
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"Hiragino Sans","Yu Gothic UI","Noto Sans JP",sans-serif;
+    line-height:1.75;font-feature-settings:"palt";}
+  .wrap{max-width:760px;margin:0 auto;padding:24px 18px 80px}
+  header{margin-bottom:18px;text-align:center}
+  header h1{font-size:20px;margin:0;letter-spacing:.04em;font-weight:600}
+  header p{margin:6px 0 0;color:var(--ink-soft);font-size:13px}
+  /* MODE */
+  .mode{display:flex;gap:6px;margin:18px 0;background:var(--bg-soft);
+    padding:5px;border-radius:999px;border:1px solid var(--line)}
+  .mode button{flex:1;background:transparent;color:var(--ink-soft);border:none;
+    padding:10px 12px;border-radius:999px;font:inherit;cursor:pointer;font-size:13px}
+  .mode button.active{background:var(--accent);color:#fff;font-weight:600}
+  /* PROGRESS */
+  .progress{display:flex;gap:4px;margin:0 0 18px}
+  .progress div{flex:1;height:3px;border-radius:2px;background:var(--line)}
+  .progress div.active{background:var(--accent)}
+  .progress div.done{background:var(--possibility)}
+  .phase-label{display:flex;justify-content:space-between;color:var(--muted);
+    font-size:11px;margin:-12px 0 16px;letter-spacing:.08em}
+  /* CARD */
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:24px;margin-bottom:16px}
+  .stepnum{display:inline-block;font-size:11px;color:var(--accent);font-weight:700;
+    letter-spacing:.14em;margin-bottom:4px;text-transform:uppercase}
+  h2{font-size:18px;margin:0 0 6px;color:var(--ink)}
+  .lead{color:var(--ink-soft);font-size:14px;margin:0 0 14px}
+  label{display:block;font-size:13px;color:var(--ink-soft);margin:14px 0 6px;font-weight:600}
+  textarea,input,select{
+    width:100%;font:inherit;color:var(--ink);background:var(--bg-soft);
+    border:1px solid var(--line);border-radius:8px;padding:10px 12px;outline:none;
+    transition:border .15s;
+  }
+  textarea{min-height:80px;resize:vertical;line-height:1.7}
+  textarea:focus,input:focus{border-color:var(--accent)}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:560px){.row2{grid-template-columns:1fr}}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+  .chip{background:transparent;color:var(--ink-soft);border:1px solid var(--line);
+    border-radius:999px;padding:5px 12px;font-size:12px;cursor:pointer;user-select:none}
+  .chip:hover{border-color:var(--accent);color:var(--accent)}
+  .chip.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+  /* DISTINCT BOXES */
+  .factassess{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:560px){.factassess{grid-template-columns:1fr}}
+  .fa-box h4{margin:0 0 6px;font-size:12px;letter-spacing:.1em}
+  .fa-box.fact h4{color:var(--fact)}
+  .fa-box.assess h4{color:var(--assess)}
+  .fa-box small{display:block;color:var(--muted);font-size:11px;margin-bottom:6px}
+  /* COACH PANEL (pair mode) */
+  .coach-panel{background:var(--accent-soft);border-left:3px solid var(--accent);
+    padding:12px 14px;border-radius:8px;margin:14px 0;font-size:13px}
+  .coach-panel b{color:var(--accent)}
+  .coach-panel.hidden{display:none}
+  /* TIMER */
+  .timer{display:flex;align-items:center;gap:10px;margin:8px 0 14px;
+    color:var(--ink-soft);font-size:12px}
+  .timer .bar{flex:1;height:3px;background:var(--line);border-radius:2px;overflow:hidden}
+  .timer .bar i{display:block;height:100%;background:var(--accent);width:0;transition:width 1s linear}
+  /* BREATH */
+  .breath-wrap{text-align:center;padding:20px 0}
+  .breath{width:180px;height:180px;border-radius:50%;margin:0 auto;
+    background:radial-gradient(circle,var(--possibility) 0%,var(--pos-soft) 70%);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--ink);font-size:18px;font-weight:600;
+    box-shadow:0 0 60px rgba(127,184,154,.3);
+    animation:breathe 12s ease-in-out infinite;}
+  @keyframes breathe{
+    0%,100%{transform:scale(0.7)}
+    33%{transform:scale(1.15)}    /* inhale 4s */
+    50%{transform:scale(1.15)}    /* hold 2s */
+    100%{transform:scale(0.7)}    /* exhale 6s */
+  }
+  .breath-text{margin-top:14px;color:var(--ink-soft);font-size:13px;letter-spacing:.1em}
+  /* DECLARATION */
+  .declaration-box{background:var(--bg-soft);border:1px dashed var(--accent);
+    border-radius:10px;padding:14px;margin:12px 0;
+    font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:17px;line-height:2;
+    color:var(--ink);min-height:60px;white-space:pre-wrap}
+  .check5{margin:10px 0}
+  .check5 label{display:flex;align-items:center;gap:8px;font-weight:400;color:var(--ink-soft);
+    font-size:13px;margin:4px 0;cursor:pointer}
+  .check5 input{width:auto;margin:0}
+  /* DOING */
+  .doing{margin:10px 0;padding:10px 12px;background:var(--bg-soft);border-radius:8px}
+  .doing .time{font-size:11px;color:var(--accent);font-weight:700;letter-spacing:.1em}
+  /* NAV */
+  .nav{display:flex;justify-content:space-between;gap:10px;margin-top:18px}
+  button{font:inherit;border:none;border-radius:8px;padding:11px 18px;cursor:pointer;
+    background:var(--accent);color:#fff;font-weight:600;letter-spacing:.04em;
+    transition:opacity .15s,transform .05s;}
+  button.secondary{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+  button.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+  button:hover{opacity:.92}
+  button:active{transform:translateY(1px)}
+  button:disabled{opacity:.35;cursor:not-allowed}
+  /* COMPLETION */
+  .completion{text-align:center;padding:30px 20px}
+  .completion .seal{display:inline-block;font-size:48px;animation:fadein 1s ease-out}
+  @keyframes fadein{from{opacity:0;transform:scale(0.5)}to{opacity:1;transform:scale(1)}}
+  .summary{background:var(--bg-soft);border-radius:10px;padding:16px;margin:14px 0;
+    text-align:left;font-size:13px;color:var(--ink-soft);line-height:1.9}
+  .summary b{color:var(--ink)}
+  .summary .dec{font-family:"Hiragino Mincho ProN",serif;color:var(--accent);font-size:16px;display:block;margin:8px 0}
+  /* DONT-RULES */
+  .donts{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;font-size:11px;color:var(--muted)}
+  .donts span{background:#2a1d1d;color:#d99b9b;padding:3px 10px;border-radius:999px;border:1px solid #4a2a2a}
+  /* DEEP-LINK */
+  .deeplink{display:inline-flex;align-items:center;gap:6px;margin:18px 0 0;
+    padding:8px 14px;background:transparent;color:var(--possibility);
+    border:1px solid var(--possibility);border-radius:8px;text-decoration:none;
+    font-size:12px;letter-spacing:.04em;transition:background .15s}
+  .deeplink:hover{background:var(--pos-soft)}
+  .deeplink small{color:var(--muted);font-size:10px;letter-spacing:.06em}
+  footer{color:var(--muted);font-size:11px;text-align:center;margin-top:20px;line-height:1.8}
+  footer a{color:var(--accent)}
+  .hidden{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>🔥「やれない理由」が「可能」に変わる対話</h1>
+  <p>オントロジカル・コーチング30分セッション × アプリ</p>
+</header>
+
+<div class="mode">
+  <button id="modeSelf" class="active" onclick="setMode('self')">🧘 ひとりで対話する</button>
+  <button id="modePair" onclick="setMode('pair')">👥 ふたりで対話する</button>
+</div>
+
+<div class="progress" id="progress">
+  <div class="active"></div><div></div><div></div><div></div><div></div><div></div><div></div>
+</div>
+<div class="phase-label">
+  <span>① 扱う</span><span>② 分ける</span><span>③ ラケット</span><span>④ 整える</span><span>⑤ 気分</span><span>⑥ 宣言</span><span>⑦ 行動</span>
+</div>
+
+<!-- COACH PANEL (pair mode only) -->
+<div class="coach-panel hidden" id="coachPanel"></div>
+
+<!-- ============ PHASE 1: 扱う ============ -->
+<section class="card" id="p1">
+  <span class="stepnum">PHASE 1 — オープニング</span>
+  <h2>今日、何を扱いますか？</h2>
+  <p class="lead">「やれない／変わらない／詰まっている」と感じている状況をひとつ。</p>
+
+  <label>扱いたい題材（1〜2行で）</label>
+  <textarea id="topic" placeholder="例：上司に新しい提案を持っていけない。3週間止まっている。"></textarea>
+
+  <label>これを扱った後、どんな自分でいたいですか？</label>
+  <textarea id="wish" placeholder="例：自分の言葉で堂々と提案している自分"></textarea>
+
+  <a class="deeplink" target="_blank"
+     href="obsidian://open?vault=ありえるObsidian&file=オントロジカル・コーチング%2F10回コース%2F09_第9回_ピアコーチング実演">
+     📖 第9回 ピア・コーチング実演を深く学ぶ <small>（オープニングの設計）</small>
+  </a>
+
+  <div class="nav">
+    <button class="ghost" disabled>← もどる</button>
+    <button onclick="go(2)">次へ：分ける →</button>
+  </div>
+</section>
+
+<!-- ============ PHASE 2: 事実と解釈を分ける ============ -->
+<section class="card hidden" id="p2">
+  <span class="stepnum">PHASE 2 — 事実と解釈を分ける（第3回）</span>
+  <h2>その状況を、事実と解釈に仕分けます</h2>
+  <p class="lead">「変えられないもの（事実）」と「選び直せるもの（解釈）」を分ける。</p>
+
+  <div class="factassess">
+    <div class="fa-box fact">
+      <h4>🎬 事実 Fact</h4>
+      <small>録画したら映る／数字／セリフ</small>
+      <textarea id="fact" placeholder="例：上司は『データが足りない』と発言した／会議の発言時間は3分だった"></textarea>
+    </div>
+    <div class="fa-box assess">
+      <h4>💭 解釈 Assessment</h4>
+      <small>自分の頭が貼ったストーリー</small>
+      <textarea id="assess" placeholder="例：上司は私を評価していない／私は提案下手だ／どうせ通らない"></textarea>
+    </div>
+  </div>
+
+  <label>「どうせ」「やっぱり」「いつも」「絶対」が混じっていませんか？</label>
+  <p style="color:var(--muted);font-size:12px;margin:4px 0">→ これらの口癖は、ほぼ100％"解釈"のサインです。</p>
+
+  <a class="deeplink" target="_blank"
+     href="obsidian://open?vault=ありえるObsidian&file=オントロジカル・コーチング%2F10回コース%2F03_第3回_事実と解釈を分ける">
+     📖 第3回 事実と解釈を分けるを深く学ぶ <small>（3つの強力な問い／ケース「上司への恐怖」）</small>
+  </a>
+
+  <div class="nav">
+    <button class="ghost" onclick="go(1)">← もどる</button>
+    <button onclick="go(3)">次へ：ラケット →</button>
+  </div>
+</section>
+
+<!-- ============ PHASE 3: ラケット ============ -->
+<section class="card hidden" id="p3">
+  <span class="stepnum">PHASE 3 — ラケットを暴く（第4回）</span>
+  <h2>変わらないことで、密かに得ているものは？</h2>
+  <p class="lead">この回がコース最大の山場。<b>自分を責めない</b>こと。<br>「ああ、こんな小ズルいゲームしてたんだ。可愛いな」のトーンで観察します。</p>
+
+  <label>① 繰り返し言っている不満（誰かに3ヶ月以上言ったことのある内容）</label>
+  <textarea id="complaint" placeholder="例：『誰も主体的に動いてくれない』とずっと言っている"></textarea>
+
+  <label>② 固定している自分の立ち位置</label>
+  <div class="chips" id="position-chips"></div>
+  <textarea id="position" style="margin-top:6px" placeholder="例：自分が正しい／被害者／犠牲者"></textarea>
+
+  <label>③ 隠れた報酬（持ち続けることで、密かに得ているメリット）</label>
+  <div class="chips" id="payoff-chips"></div>
+  <textarea id="payoff" style="margin-top:6px" placeholder="例：責任を負わなくていい／自分は正しいと言える"></textarea>
+
+  <label>④ 支払っている代償（その代わりに失っているもの）</label>
+  <textarea id="cost" placeholder="例：チームの成果／部下の成長／自分のリーダーシップの可能性／信頼／時間"></textarea>
+
+  <label>⑤ それでも、このラケットを持ち続けたいですか？</label>
+  <div class="chips">
+    <span class="chip" data-keep="yes" onclick="setKeep('yes')">Yes（まだ手放せない）</span>
+    <span class="chip" data-keep="no" onclick="setKeep('no')">No（手放す）</span>
+  </div>
+  <input id="keep" type="hidden" />
+
+  <a class="deeplink" target="_blank"
+     href="obsidian://open?vault=ありえるObsidian&file=オントロジカル・コーチング%2F10回コース%2F04_第4回_ラケットを暴く">
+     📖 第4回 ラケットを暴くを深く学ぶ <small>（4要素／自白の作法／手紙ワーク）</small>
+  </a>
+
+  <div class="nav">
+    <button class="ghost" onclick="go(2)">← もどる</button>
+    <button onclick="go(4)">次へ：身体を整える →</button>
+  </div>
+</section>
+
+<!-- ============ PHASE 4: センタリング ============ -->
+<section class="card hidden" id="p4">
+  <span class="stepnum">PHASE 4 — センタリング（第5回）</span>
+  <h2>身体を整える（60秒）</h2>
+  <p class="lead">頭で解いた "事実と解釈" を、身体に落とす。<br>呼吸の球の動きに合わせて呼吸します。</p>
+
+  <div class="breath-wrap">
+    <div class="breath">息と一緒に</div>
+    <div class="breath-text">吸う4秒 → 止める2秒 → 吐く6秒（×5回）</div>
+    <div id="breathCount" style="margin-top:14px;color:var(--accent);font-size:24px;font-weight:600">60</div>
+  </div>
+
+  <label>今、身体に何が起きていますか？（任意）</label>
+  <textarea id="body" placeholder="例：肩が下がった／呼吸が深くなった／涙が出た"></textarea>
+
+  <a class="deeplink" target="_blank"
+     href="obsidian://open?vault=ありえるObsidian&file=オントロジカル・コーチング%2F10回コース%2F05_第5回_身体ワーク_センタリング">
+     📖 第5回 身体ワーク・センタリングを深く学ぶ <small>（Somatics／30秒グラウンディング）</small>
+  </a>
+
+  <div class="nav">
+    <button class="ghost" onclick="go(3)">← もどる</button>
+    <button onclick="go(5)">次へ：気分 →</button>
+  </div>
+</section>
+
+<!-- ============ PHASE 5: 気分 ============ -->
+<section class="card hidden" id="p5">
+  <span class="stepnum">PHASE 5 — 気分のチューニング（第6回）</span>
+  <h2>今、どんな気分の中にいますか？</h2>
+  <p class="lead">気分は天気のように "在る" もの。観察して、選び直せます。</p>
+
+  <label>今の気分（複数選択OK）</label>
+  <div class="chips" id="mood-chips-now"></div>
+
+  <label>その気分は、可能性を開いていますか？</label>
+  <div class="chips">
+    <span class="chip" data-open="yes" onclick="setOpen('yes')">開いている</span>
+    <span class="chip" data-open="no" onclick="setOpen('no')">閉じている</span>
+  </div>
+  <input id="moodopen" type="hidden" />
+
+  <label>もし、可能性を開く気分を選ぶなら？</label>
+  <div class="chips" id="mood-chips-want"></div>
+
+  <a class="deeplink" target="_blank"
+     href="obsidian://open?vault=ありえるObsidian&file=オントロジカル・コーチング%2F10回コース%2F06_第6回_気分のデザイン">
+     📖 第6回 気分のデザインを深く学ぶ <small>（レジグネーション／ワンダー／Moods）</small>
+  </a>
+
+  <div class="nav">
+    <button class="ghost" onclick="go(4)">← もどる</button>
+    <button onclick="go(6)">次へ：宣言 →</button>
+  </div>
+</section>
+
+<!-- ============ PHASE 6: 宣言 ============ -->
+<section class="card hidden" id="p6">
+  <span class="stepnum">PHASE 6 — 宣言（第7回）</span>
+  <h2>あなたは、何として存在することを選びますか？</h2>
+  <p class="lead">「目標」ではなく「宣言」。法律と同じ重みを持つ "言葉の行為"。</p>
+
+  <label>宣言テンプレ：「私は、〔　　　　〕として存在する」</label>
+  <textarea id="declaration" placeholder="例：私は、部下の可能性を100%信じて舞台になる人間だ"
+    oninput="renderDeclaration()"></textarea>
+
+  <label>あなたの宣言（声に出して読んでください）</label>
+  <div class="declaration-box" id="decView">（ここに表示されます）</div>
+
+  <label>強い宣言の5条件チェック</label>
+  <div class="check5">
+    <label><input type="checkbox" class="cond"> ① 「私は」で始まっている</label>
+    <label><input type="checkbox" class="cond"> ② 「〜として存在する／〜である」で終わっている</label>
+    <label><input type="checkbox" class="cond"> ③ 現在形である（目指す／なりたい、ではない）</label>
+    <label><input type="checkbox" class="cond"> ④ 軽くない、重みがある</label>
+    <label><input type="checkbox" class="cond"> ⑤ 立会人を呼ぶ（誰かに宣言を伝える）</label>
+  </div>
+
+  <div style="display:flex;gap:8px;margin-top:8px">
+    <button class="secondary" onclick="speakDeclaration()">🔊 声に出して読み上げる</button>
+  </div>
+
+  <a class="deeplink" target="_blank"
+     href="obsidian://open?vault=ありえるObsidian&file=オントロジカル・コーチング%2F10回コース%2F07_第7回_宣言Declarationの技法">
+     📖 第7回 宣言（Declaration）の技法を深く学ぶ <small>（言葉の2つの働き／立会人ワーク）</small>
+  </a>
+
+  <div class="nav">
+    <button class="ghost" onclick="go(5)">← もどる</button>
+    <button onclick="go(7)">次へ：行動 →</button>
+  </div>
+</section>
+
+<!-- ============ PHASE 7: 行動 ============ -->
+<section class="card hidden" id="p7">
+  <span class="stepnum">PHASE 7 — 行動デザイン（第8回）</span>
+  <h2>宣言にふさわしいDoingを3つ</h2>
+  <p class="lead">宣言した Being から、引き出しの中の Doing を取り出します。</p>
+
+  <div class="doing">
+    <div class="time">⏱ 24時間以内</div>
+    <textarea id="doing1" placeholder="例：明朝の朝礼で、新しい提案を口に出す"></textarea>
+  </div>
+  <div class="doing">
+    <div class="time">⏱ 72時間以内</div>
+    <textarea id="doing2" placeholder="例：直属の上司に30分の壁打ち時間をもらう"></textarea>
+  </div>
+  <div class="doing">
+    <div class="time">⏱ 1週間以内</div>
+    <textarea id="doing3" placeholder="例：提案資料を完成させて全社に共有する"></textarea>
+  </div>
+
+  <label>立会人（宣言を受け取ってくれる人）</label>
+  <input id="witness" placeholder="例：金六メンバー／パートナー／チーム" />
+
+  <a class="deeplink" target="_blank"
+     href="obsidian://open?vault=ありえるObsidian&file=オントロジカル・コーチング%2F10回コース%2F08_第8回_インテグリティ">
+     📖 第8回 インテグリティを深く学ぶ <small>（約束を扱う4つの規律／Word as Possibility）</small>
+  </a>
+
+  <div class="nav">
+    <button class="ghost" onclick="go(6)">← もどる</button>
+    <button onclick="go(8)">セッション完了 🔥</button>
+  </div>
+</section>
+
+<!-- ============ COMPLETION ============ -->
+<section class="card hidden" id="p8">
+  <div class="completion">
+    <div class="seal">🔥</div>
+    <h2 style="margin-top:14px">セッションを完了します</h2>
+    <p class="lead">あなたは、観察者から創作者になりました。</p>
+  </div>
+
+  <div class="summary" id="summaryView"></div>
+
+  <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center">
+    <button onclick="downloadMd()">💾 Obsidianに保存</button>
+    <button class="secondary" onclick="copyAll()">📋 コピー</button>
+    <button class="ghost" onclick="resetAll()">↺ もう一度</button>
+  </div>
+
+  <div style="text-align:center;margin-top:24px">
+    <a class="deeplink" target="_blank"
+       href="obsidian://open?vault=ありえるObsidian&file=オントロジカル・コーチング%2F10回コース%2F00_講座カリキュラム_全体マップ">
+       🗺 オントロジカル・コーチング10回コース 全体マップへ <small>（次の学びを選ぶ）</small>
+    </a>
+  </div>
+</section>
+
+<footer>
+  作：Claudian × 鈴木利和｜オントロジカル・コーチング10回コース より<br>
+  関連：<a href="obsidian://open?vault=ありえるObsidian&file=オントロジカル・コーチング/10回コース/00_講座カリキュラム_全体マップ">[[10回コース全体マップ]]</a> ／
+  <a href="obsidian://open?vault=ありえるObsidian&file=オントロジカル・コーチング/10回コース/04_第4回_ラケットを暴く">[[ラケット]]</a> ／
+  <a href="obsidian://open?vault=ありえるObsidian&file=オントロジカル・コーチング/10回コース/07_第7回_宣言Declarationの技法">[[宣言]]</a>
+</footer>
+
+</div>
+
+<script>
+/* ================== STATE ================== */
+let mode = "self"; // "self" | "pair"
+let currentPhase = 1;
+const TOTAL = 7;
+
+const positionOptions = ["被害者","正しい者","犠牲者","評論家","耐える人","頑張り屋","責任者"];
+const payoffOptions = ["責任を負わなくていい","自分は正しいと言える","同情を得られる","行動しなくて済む","期待されないで済む","安全でいられる","現状維持できる","優越感を保てる"];
+const moodNowOptions = ["諦め","レジグネーション","不安","怒り","あきらめ","重さ","空虚","焦り","退屈","ふつう"];
+const moodWantOptions = ["ワンダー（驚き）","希望","好奇心","熱意","落ち着き","受容","感謝","軽さ","畏敬","コミットメント"];
+
+const sessionLink = (n,title) =>
+  `<a href="obsidian://open?vault=ありえるObsidian&file=${encodeURIComponent("オントロジカル・コーチング/10回コース/"+title)}"
+      target="_blank" style="color:var(--accent);text-decoration:underline;font-size:11px">📖 第${n}回ノートを開く</a>`;
+
+const coachScripts = {
+  1: `<b>👂 コーチへ｜オープニング（3分）</b><br>
+      まず "Presence" で。スマホを置き、目を合わせ、3秒の沈黙から始める。<br>
+      問い：「今日、何を扱いたいですか？」「これを扱うと、何が変わると嬉しいですか？」<br>
+      ${sessionLink(9,"09_第9回_ピアコーチング実演")}`,
+  2: `<b>🎬 コーチへ｜事実と解釈を分ける（5分）</b><br>
+      「具体的に何が起きましたか？」「相手は何と言いましたか？」<br>
+      「『どうせ』『やっぱり』が出たら、"それは事実ですか? 解釈ですか?"」<br>
+      <b>NG</b>：解釈に同意する（「ひどいですね」）。代わりに区別する。<br>
+      ${sessionLink(3,"03_第3回_事実と解釈を分ける")}`,
+  3: `<b>🃏 コーチへ｜ラケットを暴く（7分）</b><br>
+      「この不満を持ち続けることで、得ているメリットは？」<br>
+      "特にない" と言われたら：責任回避？正しさ？同情？を具体的に聞く。<br>
+      <b>沈黙を恐れない</b>。自白は本人のタイミング。<br>
+      ${sessionLink(4,"04_第4回_ラケットを暴く")}`,
+  4: `<b>🧘 コーチへ｜センタリング（1分）</b><br>
+      クライアントと一緒に60秒呼吸。あなた自身も整える。<br>
+      声がけ：「肩の力を抜いて」「深く息を吐いて」<br>
+      ${sessionLink(5,"05_第5回_身体ワーク_センタリング")}`,
+  5: `<b>🌤 コーチへ｜気分のチューニング（3分）</b><br>
+      「今、どんな気分の中にいますか？」「その気分は可能性を開いていますか？」<br>
+      気分は天気。"あなたが間違っている" のではなく "今そういう気分の中にいる"。<br>
+      ${sessionLink(6,"06_第6回_気分のデザイン")}`,
+  6: `<b>🔥 コーチへ｜宣言を引き出す（5分）</b><br>
+      「あなたは、何として存在することを選びますか？」<br>
+      宣言は儀式的に：立つ／目を合わせる／1回だけ／"Acknowledged"で受け取る。<br>
+      軽く聞こえたら、もう一度言わせる。<br>
+      ${sessionLink(7,"07_第7回_宣言Declarationの技法")}`,
+  7: `<b>⚡ コーチへ｜行動デザイン（3分）</b><br>
+      「24時間以内に何をしますか？」「いつまでに、誰に、何を約束しますか？」<br>
+      立会人を必ず指名する（インテグリティの第1歩）。<br>
+      ${sessionLink(8,"08_第8回_インテグリティ")}`,
+};
+
+/* ================== UI ================== */
+function setMode(m){
+  mode = m;
+  document.getElementById("modeSelf").classList.toggle("active", m==="self");
+  document.getElementById("modePair").classList.toggle("active", m==="pair");
+  document.getElementById("coachPanel").classList.toggle("hidden", m!=="pair");
+  renderCoach();
+}
+function renderCoach(){
+  if(mode!=="pair") return;
+  document.getElementById("coachPanel").innerHTML = coachScripts[currentPhase] || "";
+}
+
+function go(n){
+  currentPhase = n;
+  for(let i=1;i<=8;i++){
+    const el = document.getElementById("p"+i);
+    if(el) el.classList.toggle("hidden", i!==n);
+  }
+  const bars = document.querySelectorAll("#progress > div");
+  bars.forEach((b,i)=>{
+    b.classList.remove("active","done");
+    if(i+1 < n) b.classList.add("done");
+    if(i+1 === n) b.classList.add("active");
+  });
+  renderCoach();
+  if(n===4) startBreath();
+  if(n===8) renderSummary();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* ================== CHIPS ================== */
+function buildChips(containerId, options, targetTextareaId){
+  const c = document.getElementById(containerId);
+  options.forEach(t=>{
+    const s=document.createElement("span");
+    s.className="chip"; s.textContent=t;
+    s.onclick=()=>{
+      const ta=document.getElementById(targetTextareaId);
+      ta.value = ta.value ? ta.value + "／" + t : t;
+    };
+    c.appendChild(s);
+  });
+}
+buildChips("position-chips", positionOptions, "position");
+buildChips("payoff-chips", payoffOptions, "payoff");
+
+/* multi-select chips (mood) */
+function buildMultiChips(containerId, options, fieldName){
+  const c = document.getElementById(containerId);
+  options.forEach(t=>{
+    const s=document.createElement("span");
+    s.className="chip"; s.textContent=t; s.dataset.field=fieldName;
+    s.onclick=()=>s.classList.toggle("on");
+    c.appendChild(s);
+  });
+}
+buildMultiChips("mood-chips-now", moodNowOptions, "moodNow");
+buildMultiChips("mood-chips-want", moodWantOptions, "moodWant");
+
+function readMulti(containerId){
+  return [...document.querySelectorAll("#"+containerId+" .chip.on")].map(e=>e.textContent).join("、");
+}
+
+function setKeep(v){
+  document.getElementById("keep").value = v;
+  document.querySelectorAll("#p3 .chip[data-keep]").forEach(c=>{
+    c.classList.toggle("on", c.dataset.keep===v);
+  });
+}
+function setOpen(v){
+  document.getElementById("moodopen").value = v;
+  document.querySelectorAll("#p5 .chip[data-open]").forEach(c=>{
+    c.classList.toggle("on", c.dataset.open===v);
+  });
+}
+
+/* ================== BREATH ================== */
+let breathTimer = null;
+function startBreath(){
+  clearInterval(breathTimer);
+  let sec = 60;
+  document.getElementById("breathCount").textContent = sec;
+  breathTimer = setInterval(()=>{
+    sec--;
+    document.getElementById("breathCount").textContent = sec;
+    if(sec<=0){ clearInterval(breathTimer); document.getElementById("breathCount").textContent="✓"; }
+  },1000);
+}
+
+/* ================== DECLARATION ================== */
+function renderDeclaration(){
+  const t = document.getElementById("declaration").value.trim();
+  document.getElementById("decView").textContent = t || "（ここに表示されます）";
+}
+function speakDeclaration(){
+  if(!("speechSynthesis" in window)){ alert("読み上げ非対応"); return; }
+  const u = new SpeechSynthesisUtterance(document.getElementById("declaration").value);
+  u.lang="ja-JP"; u.rate=0.9;
+  speechSynthesis.cancel(); speechSynthesis.speak(u);
+}
+
+/* ================== SUMMARY ================== */
+function v(id){ return (document.getElementById(id)?.value||"").trim(); }
+
+function renderSummary(){
+  const dec = v("declaration") || "（宣言未記入）";
+  const html = `
+    <b>🎯 扱った題材</b><br>${escapeHtml(v("topic")) || "—"}<br><br>
+    <b>🔥 宣言</b><span class="dec">${escapeHtml(dec)}</span>
+    <b>⚡ 24時間以内</b><br>${escapeHtml(v("doing1"))||"—"}<br><br>
+    <b>⚡ 72時間以内</b><br>${escapeHtml(v("doing2"))||"—"}<br><br>
+    <b>⚡ 1週間以内</b><br>${escapeHtml(v("doing3"))||"—"}<br><br>
+    <b>👁 立会人</b>：${escapeHtml(v("witness"))||"未指名"}
+  `;
+  document.getElementById("summaryView").innerHTML = html;
+}
+function escapeHtml(s){ return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+
+/* ================== EXPORT ================== */
+function buildMd(){
+  const now = new Date();
+  const ymd = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}-${String(now.getDate()).padStart(2,"0")}`;
+  const moodNow = readMulti("mood-chips-now");
+  const moodWant = readMulti("mood-chips-want");
+  const conds = [...document.querySelectorAll(".cond")].map((c,i)=>`- [${c.checked?"x":" "}] 条件${i+1}`).join("\n");
+
+  return `---
+date: ${ymd}
+tags: [オントロジカルコーチング, 宣言, セッション記録]
+mode: ${mode}
+---
+
+# ${ymd} オントロジカル・コーチング セッション
+
+## 🎯 扱った題材
+${v("topic") || "—"}
+
+## 🌅 セッション後の在りたい姿
+${v("wish") || "—"}
+
+## 🎬 事実と解釈を分ける
+**事実 Fact**
+${v("fact") || "—"}
+
+**解釈 Assessment**
+${v("assess") || "—"}
+
+## 🃏 ラケット
+- **不満**：${v("complaint") || "—"}
+- **固定された立ち位置**：${v("position") || "—"}
+- **隠れた報酬**：${v("payoff") || "—"}
+- **支払っている代償**：${v("cost") || "—"}
+- **持ち続けたいか**：${v("keep") || "—"}
+
+## 🧘 身体
+${v("body") || "—"}
+
+## 🌤 気分
+- **今の気分**：${moodNow || "—"}
+- **可能性を開いているか**：${v("moodopen") || "—"}
+- **選びたい気分**：${moodWant || "—"}
+
+## 🔥 宣言（Declaration）
+
+> ${v("declaration") || "—"}
+
+**強い宣言の5条件**
+${conds}
+
+## ⚡ 行動デザイン
+- **24時間以内**：${v("doing1") || "—"}
+- **72時間以内**：${v("doing2") || "—"}
+- **1週間以内**：${v("doing3") || "—"}
+
+## 👁 立会人
+${v("witness") || "—"}
+
+## 📝 振り返り（あとで書く）
+- 宣言した瞬間の身体感覚：
+- このセッションでの最大の気づき：
+- 次のセッションで扱いたいこと：
+`;
+}
+
+function downloadMd(){
+  const md = buildMd();
+  const now = new Date();
+  const ymd = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}-${String(now.getDate()).padStart(2,"0")}`;
+  const blob = new Blob([md],{type:"text/markdown;charset=utf-8"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download=`オントロジカルセッション_${ymd}.md`;
+  document.body.appendChild(a); a.click(); a.remove();
+  flash("Markdownを保存しました");
+}
+function copyAll(){
+  navigator.clipboard.writeText(buildMd()).then(()=>flash("コピーしました"));
+}
+function flash(msg){
+  const f=document.createElement("div");
+  f.textContent=msg;
+  f.style.cssText="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#e07a3a;color:#fff;padding:10px 18px;border-radius:999px;font-size:13px;z-index:9999;box-shadow:0 6px 18px rgba(0,0,0,.3)";
+  document.body.appendChild(f);
+  setTimeout(()=>f.remove(),1800);
+}
+
+function resetAll(){
+  ["topic","wish","fact","assess","complaint","position","payoff","cost","body","declaration","doing1","doing2","doing3","witness"].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.value="";
+  });
+  document.querySelectorAll(".chip.on").forEach(c=>c.classList.remove("on"));
+  document.querySelectorAll(".cond").forEach(c=>c.checked=false);
+  document.getElementById("decView").textContent="（ここに表示されます）";
+  go(1);
+}
+</script>
+</body>
+</html>
