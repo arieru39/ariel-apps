@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>継続する不安が、可能に変わる対話｜オントロジカル・コーチング50事例</title>
+<meta name="description" content="あなたの中で消えない不安を、オントロジカル・コーチング50事例の鏡で照らし、可能に変える対話アプリ。データ送信なし、完全ローカル。">
+<style>
+  :root{
+    --bg:#0e1224;
+    --bg-soft:#161b32;
+    --card:#1c2240;
+    --card-soft:#242b4e;
+    --ink:#f0eafa;
+    --ink-soft:#bfb6d6;
+    --muted:#7e7891;
+    --line:#3a3a5c;
+    --accent:#9a8de0;        /* 鏡のラベンダー */
+    --accent-soft:#2c2848;
+    --possibility:#e6b85c;   /* 可能性のゴールド */
+    --pos-soft:#3a2d12;
+    --anxiety:#c97070;       /* 不安の朱 */
+    --anxiety-soft:#3a1e1e;
+    --racket:#d4a76a;        /* ラケット琥珀 */
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"Hiragino Sans","Yu Gothic UI","Noto Sans JP",sans-serif;
+    line-height:1.75;font-feature-settings:"palt";}
+  .wrap{max-width:760px;margin:0 auto;padding:20px 16px 80px}
+  header{margin-bottom:14px;text-align:center}
+  header h1{font-size:20px;margin:0;letter-spacing:.04em;font-weight:600}
+  header p{margin:6px 0 0;color:var(--ink-soft);font-size:13px}
+  .progress{display:flex;gap:4px;margin:18px 0 6px}
+  .progress div{flex:1;height:3px;border-radius:2px;background:var(--line)}
+  .progress div.active{background:var(--accent)}
+  .progress div.done{background:var(--possibility)}
+  .phase-label{display:flex;justify-content:space-between;color:var(--muted);
+    font-size:11px;margin:0 0 16px;letter-spacing:.08em}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:24px;margin-bottom:16px}
+  .stepnum{display:inline-block;font-size:11px;color:var(--accent);font-weight:700;
+    letter-spacing:.14em;margin-bottom:4px;text-transform:uppercase}
+  h2{font-size:18px;margin:0 0 6px;color:var(--ink)}
+  h3{font-size:15px;margin:14px 0 6px;color:var(--accent)}
+  .lead{color:var(--ink-soft);font-size:13.5px;margin:0 0 16px;line-height:1.7}
+  textarea,input[type="text"]{
+    width:100%;background:var(--bg-soft);color:var(--ink);
+    border:1px solid var(--line);border-radius:8px;padding:12px 14px;
+    font:inherit;font-size:14.5px;line-height:1.7;
+    resize:vertical;min-height:90px;}
+  input[type="text"]{min-height:0;height:42px}
+  textarea:focus,input:focus{outline:none;border-color:var(--accent);
+    box-shadow:0 0 0 3px var(--accent-soft)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}
+  .chip{background:var(--bg-soft);color:var(--ink-soft);
+    border:1px solid var(--line);border-radius:999px;
+    padding:6px 12px;font-size:12.5px;cursor:pointer;
+    transition:all .12s}
+  .chip:hover{border-color:var(--accent);color:var(--ink)}
+  .chip.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .chip-help{font-size:11.5px;color:var(--muted);margin:6px 0 0}
+  .actions{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+  button.primary,button.secondary,button.ghost{
+    border:none;border-radius:8px;font:inherit;cursor:pointer;
+    font-size:14px;font-weight:600;padding:11px 18px;transition:all .15s}
+  button.primary{background:var(--accent);color:#fff}
+  button.primary:hover{background:#8a7cd0}
+  button.primary:disabled{background:var(--line);color:var(--muted);cursor:not-allowed}
+  button.secondary{background:var(--card-soft);color:var(--ink);border:1px solid var(--line)}
+  button.secondary:hover{border-color:var(--accent)}
+  button.ghost{background:transparent;color:var(--ink-soft);padding:10px 14px}
+  button.ghost:hover{color:var(--ink)}
+  /* CASE CARDS */
+  .case-list{display:flex;flex-direction:column;gap:10px;margin:12px 0}
+  .case{background:var(--card-soft);border:1px solid var(--line);border-radius:10px;
+    padding:14px 16px;cursor:pointer;transition:all .15s}
+  .case:hover{border-color:var(--accent);transform:translateY(-1px)}
+  .case.selected{border-color:var(--accent);background:var(--accent-soft);
+    box-shadow:0 0 0 2px var(--accent) inset}
+  .case-no{font-size:11px;color:var(--muted);letter-spacing:.1em}
+  .case-title{font-size:14.5px;font-weight:600;margin:2px 0 6px}
+  .case-before{font-size:12.5px;color:var(--ink-soft);line-height:1.65}
+  .case-tag{display:inline-block;font-size:10.5px;color:var(--accent);
+    background:var(--accent-soft);border-radius:4px;padding:1px 7px;margin:4px 4px 0 0}
+  /* MIRROR PANEL (selected case) */
+  .mirror{background:var(--accent-soft);border:1px solid var(--accent);
+    border-radius:10px;padding:16px;margin:14px 0}
+  .mirror-label{font-size:10.5px;color:var(--accent);letter-spacing:.16em;
+    font-weight:700;text-transform:uppercase;margin-bottom:6px}
+  .mirror-row{margin:8px 0}
+  .mirror-row strong{display:block;font-size:11.5px;color:var(--accent);margin-bottom:2px}
+  .mirror-row p{margin:0;font-size:13.5px;color:var(--ink);line-height:1.65}
+  /* SUMMARY */
+  .sum{background:var(--bg-soft);border:1px solid var(--line);
+    border-radius:8px;padding:14px;margin:10px 0;font-size:13.5px;line-height:1.7}
+  .sum dt{color:var(--muted);font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;margin-top:8px;font-weight:600}
+  .sum dt:first-child{margin-top:0}
+  .sum dd{margin:3px 0 0 0;color:var(--ink)}
+  .sum dd.empty{color:var(--muted);font-style:italic}
+  .declaration{background:linear-gradient(135deg,var(--pos-soft),#2a2a4e);
+    border:2px solid var(--possibility);border-radius:14px;padding:22px;
+    margin:14px 0;text-align:center}
+  .declaration-label{font-size:11px;color:var(--possibility);
+    letter-spacing:.2em;font-weight:700}
+  .declaration-text{font-size:18px;color:var(--ink);
+    margin:8px 0;line-height:1.6;font-weight:600}
+  /* WARN */
+  .warn{background:var(--anxiety-soft);border:1px solid var(--anxiety);
+    border-radius:8px;padding:10px 14px;margin:10px 0;
+    font-size:12.5px;color:#f5d4d4;line-height:1.6}
+  .warn strong{color:#ffb4b4}
+  .note{background:var(--bg-soft);border-left:3px solid var(--accent);
+    padding:10px 14px;margin:10px 0;font-size:12.5px;color:var(--ink-soft);
+    line-height:1.65}
+  /* MORE LINK */
+  .more-link{margin-top:14px;padding:12px 14px;background:var(--bg-soft);
+    border:1px solid var(--line);border-radius:8px;
+    font-size:12.5px;color:var(--ink-soft)}
+  .more-link a{color:var(--accent);text-decoration:none}
+  /* SCROLLABLE LIST */
+  .scrolling{max-height:380px;overflow-y:auto;padding-right:4px}
+  /* FOOTER */
+  footer{text-align:center;margin-top:30px;color:var(--muted);font-size:11.5px;line-height:1.7}
+  footer a{color:var(--accent);text-decoration:none}
+  @media(max-width:520px){
+    .wrap{padding:14px 12px 60px}
+    header h1{font-size:18px}
+    .card{padding:18px;border-radius:10px}
+    h2{font-size:16px}
+    .actions{flex-direction:column}
+    .actions button{width:100%}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>🪞 継続する不安が、可能に変わる対話</h1>
+  <p>オントロジカル・コーチング50事例を、あなたの鏡に</p>
+</header>
+
+<div class="progress" id="progress"></div>
+<div class="phase-label" id="phaseLabel"></div>
+
+<!-- ============ PHASE 0: イントロ ============ -->
+<div id="phase0" class="card phase">
+  <span class="stepnum">START</span>
+  <h2>消えない不安を、可能に変える</h2>
+  <p class="lead">
+    「ずっと頭から離れない不安」って、ありませんか？<br>
+    オントロジカル・コーチングでは、<strong>その不安は外から来たものではなく、あなた自身が無意識のうちに作り出している『解釈』と『隠れた報酬（ラケット）』の組み合わせ</strong>として観ます。
+  </p>
+  <p class="lead">
+    このアプリでは、<strong>50の実例</strong>を鏡として使い、あなたの不安の構造を一緒にほどいていきます。所要時間 約15〜20分。
+  </p>
+  <div class="note">
+    📦 <strong>完全ローカル動作</strong>：入力したテキストは一切送信されません。全てあなたのブラウザの中で完結します。途中で閉じると消えるので、後でMarkdownにエクスポート可能。
+  </div>
+  <div class="actions">
+    <button class="primary" onclick="goPhase(1)">▶ 不安を言語化する</button>
+  </div>
+</div>
+
+<!-- ============ PHASE 1: 不安の言語化 ============ -->
+<div id="phase1" class="card phase" style="display:none">
+  <span class="stepnum">PHASE 1 / 観察</span>
+  <h2>あなたの中で、ずっと消えない不安は何ですか？</h2>
+  <p class="lead">
+    今、頭の片隅から離れない不安、何度も浮かんでくる心配ごとを、思いつくまま書いてください。1〜2文でOK。
+  </p>
+  <textarea id="anxiety" placeholder="例：また失敗したら、もう次のチャンスはないかもしれない／部下に厳しく言ったら嫌われる気がする／値上げしたら客が離れる気がする…" rows="3"></textarea>
+
+  <h3>近い感覚はどれですか？（複数選択可）</h3>
+  <div class="chips" id="anxietyChips"></div>
+  <p class="chip-help">タグを選ぶと、後で似た事例を見つけやすくなります</p>
+
+  <div class="actions">
+    <button class="ghost" onclick="goPhase(0)">← 戻る</button>
+    <button class="primary" onclick="goPhase(2)">次へ：その不安の中の声を聞く →</button>
+  </div>
+</div>
+
+<!-- ============ PHASE 2: 繰り返している声 ============ -->
+<div id="phase2" class="card phase" style="display:none">
+  <span class="stepnum">PHASE 2 / 言葉</span>
+  <h2>その不安の中で、繰り返し言っている言葉は？</h2>
+  <p class="lead">
+    心の中で何度も自分に言っている "口癖"、誰かに繰り返し愚痴っていること。それが、ブレーキの正体です。
+  </p>
+  <textarea id="voice" placeholder="例：「どうせ無理だ」「もう年だし」「お金がないから」「相手が悪い」「景気が悪いから」…" rows="3"></textarea>
+
+  <h3>当てはまる "口癖" を選んでください</h3>
+  <div class="chips" id="voiceChips"></div>
+
+  <div class="warn" id="voiceWarn" style="display:none">
+    ⚠️ <strong>気づき</strong>：「どうせ」「やっぱり」「いつも」「絶対」が出てきたら、それは <strong>事実ではなく解釈</strong> の可能性が高い。後でほどけるサインです。
+  </div>
+
+  <div class="actions">
+    <button class="ghost" onclick="goPhase(1)">← 戻る</button>
+    <button class="primary" onclick="findCases()">次へ：50の鏡から似たケースを探す 🪞 →</button>
+  </div>
+</div>
+
+<!-- ============ PHASE 3: 鏡を選ぶ ============ -->
+<div id="phase3" class="card phase" style="display:none">
+  <span class="stepnum">PHASE 3 / 鏡</span>
+  <h2>あなたに近いかもしれない3つの鏡</h2>
+  <p class="lead">
+    あなたの不安と口癖から、<strong>50事例の中から近そうな3ケース</strong>を選びました。<br>
+    「自分のことを言われているみたい」と感じる1つを選んでください。
+  </p>
+  <div class="case-list" id="caseSuggestions"></div>
+
+  <details>
+    <summary style="cursor:pointer;color:var(--accent);font-size:13px;margin:14px 0 8px">▼ 50事例すべてから自分で選ぶ</summary>
+    <input type="text" id="caseSearch" placeholder="🔍 キーワード検索（例：完璧主義、上司、お金、年齢）" oninput="filterAllCases()">
+    <div class="case-list scrolling" id="caseAll" style="margin-top:10px"></div>
+  </details>
+
+  <div class="actions">
+    <button class="ghost" onclick="goPhase(2)">← 戻る</button>
+    <button class="primary" id="phase3Next" onclick="goPhase(4)" disabled>次へ：選んだ鏡を覗き込む →</button>
+  </div>
+</div>
+
+<!-- ============ PHASE 4: ラケットの自白 ============ -->
+<div id="phase4" class="card phase" style="display:none">
+  <span class="stepnum">PHASE 4 / ラケット</span>
+  <h2>その不安を持ち続けることで、何を "得て" いますか？</h2>
+  <div class="mirror" id="mirror4"></div>
+  <p class="lead">
+    オントロジカルの最も大切な問い。<br>
+    人は <strong>「変わらないことで密かに何かを得ている」</strong> から、変われないのです。それを <strong>ラケット（Racket・隠れた報酬）</strong> と呼びます。
+  </p>
+  <h3>あなたが、その不安を持ち続けることで密かに得ているメリットは？</h3>
+  <textarea id="payoff" placeholder="例：『私は悪くない』と言える／挑戦して失敗するリスクから逃げられる／『大変だね』と同情してもらえる…" rows="3"></textarea>
+
+  <h3>その代わりに、あなたが支払っている代償は？</h3>
+  <textarea id="cost" placeholder="例：チームの成果／自分の成長機会／本当にやりたかった挑戦／時間／信頼…" rows="3"></textarea>
+
+  <div class="warn" style="background:var(--pos-soft);border-color:var(--possibility);color:#ffe7b9">
+    💡 <strong>ヒント</strong>：自白は自己批判ではありません。「ああ、私こんな小ズルいゲームしてたんだ。可愛いな」と <strong>笑える</strong> ところまで観察できれば、本当にほどけます。
+  </div>
+
+  <div class="actions">
+    <button class="ghost" onclick="goPhase(3)">← 戻る</button>
+    <button class="primary" onclick="goPhase(5)">次へ：Beingを書き換える →</button>
+  </div>
+</div>
+
+<!-- ============ PHASE 5: Beingの転換 ============ -->
+<div id="phase5" class="card phase" style="display:none">
+  <span class="stepnum">PHASE 5 / 転換</span>
+  <h2>どんな在り方として存在することを選びますか？</h2>
+  <div class="mirror" id="mirror5"></div>
+  <p class="lead">
+    ラケットを自白した今、あなたは <strong>「何もない空間」</strong> に立っています。<br>
+    ここから、新しい <strong>Being（在り方）</strong> を、自分の言葉で宣言します。法律を施行するように、その瞬間から新しい文脈に生きていく覚悟です。
+  </p>
+  <h3>新しいBeing宣言</h3>
+  <p class="chip-help">「私は ___ として存在する」の ___ を埋める形で</p>
+  <input type="text" id="being" placeholder="例：私は、チームの可能性を信じるリーダーとして存在する">
+
+  <h3>その新しいBeingが向かう目的は？（Why / What for）</h3>
+  <p class="chip-help">「自分を守るため」ではなく「誰のために・何のために」</p>
+  <textarea id="purpose" placeholder="例：自分の有能さを証明するためではなく、チームメンバー全員の力を解放するため…" rows="3"></textarea>
+
+  <div class="actions">
+    <button class="ghost" onclick="goPhase(4)">← 戻る</button>
+    <button class="primary" onclick="goPhase(6)">次へ：最初の一歩を決める →</button>
+  </div>
+</div>
+
+<!-- ============ PHASE 6: Doing 3ステップ ============ -->
+<div id="phase6" class="card phase" style="display:none">
+  <span class="stepnum">PHASE 6 / 行動</span>
+  <h2>新しいBeingから、自然に出てくる3つの一歩</h2>
+  <div class="mirror" id="mirror6"></div>
+  <p class="lead">
+    50事例すべてに通底するのは <strong>「方法を教わったわけではない」</strong> こと。Beingが変わると、行動は引き出しから自然に出てきます。<br>
+    その鏡を見ながら、<strong>24時間以内にできる3ステップ</strong> を書いてください。
+  </p>
+
+  <h3>Step 1（24時間以内）</h3>
+  <input type="text" id="doing1" placeholder="例：チームメンバーのタスクリストを広げる">
+  <h3>Step 2（次の3日以内）</h3>
+  <input type="text" id="doing2" placeholder="例：『この部分、力を貸してほしい』と頭を下げてサポートを依頼する">
+  <h3>Step 3（次の1週間以内）</h3>
+  <input type="text" id="doing3" placeholder="例：1on1で進捗チェックの仕組みを再設計する">
+
+  <h3>立会人（任意）</h3>
+  <p class="chip-help">この宣言を見届けてくれる人を1人指名すると、インテグリティ（言行一致）が保たれます。</p>
+  <input type="text" id="witness" placeholder="例：金6GCの〇〇さん">
+
+  <div class="actions">
+    <button class="ghost" onclick="goPhase(5)">← 戻る</button>
+    <button class="primary" onclick="showSummary()">次へ：宣言する 🌟 →</button>
+  </div>
+</div>
+
+<!-- ============ PHASE 7: 宣言＆エクスポート ============ -->
+<div id="phase7" class="card phase" style="display:none">
+  <span class="stepnum">PHASE 7 / 宣言</span>
+  <h2>あなたの宣言</h2>
+
+  <div class="declaration">
+    <div class="declaration-label">DECLARATION</div>
+    <div class="declaration-text" id="declarationText"></div>
+  </div>
+
+  <div class="actions" style="margin-bottom:18px">
+    <button class="secondary" onclick="speak()">🔊 声に出して読み上げる</button>
+  </div>
+
+  <h3>全プロセスの記録</h3>
+  <dl class="sum" id="summary"></dl>
+
+  <div class="actions">
+    <button class="primary" onclick="exportMd()">📄 Markdownでダウンロード</button>
+    <button class="secondary" onclick="goPhase(6)">← 修正する</button>
+    <button class="ghost" onclick="resetAll()">🔄 最初から</button>
+  </div>
+
+  <div class="note" style="margin-top:18px">
+    🔥 <strong>このアプリは、オントロジカル・コーチング10回コースの全体プロセス</strong>を1セッション化したものです。<br>
+    詳しい理論や深掘りワークは、講座本編の各回ノートに格納されています。<br>
+    👉 <a href="https://github.com/arieru39/ariel-apps" style="color:var(--accent)">GitHub / ありえる楽考</a>
+  </div>
+</div>
+
+<footer>
+  制作: 鈴木利和（ありえる楽考） / 編集サポート: Claudian<br>
+  下敷き: オントロジカル・コーチング50事例（Werner Erhard / Newfield Network 系）<br>
+  <a href="index.html">← ariel-apps トップへ戻る</a>
+</footer>
+
+</div>
+
+<script>
+/* ============================================================
+   50事例データ
+   各ケース：{id, title, role, tags, before, racket, being, doing}
+============================================================ */
+const CASES = [
+  {id:1,title:'「完璧主義」というブレーキが外れた起業家',role:'起業家',
+    tags:['完璧主義','失敗恐怖','評価恐怖','準備中ループ','無能感'],
+    before:'「完璧なプロダクトを作らないと、市場に出した時に自分の無能さが証明されてしまう」',
+    racket:'準備中という名目で、失敗するリスクから逃げられる',
+    being:'私は、市場に価値を届ける当事者として存在する',
+    doing:'その日のうちに、まだ未完成だった試作品のベータ版をSNSで公開し、ユーザーのフィードバックを集め始めた'},
+  {id:2,title:'「上司への恐怖」が外れた中堅社員',role:'中堅社員',
+    tags:['上司','評価恐怖','顔色うかがい','拒絶恐怖'],
+    before:'「上司が不機嫌なのは、自分がダメなやつだと思っているからだ」',
+    racket:'ビクビクしていれば、重要な提案をして却下される痛みを避けられる',
+    being:'上司の不機嫌はただの事実。私はチームの成果に責任を持つ',
+    doing:'翌朝、上司の顔色を伺うことなく「業務効率を上げる新しい提案があります」とストレートに直談判しに行った'},
+  {id:3,title:'「良い人（八方美人）」のブレーキが外れたマネージャー',role:'マネージャー',
+    tags:['嫌われ恐怖','八方美人','対立回避','部下'],
+    before:'「部下に厳しいことを言うと嫌われて、チームが崩壊する」',
+    racket:'物分かりの良い上司を演じることで、嫌われる恐怖を避けられる',
+    being:'私は部下の可能性を100%引き出すリーダーとして立つ',
+    doing:'パフォーマンスの低い部下を呼び出し、「君の今の基準はチームの基準に達していない。一緒に考えよう」と本音のフィードバックを淡々と伝えた'},
+  {id:4,title:'「営業への苦手意識」が外れた個人事業主',role:'個人事業主',
+    tags:['営業恐怖','拒絶恐怖','お金恐怖','安売り'],
+    before:'「営業＝相手の財布からお金を奪う行為、嫌がられる行為」',
+    racket:'営業しないことで、拒絶されて傷つくことから自分を守れる',
+    being:'私のサービスは困っている人のギフトである。営業とは提案という貢献だ',
+    doing:'過去の見込み客に「今こんなことで困っていませんか？役立ちそうな情報があります」とプレッシャーなく次々メッセージを送り始めた'},
+  {id:5,title:'「過去の失敗」の呪縛が外れたプロジェクトリーダー',role:'プロジェクトリーダー',
+    tags:['過去の失敗','責任回避','挑戦恐怖'],
+    before:'「3年前に大きなプロジェクトを炎上させた自分は、大規模な案件を率いる資格がない」',
+    racket:'過去のせいにしておけば、二度と大きな責任を背負わずに済む',
+    being:'3年前の炎上はただの過去のデータ。今の私の能力や未来を縛らない',
+    doing:'社内公募の社運をかけた新規プロジェクトの統括立候補枠に、締切直前で自ら名前を書き連ねた'},
+  {id:6,title:'「家族への甘えと不満」が外れた二代目経営者',role:'二代目経営者',
+    tags:['親の期待','責任回避','家族関係','言い訳'],
+    before:'「先代がいつまでも口を出してくるから、自分が思い切った経営改革ができない」',
+    racket:'父親のせいにしておくことで、改革が失敗したときの言い訳を担保できる',
+    being:'私はラケットを使って、経営者としての本当の覚悟から逃げていた',
+    doing:'父親とサシで話し合い、「これまで感謝している。ここからは私が全責任を負うので、一切の口出しをやめてほしい」と毅然と握手を交わした'},
+  {id:7,title:'「他人の目」のブレーキが外れたクリエイター',role:'クリエイター',
+    tags:['他人の目','評価恐怖','創作','SNS'],
+    before:'「こんなニッチな表現をしたら、ネットで叩かれるか、誰にも理解されない」',
+    racket:'無難な作品を作ることで、評価されない落胆から身を守る',
+    being:'私は世界の誰か一人と深くつながるために創作している',
+    doing:'ハードディスクに眠らせていた最も自分らしくエッジの効いた作品を、その日の夜にポートフォリオサイトにアップした'},
+  {id:8,title:'「部署間の壁」を壊した現場リーダー',role:'現場リーダー',
+    tags:['組織の壁','対立','責任転嫁','同僚'],
+    before:'「開発部は営業部の苦労をわかっていないし、非協力的だ」',
+    racket:'相手の悪口を言うことで、自分たちの不振を部署対立のせいにできる',
+    being:'私たちは顧客に価値を届ける一つのチームである',
+    doing:'アポなしで開発部リーダーのデスクへ行き、「壁打ちに付き合ってもらえませんか？」と笑顔で声をかけた'},
+  {id:9,title:'「年齢の限界」を外したベテラン社員',role:'ベテラン社員',
+    tags:['年齢','学び恐怖','現状維持','言い訳'],
+    before:'「もう50代だから、新しいITツールやAIを使った業務効率化についていくのは無理だ」',
+    racket:'『年だから』と言い訳すれば、新しいことを覚える面倒な努力をしなくて済む',
+    being:'私は生涯、学び続け進化するビジネスパーソンとして存在する',
+    doing:'自社で導入されたばかりの新しいDXツールの社内講習会に、若手に混ざって真っ先に申し込んだ'},
+  {id:10,title:'「お金への恐怖」が外れたフリーランス',role:'フリーランス',
+    tags:['お金恐怖','安売り','値上げできない','拒絶恐怖'],
+    before:'「高い見積もりを出すと、顧客に逃げられて仕事が完全になくなる」',
+    racket:'安売りし続けることで、失注する恐怖を味わわずに済む',
+    being:'私は安売りで自分を叩き売る職人ではない。顧客のビジネスを成長させるパートナーとして適正な価値を受け取る',
+    doing:'次の商談で、これまでの相場の2倍の価格を提示し、その金額に見合うコミットメントのプランを堂々と提示した'},
+  {id:11,title:'「敵対的なクライアント」のブレーキが外れた営業担当',role:'営業担当',
+    tags:['クライアント','対立','責任転嫁'],
+    before:'「あの取引先の担当者はいつも高圧的で、私を困らせようとしている」',
+    racket:'相手の性格のせいにすることで、自分が信頼関係を築く努力を放棄できる',
+    being:'相手の厳しさはプロジェクトを成功させたいプレッシャーの裏返し。私は彼の最高の味方として存在する',
+    doing:'「〇〇さんがこのプロジェクトで一番懸念されているリスクは何ですか？一緒に潰させてください」と懐に飛び込んだ'},
+  {id:12,title:'「マイクロマネジメント」をやめられたワンマン経営者',role:'ワンマン経営者',
+    tags:['全能感','抱え込み','部下','信頼できない'],
+    before:'「社員は細かく指示しないとミスをするし、会社に損害を与える」',
+    racket:'すべてを管理することで、『最も重要な人間』であるという全能感を満たせる',
+    being:'私は社員の自立と成長を支える舞台になる',
+    doing:'毎朝の進捗チェック会議を廃止し、主要プロジェクトの決済権を各リーダーに全面委譲した'},
+  {id:13,title:'「投資への恐怖」が外れた中小企業社長',role:'中小企業社長',
+    tags:['投資恐怖','現状維持','責任回避','環境のせい'],
+    before:'「今は景気が不安定だから、新規事業への投資は控えるべきだ」',
+    racket:'現状維持を選択することで、失敗して全責任を負うリスクから逃げられる',
+    being:'私はこの会社の未来を切り拓くイノベーターだ',
+    doing:'半年保留にしていた、新規サービス開発のための予算と人員配置の決定書にその場でサインした'},
+  {id:14,title:'「不機嫌なパートナー」の呪縛が外れた既婚者',role:'既婚者',
+    tags:['夫婦関係','顔色うかがい','自責','対立回避'],
+    before:'「パートナーが家でイライラしているのは、自分の家事のやり方が気に入らないからだ」',
+    racket:'自分が悪いと思い込むことで、相手と本音で向き合う対立を避けられる',
+    being:'相手の機嫌と自分の価値は一切関係ない。私はオープンで率直な関係性を創る',
+    doing:'相手の顔色を伺うのをやめ、「最近疲れてるみたいだけど、何かあった？話聞くよ」とフラットに声をかけた'},
+  {id:15,title:'「フォロワー数」のブレーキが外れたSNSマーケター',role:'SNSマーケター',
+    tags:['SNS','フォロワー数','他人の目','評価恐怖'],
+    before:'「フォロワー数が少ないうちは、偉そうなノウハウを発信しても誰も聞いてくれない」',
+    racket:'発信を躊躇することで、誰からも反応がないという惨めさを味わわずに済む',
+    being:'数字はただのデータ。私は目の前の一人のフォロワーの課題を解決するために書く',
+    doing:'綺麗な投稿をやめ、自分が現場で泥臭く掴んだ本質的な失敗談と解決策を長文で投稿し始めた'},
+  {id:16,title:'「冷めた夫婦関係」を打破した夫',role:'夫',
+    tags:['夫婦関係','拒絶恐怖','心を閉ざす'],
+    before:'「妻はもう自分に関心がないし、話しかけても冷たい態度をとられるだけだ」',
+    racket:'妻のせいにして心を閉ざすことで、拒絶されてプライドが傷つくのを防げる',
+    being:'私はこの家庭に愛と繋がりをもたらす源になる',
+    doing:'仕事帰りに、何もない普通の日に妻が好きなスイーツを買い、「いつも家族のためにありがとう」と渡した'},
+  {id:17,title:'「頼れない（抱え込み）」を打破したプロジェクトマネージャー',role:'プロジェクトマネージャー',
+    tags:['抱え込み','全能感','助けを求められない','過剰責任'],
+    before:'「他人に仕事を振るとクオリティが下がるから、自分で全部やった方が確実で早い」',
+    racket:'自分で抱え込むことで、『自分が一番有能で必要不可欠な存在だ』と実感できる',
+    being:'私はチーム全員の力を掛け合わせて最大の成果を出す',
+    doing:'抱え込んでいたタスクリストを広げ、「この部分、力を貸してほしい」と各メンバーに頭を下げてサポートを依頼した'},
+  {id:18,title:'「学歴コンプレックス」を捨てた技術者',role:'技術者',
+    tags:['学歴','コンプレックス','発言できない','権威萎縮'],
+    before:'「自分は大卒ではないから、高学歴なメンバーが揃う会議で発言しても舐められる」',
+    racket:'学歴のせいにして黙っていれば、自分の意見が否定されるリスクを避けられる',
+    being:'私は技術のプロフェッショナルとしてここにいる',
+    doing:'次の会議で、周囲のキャリアに気後れすることなく、現場のデータに基づいた核心を突く指摘を真っ先に発言した'},
+  {id:19,title:'「やりたいことがわからない」と言い訳していた転職志望者',role:'転職志望者',
+    tags:['キャリア','言い訳','現状維持','失敗恐怖'],
+    before:'「本当に情熱を持てる天職が見つかるまでは、今の会社で我慢するしかない」',
+    racket:'『天職探し』という迷宮にいることで、転職活動で不採用になる痛みを先延ばしにできる',
+    being:'天職を探すのではなく、自分が関わるすべての仕事を天職にする',
+    doing:'キャリアの棚卸しを行い、その日のうちに転職エージェント3社に登録して面談のアポを入れた'},
+  {id:20,title:'「健康管理」のブレーキが外れた多忙なエグゼクティブ',role:'エグゼクティブ',
+    tags:['健康','多忙','言い訳','自己管理'],
+    before:'「社長業が忙しすぎて、ジムに行ったり自炊したりする時間なんて物理的にない」',
+    racket:'忙しさを言い訳にすることで、しんどい運動や食事制限という不快な規律から逃れられる',
+    being:'時間は作るもの。私は最高のパフォーマンスを維持する資本として身体を扱う',
+    doing:'スケジュール帳を開き、最優先事項として週2回のパーソナルトレーニングの時間をカレンダーにブロックした'},
+  {id:21,title:'「値上げ」ができたベテラン講師',role:'ベテラン講師',
+    tags:['値上げ','安売り','見捨てられ恐怖','お金恐怖'],
+    before:'「受講料を上げたら、今まで来てくれていた生徒たちがみんな離れていってしまう」',
+    racket:'低価格に据え置くことで、『良い先生』という評判を保ち、見捨てられる恐怖を避けられる',
+    being:'私は本気で人生を変えたい人のパートナーになる',
+    doing:'翌月の新規募集から、コンテンツを一新すると同時に受講料を1.5倍に改定した案内を送った'},
+  {id:22,title:'「対立への恐怖」が外れた人事部長',role:'人事部長',
+    tags:['対立回避','保身','事なかれ主義'],
+    before:'「問題のある社員に注意すると労働組合やハラスメント沙汰になって面倒なことになる」',
+    racket:'事なかれ主義を通すことで、自分の任期中にトラブルを起こさないという保身ができる',
+    being:'私は会社の秩序とインテグリティを守る人間として存在する',
+    doing:'問題社員を面談室に呼び、就業規則違反の事実を淡々と突きつけ、毅然とした態度で改善要求の書面を交わした'},
+  {id:23,title:'「ノーと言えない」ブレーキが外れたフリーランスデザイナー',role:'フリーランスデザイナー',
+    tags:['NOと言えない','見捨てられ恐怖','便利な人','クライアント'],
+    before:'「クライアントからの無理な修正案件やタイトな納期を断ったら、次の仕事が来なくなる」',
+    racket:'何でも引き受ける『便利な人』でいることで、見捨てられる不安を解消できる',
+    being:'プロとしての誇りを欠いた仕事は受け取らない。私は対等なビジネスパートナーである',
+    doing:'土日対応を要求してきたクライアントに、「そのスケジュールではクオリティが担保できないため、月曜の夕方提出になります」と明確に境界線を引いた'},
+  {id:24,title:'「嫉妬」から解放された若手クリエイター',role:'若手クリエイター',
+    tags:['嫉妬','他人の成功','創作','SNS'],
+    before:'「あいつがバズっているのは運が良いだけだ。世間は本質を見ていない」',
+    racket:'他人の成功を批判することで、自分の努力不足や実力不足という現実から目を背けられる',
+    being:'私は自分のビジョンに向かって純粋に創作する',
+    doing:'嫉妬していた同業者のアカウントに「素晴らしい作品ですね！刺激を受けました」とリスペクトをコメントし、自分の作品作りに没頭し始めた'},
+  {id:25,title:'「過去の裏切り」から復活した共同創業者',role:'共同創業者',
+    tags:['過去の裏切り','人間不信','他者信頼','過去の呪縛'],
+    before:'「前のビジネスパートナーに裏切られたから、もう他人は100%信用できない」',
+    racket:'人間不信でいることで、二度と誰かに騙されて傷つくリスクを予防できる',
+    being:'人を信じるかどうかは、私が今ここで決めることだ',
+    doing:'新しい共同事業のオファーをくれていた信頼できる知人に対し、疑いの念を捨てて「ぜひ一緒にやりましょう」と握手を求めた'},
+  {id:26,title:'「権威への萎縮」が外れた若手弁護士',role:'若手弁護士',
+    tags:['権威萎縮','負け腰','言い訳','若手'],
+    before:'「相手の弁護人は業界の大物だから、自分の主張なんて簡単にあしらわれてしまう」',
+    racket:'最初から負け腰でいることで、負けた時に『相手が大物だったから仕方ない』と言い訳できる',
+    being:'私は目の前の依頼人の利益を守る盾として存在する',
+    doing:'相手のネームバリューへの恐怖が消え、証拠の矛盾点を突く鋭い反論書面を堂々と書き上げ、裁判所に提出した'},
+  {id:27,title:'「子育てとキャリア」の罪悪感が外れた働く母親',role:'働く母親',
+    tags:['罪悪感','子育て','キャリア','自慰'],
+    before:'「子供を保育園に遅くまで預けて働いている自分は、母親として失格だ」',
+    racket:'罪悪感を感じ続けることで、『私は子供を愛している良い母親だ』と自分を慰められる',
+    being:'私は生き生きと自分の人生を切り拓く姿を子供に見せるリーダーだ',
+    doing:'家に帰ってから「ごめんね」と謝るのをやめ、「今日も楽しかった！ママ仕事頑張ってきたよ！」と笑顔で子供を抱きしめた'},
+  {id:28,title:'「アイデアの出し惜しみ」をやめた企画職',role:'企画職',
+    tags:['出し惜しみ','否定恐怖','評価恐怖','保留'],
+    before:'「このアイデアを今出すと、上司に手柄を横取りされるか、企画会議で潰されるかもしれない」',
+    racket:'温存しておくことで、アイデアが否定される痛みから逃げられる',
+    being:'アイデアは出すことで次のインスピレーションが湧く。私は会社のイノベーションの源泉だ',
+    doing:'出し惜しみしていた社内最大の新規プロジェクトの企画書を、次の会議を待たずに今すぐ社内システムで共有した'},
+  {id:29,title:'「人脈作りへの嫌悪感」が外れたエンジニア',role:'エンジニア',
+    tags:['人見知り','人脈','社交','言い訳'],
+    before:'「異業種交流会や懇親会に行くのは、利害関係のための下品な群れ合いだ」',
+    racket:'そう定義することで、慣れない社交の場での気まずさを避けられる',
+    being:'人脈作りとは『まだ見ぬ世界の知性と繋がる冒険』である',
+    doing:'食わず嫌いしていた業界最大規模のカンファレンスの懇親会チケットをその場で購入した'},
+  {id:30,title:'「引き際」を決められたベテラン創業者',role:'ベテラン創業者',
+    tags:['引き際','存在意義','後継者不信','執着'],
+    before:'「自分が退いたら、この会社はすぐに傾いて潰れてしまうだろう」',
+    racket:'会社を心配し続けることで、『自分はまだ必要とされている』という存在意義を満たし続けられる',
+    being:'私はこの会社の次世代の可能性を解き放つ存在になる',
+    doing:'次の取締役会で、1年後に代表権を現副社長に譲り、自身は相談役に退くことを公式に引退宣言した'},
+  {id:31,title:'「やりたい仕事が来ない」と嘆いていたフリーランス',role:'フリーランス',
+    tags:['実績不足','言い訳','下請け','営業恐怖'],
+    before:'「実績が少ないから、単価の低い下請け仕事しか回ってこない」',
+    racket:'実績のせいにすることで、ハイエンドな案件に提案して落とされる恐怖を避けられる',
+    being:'私はクライアントの最高のアドバイザーとして存在する',
+    doing:'営業資料を全面刷新し、大手企業に「御社のメディア戦略を2倍にするロードマップ」という超具体的な提案書を直で送りつけた'},
+  {id:32,title:'「NOと言ったら干される」のブレーキが外れたタレント',role:'タレント',
+    tags:['NOと言えない','見捨てられ恐怖','従順','クライアント'],
+    before:'「クライアントや事務所の無理な要求に文句を言ったら、次から仕事をもらえなくなる」',
+    racket:'『従順な被害者』でいることで、決裂して自分の市場価値が試されるリスクから逃げられる',
+    being:'私の価値は、最高のパフォーマンスを出すことにある',
+    doing:'「そのスケジュールではファンが満足するクオリティを提供できません。別日程を確保するか、辞退させてください」と毅然と伝えた'},
+  {id:33,title:'「部下を信じられない」が外れたプロダクトマネージャー',role:'プロダクトマネージャー',
+    tags:['部下','信頼できない','全能感','過剰責任'],
+    before:'「あの部下に任せるといつも最後の最後でミスをするから、チェックが欠かせない」',
+    racket:'自分が最後の砦でいることで、『自分がこのチームの絶対的なヒーローだ』という全能感を得られる',
+    being:'部下のミスを期待してヒーローになるラケットを手放す',
+    doing:'プロジェクト立ち上げ時に「今回は君に全権を任せる。報告タイミングも君がデザインしてほしい」と100%委ね、手出しを一切やめた'},
+  {id:34,title:'「自分の強みはこれだけ」という枠を外したベテランエンジニア',role:'エンジニア',
+    tags:['専門性','枠','新人恐怖','学び恐怖'],
+    before:'「自分はバックエンド専門の人間だから、フロントエンドやマネジメントは自分の領域ではない」',
+    racket:'専門性に閉じこもることで、新しい領域で『未経験の新人』になって恥をかくことを防げる',
+    being:'私はプロダクトの価値を最大化する存在だ',
+    doing:'自社プロダクトのUI/UX改善ミーティングに自ら進んで参加し、全体の設計思想について積極的に意見を出した'},
+  {id:35,title:'「離婚の痛手」から復活したシングルマザー起業家',role:'シングルマザー起業家',
+    tags:['過去の失敗','離婚','傷物意識','自己否定'],
+    before:'「私は一度家庭を壊してしまった人間だから、プライベートもビジネスもどこか欠落している」',
+    racket:'傷物の被害者でいることで、他人に甘え、全力で勝負して失敗する恐怖を遠ざけられる',
+    being:'離婚は過去の事実。私の人生の完全性は今ここにある',
+    doing:'引け目を感じていた融資の面談で、自分のビジョンと事業計画を堂々とアピールし、満額の調達に成功した'},
+  {id:36,title:'「冷淡なチーム」の文脈を変えた新任リーダー',role:'新任リーダー',
+    tags:['チーム','冷淡','言い訳','責任転嫁'],
+    before:'「このチームのメンバーはみんなドライで、自分の仕事にしか興味がない」',
+    racket:'『チームが冷たい』のせいにしておけば、自分が関係性を築く努力が失敗したときの言い訳になる',
+    being:'私はこのチームに熱量と繋がりをもたらす源になる',
+    doing:'業務連絡だけのチャットをやめ、毎朝メンバーの貢献を称えるメッセージを自ら発信し始めた'},
+  {id:37,title:'「親の期待」というブレーキを外した30代会社員',role:'会社員',
+    tags:['親の期待','家族関係','安定','挑戦恐怖'],
+    before:'「親が望む『大企業で安定して出世するルート』を外れたら、親を悲しませ、自分は不孝者になる」',
+    racket:'親の目線に囚われることで、本当にやりたいリスクのある挑戦をしない理由にできる',
+    being:'私は自分の可能性に100%コミットする',
+    doing:'長年憧れていたスタートアップ企業への転職活動を開始し、内定を獲得。事後報告として親に「自分の足で歩くことに決めた」と笑顔で伝えた'},
+  {id:38,title:'「現場の反発」を恐れていたDX推進担当',role:'DX推進担当',
+    tags:['現場の反発','保身','対立回避','変革'],
+    before:'「現場のベテラン勢に新しいITツールを強制したら、絶対に文句を言われて現場が荒れる」',
+    racket:'導入を小出しにすることで、現場から嫌われるトラブルを回避し、保身に走れる',
+    being:'彼らも会社を良くしたい仲間だ',
+    doing:'マニュアル配布をやめ、現場リーダーに「皆さんの一番面倒な作業を3分で終わるようにしたい。力を貸してくれませんか？」と相談した'},
+  {id:39,title:'「他社への劣等感」が外れた地方の老舗メーカー社長',role:'メーカー社長',
+    tags:['他社比較','劣等感','地方','言い訳'],
+    before:'「うちのような地方の弱小企業が、都会の最先端のブランディング企業に勝てるわけがない」',
+    racket:'『地方だから』という文脈に逃げ込むことで、古いビジネスモデルが衰退していく現実から目を背けられる',
+    being:'私たちが持つ歴史と職人の技術は、世界に誇る唯一無二の価値である',
+    doing:'海外展示会への出展をその日のうちに決断し、英語圏向けの特設サイト制作チームを即座に立ち上げた'},
+  {id:40,title:'「まだインプットが足りない」と言い訳していたコンサルタント',role:'コンサルタント',
+    tags:['インプット中毒','勉強中','評価恐怖','言い訳'],
+    before:'「もっと多くの資格や最新のフレームワークを学ばないと、高単価のクライアントを満足させられない」',
+    racket:'『勉強中』という盾を持つことで、現場でジャッジされる恐怖を先延ばしにできる',
+    being:'私は今持っているすべての知恵を使い、目の前のクライアントのブレイクスルーに命を懸ける',
+    doing:'セミナーや教材の購入をすべてストップし、既存クライアントに「私をコミットメントに入れた新プロジェクト」を提案した'},
+  {id:41,title:'「不景気」のせいにしていた店舗経営者',role:'店舗経営者',
+    tags:['環境のせい','言い訳','現状維持','集客'],
+    before:'「周辺の再開発のせいで人通りが減り、売上が落ちるのは仕方がない」',
+    racket:'再開発のせいにすることで、自分の集客努力の不足や怠慢を正当化できる',
+    being:'私は愛される店を自分で創り出す',
+    doing:'店の前で待つだけをやめ、地域のコミュニティやSNSを活用した限定イベントを企画し、遠方からでも人が目指してくる仕組みを1週間で構築した'},
+  {id:42,title:'「若さへの舐められ恐怖」が外れた20代のシニアマネージャー',role:'シニアマネージャー',
+    tags:['年齢','若手','部下','虚勢'],
+    before:'「年上の部下たちは、若い自分の指示なんて内心バカにしているに違いない」',
+    racket:'壁を作って硬い態度をとることで、部下から意見されたり拒絶されたりするのを防ぐ',
+    being:'私はこのチームのビジョンを達成するためのファシリテーターとして存在する',
+    doing:'虚勢を張るのをやめ、「皆さんの方が経験が圧倒的に豊富です。最高の成果を出すために、皆さんの知恵を貸してください」と頭を下げた'},
+  {id:43,title:'「冷たい顧客」に萎縮していたカスタマーサポート',role:'カスタマーサポート',
+    tags:['顧客','クレーム','防衛','感情'],
+    before:'「クレームを入れてくる顧客は、私を攻撃して理不尽に怒りをぶつけている」',
+    racket:'マニュアル通りの冷淡な対応をすることで、自分の感情を守り、関わるストレスを最小限にする',
+    being:'私は彼らの問題を解決する救世主だ',
+    doing:'防衛的なトーンを捨て、「ご不便をおかけして申し訳ありません。私が責任を持って今すぐ解決策をお調べします」と全力サポートの声に変わった'},
+  {id:44,title:'「失敗できないプレッシャー」を抱えた2世役員',role:'2世役員',
+    tags:['親の期待','プレッシャー','失敗恐怖','家族関係'],
+    before:'「創業者の親を超えなければ、自分はこの会社で認めてもらえない」',
+    racket:'偉大な親の影に怯えることで、自分のペースで新しい挑戦をしないための言い訳にする',
+    being:'親を超える必要などない。私は私として、この会社の今の時代に必要な変革を起こす',
+    doing:'親が反対しそうだった、社内の基幹システムの大規模なクラウド移行計画を、ロジックと情熱を持って役員会に直接上程した'},
+  {id:45,title:'「孤独なリーダー」のブレーキが外れたCEO',role:'CEO',
+    tags:['弱さを見せられない','孤独','完璧フリ','信頼'],
+    before:'「社長たるもの、常に完璧で強くあるべきだから、弱音や悩みを社員に見せてはならない」',
+    racket:'孤独なヒーローを演じることで、社員と本音の人間関係を築き、裏切られるリスクを避けられる',
+    being:'私は社員と『真の信頼』で繋がるパートナーになる',
+    doing:'全社総会で「実は今、当社の財務状況は非常に厳しい局面にあります。みんなの力を貸してほしい」と、初めて自分の弱さと現状をオープンに共有した'},
+  {id:46,title:'「アイデア泥棒」を恐れていた研究開発者',role:'研究開発者',
+    tags:['出し惜しみ','縄張り','警戒','他者不信'],
+    before:'「この画期的な技術を安易に他部署に話すと、横槍が入るか、アイデアを横取りされる」',
+    racket:'抱え込むことで、自分の縄張りを守り、他人の意見によって企画が修正される面倒を避けられる',
+    being:'技術は使われて初めて価値になる。私はイノベーションを循環させるハブだ',
+    doing:'開発中のコア技術のデータを社内オープンソース化し、「誰でも新しい事業アイデアを提案してください」と全社に公開した'},
+  {id:47,title:'「自分の価値は成果だけ」が外れたトップ営業マン',role:'トップ営業マン',
+    tags:['数字依存','他者比較','存在不安','評価恐怖'],
+    before:'「数字で1位を獲り続けないと、自分には価値がないし居場所がなくなる」',
+    racket:'他人を蹴落としてでも数字を追うことで、『ありのままの自分は愛されない』という不安から逃げられる',
+    being:'私はこの組織全体の成長と成功に貢献する人間だ',
+    doing:'自分の営業ノウハウや顧客リストの攻略法をマニュアル化し、悩んでいる後輩のために勉強会を自発的に開催した'},
+  {id:48,title:'「組織のルール」に縛られていた公務員・大企業社員',role:'公務員',
+    tags:['組織の壁','前例踏襲','現状維持','言い訳'],
+    before:'「うちの組織は前例踏襲主義だから、新しい提案をしても書類の山に埋もれて潰されるだけだ」',
+    racket:'『組織の壁』のせいにすることで、自分が波風を立てず、定時で楽に帰る現状維持を守れる',
+    being:'前例がないのはチャンス。私はこの街（会社）の未来をデザインする変革者として動く',
+    doing:'上層部の顔色を伺うのをやめ、地域の課題をダイレクトに解決するための官民連携プロジェクトの企画書を、市長へ直接届くルートで提出した'},
+  {id:49,title:'「過去の裏切り」からチームを信じ直した監督',role:'監督・コーチ',
+    tags:['過去の裏切り','人間不信','部下','過去の呪縛'],
+    before:'「かつて主力選手に裏切られて移籍されたから、もう選手を深く信用して熱く指導するのはやめよう」',
+    racket:'冷めた距離を保つことで、二度と身内に裏切られて絶望する痛みを味わわずに済む',
+    being:'私は彼らの可能性を100%信じる監督だ',
+    doing:'選手一人ひとりと個別にサシで向き合い、「君たちが本気で日本一を目指すなら、私は人生を懸けて並走する。本音を聞かせてくれ」と涙ながらに伝えた'},
+  {id:50,title:'「お金をもらう罪悪感」が外れたカウンセラー',role:'カウンセラー',
+    tags:['お金恐怖','罪悪感','安売り','善人ぶり'],
+    before:'「人の悩みを解決して大金をもらうのは、どこか汚い気がするし申し訳ない」',
+    racket:'低価格で奉仕することで、『私はお金目的ではない清らかな善人だ』という自己満足に浸れる',
+    being:'私は相手の人生に100%の価値を提供するプロである',
+    doing:'これまでの「1回数千円」のセッションを廃止し、「3ヶ月で人生の基盤を書き換える20万円のフルコミットプログラム」のみを提示し始めた'},
+];
+
+/* ============================================================
+   タグ候補（不安・口癖）
+============================================================ */
+const ANXIETY_CHIPS = [
+  '失敗が怖い','嫌われたくない','迷惑をかけたくない','期待に応えられない',
+  '無能だと思われたくない','拒絶されたくない','見捨てられたくない',
+  '年齢の壁','学歴コンプレックス','過去の失敗','お金の不安',
+  '評価されない','変化が怖い','責任を負いたくない',
+  '対立が怖い','嫉妬','親の期待','子育てとキャリア','弱さを見せられない',
+];
+
+const VOICE_CHIPS = [
+  'どうせ無理','私には才能がない','忙しすぎる','相手が悪い',
+  '景気が悪いから','もう年だから','学歴がないから','実績がないから',
+  '過去にやって失敗したから','お金がないから','経験がないから',
+  '立場が違うから','時間がない','タイミングが悪い','他にやることがある',
+  '完璧じゃないから','まだ準備中','私が悪いのかも','どうせ理解されない',
+];
+
+/* ============================================================
+   状態管理
+============================================================ */
+const state = {
+  phase: 0,
+  anxiety: '',
+  anxietyTags: new Set(),
+  voice: '',
+  voiceTags: new Set(),
+  selectedCaseId: null,
+  payoff: '',
+  cost: '',
+  being: '',
+  purpose: '',
+  doing1: '', doing2: '', doing3: '',
+  witness: '',
+};
+
+/* ============================================================
+   フェーズ進行 / プログレスバー
+============================================================ */
+const PHASE_LABELS = ['START','観察','言葉','鏡','ラケット','転換','行動','宣言'];
+function renderProgress() {
+  const p = document.getElementById('progress');
+  const l = document.getElementById('phaseLabel');
+  p.innerHTML = ''; l.innerHTML = '';
+  for (let i=0; i<PHASE_LABELS.length; i++) {
+    const d = document.createElement('div');
+    if (i < state.phase) d.className = 'done';
+    else if (i === state.phase) d.className = 'active';
+    p.appendChild(d);
+  }
+  l.innerHTML = `<span>${PHASE_LABELS[0]}</span><span>${PHASE_LABELS[state.phase]||''}</span><span>${PHASE_LABELS[PHASE_LABELS.length-1]}</span>`;
+}
+function goPhase(n) {
+  saveCurrentPhase();
+  document.querySelectorAll('.phase').forEach(el => el.style.display = 'none');
+  document.getElementById('phase' + n).style.display = 'block';
+  state.phase = n;
+  renderProgress();
+  window.scrollTo({top: 0, behavior: 'smooth'});
+  // 入力欄復元
+  if (n === 1) document.getElementById('anxiety').value = state.anxiety;
+  if (n === 2) {
+    document.getElementById('voice').value = state.voice;
+    checkVoiceWarn();
+  }
+  if (n === 4) renderMirror(4);
+  if (n === 5) renderMirror(5);
+  if (n === 6) renderMirror(6);
+}
+function saveCurrentPhase() {
+  if (state.phase === 1) state.anxiety = document.getElementById('anxiety').value;
+  if (state.phase === 2) state.voice = document.getElementById('voice').value;
+  if (state.phase === 4) {
+    state.payoff = document.getElementById('payoff').value;
+    state.cost = document.getElementById('cost').value;
+  }
+  if (state.phase === 5) {
+    state.being = document.getElementById('being').value;
+    state.purpose = document.getElementById('purpose').value;
+  }
+  if (state.phase === 6) {
+    state.doing1 = document.getElementById('doing1').value;
+    state.doing2 = document.getElementById('doing2').value;
+    state.doing3 = document.getElementById('doing3').value;
+    state.witness = document.getElementById('witness').value;
+  }
+}
+
+/* ============================================================
+   チップ生成
+============================================================ */
+function renderChips(containerId, chips, tagSet) {
+  const c = document.getElementById(containerId);
+  c.innerHTML = '';
+  chips.forEach(t => {
+    const b = document.createElement('button');
+    b.className = 'chip';
+    b.textContent = t;
+    if (tagSet.has(t)) b.classList.add('active');
+    b.onclick = () => {
+      if (tagSet.has(t)) tagSet.delete(t); else tagSet.add(t);
+      b.classList.toggle('active');
+      if (containerId === 'voiceChips') checkVoiceWarn();
+    };
+    c.appendChild(b);
+  });
+}
+function checkVoiceWarn() {
+  const text = (document.getElementById('voice').value || '') + ' ' + [...state.voiceTags].join(' ');
+  const triggers = ['どうせ','やっぱり','いつも','絶対'];
+  const has = triggers.some(t => text.includes(t));
+  document.getElementById('voiceWarn').style.display = has ? 'block' : 'none';
+}
+
+/* ============================================================
+   ケースマッチング
+============================================================ */
+// テキスト→タグの簡易マッピング
+const TEXT_TO_TAGS = [
+  {kw:['失敗','失敗が怖い','失敗する'], tags:['失敗恐怖','過去の失敗']},
+  {kw:['完璧'], tags:['完璧主義']},
+  {kw:['嫌われ','嫌い'], tags:['嫌われ恐怖','拒絶恐怖']},
+  {kw:['迷惑'], tags:['見捨てられ恐怖','拒絶恐怖']},
+  {kw:['上司'], tags:['上司','評価恐怖']},
+  {kw:['部下'], tags:['部下']},
+  {kw:['お金','金','料金','値段','値上げ','安売り'], tags:['お金恐怖','安売り','値上げできない']},
+  {kw:['年齢','年だから','50代','60代','若手','若い','舐め'], tags:['年齢']},
+  {kw:['学歴','大卒','大学'], tags:['学歴']},
+  {kw:['親','父','母','家族','夫','妻','パートナー'], tags:['家族関係','親の期待','夫婦関係']},
+  {kw:['子供','子育て','保育園'], tags:['罪悪感','子育て']},
+  {kw:['営業','売る','売り'], tags:['営業恐怖','安売り']},
+  {kw:['完璧','準備'], tags:['完璧主義','準備中ループ']},
+  {kw:['評価','見られる'], tags:['評価恐怖','他人の目']},
+  {kw:['全部自分で','自分でやった','抱え'], tags:['抱え込み','全能感']},
+  {kw:['頼れない','助けて'], tags:['助けを求められない','抱え込み']},
+  {kw:['SNS','フォロワー','バズ'], tags:['SNS','フォロワー数']},
+  {kw:['投資','新規事業','起業'], tags:['投資恐怖','失敗恐怖']},
+  {kw:['過去','3年前','以前','昔'], tags:['過去の失敗','過去の呪縛']},
+  {kw:['NO','断れ','断り','便利な人'], tags:['NOと言えない','便利な人']},
+  {kw:['対立','喧嘩','問題社員'], tags:['対立回避','事なかれ主義']},
+  {kw:['組織','前例','大企業','役所','公務員'], tags:['組織の壁','前例踏襲']},
+  {kw:['権威','大物','偉い'], tags:['権威萎縮']},
+  {kw:['多忙','時間がない','忙しい'], tags:['多忙','言い訳']},
+  {kw:['健康','運動','ジム'], tags:['健康']},
+  {kw:['クライアント','取引先'], tags:['クライアント']},
+  {kw:['完璧フリ','弱音','弱さ','孤独'], tags:['弱さを見せられない','完璧フリ','孤独']},
+  {kw:['数字','1位','成果','成績'], tags:['数字依存','他者比較']},
+  {kw:['アイデア','出し惜しみ','横取り','泥棒'], tags:['出し惜しみ','評価恐怖']},
+  {kw:['嫉妬','他人','比較'], tags:['嫉妬','他者比較']},
+  {kw:['天職','やりたいことがわからない','キャリア','転職'], tags:['キャリア','言い訳']},
+  {kw:['引き際','後継','存在意義'], tags:['引き際','存在意義']},
+  {kw:['人脈','交流会','人見知り','社交'], tags:['人脈','人見知り']},
+  {kw:['不景気','景気','環境のせい','タイミング'], tags:['環境のせい','言い訳']},
+  {kw:['事例','インプット','勉強中','資格'], tags:['インプット中毒','勉強中']},
+  {kw:['実績','スキル','経験','経験不足'], tags:['実績不足']},
+  {kw:['DX','IT','ツール','現場'], tags:['現場の反発','変革']},
+  {kw:['チーム','冷淡','冷たい'], tags:['チーム','冷淡']},
+  {kw:['離婚','傷物'], tags:['離婚','過去の失敗']},
+];
+function deriveTags() {
+  const text = (state.anxiety + ' ' + state.voice + ' ' + [...state.anxietyTags].join(' ') + ' ' + [...state.voiceTags].join(' ')).toLowerCase();
+  const found = new Set();
+  TEXT_TO_TAGS.forEach(m => {
+    if (m.kw.some(k => text.includes(k.toLowerCase()))) {
+      m.tags.forEach(t => found.add(t));
+    }
+  });
+  // チップで選んだものから直接タグ追加
+  [...state.anxietyTags].forEach(t => {
+    if (t.includes('失敗')) found.add('失敗恐怖');
+    if (t.includes('嫌わ')) found.add('嫌われ恐怖');
+    if (t.includes('お金')) found.add('お金恐怖');
+    if (t.includes('年齢')) found.add('年齢');
+    if (t.includes('学歴')) found.add('学歴');
+    if (t.includes('過去')) found.add('過去の失敗');
+    if (t.includes('対立')) found.add('対立回避');
+    if (t.includes('嫉妬')) found.add('嫉妬');
+    if (t.includes('親の期待')) found.add('親の期待');
+    if (t.includes('子育て')) found.add('罪悪感');
+    if (t.includes('弱さ')) found.add('弱さを見せられない');
+    if (t.includes('期待')) found.add('期待恐怖');
+    if (t.includes('無能')) found.add('無能感');
+    if (t.includes('拒絶')||t.includes('見捨')) found.add('拒絶恐怖');
+    if (t.includes('変化')) found.add('変化恐怖');
+    if (t.includes('責任')) found.add('責任回避');
+    if (t.includes('迷惑')) found.add('見捨てられ恐怖');
+  });
+  return [...found];
+}
+function findCases() {
+  state.anxiety = document.getElementById('anxiety').value;
+  state.voice = document.getElementById('voice').value;
+  const tags = deriveTags();
+  // スコアリング
+  const scored = CASES.map(c => {
+    const overlap = c.tags.filter(t => tags.includes(t)).length;
+    return {c, score: overlap};
+  }).sort((a,b) => b.score - a.score);
+  // 上位3つ。スコア0なら多様性確保のため代表ケースを返す
+  let top3;
+  if (scored[0].score === 0) {
+    // ランダム3つ（汎用性高い代表ケース）
+    top3 = [CASES[16], CASES[4], CASES[8]].map(c => ({c, score:0}));
+  } else {
+    top3 = scored.slice(0, 3);
+  }
+  renderCaseSuggestions(top3);
+  renderAllCases();
+  goPhase(3);
+}
+function renderCaseSuggestions(scored) {
+  const c = document.getElementById('caseSuggestions');
+  c.innerHTML = '';
+  scored.forEach(s => c.appendChild(makeCaseCard(s.c, true)));
+}
+function renderAllCases() {
+  const c = document.getElementById('caseAll');
+  c.innerHTML = '';
+  CASES.forEach(cs => c.appendChild(makeCaseCard(cs, false)));
+}
+function filterAllCases() {
+  const q = document.getElementById('caseSearch').value.toLowerCase();
+  document.querySelectorAll('#caseAll .case').forEach(el => {
+    const t = el.textContent.toLowerCase();
+    el.style.display = t.includes(q) ? '' : 'none';
+  });
+}
+function makeCaseCard(c, isSuggestion) {
+  const div = document.createElement('div');
+  div.className = 'case';
+  div.dataset.id = c.id;
+  div.innerHTML = `
+    <div class="case-no">Case #${c.id} ・ ${c.role}</div>
+    <div class="case-title">${c.title}</div>
+    <div class="case-before">💬 ${c.before}</div>
+    <div>${c.tags.slice(0,4).map(t => `<span class="case-tag">${t}</span>`).join('')}</div>
+  `;
+  div.onclick = () => selectCase(c.id);
+  if (state.selectedCaseId === c.id) div.classList.add('selected');
+  return div;
+}
+function selectCase(id) {
+  state.selectedCaseId = id;
+  document.querySelectorAll('.case').forEach(el => {
+    el.classList.toggle('selected', parseInt(el.dataset.id) === id);
+  });
+  document.getElementById('phase3Next').disabled = false;
+}
+
+/* ============================================================
+   ミラーパネル（選択ケースの該当部分を表示）
+============================================================ */
+function renderMirror(phase) {
+  const c = CASES.find(x => x.id === state.selectedCaseId);
+  if (!c) return;
+  let label, html;
+  if (phase === 4) {
+    label = '🪞 あなたが選んだ鏡（ラケット）';
+    html = `
+      <div class="mirror-row"><strong>Case #${c.id} ・ ${c.title}</strong></div>
+      <div class="mirror-row"><strong>古い文脈（Before）</strong><p>${c.before}</p></div>
+      <div class="mirror-row"><strong>隠れた報酬（Racket）</strong><p>${c.racket}</p></div>
+    `;
+    document.getElementById('mirror4').innerHTML = html;
+    document.getElementById('payoff').value = state.payoff;
+    document.getElementById('cost').value = state.cost;
+  } else if (phase === 5) {
+    label = '🪞 あなたが選んだ鏡（Beingの転換）';
+    html = `
+      <div class="mirror-row"><strong>Case #${c.id} の Beingの転換</strong><p>"${c.being}"</p></div>
+    `;
+    document.getElementById('mirror5').innerHTML = html;
+    document.getElementById('being').value = state.being;
+    document.getElementById('purpose').value = state.purpose;
+  } else if (phase === 6) {
+    label = '🪞 あなたが選んだ鏡（自然な行動）';
+    html = `
+      <div class="mirror-row"><strong>Case #${c.id} の自然な行動（Doing）</strong><p>${c.doing}</p></div>
+    `;
+    document.getElementById('mirror6').innerHTML = html;
+    document.getElementById('doing1').value = state.doing1;
+    document.getElementById('doing2').value = state.doing2;
+    document.getElementById('doing3').value = state.doing3;
+    document.getElementById('witness').value = state.witness;
+  }
+}
+
+/* ============================================================
+   サマリ表示
+============================================================ */
+function showSummary() {
+  saveCurrentPhase();
+  const c = CASES.find(x => x.id === state.selectedCaseId);
+  const decl = state.being || '（宣言を書き込んでください）';
+  document.getElementById('declarationText').textContent = `「${decl}」`;
+  const sum = document.getElementById('summary');
+  const empty = '（未記入）';
+  sum.innerHTML = `
+    <dt>継続する不安</dt><dd${state.anxiety?'':' class="empty"'}>${state.anxiety || empty}</dd>
+    <dt>不安の中の声</dt><dd${state.voice?'':' class="empty"'}>${state.voice || empty}</dd>
+    <dt>選んだ鏡</dt><dd>${c ? `Case #${c.id} ${c.title}` : empty}</dd>
+    <dt>隠れた報酬（ラケット）</dt><dd${state.payoff?'':' class="empty"'}>${state.payoff || empty}</dd>
+    <dt>支払っている代償</dt><dd${state.cost?'':' class="empty"'}>${state.cost || empty}</dd>
+    <dt>新しいBeing</dt><dd${state.being?'':' class="empty"'}>${state.being || empty}</dd>
+    <dt>目的（Why / What for）</dt><dd${state.purpose?'':' class="empty"'}>${state.purpose || empty}</dd>
+    <dt>Step 1（24h以内）</dt><dd${state.doing1?'':' class="empty"'}>${state.doing1 || empty}</dd>
+    <dt>Step 2（3日以内）</dt><dd${state.doing2?'':' class="empty"'}>${state.doing2 || empty}</dd>
+    <dt>Step 3（1週間以内）</dt><dd${state.doing3?'':' class="empty"'}>${state.doing3 || empty}</dd>
+    <dt>立会人</dt><dd${state.witness?'':' class="empty"'}>${state.witness || empty}</dd>
+  `;
+  goPhase(7);
+}
+
+/* ============================================================
+   音声読み上げ
+============================================================ */
+function speak() {
+  if (!('speechSynthesis' in window)) return alert('お使いのブラウザは音声合成に対応していません');
+  const u = new SpeechSynthesisUtterance(state.being || '宣言を書いてから読み上げできます');
+  u.lang = 'ja-JP'; u.rate = 0.9; u.pitch = 1.0;
+  speechSynthesis.cancel(); speechSynthesis.speak(u);
+}
+
+/* ============================================================
+   Markdownエクスポート
+============================================================ */
+function exportMd() {
+  const c = CASES.find(x => x.id === state.selectedCaseId);
+  const today = new Date().toISOString().slice(0,10);
+  const md = `---
+title: 継続する不安が、可能に変わる対話セッション記録
+date: ${today}
+tags:
+  - オントロジカルコーチング
+  - 50事例
+  - 対話アプリ
+---
+
+# 継続する不安が、可能に変わる対話セッション
+
+## 1. 観察：継続する不安
+${state.anxiety || '（未記入）'}
+
+**選んだタグ**: ${[...state.anxietyTags].join(' / ') || '（なし）'}
+
+## 2. 言葉：不安の中の声
+${state.voice || '（未記入）'}
+
+**選んだ口癖**: ${[...state.voiceTags].join(' / ') || '（なし）'}
+
+## 3. 鏡：選んだ事例
+${c ? `**Case #${c.id} ${c.title}（${c.role}）**
+
+- **Before**: ${c.before}
+- **隠れた報酬**: ${c.racket}
+- **Beingの転換**: ${c.being}
+- **自然な行動**: ${c.doing}` : '（未選択）'}
+
+## 4. ラケット：隠れた報酬と代償
+
+**自白した隠れた報酬**:
+${state.payoff || '（未記入）'}
+
+**支払っている代償**:
+${state.cost || '（未記入）'}
+
+## 5. 転換：新しいBeing
+
+> **${state.being || '（未記入）'}**
+
+**目的（Why / What for）**: ${state.purpose || '（未記入）'}
+
+## 6. 行動：3ステップ
+
+- [ ] **Step 1（24時間以内）**: ${state.doing1 || '（未記入）'}
+- [ ] **Step 2（3日以内）**: ${state.doing2 || '（未記入）'}
+- [ ] **Step 3（1週間以内）**: ${state.doing3 || '（未記入）'}
+
+**立会人**: ${state.witness || '（なし）'}
+
+---
+
+🪞 オントロジカル・コーチング50事例 ・ ありえる楽考
+https://arieru39.github.io/ariel-apps/fuan.html
+`;
+  const blob = new Blob([md], {type: 'text/markdown'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `継続不安セッション_${today}.md`;
+  document.body.appendChild(a); a.click();
+  setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 100);
+}
+function resetAll() {
+  if (!confirm('入力した内容をすべてリセットして最初から始めますか？')) return;
+  Object.keys(state).forEach(k => {
+    if (typeof state[k] === 'string') state[k] = '';
+    else if (state[k] instanceof Set) state[k].clear();
+    else if (k === 'selectedCaseId') state[k] = null;
+  });
+  state.phase = 0;
+  document.querySelectorAll('textarea,input[type="text"]').forEach(el => el.value = '');
+  renderChips('anxietyChips', ANXIETY_CHIPS, state.anxietyTags);
+  renderChips('voiceChips', VOICE_CHIPS, state.voiceTags);
+  goPhase(0);
+}
+
+/* ============================================================
+   初期化
+============================================================ */
+renderProgress();
+renderChips('anxietyChips', ANXIETY_CHIPS, state.anxietyTags);
+renderChips('voiceChips', VOICE_CHIPS, state.voiceTags);
+document.getElementById('voice').addEventListener('input', checkVoiceWarn);
+</script>
+
+</body>
+</html>
