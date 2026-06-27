@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-<title>継続する不満が「できるかも」に変わるトレーニング｜ラケット4要素ワーク</title>
-<meta name="description" content="継続する不満を入口に、ラケット（ペテン）4要素 ─ 愚痴／決まった在り方／儲け／代償 ─ を一つずつ自白して、Beingをシフトして行動を変容するフィーリングをつかむトレーニングアプリ。完全ローカル。">
+<title>継続する不満が「できるかも」に変わるトレーニング｜7つの問いで、あり方をシフトする</title>
+<meta name="description" content="継続する不満を入口に、ラケット（ペテン）4要素を1つずつ自白して、『問い5：選択』を経て、『問い2の古いあり方』から『問い6の新しいあり方』へシフトする、7つの問いのトレーニングアプリ。完全ローカル。">
 <style>
   :root{
     --bg:#1a0e14;
@@ -23,6 +23,8 @@
     --warn-soft:#3a2d12;
     --shame:#c97070;         /* 愚痴・不満の朱 */
     --shame-soft:#3a1e1e;
+    --shift:#9a8de0;         /* シフトのラベンダー */
+    --shift-soft:#2c2848;
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
@@ -40,13 +42,16 @@
   .progress div.active{background:var(--accent)}
   .progress div.done{background:var(--possibility)}
   .phase-label{display:flex;justify-content:space-between;color:var(--muted);
-    font-size:10.5px;margin:0 0 16px;letter-spacing:.08em}
+    font-size:10.5px;margin:0 0 16px;letter-spacing:.06em}
   .card{background:var(--card);border:1px solid var(--line);border-radius:14px;
     padding:24px;margin-bottom:16px}
   .stepnum{display:inline-block;font-size:11px;color:var(--accent);font-weight:700;
     letter-spacing:.14em;margin-bottom:4px;text-transform:uppercase}
   .racket-tag{display:inline-block;font-size:10.5px;background:var(--warn-soft);
     color:var(--warning);border:1px solid var(--warning);border-radius:4px;
+    padding:1px 8px;margin-left:8px;font-weight:600;letter-spacing:.05em}
+  .shift-tag{display:inline-block;font-size:10.5px;background:var(--shift-soft);
+    color:var(--shift);border:1px solid var(--shift);border-radius:4px;
     padding:1px 8px;margin-left:8px;font-weight:600;letter-spacing:.05em}
   h2{font-size:18px;margin:0 0 6px;color:var(--ink)}
   h3{font-size:15px;margin:14px 0 6px;color:var(--accent)}
@@ -78,25 +83,29 @@
   button.secondary:hover{border-color:var(--accent)}
   button.ghost{background:transparent;color:var(--ink-soft);padding:10px 14px}
   button.ghost:hover{color:var(--ink)}
-  /* TRAINER coaching prompts */
+  /* TRAINER coaching prompts — multiple phrasings */
   .coach{background:var(--card-soft);border-left:3px solid var(--accent);
     border-radius:6px;padding:12px 16px;margin:12px 0;font-size:13px;
     color:var(--ink-soft);line-height:1.75}
   .coach strong{color:var(--accent)}
-  .coach .q{display:block;color:var(--ink);margin-bottom:4px;font-weight:600}
-  .coach ul{margin:6px 0 0 18px;padding:0}
-  .coach li{margin:3px 0}
-  /* 4要素アイコン */
-  .racket-elements{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;
-    margin:14px 0 6px;font-size:11px}
-  .racket-elements div{text-align:center;padding:10px 4px;border-radius:8px;
+  .coach .q{display:block;color:var(--ink);margin-bottom:6px;font-weight:600;font-size:13.5px}
+  .coach ul{margin:6px 0 0 18px;padding:0;list-style:none}
+  .coach li{margin:5px 0;padding-left:14px;position:relative}
+  .coach li::before{content:'›';position:absolute;left:0;color:var(--accent);font-weight:bold}
+  .coach .vary{font-size:11px;color:var(--muted);margin-top:8px;display:block;
+    border-top:1px solid var(--line);padding-top:6px}
+  /* 7問アイコン */
+  .seven-q{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;
+    margin:14px 0 6px;font-size:10px}
+  .seven-q div{text-align:center;padding:8px 2px;border-radius:6px;
     background:var(--bg-soft);border:1px solid var(--line);color:var(--muted);
     transition:all .2s}
-  .racket-elements div.current{background:var(--accent-soft);border-color:var(--accent);
+  .seven-q div.current{background:var(--accent-soft);border-color:var(--accent);
     color:var(--accent);font-weight:700}
-  .racket-elements div.done{background:var(--pos-soft);border-color:var(--possibility);
+  .seven-q div.done{background:var(--pos-soft);border-color:var(--possibility);
     color:var(--possibility)}
-  .racket-elements .ico{display:block;font-size:18px;margin-bottom:2px}
+  .seven-q div.shift{background:var(--shift-soft);border-color:var(--shift);color:var(--shift)}
+  .seven-q .ico{display:block;font-size:16px;margin-bottom:2px}
   /* CASE CARDS */
   .case-list{display:flex;flex-direction:column;gap:10px;margin:12px 0}
   .case{background:var(--card-soft);border:1px solid var(--line);border-radius:10px;
@@ -112,11 +121,59 @@
   /* MIRROR PANEL */
   .mirror{background:var(--accent-soft);border:1px solid var(--accent);
     border-radius:10px;padding:16px;margin:14px 0}
-  .mirror-label{font-size:10.5px;color:var(--accent);letter-spacing:.16em;
-    font-weight:700;text-transform:uppercase;margin-bottom:6px}
   .mirror-row{margin:8px 0}
   .mirror-row strong{display:block;font-size:11.5px;color:var(--accent);margin-bottom:2px}
   .mirror-row p{margin:0;font-size:13.5px;color:var(--ink);line-height:1.65}
+  /* CHOICE buttons (問い5) */
+  .choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+  @media(max-width:520px){ .choice-grid{grid-template-columns:1fr} }
+  .choice{background:var(--card-soft);border:2px solid var(--line);border-radius:12px;
+    padding:18px 16px;cursor:pointer;transition:all .15s;text-align:left}
+  .choice:hover{transform:translateY(-2px)}
+  .choice.A:hover{border-color:var(--possibility)}
+  .choice.B:hover{border-color:var(--shame)}
+  .choice.A.selected{background:var(--pos-soft);border-color:var(--possibility);
+    box-shadow:0 0 0 2px var(--possibility) inset}
+  .choice.B.selected{background:var(--shame-soft);border-color:var(--shame);
+    box-shadow:0 0 0 2px var(--shame) inset}
+  .choice .ch-label{font-size:11px;letter-spacing:.18em;font-weight:700;
+    text-transform:uppercase;display:block;margin-bottom:6px}
+  .choice.A .ch-label{color:var(--possibility)}
+  .choice.B .ch-label{color:var(--shame)}
+  .choice .ch-text{font-size:14.5px;color:var(--ink);font-weight:600;line-height:1.55;display:block}
+  .choice .ch-cost{font-size:11.5px;color:var(--ink-soft);margin-top:8px;display:block;line-height:1.5}
+  /* OLD vs NEW あり方 比較 */
+  .shift-compare{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;
+    align-items:stretch;margin:14px 0 18px}
+  @media(max-width:520px){ .shift-compare{grid-template-columns:1fr;gap:8px} }
+  .shift-side{background:var(--bg-soft);border:1px solid var(--line);border-radius:10px;
+    padding:14px 16px}
+  .shift-side.old{border-left:3px solid var(--shame)}
+  .shift-side.new{border-left:3px solid var(--shift)}
+  .shift-side .ss-label{font-size:10.5px;letter-spacing:.18em;font-weight:700;
+    text-transform:uppercase;margin-bottom:6px;display:block}
+  .shift-side.old .ss-label{color:var(--shame)}
+  .shift-side.new .ss-label{color:var(--shift)}
+  .shift-side .ss-text{font-size:13.5px;color:var(--ink);line-height:1.6;
+    font-weight:600;min-height:42px}
+  .shift-side .ss-text.empty{color:var(--muted);font-weight:400;font-style:italic}
+  .shift-arrow{align-self:center;color:var(--shift);font-size:24px;text-align:center}
+  @media(max-width:520px){ .shift-arrow{transform:rotate(90deg);font-size:18px;margin:0} }
+  /* あり方 grammar template */
+  .grammar{background:var(--shift-soft);border:1.5px dashed var(--shift);border-radius:10px;
+    padding:14px 16px;margin:14px 0;font-size:14px;line-height:2}
+  .grammar-label{font-size:10.5px;color:var(--shift);letter-spacing:.16em;
+    font-weight:700;text-transform:uppercase;margin-bottom:8px;display:block}
+  .grammar .g-line{font-size:15.5px;color:var(--ink);font-weight:600}
+  .grammar .g-input{display:inline-block;min-width:160px;background:var(--bg-soft);
+    border:1px solid var(--shift);border-radius:6px;padding:6px 10px;color:var(--ink);
+    font:inherit;font-size:14.5px;margin:0 4px;text-align:center}
+  .grammar .g-input:focus{outline:none;box-shadow:0 0 0 2px var(--shift-soft);
+    border-color:var(--possibility)}
+  .grammar .g-preview{margin-top:10px;padding:10px 12px;background:var(--card);
+    border-radius:6px;color:var(--possibility);font-weight:600;font-size:14.5px;
+    border:1px solid var(--possibility);min-height:20px}
+  .grammar .g-preview.empty{color:var(--muted);font-weight:400;font-style:italic}
   /* SUMMARY */
   .sum{background:var(--bg-soft);border:1px solid var(--line);
     border-radius:8px;padding:14px;margin:10px 0;font-size:13.5px;line-height:1.7}
@@ -132,7 +189,7 @@
     letter-spacing:.2em;font-weight:700}
   .declaration-text{font-size:18px;color:var(--ink);
     margin:8px 0;line-height:1.6;font-weight:600}
-  .declaration-doable{font-size:14px;color:var(--possibility);margin-top:10px}
+  .declaration-vision{font-size:14.5px;color:var(--possibility);margin-top:10px;line-height:1.6}
   /* WARN / NOTE */
   .warn{background:var(--shame-soft);border:1px solid var(--shame);
     border-radius:8px;padding:10px 14px;margin:10px 0;
@@ -145,14 +202,14 @@
   .note{background:var(--bg-soft);border-left:3px solid var(--accent);
     padding:10px 14px;margin:10px 0;font-size:12.5px;color:var(--ink-soft);
     line-height:1.65}
-  /* Feeling check sliders */
+  /* Feeling sliders */
   .feel{margin:14px 0}
   .feel label{display:block;font-size:13px;margin-bottom:6px;color:var(--ink-soft)}
   .feel input[type="range"]{width:100%;accent-color:var(--possibility)}
   .feel-marks{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:2px}
   /* SCROLLABLE LIST */
   .scrolling{max-height:380px;overflow-y:auto;padding-right:4px}
-  /* Roleplay mode toggle */
+  /* Mode toggle */
   .modes{display:flex;gap:8px;margin:6px 0 14px}
   .modes button{flex:1;padding:10px 12px;background:var(--bg-soft);
     border:1px solid var(--line);color:var(--ink-soft);border-radius:8px;
@@ -166,7 +223,7 @@
     header h1{font-size:17px}
     .card{padding:18px;border-radius:10px}
     h2{font-size:16px}
-    .racket-elements{grid-template-columns:repeat(2,1fr)}
+    .seven-q{grid-template-columns:repeat(7,1fr);font-size:9px}
     .actions{flex-direction:column}
     .actions button{width:100%}
   }
@@ -177,8 +234,8 @@
 
 <header>
   <h1>🔥 継続する不満が「できるかも」に変わるトレーニング</h1>
-  <p>ラケット（ペテン）4要素を1つずつ自白して、あり方をシフトする</p>
-  <span class="badge">TRAINING MODE ・ 約20分</span>
+  <p>7つの問いで、ラケットを暴き、あり方をシフトする</p>
+  <span class="badge">TRAINING MODE ・ 7問 ・ 約20分</span>
 </header>
 
 <div class="progress" id="progress"></div>
@@ -187,157 +244,139 @@
 <!-- ============ PHASE 0: イントロ ============ -->
 <div id="phase0" class="card phase">
   <span class="stepnum">START</span>
-  <h2>あなたの "継続する不満" の構造を、自分でほどけるようになる</h2>
+  <h2>7つの問いで、ラケットを暴いて、あり方をシフトする</h2>
   <p class="lead">
     オントロジカル・コーチングが言うのは、こうです。<br>
     <strong>「やれない理由」は、あなたが密かに使っている "ラケット（Racket・ペテン）" の仕業</strong>。<br>
-    そしてラケットには、必ず <strong>4つの部品</strong> があります。
+    そしてラケットには、必ず <strong>4つの部品</strong> があります（愚痴・あり方・儲け・代償）。
   </p>
 
-  <div class="racket-elements">
-    <div><span class="ico">😩</span>愚痴・不満</div>
-    <div><span class="ico">🎭</span>決まった在り方</div>
-    <div><span class="ico">💰</span>儲け</div>
-    <div><span class="ico">💸</span>代償</div>
+  <div class="seven-q">
+    <div><span class="ico">😩</span>① 愚痴</div>
+    <div><span class="ico">🎭</span>② あり方<br>OLD</div>
+    <div><span class="ico">💰</span>③ 儲け</div>
+    <div><span class="ico">💸</span>④ 代償</div>
+    <div><span class="ico">⚖️</span>⑤ 選択</div>
+    <div><span class="ico">🌿</span>⑥ あり方<br>NEW</div>
+    <div><span class="ico">🌅</span>⑦ ビジョン</div>
   </div>
 
   <p class="lead">
-    このトレーニングでは、<strong>「継続する不満は何ですか？」</strong> の問いから入って、<br>
-    あなたのラケットの4部品を 1つずつ言葉にしていきます。<br>
-    最後には、<strong>「やれない理由」→「できるかも」</strong> に変わる、身体で感じられるシフトを体験します。
+    このトレーニングの核は、<strong>問い②の "古いあり方" から → 問い⑥の "新しいあり方" へのシフト</strong>。<br>
+    そして、問い⑤で <strong>「儲けを手放すか／代償を払い続けるか」</strong> という選択を、自分の口で答えること。<br>
+    最後に、問い⑦で <strong>ビジョンを言葉で宣言</strong> します。
   </p>
 
   <div class="modes">
     <button id="modeSolo" class="active" onclick="setMode('solo')">🧘 ひとりトレーニング</button>
     <button id="modePair" onclick="setMode('pair')">👥 ふたりトレーニング</button>
   </div>
-  <p class="chip-help" id="modeDesc">ひとりモード：自分の中で1セット回します。各ステップに自分への問いが出ます。</p>
+  <p class="chip-help" id="modeDesc">ひとりモード：自分の中で1セット回します。各問いに3つの言い回しが出るので、しっくり来る形で答えてください。</p>
 
   <div class="note">
-    📦 <strong>完全ローカル動作</strong>：入力したテキストは一切送信されません。ブラウザの中だけで完結します。最後にMarkdownで書き出せます。
+    📦 <strong>完全ローカル動作</strong>：入力は一切送信されません。ブラウザの中だけで完結します。最後にMarkdownで書き出せます。
   </div>
   <div class="actions">
-    <button class="primary" onclick="goPhase(1)">▶ 不満を1つ書く</button>
+    <button class="primary" onclick="goPhase(1)">▶ 問い① から始める</button>
   </div>
 </div>
 
-<!-- ============ PHASE 1: 不満を1つ ============ -->
+<!-- ============ PHASE 1 = 問い1: 愚痴・不満 ============ -->
 <div id="phase1" class="card phase" style="display:none">
-  <span class="stepnum">PHASE 1 / 不満</span>
-  <h2>あなたの中で、繰り返し出てくる不満は何ですか？</h2>
-  <p class="lead">
-    特定の人について／状況について／自分について。<br>
-    <strong>何度も何度も口に出している、または胸の中で繰り返している不満</strong> を、1つだけ選んで書いてください。
-  </p>
+  <span class="stepnum">問い① <span class="racket-tag">😩 愚痴・不満</span></span>
+  <h2>あなたが、繰り返し言ってしまう不満は？</h2>
 
   <div class="coach">
-    <span class="q">🎙 コーチからの問い</span>
-    最近3ヶ月で <strong>3回以上</strong> 心の中（または誰かに）愚痴ったことは？<br>
-    「XXXがXXXだから、XXXができない／されない／許せない」の形でOK。
+    <span class="q">🎙 問い①（次のどれかで答えてOK）</span>
+    <ul>
+      <li>あなたの中で、ずっと繰り返している「不満」「愚痴」は？</li>
+      <li>最近3ヶ月で、3回以上心の中で言った "ぼやき" は？</li>
+      <li>誰かにこの話をするとき、最後に必ず付け加える "決め台詞" は？</li>
+    </ul>
+    <span class="vary">※ 一言一句このまま使う必要はありません。あなたが答えやすい問い方を選んでください</span>
   </div>
 
+  <h3>① 思いつくまま書く（長くてOK）</h3>
   <textarea id="fuman" placeholder="例：上司が私の貢献を全然認めてくれない／部下が言われたことしかやらない／パートナーが家事を分担してくれない／景気が悪くて新規事業に投資できない…" rows="3"></textarea>
 
-  <h3>不満が向かう先は？</h3>
+  <h3>② 削ぎ落として、ひとことに（10〜20文字くらい）</h3>
+  <p class="chip-help">これがラケットの "起動キー"。短くするほど、後で見抜きやすい</p>
+  <input type="text" id="complaint" placeholder="例：上司は私を見ていない／部下は受け身だ／パートナーは家事をしない／景気が悪い…">
+
+  <h3>不満が向かう先（タグ）</h3>
   <div class="chips" id="targetChips"></div>
-  <p class="chip-help">「誰／何」に対する不満かでタグを選ぶと、後で似たラケットを探しやすくなります</p>
+
+  <div class="warn" id="complaintWarn" style="display:none">
+    ⚠️ <strong>気づき</strong>：「どうせ」「やっぱり」「いつも」「絶対」「全然」「みんな」が含まれているなら、それは <strong>事実ではなく解釈</strong>。後で必ずほどけます。
+  </div>
 
   <div class="actions">
     <button class="ghost" onclick="goPhase(0)">← 戻る</button>
-    <button class="primary" onclick="goPhase(2)">次へ：ラケット部品①を確定 →</button>
+    <button class="primary" onclick="goPhase(2)">問い② 古いあり方 →</button>
   </div>
 </div>
 
-<!-- ============ PHASE 2: ラケット①愚痴・不満 ============ -->
+<!-- ============ PHASE 2 = 問い2: 決まった あり方 (OLD) ============ -->
 <div id="phase2" class="card phase" style="display:none">
-  <span class="stepnum">PHASE 2 / ラケット① <span class="racket-tag">😩 愚痴・不満</span></span>
-  <h2>その不満を、ひとことに削ぎ落とす</h2>
+  <span class="stepnum">問い② <span class="racket-tag">🎭 古いあり方</span></span>
+  <h2>その愚痴を言っているとき、あなたは "何者" になっていますか？</h2>
   <p class="lead">
-    ラケットの第1部品は <strong>「繰り返し言ってしまう愚痴」</strong>。<br>
-    長くてもいいですが、削げるだけ削いで「最短の悪口／ぼやき」にしてみましょう。これがラケットの "起動キー" です。
+    人は不満を語っているとき、必ずある "役" を演じています。<br>
+    被害者・正しい者・犠牲者・無力な者・諦めた者・いい人・賢い解説者…。<br>
+    <strong>この "古いあり方" を見抜くことが、シフトの起点</strong>。後で出てくる「⑥ 新しいあり方」と対比する大事な軸です。
   </p>
 
   <div class="coach">
-    <span class="q">🎙 コーチからの問い</span>
+    <span class="q">🎙 問い②（言い回しは自由に選んで）</span>
     <ul>
-      <li>これまでに何百回も心の中で言ってきた "短いフレーズ" はある？</li>
-      <li>誰かにこの話をした時、最後に必ず付け加える "決め台詞" は？</li>
-      <li>主語＋述語の <strong>10文字以内</strong> にできる？</li>
+      <li>愚痴っている時のあなたは、誰の側に立っている？</li>
+      <li>その姿勢にラベルをつけるとしたら、何者？</li>
+      <li>「相手は◯◯で、私は ___」── ___ にどんな立ち位置が入る？</li>
+      <li>そのあり方で、あなたは何を「やっている」と思っている？</li>
     </ul>
+    <span class="vary">※ どれかひとつで答えれば十分。複数答えても可</span>
   </div>
 
-  <input type="text" id="complaint" placeholder="例：上司は私を見ていない／部下は受け身だ／パートナーは家事をしない／景気が悪い…">
+  <h3>よくある "古いあり方" のパターン</h3>
+  <div class="chips" id="beingFixedChips"></div>
+  <p class="chip-help">「これかも」と感じたものを 1〜3個 選んでOK</p>
 
-  <h3>定型パターン（当てはまるなら選んでOK）</h3>
-  <div class="chips" id="complaintChips"></div>
+  <h3>自分の言葉で書く</h3>
+  <textarea id="beingFixed" placeholder="例：『正しい側の被害者』として存在している／『努力しても報われない哀しい人』を演じている／『理解者ぶった傍観者』になっている…" rows="2"></textarea>
 
-  <div class="warn" id="complaintWarn" style="display:none">
-    ⚠️ <strong>気づき</strong>：「どうせ」「やっぱり」「いつも」「絶対」「全然」「みんな」のような言葉が含まれているなら、それは <strong>事実ではなく解釈</strong>。後で必ずほどけます。
+  <div class="insight">
+    💡 <strong>ここを覚えておいてください</strong>：これが <strong>「古いあり方」</strong>。問い⑥で <strong>「新しいあり方」</strong> を作る時、この対比が "シフトのインパクト" を生みます。
   </div>
 
   <div class="actions">
     <button class="ghost" onclick="goPhase(1)">← 戻る</button>
-    <button class="primary" onclick="goPhase(3)">次へ：ラケット部品②を確定 →</button>
+    <button class="primary" onclick="goPhase(3)">問い③ 儲け →</button>
   </div>
 </div>
 
-<!-- ============ PHASE 3: ラケット②決まった在り方 ============ -->
+<!-- ============ PHASE 3 = 問い3: 儲け ============ -->
 <div id="phase3" class="card phase" style="display:none">
-  <span class="stepnum">PHASE 3 / ラケット② <span class="racket-tag">🎭 決まった在り方</span></span>
-  <h2>その愚痴を言っているとき、あなたは "何者" になっている？</h2>
-  <p class="lead">
-    ラケットの第2部品は <strong>「決まった在り方（固定された存在モード）」</strong>。<br>
-    人は不満を語っているとき、必ずある "役" を演じています。被害者・正しい者・犠牲者・無力な者・諦めた者・いい人・賢い解説者…。<br>
-    <strong>「在り方の癖」を見抜くと、シフトの起点が見えます。</strong>
-  </p>
-
-  <div class="coach">
-    <span class="q">🎙 コーチからの問い</span>
-    <ul>
-      <li>愚痴っている時のあなたは、誰の側に立っている？</li>
-      <li>その姿勢に、もし1つラベルを付けるとしたら？</li>
-      <li>「相手はXXXで、私は◯◯」── ◯◯にどんな立ち位置が入る？</li>
-    </ul>
-  </div>
-
-  <h3>よくある "決まった在り方"</h3>
-  <div class="chips" id="beingFixedChips"></div>
-  <p class="chip-help">複数選択OK。「これかも」と感じたものを2〜3個選ぶと、後で見つけやすい</p>
-
-  <h3>自分の言葉で書く（任意）</h3>
-  <textarea id="beingFixed" placeholder="例：『正しい側の被害者』として存在している／『努力しても報われない哀しい人』を演じている／『理解者ぶった傍観者』になっている…" rows="2"></textarea>
-
-  <div class="insight">
-    💡 <strong>ヒント</strong>：「自分は◯◯な人」と認識し続けることで、人は <strong>不満を継続する権利</strong> を得ています。これが次のステップの "儲け" の正体です。
-  </div>
-
-  <div class="actions">
-    <button class="ghost" onclick="goPhase(2)">← 戻る</button>
-    <button class="primary" onclick="goPhase(4)">次へ：ラケット部品③を自白 →</button>
-  </div>
-</div>
-
-<!-- ============ PHASE 4: ラケット③儲け ============ -->
-<div id="phase4" class="card phase" style="display:none">
-  <span class="stepnum">PHASE 4 / ラケット③ <span class="racket-tag">💰 儲け（隠れた報酬）</span></span>
+  <span class="stepnum">問い③ <span class="racket-tag">💰 儲け（隠れた報酬）</span></span>
   <h2>不満を持ち続けることで、密かに何を "儲けて" いますか？</h2>
   <p class="lead">
-    ここがラケットの <strong>核</strong>。最も "暴かれたくない" 部品です。<br>
+    ここがラケットの <strong>核</strong>。最も "暴かれたくない" 部品。<br>
     人は <strong>「変わらないことで密かに得ている何か」</strong> があるから変われない。それを <strong>儲け（Payoff）</strong> と呼びます。
   </p>
 
   <div class="coach">
-    <span class="q">🎙 コーチからの5つの深掘り問い</span>
+    <span class="q">🎙 問い③（深掘りの言い回し集）</span>
     <ul>
-      <li>① この不満があるおかげで、避けられている "怖いこと" は？</li>
-      <li>② この不満があると、誰かから何を <strong>もらえて</strong> いる？（同情？注目？許し？）</li>
-      <li>③ この不満を手放したら、何を <strong>自分でやらなければ</strong> いけなくなる？</li>
-      <li>④ この不満は、誰の責任を <strong>あなたから外して</strong> くれている？</li>
-      <li>⑤ もしこの不満が解消したら、何が <strong>つまらなく</strong> なる？</li>
+      <li>この不満があるおかげで、避けられている "怖いこと" は？</li>
+      <li>この不満を語ると、誰かから何を <strong>もらえて</strong> いる？（同情？注目？許し？）</li>
+      <li>この不満を手放したら、何を <strong>自分でやらなければ</strong> いけなくなる？</li>
+      <li>この不満は、誰の責任を <strong>あなたから外して</strong> くれている？</li>
+      <li>もしこの不満が解消したら、何が <strong>つまらなく</strong> なる？</li>
+      <li>この古いあり方でいることで、あなたが "保てている" ものは？</li>
     </ul>
+    <span class="vary">※ 6つから1〜2つ選んで深掘りすればOK</span>
   </div>
 
-  <h3>儲け候補（パターン）</h3>
+  <h3>儲け候補（タグ）</h3>
   <div class="chips" id="payoffChips"></div>
 
   <h3>自分の言葉で書く</h3>
@@ -348,32 +387,34 @@
   </div>
 
   <div class="actions">
-    <button class="ghost" onclick="goPhase(3)">← 戻る</button>
-    <button class="primary" onclick="goPhase(5)">次へ：ラケット部品④を直視 →</button>
+    <button class="ghost" onclick="goPhase(2)">← 戻る</button>
+    <button class="primary" onclick="goPhase(4)">問い④ 代償 →</button>
   </div>
 </div>
 
-<!-- ============ PHASE 5: ラケット④代償 ============ -->
-<div id="phase5" class="card phase" style="display:none">
-  <span class="stepnum">PHASE 5 / ラケット④ <span class="racket-tag">💸 代償</span></span>
+<!-- ============ PHASE 4 = 問い4: 代償 ============ -->
+<div id="phase4" class="card phase" style="display:none">
+  <span class="stepnum">問い④ <span class="racket-tag">💸 代償</span></span>
   <h2>その儲けと引き換えに、何を支払い続けていますか？</h2>
   <p class="lead">
     ラケットは "ペテン" と呼ばれます。<strong>儲けの裏には必ず "代償" がある</strong>のに、それを見ないようにすることでゲームが成立しているからです。<br>
-    ここで <strong>「払い続けてきたコスト」</strong> を直視することが、転換のエネルギーになります。
+    ここで <strong>「払い続けてきたコスト」</strong> を直視することが、次の「⑤ 選択」を本気にします。
   </p>
 
   <div class="coach">
-    <span class="q">🎙 コーチからの問い</span>
+    <span class="q">🎙 問い④（複数の角度から）</span>
     <ul>
       <li>この不満があるせいで、もう諦めかけている "本当はやりたかったこと" は？</li>
       <li>失っている <strong>関係性</strong> は？（信頼、愛、つながり）</li>
       <li>失っている <strong>時間</strong> は？（1年？5年？）</li>
       <li>失っている <strong>自分の可能性</strong> は？</li>
       <li>このラケットをあと10年続けたら、最終的に失うのは？</li>
+      <li>今この瞬間、あなたが我慢している "本当の欲求" は？</li>
     </ul>
+    <span class="vary">※ どの問いから入っても構いません</span>
   </div>
 
-  <h3>代償候補（パターン）</h3>
+  <h3>代償候補（タグ）</h3>
   <div class="chips" id="costChips"></div>
 
   <h3>自分の言葉で書く</h3>
@@ -384,19 +425,62 @@
   </div>
 
   <div class="actions">
-    <button class="ghost" onclick="goPhase(4)">← 戻る</button>
-    <button class="primary" onclick="findCases()">次へ：50事例の鏡で答え合わせ 🪞 →</button>
+    <button class="ghost" onclick="goPhase(3)">← 戻る</button>
+    <button class="primary" onclick="goPhase(5)">問い⑤ あなたは選びますか？ ⚖️ →</button>
   </div>
 </div>
 
-<!-- ============ PHASE 6: 鏡を選ぶ ============ -->
-<div id="phase6" class="card phase" style="display:none">
-  <span class="stepnum">PHASE 6 / 鏡</span>
-  <h2>あなたのラケットに近い3つの実例</h2>
+<!-- ============ PHASE 5 = 問い5: 選択 ============ -->
+<div id="phase5" class="card phase" style="display:none">
+  <span class="stepnum">問い⑤ <span class="shift-tag">⚖️ 選択（PIVOT）</span></span>
+  <h2>あなたは、どちらを選びますか？</h2>
   <p class="lead">
-    あなたが書いた不満・愚痴・在り方から、<strong>50事例の中で似たラケット構造を持つ3ケース</strong> を選びました。<br>
+    ここがトレーニング全体の <strong>転換点</strong>。<br>
+    儲けと代償が見えた今、あなたには <strong>選ぶ自由</strong> があります。コーチもファシリも、誰もこれを代わりに決められません。<br>
+    自分の口で、自分の言葉で答えてください。
+  </p>
+
+  <div class="coach">
+    <span class="q">🎙 問い⑤（言い回しの幅）</span>
+    <ul>
+      <li><strong>代償を払うのをやめて、儲けを手放しますか？</strong></li>
+      <li>それとも、<strong>儲けを得続けて、代償を払い続けますか？</strong></li>
+      <li>古いあり方を続けて、儲けと代償のセットを生きるか？</li>
+      <li>あり方を変えて、儲けを手放し、代償を取り戻すか？</li>
+      <li>あなたが本当に選びたいのは、A／Bどちらですか？</li>
+    </ul>
+    <span class="vary">※ 「どちらが正しい」ではなく、「私はどちらを選ぶか」を答える問いです</span>
+  </div>
+
+  <div class="choice-grid">
+    <div class="choice A" id="choiceA" onclick="setChoice('release')">
+      <span class="ch-label">A ・ 手放す</span>
+      <span class="ch-text">代償を払うのをやめて、儲けを手放す</span>
+      <span class="ch-cost">→ ラケットを下ろし、あり方を新しくする。儲けの代わりに、失っていた "本当に欲しかったもの" を取り戻しに行く</span>
+    </div>
+    <div class="choice B" id="choiceB" onclick="setChoice('continue')">
+      <span class="ch-label">B ・ 続ける</span>
+      <span class="ch-text">儲けを得続けて、代償を払い続ける</span>
+      <span class="ch-cost">→ 古いあり方を継続する。儲け（同情・正当性・安全など）と引き換えに、代償を払い続ける選択</span>
+    </div>
+  </div>
+
+  <div class="insight" id="choiceFeedback" style="display:none"></div>
+
+  <div class="actions">
+    <button class="ghost" onclick="goPhase(4)">← 戻る</button>
+    <button class="primary" id="phase5Next" onclick="findCases()" disabled>選択した。鏡で参考にする 🪞 →</button>
+  </div>
+</div>
+
+<!-- ============ PHASE 6: 鏡（参考） ============ -->
+<div id="phase6" class="card phase" style="display:none">
+  <span class="stepnum">参考 ・ 🪞 鏡</span>
+  <h2>同じパターンを抜けた "先輩" を1人選んでください</h2>
+  <p class="lead">
+    あなたの不満・古いあり方から、<strong>50事例の中から似たラケット構造を持つ3ケース</strong> を選びました。<br>
     「自分のことを言われている」と感じる1つを選んでください。<br>
-    <strong>同じパターンの先輩がどう抜けたか</strong>、その鏡を見てBeingシフトの参考にします。
+    次の問い⑥（新しいあり方）と問い⑦（ビジョン）の <strong>参考</strong> になります。
   </p>
   <div class="case-list" id="caseSuggestions"></div>
 
@@ -408,51 +492,130 @@
 
   <div class="actions">
     <button class="ghost" onclick="goPhase(5)">← 戻る</button>
-    <button class="primary" id="phase6Next" onclick="goPhase(7)" disabled>次へ：あり方をシフトする →</button>
+    <button class="primary" id="phase6Next" onclick="goPhase(7)" disabled>問い⑥ 新しいあり方 →</button>
   </div>
 </div>
 
-<!-- ============ PHASE 7: あり方シフト ============ -->
+<!-- ============ PHASE 7 = 問い6: 新しい あり方 ============ -->
 <div id="phase7" class="card phase" style="display:none">
-  <span class="stepnum">PHASE 7 / シフト</span>
-  <h2>新しいあり方を、言葉で宣言する</h2>
-  <div class="mirror" id="mirror7"></div>
+  <span class="stepnum">問い⑥ <span class="shift-tag">🌿 新しいあり方</span></span>
+  <h2>あなたは「何のための場」として存在しますか？</h2>
+
+  <!-- OLD → NEW 比較 -->
+  <div class="shift-compare">
+    <div class="shift-side old">
+      <span class="ss-label">問い② OLD</span>
+      <div id="oldBeingShow" class="ss-text empty">（古いあり方）</div>
+    </div>
+    <div class="shift-arrow">→</div>
+    <div class="shift-side new">
+      <span class="ss-label">問い⑥ NEW</span>
+      <div id="newBeingShow" class="ss-text empty">（これから書く）</div>
+    </div>
+  </div>
+
   <p class="lead">
-    4部品の自白が終わった今、あなたは <strong>「ラケットなしの空っぽな自分」</strong> として、ここに立っています。<br>
-    ここから、新しい <strong>Being（在り方）</strong> を選びます。法律を施行するように、その瞬間から新しい文脈に生きていく覚悟です。
+    オントロジカル・コーチングの核心。<br>
+    あり方は「私は◯◯な人だ」というラベルではなく、<strong>「私は、誰が何になる場である」</strong> と <strong>場として宣言</strong> することで、文脈ごと組み替えられます。
   </p>
 
-  <h3>新しいBeing宣言</h3>
-  <p class="chip-help">「私は ___ として存在する」の ___ を埋める形で。鏡のBeingを参考にしてOK</p>
-  <input type="text" id="being" placeholder="例：私は、チームの可能性を100%引き出すリーダーとして存在する">
+  <div class="coach">
+    <span class="q">🎙 問い⑥（言い回しの幅）</span>
+    <ul>
+      <li>あなたは、誰が何になる "場" として存在しますか？</li>
+      <li>これからあなたは、何のための場になりますか？</li>
+      <li>あなたが場を開くことで、誰のどんな変容が起きますか？</li>
+      <li>あなたの新しい役割を「場」として表現すると？</li>
+    </ul>
+    <span class="vary">※ 文法は固定。中身は自由に</span>
+  </div>
 
-  <h3>その新しいBeingが向かう目的は？</h3>
-  <p class="chip-help">「自分を守るため」ではなく「誰のために・何のために」</p>
-  <textarea id="purpose" placeholder="例：自分の有能さを証明するためではなく、チーム全員の力を解放するため／一人で抱えないことで、後から続く人の負担を減らすため…" rows="2"></textarea>
-
-  <h3 style="color:var(--possibility)">🌱 古い不満を、"できるかも" の形に言い換える</h3>
-  <p class="chip-help">「やれない理由」→「できるかも」言い換え。完璧でなく "可能性" を肯定する</p>
-  <input type="text" id="dekirukamo" placeholder="例：『部下は受け身だ』→『部下に主導権を渡したら、もしかすると今と違う動き方が出てくるかも』">
+  <div class="grammar">
+    <span class="grammar-label">📐 あり方の文法</span>
+    <div class="g-line">
+      私は <input type="text" class="g-input" id="beingWho" placeholder="誰" oninput="updateBeingPreview()"> が
+      <input type="text" class="g-input" id="beingWhat" placeholder="何" oninput="updateBeingPreview()"> になる場です
+    </div>
+    <div class="g-preview empty" id="beingPreview">プレビュー：ここに完成形が出ます</div>
+  </div>
 
   <div class="insight">
-    💡 <strong>"できるかも" のレベル感</strong>：「絶対できる」「やる」ではなく、<strong>「やってみたら、もしかすると…」</strong> の柔らかさで十分。100%の確信より、5%の可能性を口に出すことが、ラケットを溶かす。
+    💡 <strong>例</strong>：<br>
+    ・私は <strong>部下</strong> が <strong>自分の判断で動ける主体</strong> になる場です<br>
+    ・私は <strong>家族</strong> が <strong>本音を出せる安心</strong> になる場です<br>
+    ・私は <strong>顧客</strong> が <strong>自分のビジネスを誇れる状態</strong> になる場です<br>
+    ・私は <strong>このチーム</strong> が <strong>互いの可能性を引き出す関係</strong> になる場です
   </div>
+
+  <div class="mirror" id="mirror7"></div>
 
   <div class="actions">
     <button class="ghost" onclick="goPhase(6)">← 戻る</button>
-    <button class="primary" onclick="goPhase(8)">次へ：最初の一歩を決める →</button>
+    <button class="primary" onclick="goPhase(8)">問い⑦ ビジョンを宣言する 🌅 →</button>
   </div>
 </div>
 
-<!-- ============ PHASE 8: できるかも行動 ============ -->
+<!-- ============ PHASE 8 = 問い7: ビジョン ============ -->
 <div id="phase8" class="card phase" style="display:none">
-  <span class="stepnum">PHASE 8 / 行動</span>
-  <h2>新しいBeingから、自然に出てくる「やってみる」一歩</h2>
-  <div class="mirror" id="mirror8"></div>
+  <span class="stepnum">問い⑦ <span class="shift-tag">🌅 ビジョン宣言</span></span>
+  <h2>その "場" は、どんな景色を見せていますか？</h2>
+
+  <div class="shift-compare" style="margin-bottom:10px">
+    <div class="shift-side old">
+      <span class="ss-label">問い② 古いあり方</span>
+      <div id="oldBeingShow8" class="ss-text empty">—</div>
+    </div>
+    <div class="shift-arrow">→</div>
+    <div class="shift-side new">
+      <span class="ss-label">問い⑥ 新しいあり方</span>
+      <div id="newBeingShow8" class="ss-text empty">—</div>
+    </div>
+  </div>
+
   <p class="lead">
-    50事例に通底するのは、<strong>「やり方を教わったわけではない」</strong>こと。Beingが変わると、行動は引き出しから自然と出てきます。<br>
-    その鏡を見ながら、<strong>「これならやってみれるかも」</strong> な小さい一歩を3つ決めてください。
+    新しいあり方が立った今、その "場" が成立すると <strong>世界はどう見えていますか？</strong><br>
+    数値目標やTODOリストではなく、<strong>「景色」「感触」「あの瞬間の表情」</strong> を言葉で描いてください。それが <strong>ビジョン</strong> です。
   </p>
+
+  <div class="coach">
+    <span class="q">🎙 問い⑦（言い回しの幅）</span>
+    <ul>
+      <li>その場が成立した時、あなたの目の前に広がっている景色は？</li>
+      <li>3年後、その場で「ありえた」ことは何ですか？</li>
+      <li>誰の、どんな笑顔・声・変化が見えていますか？</li>
+      <li>その場の中で、あなた自身はどんな状態でいますか？</li>
+      <li>世界に対して、あなたは何を可能にしましたか？</li>
+    </ul>
+    <span class="vary">※ ビジョンは "あらかじめ既にそこにある未来" を、今、言葉にすること</span>
+  </div>
+
+  <h3>🌅 ビジョン宣言を書く</h3>
+  <p class="chip-help">3〜5行で、目に浮かぶ景色を描く。「私のビジョンは、___」の形でもOK</p>
+  <textarea id="vision" placeholder="例：私のビジョンは、メンバー一人ひとりが自分の判断で挑戦する組織。失敗を笑いながら共有し、次の挑戦のヒントに変えていく。誰もが『この仕事は自分で選んだ』と胸を張れる。私はその真ん中で、彼らの挑戦を見届ける場でいる。" rows="5"></textarea>
+
+  <h3>🗣 1行で短くするとしたら？</h3>
+  <p class="chip-help">声に出して言える、力強い1行のビジョンステートメント</p>
+  <input type="text" id="visionShort" placeholder="例：誰もが『これは自分で選んだ』と胸を張れる組織を、私が場として開く">
+
+  <div class="actions">
+    <button class="ghost" onclick="goPhase(7)">← 戻る</button>
+    <button class="primary" onclick="goPhase(9)">「できるかも」行動を決める →</button>
+  </div>
+</div>
+
+<!-- ============ PHASE 9: できるかも行動 ============ -->
+<div id="phase9" class="card phase" style="display:none">
+  <span class="stepnum">行動 ・ 🌱 できるかも</span>
+  <h2>新しいあり方とビジョンから、自然に出てくる「やってみる」一歩</h2>
+  <div class="mirror" id="mirror9"></div>
+  <p class="lead">
+    50事例に通底するのは、<strong>「やり方を教わったわけではない」</strong>こと。<br>
+    あり方とビジョンが立つと、行動は引き出しから自然と出てきます。
+  </p>
+
+  <h3>🌱 「やれない理由」→「できるかも」言い換え</h3>
+  <p class="chip-help">「絶対できる」ではなく「やってみたら、もしかすると…」の柔らかさで</p>
+  <input type="text" id="dekirukamo" placeholder="例：『部下は受け身だ』→『部下に主導権を渡したら、もしかすると今と違う動き方が出てくるかも』">
 
   <h3>Step 1（24時間以内のたった1つ）</h3>
   <p class="chip-help">3分でできる・声をかけるだけ・1行書くだけ、レベルの小ささでOK</p>
@@ -469,14 +632,14 @@
   <input type="text" id="witness" placeholder="例：金6GCの〇〇さん／パートナー／ありえる楽考コミュニティ">
 
   <div class="actions">
-    <button class="ghost" onclick="goPhase(7)">← 戻る</button>
-    <button class="primary" onclick="goPhase(9)">次へ：身体のフィーリングを確かめる →</button>
+    <button class="ghost" onclick="goPhase(8)">← 戻る</button>
+    <button class="primary" onclick="goPhase(10)">身体のフィーリングを確かめる →</button>
   </div>
 </div>
 
-<!-- ============ PHASE 9: フィーリング確認＋宣言 ============ -->
-<div id="phase9" class="card phase" style="display:none">
-  <span class="stepnum">PHASE 9 / フィーリング</span>
+<!-- ============ PHASE 10: フィーリング ============ -->
+<div id="phase10" class="card phase" style="display:none">
+  <span class="stepnum">確認 ・ 🧘 身体</span>
   <h2>身体の感じを確かめる</h2>
   <p class="lead">
     オントロジカル・コーチングの核心は、<strong>「Beingがシフトすると、身体が変わる」</strong> こと。<br>
@@ -509,37 +672,51 @@
   <input type="text" id="bodyfeel" placeholder="例：胸の真ん中の固まりが、ちょっと柔らかくなった気がする／肩がふっと落ちた／背中が前より広い">
 
   <div class="actions">
-    <button class="ghost" onclick="goPhase(8)">← 戻る</button>
+    <button class="ghost" onclick="goPhase(9)">← 戻る</button>
     <button class="primary" onclick="showSummary()">宣言する 🌟 →</button>
   </div>
 </div>
 
-<!-- ============ PHASE 10: 宣言＆エクスポート ============ -->
-<div id="phase10" class="card phase" style="display:none">
-  <span class="stepnum">PHASE 10 / 宣言</span>
+<!-- ============ PHASE 11: 宣言＆エクスポート ============ -->
+<div id="phase11" class="card phase" style="display:none">
+  <span class="stepnum">宣言 ・ 🌟</span>
   <h2>あなたの宣言</h2>
 
+  <!-- OLD → NEW 大きな比較 -->
+  <div class="shift-compare">
+    <div class="shift-side old">
+      <span class="ss-label">問い② 古いあり方</span>
+      <div id="oldBeingShow11" class="ss-text empty">—</div>
+    </div>
+    <div class="shift-arrow">→</div>
+    <div class="shift-side new">
+      <span class="ss-label">問い⑥ 新しいあり方</span>
+      <div id="newBeingShow11" class="ss-text empty">—</div>
+    </div>
+  </div>
+
   <div class="declaration">
-    <div class="declaration-label">DECLARATION</div>
+    <div class="declaration-label">DECLARATION ・ あり方</div>
     <div class="declaration-text" id="declarationText"></div>
-    <div class="declaration-doable" id="declarationDoable"></div>
+    <div class="declaration-label" style="margin-top:14px">VISION</div>
+    <div class="declaration-vision" id="declarationVision"></div>
   </div>
 
   <div class="actions" style="margin-bottom:18px">
     <button class="secondary" onclick="speak()">🔊 声に出して読み上げる</button>
   </div>
 
-  <h3>全プロセスの記録（ラケット4要素の自白）</h3>
+  <h3>全プロセスの記録（7問の答え）</h3>
   <dl class="sum" id="summary"></dl>
 
   <div class="actions">
     <button class="primary" onclick="exportMd()">📄 Markdownでダウンロード</button>
-    <button class="secondary" onclick="goPhase(9)">← 修正する</button>
+    <button class="secondary" onclick="goPhase(10)">← 修正する</button>
     <button class="ghost" onclick="resetAll()">🔄 最初から</button>
   </div>
 
   <div class="note" style="margin-top:18px">
-    🔥 <strong>このアプリは、オントロジカル・コーチングの「ラケット」概念を、4部品ワークとして1セッション化したものです。</strong><br>
+    🔥 <strong>このアプリは、ラケット4要素＋選択＋新しいあり方＋ビジョンの「7つの問い」を1セッション化したものです。</strong><br>
     自分自身に向ける ／ ペアで相手に向けて練習する ／ コーチとしてクライアントを導く、3つの使い方ができます。<br>
     👉 <a href="index.html" style="color:var(--accent)">ariel-apps トップ</a> ・ <a href="https://github.com/arieru39/ariel-apps" style="color:var(--accent)">GitHub</a>
   </div>
@@ -555,7 +732,7 @@
 
 <script>
 /* ============================================================
-   50事例データ（共通）
+   50事例データ
 ============================================================ */
 const CASES = [
   {id:1,title:'「完璧主義」というブレーキが外れた起業家',role:'起業家',
@@ -867,11 +1044,6 @@ const TARGET_CHIPS = [
   '上司','部下','同僚','クライアント','取引先','パートナー',
   '家族','子供','親','組織','社会','時代・景気','お金','自分自身',
 ];
-const COMPLAINT_CHIPS = [
-  'どうせ無理','やっぱりダメだった','いつも私ばかり','絶対変わらない',
-  'みんなわかってない','相手が悪い','景気が悪い','時間がない',
-  '私には才能がない','もう年だから','学歴がないから','実績がないから',
-];
 const BEING_FIXED_CHIPS = [
   '正しい側の被害者','努力しても報われない人','献身的な犠牲者','無力で諦めた人',
   '物分かりの良いいい人','賢い解説者(傍観)','頑張りすぎる優等生','孤独な完璧主義者',
@@ -896,18 +1068,20 @@ const state = {
   phase: 0,
   mode: 'solo',
   fuman: '',
-  targetTags: new Set(),
   complaint: '',
-  complaintTags: new Set(),
+  targetTags: new Set(),
   beingFixed: '',
   beingFixedTags: new Set(),
   payoff: '',
   payoffTags: new Set(),
   cost: '',
   costTags: new Set(),
+  choice: '',  // 'release' or 'continue'
   selectedCaseId: null,
-  being: '',
-  purpose: '',
+  beingWho: '',
+  beingWhat: '',
+  vision: '',
+  visionShort: '',
   dekirukamo: '',
   doing1: '', doing2: '', doing3: '',
   witness: '',
@@ -916,9 +1090,9 @@ const state = {
 };
 
 /* ============================================================
-   フェーズ進行 / プログレスバー
+   フェーズ進行
 ============================================================ */
-const PHASE_LABELS = ['START','不満','①愚痴','②在り方','③儲け','④代償','鏡','シフト','行動','身体','宣言'];
+const PHASE_LABELS = ['START','①愚痴','②古いあり方','③儲け','④代償','⑤選択','鏡','⑥新あり方','⑦ビジョン','行動','身体','宣言'];
 function renderProgress() {
   const p = document.getElementById('progress');
   const l = document.getElementById('phaseLabel');
@@ -939,28 +1113,38 @@ function goPhase(n) {
   renderProgress();
   window.scrollTo({top: 0, behavior: 'smooth'});
   // 入力欄復元
-  if (n === 1) document.getElementById('fuman').value = state.fuman;
-  if (n === 2) {
+  if (n === 1) {
+    document.getElementById('fuman').value = state.fuman;
     document.getElementById('complaint').value = state.complaint;
     checkComplaintWarn();
   }
-  if (n === 3) document.getElementById('beingFixed').value = state.beingFixed;
-  if (n === 4) document.getElementById('payoff').value = state.payoff;
-  if (n === 5) document.getElementById('cost').value = state.cost;
+  if (n === 2) document.getElementById('beingFixed').value = state.beingFixed;
+  if (n === 3) document.getElementById('payoff').value = state.payoff;
+  if (n === 4) document.getElementById('cost').value = state.cost;
+  if (n === 5) renderChoiceUI();
   if (n === 7) {
+    syncShiftCompare('oldBeingShow');
+    syncNewBeingPreview('newBeingShow');
+    document.getElementById('beingWho').value = state.beingWho;
+    document.getElementById('beingWhat').value = state.beingWhat;
+    updateBeingPreview();
     renderMirror(7);
-    document.getElementById('being').value = state.being;
-    document.getElementById('purpose').value = state.purpose;
-    document.getElementById('dekirukamo').value = state.dekirukamo;
   }
   if (n === 8) {
-    renderMirror(8);
+    syncShiftCompare('oldBeingShow8');
+    syncNewBeingPreview('newBeingShow8');
+    document.getElementById('vision').value = state.vision;
+    document.getElementById('visionShort').value = state.visionShort;
+  }
+  if (n === 9) {
+    renderMirror(9);
+    document.getElementById('dekirukamo').value = state.dekirukamo;
     document.getElementById('doing1').value = state.doing1;
     document.getElementById('doing2').value = state.doing2;
     document.getElementById('doing3').value = state.doing3;
     document.getElementById('witness').value = state.witness;
   }
-  if (n === 9) {
+  if (n === 10) {
     ['feel1','feel2','feel3'].forEach(k => {
       document.getElementById(k).value = state[k];
       document.getElementById(k+'val').textContent = state[k];
@@ -969,23 +1153,29 @@ function goPhase(n) {
   }
 }
 function saveCurrentPhase() {
-  if (state.phase === 1) state.fuman = document.getElementById('fuman').value;
-  if (state.phase === 2) state.complaint = document.getElementById('complaint').value;
-  if (state.phase === 3) state.beingFixed = document.getElementById('beingFixed').value;
-  if (state.phase === 4) state.payoff = document.getElementById('payoff').value;
-  if (state.phase === 5) state.cost = document.getElementById('cost').value;
+  if (state.phase === 1) {
+    state.fuman = document.getElementById('fuman').value;
+    state.complaint = document.getElementById('complaint').value;
+  }
+  if (state.phase === 2) state.beingFixed = document.getElementById('beingFixed').value;
+  if (state.phase === 3) state.payoff = document.getElementById('payoff').value;
+  if (state.phase === 4) state.cost = document.getElementById('cost').value;
   if (state.phase === 7) {
-    state.being = document.getElementById('being').value;
-    state.purpose = document.getElementById('purpose').value;
-    state.dekirukamo = document.getElementById('dekirukamo').value;
+    state.beingWho = document.getElementById('beingWho').value;
+    state.beingWhat = document.getElementById('beingWhat').value;
   }
   if (state.phase === 8) {
+    state.vision = document.getElementById('vision').value;
+    state.visionShort = document.getElementById('visionShort').value;
+  }
+  if (state.phase === 9) {
+    state.dekirukamo = document.getElementById('dekirukamo').value;
     state.doing1 = document.getElementById('doing1').value;
     state.doing2 = document.getElementById('doing2').value;
     state.doing3 = document.getElementById('doing3').value;
     state.witness = document.getElementById('witness').value;
   }
-  if (state.phase === 9) {
+  if (state.phase === 10) {
     state.feel1 = +document.getElementById('feel1').value;
     state.feel2 = +document.getElementById('feel2').value;
     state.feel3 = +document.getElementById('feel3').value;
@@ -1001,8 +1191,38 @@ function setMode(m) {
   document.getElementById('modeSolo').classList.toggle('active', m === 'solo');
   document.getElementById('modePair').classList.toggle('active', m === 'pair');
   document.getElementById('modeDesc').textContent = m === 'solo'
-    ? 'ひとりモード：自分の中で1セット回します。各ステップに自分への問いが出ます。'
+    ? 'ひとりモード：自分の中で1セット回します。各問いに3つの言い回しが出るので、しっくり来る形で答えてください。'
     : 'ふたりモード：相手に問いかけながら進めます。コーチからの問いを「そのまま読み上げ」できる構成です。';
+}
+
+/* ============================================================
+   選択（問い5）UI
+============================================================ */
+function setChoice(c) {
+  state.choice = c;
+  document.getElementById('choiceA').classList.toggle('selected', c === 'release');
+  document.getElementById('choiceB').classList.toggle('selected', c === 'continue');
+  document.getElementById('phase5Next').disabled = false;
+  const fb = document.getElementById('choiceFeedback');
+  fb.style.display = 'block';
+  if (c === 'release') {
+    fb.style.borderColor = 'var(--possibility)';
+    fb.style.background = 'var(--pos-soft)';
+    fb.style.color = '#d6f0c4';
+    fb.innerHTML = '🌱 <strong>A 「手放す」を選択</strong>：では、この後の問い⑥で <strong>新しいあり方</strong> を、問い⑦で <strong>ビジョン</strong> を作っていきましょう。';
+  } else {
+    fb.style.borderColor = 'var(--shame)';
+    fb.style.background = 'var(--shame-soft)';
+    fb.style.color = '#f5d4d4';
+    fb.innerHTML = '🤔 <strong>B 「続ける」を選択</strong>：それも一つの誠実な選択です。今は手放すタイミングではない、ということ。続けるなら、儲けを意識して受け取り、代償も認めて生きてください。<br><small style="opacity:.8">※ それでもアプリは続けられます。「もし手放すとしたら？」の練習として、問い⑥⑦に進めます。</small>';
+  }
+}
+function renderChoiceUI() {
+  if (state.choice === 'release') {
+    setChoice('release');
+  } else if (state.choice === 'continue') {
+    setChoice('continue');
+  }
 }
 
 /* ============================================================
@@ -1025,10 +1245,54 @@ function renderChips(containerId, chips, tagSet, watcher) {
   });
 }
 function checkComplaintWarn() {
-  const text = (document.getElementById('complaint').value || '') + ' ' + [...state.complaintTags].join(' ');
+  const text = document.getElementById('complaint').value || '';
   const triggers = ['どうせ','やっぱり','いつも','絶対','全然','みんな'];
   const has = triggers.some(t => text.includes(t));
   document.getElementById('complaintWarn').style.display = has ? 'block' : 'none';
+}
+
+/* ============================================================
+   シフト比較 表示
+============================================================ */
+function syncShiftCompare(elId) {
+  const el = document.getElementById(elId);
+  if (!el) return;
+  const tags = [...state.beingFixedTags].join(' / ');
+  const text = state.beingFixed || tags;
+  if (text) {
+    el.textContent = text;
+    el.classList.remove('empty');
+  } else {
+    el.textContent = '（問い②未記入）';
+    el.classList.add('empty');
+  }
+}
+function syncNewBeingPreview(elId) {
+  const el = document.getElementById(elId);
+  if (!el) return;
+  if (state.beingWho || state.beingWhat) {
+    el.textContent = `私は ${state.beingWho || '___'} が ${state.beingWhat || '___'} になる場です`;
+    el.classList.remove('empty');
+  } else {
+    el.textContent = '（これから書く）';
+    el.classList.add('empty');
+  }
+}
+
+/* ============================================================
+   問い6 あり方プレビュー
+============================================================ */
+function updateBeingPreview() {
+  state.beingWho = document.getElementById('beingWho').value;
+  state.beingWhat = document.getElementById('beingWhat').value;
+  const p = document.getElementById('beingPreview');
+  if (state.beingWho || state.beingWhat) {
+    p.textContent = `私は ${state.beingWho || '___'} が ${state.beingWhat || '___'} になる場です`;
+    p.classList.remove('empty');
+  } else {
+    p.textContent = 'プレビュー：ここに完成形が出ます';
+    p.classList.add('empty');
+  }
 }
 
 /* ============================================================
@@ -1081,7 +1345,6 @@ const TEXT_TO_TAGS = [
 function deriveTags() {
   const text = (state.fuman + ' ' + state.complaint + ' ' + state.beingFixed
     + ' ' + [...state.targetTags].join(' ')
-    + ' ' + [...state.complaintTags].join(' ')
     + ' ' + [...state.beingFixedTags].join(' ')).toLowerCase();
   const found = new Set();
   TEXT_TO_TAGS.forEach(m => {
@@ -1089,7 +1352,6 @@ function deriveTags() {
       m.tags.forEach(t => found.add(t));
     }
   });
-  // 在り方タグからの直接マッピング
   [...state.beingFixedTags].forEach(t => {
     if (t.includes('被害者')) found.add('過剰責任');
     if (t.includes('犠牲')) found.add('過剰責任');
@@ -1111,7 +1373,7 @@ function findCases() {
   }).sort((a,b) => b.score - a.score);
   let top3;
   if (scored[0].score === 0) {
-    top3 = [CASES[16], CASES[2], CASES[35]].map(c => ({c, score:0})); // 代表的な3ケース
+    top3 = [CASES[16], CASES[2], CASES[35]].map(c => ({c, score:0}));
   } else {
     top3 = scored.slice(0, 3);
   }
@@ -1159,28 +1421,24 @@ function selectCase(id) {
 }
 
 /* ============================================================
-   ミラーパネル
+   ミラーパネル（参考表示）
 ============================================================ */
 function renderMirror(phase) {
   const c = CASES.find(x => x.id === state.selectedCaseId);
   if (!c) return;
-  let html;
   if (phase === 7) {
-    html = `
-      <div class="mirror-row"><strong>Case #${c.id} ・ ${c.title}</strong></div>
-      <div class="mirror-row"><strong>古い文脈 → Beingの転換</strong>
+    document.getElementById('mirror7').innerHTML = `
+      <div class="mirror-row"><strong>🪞 参考：Case #${c.id} のBeing転換</strong>
         <p style="margin-bottom:4px;color:var(--ink-soft);font-size:12.5px;">${c.before}</p>
         <p style="color:#fbeee2;font-weight:600">→ "${c.being}"</p>
       </div>
     `;
-    document.getElementById('mirror7').innerHTML = html;
-  } else if (phase === 8) {
-    html = `
-      <div class="mirror-row"><strong>Case #${c.id} の自然な行動（Doing）</strong>
+  } else if (phase === 9) {
+    document.getElementById('mirror9').innerHTML = `
+      <div class="mirror-row"><strong>🪞 参考：Case #${c.id} の自然な行動</strong>
         <p>${c.doing}</p>
       </div>
     `;
-    document.getElementById('mirror8').innerHTML = html;
   }
 }
 
@@ -1196,27 +1454,36 @@ function syncFeel(n) {
 /* ============================================================
    サマリ表示
 ============================================================ */
+function newBeingText() {
+  if (!state.beingWho && !state.beingWhat) return '';
+  return `私は ${state.beingWho || '___'} が ${state.beingWhat || '___'} になる場です`;
+}
 function showSummary() {
   saveCurrentPhase();
   const c = CASES.find(x => x.id === state.selectedCaseId);
-  const decl = state.being || '（宣言を書き込んでください）';
+  const decl = newBeingText() || '（問い⑥未記入）';
   document.getElementById('declarationText').textContent = `「${decl}」`;
-  const doable = state.dekirukamo
-    ? `🌱 ${state.dekirukamo}`
-    : '';
-  document.getElementById('declarationDoable').textContent = doable;
+  document.getElementById('declarationVision').textContent = state.visionShort || state.vision || '（問い⑦未記入）';
+
+  syncShiftCompare('oldBeingShow11');
+  syncNewBeingPreview('newBeingShow11');
+
   const sum = document.getElementById('summary');
   const empty = '（未記入）';
+  const choiceText = state.choice === 'release' ? 'A：手放す（代償を払うのをやめて、儲けを手放す）'
+                   : state.choice === 'continue' ? 'B：続ける（儲けを得続けて、代償を払い続ける）'
+                   : empty;
   sum.innerHTML = `
-    <dt>継続する不満</dt><dd${state.fuman?'':' class="empty"'}>${state.fuman || empty}</dd>
-    <dt>① 愚痴・不満（短縮）</dt><dd${state.complaint?'':' class="empty"'}>${state.complaint || empty}</dd>
-    <dt>② 決まった在り方</dt><dd${state.beingFixed||state.beingFixedTags.size?'':' class="empty"'}>${state.beingFixed || [...state.beingFixedTags].join(' / ') || empty}</dd>
-    <dt>③ 儲け（隠れた報酬）</dt><dd${state.payoff?'':' class="empty"'}>${state.payoff || empty}</dd>
-    <dt>④ 代償（失っているもの）</dt><dd${state.cost?'':' class="empty"'}>${state.cost || empty}</dd>
+    <dt>問い① 愚痴・不満（短縮）</dt><dd${state.complaint?'':' class="empty"'}>${state.complaint || state.fuman || empty}</dd>
+    <dt>問い② 古いあり方</dt><dd${state.beingFixed||state.beingFixedTags.size?'':' class="empty"'}>${state.beingFixed || [...state.beingFixedTags].join(' / ') || empty}</dd>
+    <dt>問い③ 儲け（隠れた報酬）</dt><dd${state.payoff?'':' class="empty"'}>${state.payoff || empty}</dd>
+    <dt>問い④ 代償</dt><dd${state.cost?'':' class="empty"'}>${state.cost || empty}</dd>
+    <dt>問い⑤ 選択</dt><dd${state.choice?'':' class="empty"'}>${choiceText}</dd>
     <dt>選んだ鏡</dt><dd>${c ? `Case #${c.id} ${c.title}` : empty}</dd>
-    <dt>新しいBeing</dt><dd${state.being?'':' class="empty"'}>${state.being || empty}</dd>
-    <dt>目的（Why / What for）</dt><dd${state.purpose?'':' class="empty"'}>${state.purpose || empty}</dd>
-    <dt>"できるかも" 言い換え</dt><dd${state.dekirukamo?'':' class="empty"'}>${state.dekirukamo || empty}</dd>
+    <dt>問い⑥ 新しいあり方</dt><dd${(state.beingWho||state.beingWhat)?'':' class="empty"'}>${newBeingText() || empty}</dd>
+    <dt>問い⑦ ビジョン（短い形）</dt><dd${state.visionShort?'':' class="empty"'}>${state.visionShort || empty}</dd>
+    <dt>問い⑦ ビジョン（描写）</dt><dd${state.vision?'':' class="empty"'}>${(state.vision || empty).replace(/\n/g,'<br>')}</dd>
+    <dt>「できるかも」言い換え</dt><dd${state.dekirukamo?'':' class="empty"'}>${state.dekirukamo || empty}</dd>
     <dt>Step 1（24h以内）</dt><dd${state.doing1?'':' class="empty"'}>${state.doing1 || empty}</dd>
     <dt>Step 2（3日以内）</dt><dd${state.doing2?'':' class="empty"'}>${state.doing2 || empty}</dd>
     <dt>Step 3（1週間以内）</dt><dd${state.doing3?'':' class="empty"'}>${state.doing3 || empty}</dd>
@@ -1224,7 +1491,7 @@ function showSummary() {
     <dt>身体のフィーリング</dt><dd>胸:${state.feel1}/10 ・ 肩:${state.feel2}/10 ・ できるかも度:${state.feel3}/10</dd>
     <dt>身体感覚メモ</dt><dd${state.bodyfeel?'':' class="empty"'}>${state.bodyfeel || empty}</dd>
   `;
-  goPhase(10);
+  goPhase(11);
 }
 
 /* ============================================================
@@ -1232,8 +1499,10 @@ function showSummary() {
 ============================================================ */
 function speak() {
   if (!('speechSynthesis' in window)) return alert('お使いのブラウザは音声合成に対応していません');
-  const text = (state.being || '宣言を書いてから読み上げできます')
-    + (state.dekirukamo ? '。' + state.dekirukamo : '');
+  const being = newBeingText();
+  const vision = state.visionShort || state.vision;
+  const text = (being || '宣言を書いてから読み上げできます')
+    + (vision ? '。ビジョンは、' + vision : '');
   const u = new SpeechSynthesisUtterance(text);
   u.lang = 'ja-JP'; u.rate = 0.9; u.pitch = 1.0;
   speechSynthesis.cancel(); speechSynthesis.speak(u);
@@ -1245,48 +1514,55 @@ function speak() {
 function exportMd() {
   const c = CASES.find(x => x.id === state.selectedCaseId);
   const today = new Date().toISOString().slice(0,10);
+  const choiceText = state.choice === 'release' ? '**A：手放す** — 代償を払うのをやめて、儲けを手放す'
+                   : state.choice === 'continue' ? '**B：続ける** — 儲けを得続けて、代償を払い続ける'
+                   : '（未選択）';
   const md = `---
-title: 継続する不満が「できるかも」に変わるトレーニング記録
+title: 継続する不満が「できるかも」に変わるトレーニング記録（7問版）
 date: ${today}
 tags:
   - オントロジカルコーチング
   - ラケット
   - 4要素
-  - 不満
+  - 7問
+  - あり方シフト
+  - ビジョン
   - 対話アプリ
 ---
 
 # 継続する不満が「できるかも」に変わるトレーニング
 
-> ラケット（ペテン）4要素を1つずつ自白して、あり方をシフトしたトレーニング記録
+> 7つの問いで、ラケットを暴いて、あり方をシフトしたトレーニング記録
 
-## 0. 継続する不満
+---
 
-${state.fuman || '（未記入）'}
+## 問い① 愚痴・不満
+
+**長い形**: ${state.fuman || '（未記入）'}
+
+**短縮形（10〜20文字）**: ${state.complaint || '（未記入）'}
 
 **不満の向かう先**: ${[...state.targetTags].join(' / ') || '（なし）'}
 
 ---
 
-## 1. ラケット部品①：愚痴・不満（短縮形）
-
-> ${state.complaint || '（未記入）'}
-
-**定型パターン**: ${[...state.complaintTags].join(' / ') || '（なし）'}
-
-## 2. ラケット部品②：決まった在り方
+## 問い② 古いあり方（OLD）
 
 ${state.beingFixed || '（自由記述なし）'}
 
 **選んだ在り方タグ**: ${[...state.beingFixedTags].join(' / ') || '（なし）'}
 
-## 3. ラケット部品③：儲け（隠れた報酬）
+---
+
+## 問い③ 儲け（隠れた報酬）
 
 ${state.payoff || '（未記入）'}
 
 **儲けタグ**: ${[...state.payoffTags].join(' / ') || '（なし）'}
 
-## 4. ラケット部品④：代償（失っているもの）
+---
+
+## 問い④ 代償
 
 ${state.cost || '（未記入）'}
 
@@ -1294,7 +1570,13 @@ ${state.cost || '（未記入）'}
 
 ---
 
-## 5. 鏡：選んだ事例
+## 問い⑤ 選択 ⚖️
+
+${choiceText}
+
+---
+
+## 🪞 参考にした鏡
 
 ${c ? `**Case #${c.id} ${c.title}（${c.role}）**
 
@@ -1305,23 +1587,37 @@ ${c ? `**Case #${c.id} ${c.title}（${c.role}）**
 
 ---
 
-## 6. あり方シフト
+## 問い⑥ 新しいあり方（NEW）🌿
 
-### 新しいBeing宣言
+> **${newBeingText() || '（未記入）'}**
 
-> **${state.being || '（未記入）'}**
+### あり方シフト
 
-### 目的（Why / What for）
+| 問い② OLD | → | 問い⑥ NEW |
+|---|---|---|
+| ${state.beingFixed || [...state.beingFixedTags].join(' / ') || '—'} | → | ${newBeingText() || '—'} |
 
-${state.purpose || '（未記入）'}
+---
 
-### 🌱 「やれない理由」→「できるかも」言い換え
+## 問い⑦ ビジョン宣言 🌅
+
+### 1行のビジョン
+
+> ${state.visionShort || '（未記入）'}
+
+### ビジョンの描写
+
+${state.vision || '（未記入）'}
+
+---
+
+## 「やれない理由」→「できるかも」言い換え
 
 ${state.dekirukamo || '（未記入）'}
 
 ---
 
-## 7. できるかも行動
+## できるかも行動
 
 - [ ] **Step 1（24時間以内）**: ${state.doing1 || '（未記入）'}
 - [ ] **Step 2（3日以内）**: ${state.doing2 || '（未記入）'}
@@ -1331,7 +1627,7 @@ ${state.dekirukamo || '（未記入）'}
 
 ---
 
-## 8. 身体のフィーリング
+## 身体のフィーリング
 
 | 項目 | スコア |
 |---|---|
@@ -1343,13 +1639,13 @@ ${state.dekirukamo || '（未記入）'}
 
 ---
 
-🔥 ラケット4要素トレーニング ・ オントロジカル・コーチング50事例 ・ ありえる楽考
+🔥 7つの問いトレーニング ・ オントロジカル・コーチング50事例 ・ ありえる楽考
 https://arieru39.github.io/ariel-apps/fuman.html
 `;
   const blob = new Blob([md], {type: 'text/markdown'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = url; a.download = `継続不満トレーニング_${today}.md`;
+  a.href = url; a.download = `継続不満7問トレーニング_${today}.md`;
   document.body.appendChild(a); a.click();
   setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 100);
 }
@@ -1363,6 +1659,7 @@ function resetAll() {
   });
   state.phase = 0;
   state.mode = 'solo';
+  state.choice = '';
   document.querySelectorAll('textarea,input[type="text"]').forEach(el => el.value = '');
   renderAllChips();
   goPhase(0);
@@ -1373,7 +1670,6 @@ function resetAll() {
 ============================================================ */
 function renderAllChips() {
   renderChips('targetChips', TARGET_CHIPS, state.targetTags);
-  renderChips('complaintChips', COMPLAINT_CHIPS, state.complaintTags, checkComplaintWarn);
   renderChips('beingFixedChips', BEING_FIXED_CHIPS, state.beingFixedTags);
   renderChips('payoffChips', PAYOFF_CHIPS, state.payoffTags);
   renderChips('costChips', COST_CHIPS, state.costTags);
