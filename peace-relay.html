@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>🌍 ピースデー地球一周リレー 仲間集めアプリ</title>
+<meta name="description" content="9/21ピースデー、24時間で世界を一周するリレー。あなたのまわりにいる友人で、無理なく地球を一周する仲間集めアプリ。">
+<style>
+  :root{
+    --bg:#0c1e2e;
+    --bg-2:#102a40;
+    --card:#173a55;
+    --card-2:#1f4866;
+    --line:#2a5e85;
+    --text:#f5f5f0;
+    --text-soft:#c2d4e3;
+    --text-mute:#8aa7bd;
+    --peace:#7ab85c;          /* 平和の若葉 */
+    --peace-soft:#244a23;
+    --earth:#4ea3d8;          /* 地球の青 */
+    --earth-soft:#1a3a52;
+    --sun:#ffb347;            /* 夕焼け */
+    --sun-soft:#553913;
+    --gap:#e15d5d;            /* 空き時間（赤） */
+    --gap-soft:#3d1c1c;
+    --filled:#7ab85c;         /* 埋まってる時間 */
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+    background:linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+    color:var(--text);line-height:1.7;
+    min-height:100vh;padding:20px 14px 80px;
+  }
+  .wrap{max-width:760px;margin:0 auto}
+  header{text-align:center;padding:20px 0 28px}
+  h1{font-size:1.5rem;margin-bottom:6px;letter-spacing:.02em}
+  header p{color:var(--text-soft);font-size:.92rem}
+  .badge{
+    display:inline-block;padding:3px 12px;font-size:.72rem;
+    background:var(--peace-soft);color:var(--peace);
+    border-radius:12px;margin-top:8px;
+  }
+  .progress{
+    display:flex;gap:4px;margin:8px 0 20px;flex-wrap:wrap;
+  }
+  .progress span{
+    flex:1;min-width:30px;height:5px;border-radius:3px;
+    background:#1f3447;
+  }
+  .progress span.active{background:var(--peace)}
+  .progress span.done{background:var(--earth)}
+
+  .phase{display:none}
+  .phase.active{display:block}
+
+  .card{
+    background:var(--card);border-radius:14px;padding:22px 20px;
+    margin:14px 0;box-shadow:0 2px 12px rgba(0,0,0,.2);
+  }
+  .card h2{font-size:1.15rem;margin-bottom:10px;color:var(--sun)}
+  .card h2.peace{color:var(--peace)}
+  .card h2.earth{color:var(--earth)}
+  .card p{color:var(--text-soft);font-size:.93rem;margin-bottom:10px}
+  .card p.mute{color:var(--text-mute);font-size:.85rem}
+  .lead{
+    font-size:1.02rem;color:var(--text);line-height:1.85;
+    background:var(--earth-soft);padding:14px 16px;border-radius:10px;
+    margin:10px 0;border-left:3px solid var(--earth);
+  }
+
+  label.field{display:block;margin:14px 0 4px;font-size:.88rem;color:var(--text-soft)}
+  input[type="text"],select,textarea{
+    width:100%;padding:10px 12px;border:1px solid var(--line);
+    background:var(--card-2);color:var(--text);
+    border-radius:8px;font-size:.95rem;font-family:inherit;
+    transition:border .15s;
+  }
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--peace)}
+  textarea{min-height:80px;resize:vertical;line-height:1.6}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .row3{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px}
+  @media(max-width:520px){.row,.row3{grid-template-columns:1fr}}
+
+  button.btn{
+    display:inline-block;padding:11px 22px;border-radius:8px;border:none;
+    background:var(--peace);color:#fff;font-weight:600;font-size:.95rem;
+    cursor:pointer;transition:transform .1s, background .15s;font-family:inherit;
+    margin:6px 4px;
+  }
+  button.btn:hover{background:#6aa84b;transform:translateY(-1px)}
+  button.btn.earth{background:var(--earth)}
+  button.btn.earth:hover{background:#3e8bbf}
+  button.btn.sun{background:var(--sun);color:#3a2607}
+  button.btn.sun:hover{background:#e89e2e}
+  button.btn.outline{
+    background:transparent;border:1px solid var(--line);color:var(--text-soft);
+  }
+  button.btn.outline:hover{border-color:var(--peace);color:var(--peace);background:transparent}
+  button.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+
+  .nav{display:flex;justify-content:space-between;margin-top:18px;gap:8px}
+
+  /* Friend list */
+  .friend-list{margin:14px 0}
+  .friend-row{
+    display:flex;align-items:center;gap:8px;
+    background:var(--card-2);border-radius:10px;padding:10px 12px;
+    margin-bottom:8px;
+  }
+  .friend-row .who{flex:1;font-size:.92rem}
+  .friend-row .where{color:var(--text-mute);font-size:.82rem}
+  .friend-row .tz{
+    font-size:.74rem;padding:2px 8px;background:var(--earth-soft);
+    color:var(--earth);border-radius:8px;margin-left:4px;
+  }
+  .friend-row .del{
+    background:transparent;border:none;color:var(--text-mute);
+    cursor:pointer;font-size:1.1rem;padding:4px 8px;
+  }
+  .friend-row .del:hover{color:var(--gap)}
+
+  /* Timeline */
+  .timeline-wrap{
+    background:var(--bg-2);border-radius:12px;padding:14px;margin:14px 0;
+    overflow-x:auto;
+  }
+  .timeline{
+    display:grid;grid-template-columns:repeat(24, minmax(28px, 1fr));
+    gap:2px;min-width:680px;
+  }
+  .slot{
+    aspect-ratio:1/1.3;border-radius:6px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    font-size:.62rem;padding:3px 1px;text-align:center;cursor:pointer;
+    position:relative;
+  }
+  .slot .hr{font-weight:700;font-size:.72rem;color:var(--text)}
+  .slot .nm{font-size:.55rem;color:var(--text-soft);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}
+  .slot.filled{background:var(--peace-soft);border:1px solid var(--peace)}
+  .slot.filled .hr{color:var(--peace)}
+  .slot.gap{background:var(--gap-soft);border:1px solid var(--gap)}
+  .slot.gap .hr{color:var(--gap)}
+  .slot.me{background:var(--sun-soft);border:1px solid var(--sun)}
+  .slot.me .hr{color:var(--sun)}
+  .slot.multi::after{
+    content:'+';position:absolute;top:1px;right:3px;
+    font-size:.6rem;color:var(--text-mute);
+  }
+
+  .legend{
+    display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;
+    font-size:.78rem;color:var(--text-soft);
+  }
+  .legend span::before{
+    content:'';display:inline-block;width:10px;height:10px;border-radius:3px;
+    margin-right:5px;vertical-align:middle;
+  }
+  .legend .lg-me::before{background:var(--sun)}
+  .legend .lg-filled::before{background:var(--peace)}
+  .legend .lg-gap::before{background:var(--gap)}
+
+  .stats{
+    display:grid;grid-template-columns:repeat(3, 1fr);gap:8px;margin:12px 0;
+  }
+  .stat{
+    background:var(--card-2);padding:10px;border-radius:10px;text-align:center;
+  }
+  .stat .num{font-size:1.4rem;font-weight:700;color:var(--peace)}
+  .stat .num.gap{color:var(--gap)}
+  .stat .num.earth{color:var(--earth)}
+  .stat .lbl{font-size:.72rem;color:var(--text-mute);margin-top:2px}
+
+  .gap-list{margin:14px 0}
+  .gap-block{
+    background:var(--gap-soft);border-left:3px solid var(--gap);
+    padding:12px 14px;border-radius:8px;margin-bottom:8px;
+  }
+  .gap-block .gap-time{font-size:.95rem;color:var(--gap);font-weight:600;margin-bottom:4px}
+  .gap-block .gap-hint{font-size:.85rem;color:var(--text-soft)}
+  .gap-block .gap-cities{
+    font-size:.78rem;color:var(--text-mute);margin-top:4px;
+  }
+
+  .template{
+    background:var(--card-2);padding:14px 16px;border-radius:10px;
+    margin:10px 0;font-size:.9rem;line-height:1.75;
+    white-space:pre-wrap;font-family:inherit;
+  }
+  .template-tabs{display:flex;gap:6px;margin-bottom:8px}
+  .template-tabs button{
+    padding:6px 14px;border-radius:18px;border:1px solid var(--line);
+    background:transparent;color:var(--text-soft);cursor:pointer;font-size:.82rem;
+  }
+  .template-tabs button.active{
+    background:var(--earth);color:#fff;border-color:var(--earth);
+  }
+  .copy-btn{
+    position:absolute;top:8px;right:8px;
+    background:var(--earth);color:#fff;border:none;padding:4px 12px;
+    border-radius:6px;font-size:.74rem;cursor:pointer;
+  }
+  .template-wrap{position:relative}
+
+  .help{
+    background:var(--earth-soft);padding:10px 14px;border-radius:8px;
+    font-size:.82rem;color:var(--text-soft);margin:10px 0;
+    border-left:3px solid var(--earth);
+  }
+
+  .summary-section{
+    background:var(--card-2);border-radius:10px;padding:14px 16px;margin:10px 0;
+  }
+  .summary-section h3{
+    font-size:.92rem;color:var(--peace);margin-bottom:6px;
+  }
+  .summary-section .data{color:var(--text);font-size:.9rem}
+
+  details{margin:8px 0}
+  summary{
+    cursor:pointer;color:var(--text-soft);font-size:.85rem;
+    padding:6px 0;
+  }
+  summary:hover{color:var(--peace)}
+
+  footer{
+    margin-top:30px;padding:18px 0;text-align:center;
+    color:var(--text-mute);font-size:.78rem;border-top:1px solid var(--line);
+  }
+  footer a{color:var(--earth);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>🌍 ピースデー地球一周リレー</h1>
+  <p>9/21・24時間で世界を一周。空いた時間帯にいる友人を、無理なく探す</p>
+  <span class="badge">仲間集めアプリ ・ 7ステップ ・ 約15分</span>
+</header>
+
+<div class="progress" id="progress"></div>
+
+<!-- Phase 0: START -->
+<div class="phase active" id="phase0">
+  <div class="card">
+    <h2>🌍 9月21日は世界平和の日（ピースデー）</h2>
+    <p class="lead">
+      この日に、世界中の仲間で <strong>24時間リレー</strong> を回したい ──
+      でも、24時間ぶんの友人を急にぜんぶ集めるのは大変。<br>
+      このアプリは、<strong>あなたのまわりにいる友人で「いま埋まっている時間」と「まだ空いている時間」を見える化</strong> して、
+      無理のないペースで仲間集めをサポートします。
+    </p>
+    <details>
+      <summary>📖 地球一周リレーの基本ルール（クリックで展開）</summary>
+      <div style="padding:10px 0;color:var(--text-soft);font-size:.88rem">
+        ・9/21 の 24時間 を、世界中の参加者で順番に "ピース"のバトンを渡していく<br>
+        ・各タイムゾーンの 朝・昼・夕方など、参加者が自然に起きている時間帯にバトンを持つ<br>
+        ・バトンの形は自由（写真／一言メッセージ／祈り／音楽／散歩……）<br>
+        ・<strong>「無理なく」</strong> がいちばん大事。24時間ぴったり詰める必要はなく、空いてもよい。
+      </div>
+    </details>
+
+    <h2 style="margin-top:20px" class="peace">🧭 このアプリの使い方</h2>
+    <p>
+      ① あなたの場所を登録 →
+      ② 知ってる友人を登録 →
+      ③ 24時間タイムラインで空き時間を確認 →
+      ④ 空き時間にいる人を思い出す →
+      ⑤ 招待文を送る、までを伴走します。
+    </p>
+    <p class="mute">※ データはあなたのブラウザの中だけに保存されます。送信なし。</p>
+    <div class="nav">
+      <span></span>
+      <button class="btn" onclick="goPhase(1)">はじめる →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Phase 1: あなたの登録 -->
+<div class="phase" id="phase1">
+  <div class="card">
+    <h2 class="earth">① あなたの場所を教えてください</h2>
+    <p>地球一周のスタート地点になります。</p>
+
+    <label class="field">あなたの名前（ニックネーム可）</label>
+    <input type="text" id="meName" placeholder="例：鈴木としかず">
+
+    <div class="row">
+      <div>
+        <label class="field">都市</label>
+        <select id="meCity" onchange="applyCityToMe()">
+          <option value="">── 都市を選ぶ ──</option>
+        </select>
+      </div>
+      <div>
+        <label class="field">UTCオフセット（自動入力）</label>
+        <input type="text" id="meOffset" placeholder="例：+9" readonly>
+      </div>
+    </div>
+
+    <details>
+      <summary>🌐 リストにない都市は？（手動で入力）</summary>
+      <div style="padding:10px 0">
+        <div class="row">
+          <div>
+            <label class="field">都市名（手入力）</label>
+            <input type="text" id="meCityManual" placeholder="例：レイキャビク">
+          </div>
+          <div>
+            <label class="field">UTCオフセット（手入力）</label>
+            <input type="text" id="meOffsetManual" placeholder="例：+0 / +5.5 / -3">
+          </div>
+        </div>
+        <button class="btn outline" onclick="useManualMe()" style="margin-top:8px">手入力を反映</button>
+      </div>
+    </details>
+
+    <div class="help">
+      💡 オフセットは「UTC + X時間」の X。日本=+9、ロンドン=0、ニューヨーク=-5、シドニー=+11
+    </div>
+
+    <div class="nav">
+      <button class="btn outline" onclick="goPhase(0)">← 戻る</button>
+      <button class="btn earth" onclick="saveMeAndNext()">次へ →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Phase 2: 友人を登録 -->
+<div class="phase" id="phase2">
+  <div class="card">
+    <h2 class="peace">② 世界中の友人を、思い出しながら登録</h2>
+    <p>
+      <strong>完璧を目指さない。</strong>
+      まずは「思い出した順」に5〜10人、ざっくり登録すれば十分。
+      あとから「ここ空いてるな」と思ったときに追加できます。
+    </p>
+
+    <div class="row3">
+      <div>
+        <label class="field">名前</label>
+        <input type="text" id="frName" placeholder="例：Maria">
+      </div>
+      <div>
+        <label class="field">都市</label>
+        <select id="frCity">
+          <option value="">── 選ぶ ──</option>
+        </select>
+      </div>
+      <div>
+        <label class="field">　</label>
+        <button class="btn peace" onclick="addFriend()" style="width:100%">＋ 追加</button>
+      </div>
+    </div>
+
+    <details>
+      <summary>🌐 リストにない都市の友人を追加</summary>
+      <div style="padding:10px 0">
+        <div class="row3">
+          <div>
+            <label class="field">名前</label>
+            <input type="text" id="frNameM" placeholder="例：Olafur">
+          </div>
+          <div>
+            <label class="field">都市・国（手入力）</label>
+            <input type="text" id="frCityM" placeholder="例：Reykjavik">
+          </div>
+          <div>
+            <label class="field">UTCオフセット</label>
+            <input type="text" id="frOffsetM" placeholder="例：+0">
+          </div>
+        </div>
+        <button class="btn outline" onclick="addFriendManual()" style="margin-top:8px">手入力で追加</button>
+      </div>
+    </details>
+
+    <h3 style="margin-top:18px;font-size:.95rem;color:var(--text-soft)">
+      登録済み（<span id="friendCount">0</span>人）
+    </h3>
+    <div class="friend-list" id="friendList"></div>
+
+    <div class="help">
+      💡 SNSやLINEを見ながら思い出すと、海外の友人が意外といる。<br>
+      💡 直接の友人だけでなく、「友人の友人を紹介してもらえないか聞ける人」も登録してOK。
+    </div>
+
+    <div class="nav">
+      <button class="btn outline" onclick="goPhase(1)">← 戻る</button>
+      <button class="btn earth" onclick="goPhase(3)" id="p2next">次へ →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Phase 3: タイムライン可視化 -->
+<div class="phase" id="phase3">
+  <div class="card">
+    <h2 class="sun" style="color:var(--sun)">③ 24時間タイムラインで、地球を見る</h2>
+    <p>9/21（UTC基準）の24時間に、いま登録されている人がどう並んでいるか。<br>
+      <strong>赤いマスが「空いている時間帯」</strong> ── ここをカバーする友人を次のステップで探します。</p>
+
+    <div class="stats">
+      <div class="stat"><div class="num" id="filledCount">0</div><div class="lbl">埋まっている時間帯</div></div>
+      <div class="stat"><div class="num gap" id="gapCount">24</div><div class="lbl">空き時間帯</div></div>
+      <div class="stat"><div class="num earth" id="totalPeople">0</div><div class="lbl">登録人数</div></div>
+    </div>
+
+    <div class="timeline-wrap">
+      <div class="timeline" id="timeline"></div>
+    </div>
+
+    <div class="legend">
+      <span class="lg-me">あなた</span>
+      <span class="lg-filled">友人がカバー</span>
+      <span class="lg-gap">空き時間帯</span>
+    </div>
+
+    <p class="mute" style="margin-top:8px">
+      ※ 各マスの上段は UTC時刻、下段は そこにいる人の名前（複数いる場合は最初の1人＋"+"）。
+    </p>
+
+    <div class="nav">
+      <button class="btn outline" onclick="goPhase(2)">← 友人を追加する</button>
+      <button class="btn earth" onclick="goPhase(4)">空き時間を見る →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Phase 4: 空き時間と誰に声をかけるか -->
+<div class="phase" id="phase4">
+  <div class="card">
+    <h2 class="peace">④ 空き時間にいそうな友人を、思い出す</h2>
+    <p>空き時間帯（UTC）と、その時間が <strong>朝〜夕方になる地域</strong> をヒントに、誰が思い浮かびますか？</p>
+
+    <div id="gapList" class="gap-list"></div>
+
+    <div class="help">
+      💡 ヒント：「この時間帯、活動的なのは○○地域」 → 「○○地域に住んでる知り合いいたっけ？」 → 思い出したら、ステップ②に戻って追加。<br>
+      💡 思い出せなくても OK。<strong>「この時間帯にいる友人を1人紹介してください」</strong> と、いま登録済みの誰かに頼むのもアリ。
+    </div>
+
+    <div class="nav">
+      <button class="btn outline" onclick="goPhase(3)">← タイムラインに戻る</button>
+      <button class="btn earth" onclick="goPhase(5)">招待文を作る →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Phase 5: 招待文 -->
+<div class="phase" id="phase5">
+  <div class="card">
+    <h2 class="sun" style="color:var(--sun)">⑤ 招待文 ── そのままコピーして送れる</h2>
+    <p>「無理なく・押し付けがましくなく・参加が楽になる」温度で書いてあります。<br>
+      宛先に応じて、日本語／英語を切り替えてください。</p>
+
+    <div class="template-tabs">
+      <button class="active" onclick="showTemplate('ja', this)">🇯🇵 日本語</button>
+      <button onclick="showTemplate('en', this)">🌐 English</button>
+      <button onclick="showTemplate('intro', this)">🤝 紹介依頼</button>
+    </div>
+
+    <div class="template-wrap">
+      <button class="copy-btn" onclick="copyTemplate()">📋 コピー</button>
+      <div class="template" id="templateText"></div>
+    </div>
+
+    <div class="help">
+      💡 LINE/Messenger/WhatsApp/Email、どの媒体でもOK。最初の一言だけ媒体に合わせてカジュアル化を。
+    </div>
+
+    <div class="nav">
+      <button class="btn outline" onclick="goPhase(4)">← 空き時間に戻る</button>
+      <button class="btn earth" onclick="goPhase(6)">まとめへ →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Phase 6: サマリー -->
+<div class="phase" id="phase6">
+  <div class="card">
+    <h2 class="peace">⑥ あなたのピースデー仲間リスト</h2>
+    <p>今日できたことを Obsidian に残して、また明日続きをやれます。</p>
+
+    <div id="summaryView"></div>
+
+    <h3 style="margin-top:18px;color:var(--text-soft);font-size:.95rem">📤 持ち出す</h3>
+    <div style="margin-top:8px">
+      <button class="btn earth" onclick="exportMd()">📝 Markdownで保存</button>
+      <button class="btn sun" onclick="shareLink()">🔗 シェア用テキスト</button>
+      <button class="btn outline" onclick="resetAll()">🔄 最初から</button>
+    </div>
+
+    <details style="margin-top:18px">
+      <summary>🌍 9/21まであと何日？</summary>
+      <p id="daysToPeaceDay" style="font-size:1.1rem;color:var(--sun);padding:8px 0"></p>
+    </details>
+
+    <div class="nav">
+      <button class="btn outline" onclick="goPhase(0)">最初から見直す</button>
+      <span></span>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>🌍 ピースデー地球一周リレー 仲間集めアプリ ・ 完全ローカル動作 ・ オフライン OK</p>
+  <p style="margin-top:6px">制作: 鈴木利和（ありえる楽考ファシリテーター） / 編集サポート: Claudian</p>
+</footer>
+
+</div>
+
+<script>
+/* ===================== Cities Database ===================== */
+const CITIES = [
+  // East Asia
+  {city:'東京', offset:9, region:'東アジア', label:'東京 (UTC+9)'},
+  {city:'大阪', offset:9, region:'東アジア', label:'大阪 (UTC+9)'},
+  {city:'ソウル', offset:9, region:'東アジア', label:'ソウル (UTC+9)'},
+  {city:'北京', offset:8, region:'東アジア', label:'北京 (UTC+8)'},
+  {city:'上海', offset:8, region:'東アジア', label:'上海 (UTC+8)'},
+  {city:'香港', offset:8, region:'東アジア', label:'香港 (UTC+8)'},
+  {city:'台北', offset:8, region:'東アジア', label:'台北 (UTC+8)'},
+  // SE Asia
+  {city:'シンガポール', offset:8, region:'東南アジア', label:'シンガポール (UTC+8)'},
+  {city:'クアラルンプール', offset:8, region:'東南アジア', label:'クアラルンプール (UTC+8)'},
+  {city:'バンコク', offset:7, region:'東南アジア', label:'バンコク (UTC+7)'},
+  {city:'ジャカルタ', offset:7, region:'東南アジア', label:'ジャカルタ (UTC+7)'},
+  {city:'ホーチミン', offset:7, region:'東南アジア', label:'ホーチミン (UTC+7)'},
+  {city:'マニラ', offset:8, region:'東南アジア', label:'マニラ (UTC+8)'},
+  // South Asia
+  {city:'デリー', offset:5.5, region:'南アジア', label:'デリー (UTC+5.5)'},
+  {city:'ムンバイ', offset:5.5, region:'南アジア', label:'ムンバイ (UTC+5.5)'},
+  {city:'コロンボ', offset:5.5, region:'南アジア', label:'コロンボ (UTC+5.5)'},
+  {city:'ダッカ', offset:6, region:'南アジア', label:'ダッカ (UTC+6)'},
+  // Middle East
+  {city:'ドバイ', offset:4, region:'中東', label:'ドバイ (UTC+4)'},
+  {city:'テヘラン', offset:3.5, region:'中東', label:'テヘラン (UTC+3.5)'},
+  {city:'イスタンブール', offset:3, region:'中東', label:'イスタンブール (UTC+3)'},
+  {city:'エルサレム', offset:3, region:'中東', label:'エルサレム (UTC+3)'},
+  // Africa
+  {city:'カイロ', offset:2, region:'アフリカ', label:'カイロ (UTC+2)'},
+  {city:'ヨハネスブルク', offset:2, region:'アフリカ', label:'ヨハネスブルク (UTC+2)'},
+  {city:'ナイロビ', offset:3, region:'アフリカ', label:'ナイロビ (UTC+3)'},
+  {city:'ラゴス', offset:1, region:'アフリカ', label:'ラゴス (UTC+1)'},
+  // Europe
+  {city:'モスクワ', offset:3, region:'ヨーロッパ', label:'モスクワ (UTC+3)'},
+  {city:'ベルリン', offset:2, region:'ヨーロッパ', label:'ベルリン (UTC+2 夏時間)'},
+  {city:'パリ', offset:2, region:'ヨーロッパ', label:'パリ (UTC+2 夏時間)'},
+  {city:'ローマ', offset:2, region:'ヨーロッパ', label:'ローマ (UTC+2 夏時間)'},
+  {city:'マドリード', offset:2, region:'ヨーロッパ', label:'マドリード (UTC+2 夏時間)'},
+  {city:'アムステルダム', offset:2, region:'ヨーロッパ', label:'アムステルダム (UTC+2 夏時間)'},
+  {city:'ロンドン', offset:1, region:'ヨーロッパ', label:'ロンドン (UTC+1 夏時間)'},
+  {city:'ダブリン', offset:1, region:'ヨーロッパ', label:'ダブリン (UTC+1 夏時間)'},
+  {city:'レイキャビク', offset:0, region:'ヨーロッパ', label:'レイキャビク (UTC+0)'},
+  // Atlantic / America
+  {city:'リオデジャネイロ', offset:-3, region:'南米', label:'リオデジャネイロ (UTC-3)'},
+  {city:'サンパウロ', offset:-3, region:'南米', label:'サンパウロ (UTC-3)'},
+  {city:'ブエノスアイレス', offset:-3, region:'南米', label:'ブエノスアイレス (UTC-3)'},
+  {city:'リマ', offset:-5, region:'南米', label:'リマ (UTC-5)'},
+  {city:'メキシコシティ', offset:-6, region:'中米', label:'メキシコシティ (UTC-6)'},
+  // North America
+  {city:'ニューヨーク', offset:-4, region:'北米東', label:'ニューヨーク (UTC-4 夏時間)'},
+  {city:'トロント', offset:-4, region:'北米東', label:'トロント (UTC-4 夏時間)'},
+  {city:'ボストン', offset:-4, region:'北米東', label:'ボストン (UTC-4 夏時間)'},
+  {city:'シカゴ', offset:-5, region:'北米中', label:'シカゴ (UTC-5 夏時間)'},
+  {city:'デンバー', offset:-6, region:'北米山', label:'デンバー (UTC-6 夏時間)'},
+  {city:'ロサンゼルス', offset:-7, region:'北米西', label:'ロサンゼルス (UTC-7 夏時間)'},
+  {city:'サンフランシスコ', offset:-7, region:'北米西', label:'サンフランシスコ (UTC-7 夏時間)'},
+  {city:'シアトル', offset:-7, region:'北米西', label:'シアトル (UTC-7 夏時間)'},
+  {city:'バンクーバー', offset:-7, region:'北米西', label:'バンクーバー (UTC-7 夏時間)'},
+  // Pacific
+  {city:'ホノルル', offset:-10, region:'太平洋', label:'ホノルル (UTC-10)'},
+  {city:'アンカレッジ', offset:-8, region:'太平洋', label:'アンカレッジ (UTC-8 夏時間)'},
+  {city:'シドニー', offset:10, region:'オセアニア', label:'シドニー (UTC+10)'},
+  {city:'メルボルン', offset:10, region:'オセアニア', label:'メルボルン (UTC+10)'},
+  {city:'パース', offset:8, region:'オセアニア', label:'パース (UTC+8)'},
+  {city:'オークランド', offset:12, region:'オセアニア', label:'オークランド (UTC+12)'},
+];
+
+/* ===================== State ===================== */
+const STORAGE_KEY = 'peace-relay-v1';
+const state = {
+  phase: 0,
+  me: {name:'', city:'', offset:null},
+  friends: [],     // [{name, city, offset, region}]
+  templateLang: 'ja',
+};
+
+/* ===================== Init ===================== */
+function init(){
+  loadState();
+  populateCityDropdowns();
+  renderProgress();
+  renderFriends();
+  renderTimeline();
+  renderGapList();
+  showTemplate(state.templateLang, null);
+  renderSummary();
+  renderDays();
+  if(state.me.name) document.getElementById('meName').value = state.me.name;
+  if(state.me.city) {
+    const sel = document.getElementById('meCity');
+    sel.value = state.me.city;
+  }
+  if(state.me.offset !== null) document.getElementById('meOffset').value = formatOffset(state.me.offset);
+}
+
+function populateCityDropdowns(){
+  const meSel = document.getElementById('meCity');
+  const frSel = document.getElementById('frCity');
+  // Group by region
+  const byRegion = {};
+  CITIES.forEach(c => {
+    if(!byRegion[c.region]) byRegion[c.region] = [];
+    byRegion[c.region].push(c);
+  });
+  // Sort regions in geographical order roughly
+  const regionOrder = ['東アジア','東南アジア','オセアニア','南アジア','中東','アフリカ','ヨーロッパ','南米','中米','北米東','北米中','北米山','北米西','太平洋'];
+  regionOrder.forEach(r => {
+    if(!byRegion[r]) return;
+    [meSel, frSel].forEach(sel => {
+      const og = document.createElement('optgroup');
+      og.label = r;
+      byRegion[r].forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c.city;
+        opt.textContent = c.label;
+        og.appendChild(opt);
+      });
+      sel.appendChild(og);
+    });
+  });
+}
+
+/* ===================== Persistence ===================== */
+function saveState(){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
+}
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return;
+    const d = JSON.parse(raw);
+    Object.assign(state, d);
+  }catch(e){}
+}
+
+/* ===================== Navigation ===================== */
+const PHASE_LABELS = ['START','①あなた','②友人','③タイムライン','④空き時間','⑤招待文','⑥まとめ'];
+function renderProgress(){
+  const el = document.getElementById('progress');
+  el.innerHTML = '';
+  PHASE_LABELS.forEach((_, i) => {
+    const sp = document.createElement('span');
+    if(i === state.phase) sp.className = 'active';
+    else if(i < state.phase) sp.className = 'done';
+    el.appendChild(sp);
+  });
+}
+function goPhase(n){
+  state.phase = n;
+  document.querySelectorAll('.phase').forEach(el => el.classList.remove('active'));
+  document.getElementById('phase'+n).classList.add('active');
+  renderProgress();
+  if(n === 3) renderTimeline();
+  if(n === 4) renderGapList();
+  if(n === 5) showTemplate(state.templateLang, null);
+  if(n === 6){ renderSummary(); renderDays(); }
+  saveState();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ===================== Phase 1: Me ===================== */
+function findCity(name){ return CITIES.find(c => c.city === name); }
+function applyCityToMe(){
+  const v = document.getElementById('meCity').value;
+  const c = findCity(v);
+  if(c){
+    document.getElementById('meOffset').value = formatOffset(c.offset);
+  }
+}
+function useManualMe(){
+  const city = document.getElementById('meCityManual').value.trim();
+  const off = parseFloat(document.getElementById('meOffsetManual').value);
+  if(!city || isNaN(off)){ alert('都市名とオフセットを入力してください'); return; }
+  document.getElementById('meCity').value = '';
+  document.getElementById('meOffset').value = formatOffset(off);
+  state.me.city = city;
+  state.me.offset = off;
+  saveState();
+}
+function saveMeAndNext(){
+  const name = document.getElementById('meName').value.trim();
+  if(!name){ alert('名前を入れてください'); return; }
+  state.me.name = name;
+  const citySel = document.getElementById('meCity').value;
+  if(citySel){
+    const c = findCity(citySel);
+    state.me.city = c.city;
+    state.me.offset = c.offset;
+  }
+  if(state.me.offset === null){ alert('都市を選ぶか、手入力で場所を反映してください'); return; }
+  saveState();
+  goPhase(2);
+}
+
+/* ===================== Phase 2: Friends ===================== */
+function addFriend(){
+  const name = document.getElementById('frName').value.trim();
+  const cityVal = document.getElementById('frCity').value;
+  if(!name || !cityVal){ alert('名前と都市を入れてください'); return; }
+  const c = findCity(cityVal);
+  state.friends.push({name, city:c.city, offset:c.offset, region:c.region});
+  document.getElementById('frName').value = '';
+  document.getElementById('frCity').value = '';
+  saveState();
+  renderFriends();
+  renderTimeline();
+}
+function addFriendManual(){
+  const name = document.getElementById('frNameM').value.trim();
+  const city = document.getElementById('frCityM').value.trim();
+  const off = parseFloat(document.getElementById('frOffsetM').value);
+  if(!name || !city || isNaN(off)){ alert('全て入力してください'); return; }
+  state.friends.push({name, city, offset:off, region:'手入力'});
+  document.getElementById('frNameM').value = '';
+  document.getElementById('frCityM').value = '';
+  document.getElementById('frOffsetM').value = '';
+  saveState();
+  renderFriends();
+  renderTimeline();
+}
+function removeFriend(i){
+  state.friends.splice(i, 1);
+  saveState();
+  renderFriends();
+  renderTimeline();
+}
+function renderFriends(){
+  const el = document.getElementById('friendList');
+  document.getElementById('friendCount').textContent = state.friends.length;
+  el.innerHTML = '';
+  state.friends.forEach((f, i) => {
+    const row = document.createElement('div');
+    row.className = 'friend-row';
+    row.innerHTML = `
+      <span class="who"><strong>${escapeHtml(f.name)}</strong>
+        <span class="where">@ ${escapeHtml(f.city)}</span>
+        <span class="tz">UTC${formatOffset(f.offset)}</span>
+      </span>
+      <button class="del" onclick="removeFriend(${i})">×</button>
+    `;
+    el.appendChild(row);
+  });
+}
+
+/* ===================== Phase 3: Timeline ===================== */
+// Determine who is "active" at UTC hour H (we say "active" if local time is between 7:00 and 22:00)
+function isActiveAt(utcHour, offset){
+  let local = (utcHour + offset) % 24;
+  if(local < 0) local += 24;
+  return local >= 7 && local < 22;  // 7:00 〜 21:59 がアクティブ帯
+}
+function whoAtUTC(utcHour){
+  const list = [];
+  if(state.me.offset !== null && isActiveAt(utcHour, state.me.offset)){
+    list.push({name: state.me.name || 'あなた', isMe:true, city: state.me.city});
+  }
+  state.friends.forEach(f => {
+    if(isActiveAt(utcHour, f.offset)){
+      list.push({name:f.name, isMe:false, city:f.city});
+    }
+  });
+  return list;
+}
+function renderTimeline(){
+  const el = document.getElementById('timeline');
+  if(!el) return;
+  el.innerHTML = '';
+  let filled = 0;
+  for(let h = 0; h < 24; h++){
+    const ppl = whoAtUTC(h);
+    const div = document.createElement('div');
+    div.className = 'slot';
+    if(ppl.length === 0){
+      div.classList.add('gap');
+    } else if(ppl.length === 1 && ppl[0].isMe){
+      div.classList.add('me');
+      filled++;
+    } else {
+      div.classList.add('filled');
+      filled++;
+    }
+    if(ppl.length > 1) div.classList.add('multi');
+    const label = ppl.length === 0 ? '空' : (ppl[0].name || '?');
+    div.innerHTML = `<span class="hr">${pad(h)}</span><span class="nm">${escapeHtml(label.slice(0,6))}</span>`;
+    div.title = ppl.length === 0
+      ? `UTC ${pad(h)}:00 ── 空き時間`
+      : `UTC ${pad(h)}:00\n` + ppl.map(p => `${p.name} (${p.city})`).join('\n');
+    el.appendChild(div);
+  }
+  document.getElementById('filledCount').textContent = filled;
+  document.getElementById('gapCount').textContent = 24 - filled;
+  document.getElementById('totalPeople').textContent = state.friends.length + (state.me.offset !== null ? 1 : 0);
+}
+
+/* ===================== Phase 4: Gap Analysis ===================== */
+function renderGapList(){
+  const el = document.getElementById('gapList');
+  if(!el) return;
+  el.innerHTML = '';
+  // Find contiguous gaps
+  const gaps = [];
+  let cur = null;
+  for(let h = 0; h < 24; h++){
+    const ppl = whoAtUTC(h);
+    if(ppl.length === 0){
+      if(!cur) cur = {start:h, end:h};
+      else cur.end = h;
+    } else {
+      if(cur){ gaps.push(cur); cur = null; }
+    }
+  }
+  if(cur) gaps.push(cur);
+  if(gaps.length === 0){
+    el.innerHTML = `<div style="background:var(--peace-soft);padding:14px;border-radius:10px;border-left:3px solid var(--peace);color:var(--peace);">
+      🎉 おめでとう！24時間ぜんぶ誰かが活動している時間帯に当たっています。<br>
+      <span style="color:var(--text-soft);font-size:.88rem">あとは各時間帯の人に "9/21にバトン受け取ってくれる？" と声をかけるだけ。</span>
+    </div>`;
+    return;
+  }
+  gaps.forEach(g => {
+    const hint = guessRegionsForUTC(g.start, g.end);
+    const block = document.createElement('div');
+    block.className = 'gap-block';
+    block.innerHTML = `
+      <div class="gap-time">⏰ UTC ${pad(g.start)}:00 〜 ${pad((g.end+1)%24)}:00 が空いています</div>
+      <div class="gap-hint">この時間帯に "朝〜夕方" になっている地域： <strong>${hint.regions.join(' / ') || '不明'}</strong></div>
+      <div class="gap-cities">該当する都市の例： ${hint.cities.slice(0,8).join('・') || '—'}</div>
+    `;
+    el.appendChild(block);
+  });
+}
+function guessRegionsForUTC(s, e){
+  const regions = new Set();
+  const cities = new Set();
+  for(let h = s; h <= e; h++){
+    CITIES.forEach(c => {
+      if(isActiveAt(h, c.offset)){
+        regions.add(c.region);
+        cities.add(c.city);
+      }
+    });
+  }
+  return {regions:[...regions], cities:[...cities]};
+}
+
+/* ===================== Phase 5: Templates ===================== */
+function showTemplate(lang, btn){
+  state.templateLang = lang;
+  document.querySelectorAll('.template-tabs button').forEach(b => b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  else {
+    // first button if no btn
+    const buttons = document.querySelectorAll('.template-tabs button');
+    const idx = lang === 'ja' ? 0 : (lang === 'en' ? 1 : 2);
+    if(buttons[idx]) buttons[idx].classList.add('active');
+  }
+  const me = state.me.name || 'わたし';
+  const myCity = state.me.city || '東京';
+  const t = {
+    ja: `こんにちは！${me} です。
+
+9月21日は「世界平和の日（ピースデー）」。
+この日に、世界中の友人で 24時間バトンをまわす "地球一周リレー" をやってみたくて、いま仲間を集めています。
+
+参加といっても、特別なことは何もなくて、
+あなたが住む街の "あなたが起きてる時間帯" に
+☘️ 写真を1枚
+☘️ または "今日のピース" を一言（メッセージでも、祈りでも、散歩でも）
+を SNS かグループチャットに投稿してくれるだけ。
+
+5分くらいで終わるし、強制でも義務でもありません。
+"無理なく" がいちばん大事にしてること。
+
+もし「いいかも」と思ってくれたら、教えてください 🌍
+詳細は決まり次第シェアします！`,
+
+    en: `Hi! I'm ${me} from ${myCity}.
+
+September 21 is the International Day of Peace.
+A few of us are putting together a "Round-the-Earth Relay" — a 24-hour, friend-to-friend baton across time zones on Peace Day.
+
+What participation means (no pressure at all):
+🌱 During your awake hours that day,
+🌱 share one photo, or one line, of "peace" — a message, a prayer, a walk, anything —
+to your SNS or a group chat.
+
+Takes 5 minutes. Totally voluntary, totally informal.
+The whole point is that it happens *without strain*.
+
+If this sounds like fun, just say "in" and I'll loop you in when the plan firms up. 🌍`,
+
+    intro: `こんにちは、${me} です。
+
+9月21日のピースデーに、世界中の友人で 24時間リレーを回す企画をやろうとしているのですが、
+ちょっと相談があります🙏
+
+いま自分の知り合いだけだと「${getGapHintForIntro()}」あたりの時間帯が空いていて、
+もし ${getGapHintForIntro()} 在住の友人を1人 紹介してもらえたら、地球が一周しそうなんです。
+
+紹介してもよさそうな人、もしいらっしゃったら教えてもらえませんか？
+（紹介された方には私から直接ご連絡します）
+
+無理にとは全然思っていません。「いないかも」でも全然OKです 🙏`,
+  };
+  document.getElementById('templateText').textContent = t[lang];
+}
+function getGapHintForIntro(){
+  // Find first gap
+  for(let h = 0; h < 24; h++){
+    const ppl = whoAtUTC(h);
+    if(ppl.length === 0){
+      const hint = guessRegionsForUTC(h, h);
+      return hint.regions[0] || '海外';
+    }
+  }
+  return '海外';
+}
+function copyTemplate(){
+  const text = document.getElementById('templateText').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    alert('📋 コピーしました！\nLINE / Email / SNS に貼り付けて送ってください。');
+  });
+}
+
+/* ===================== Phase 6: Summary ===================== */
+function renderSummary(){
+  const el = document.getElementById('summaryView');
+  if(!el) return;
+  const filled = countFilled();
+  const gaps = 24 - filled;
+  const pct = Math.round(filled / 24 * 100);
+  el.innerHTML = `
+    <div class="summary-section">
+      <h3>🌍 進捗</h3>
+      <div class="data">
+        <strong>${pct}%</strong> カバー（${filled}/24時間）<br>
+        登録メンバー：あなた + ${state.friends.length}人
+      </div>
+    </div>
+    <div class="summary-section">
+      <h3>👥 仲間リスト</h3>
+      <div class="data">
+        ${state.me.name ? `<strong>${escapeHtml(state.me.name)}</strong> @ ${escapeHtml(state.me.city || '?')} (UTC${formatOffset(state.me.offset || 0)})` : '（あなたが未登録）'}
+        ${state.friends.map(f => `<br>${escapeHtml(f.name)} @ ${escapeHtml(f.city)} (UTC${formatOffset(f.offset)})`).join('')}
+      </div>
+    </div>
+    <div class="summary-section">
+      <h3>⏰ 次にやること</h3>
+      <div class="data">
+        ${gaps > 0
+          ? `空き時間が ${gaps}コマあります。<br>ステップ⑤の "紹介依頼" テンプレで、現在の仲間に "○○地域の人を1人紹介して" と頼んでみる`
+          : `🎉 24時間カバー完了！あとは各メンバーに招待文を送るだけ。`}
+      </div>
+    </div>
+  `;
+}
+function countFilled(){
+  let c = 0;
+  for(let h = 0; h < 24; h++) if(whoAtUTC(h).length > 0) c++;
+  return c;
+}
+function renderDays(){
+  const target = new Date(new Date().getFullYear(), 8, 21);  // Sep 21
+  const today = new Date();
+  if(target < today) target.setFullYear(target.getFullYear() + 1);
+  const days = Math.ceil((target - today) / (1000*60*60*24));
+  document.getElementById('daysToPeaceDay').textContent =
+    `あと ${days}日 で 9/21 ピースデーです 🌍`;
+}
+
+/* ===================== Export / Share ===================== */
+function exportMd(){
+  const d = new Date().toISOString().slice(0,10);
+  const filled = countFilled();
+  const lines = [];
+  lines.push(`---`);
+  lines.push(`title: ピースデー地球一周リレー仲間集め ${d}`);
+  lines.push(`created: ${d}`);
+  lines.push(`tags: [ピースデー, 地球一周リレー, 仲間集め]`);
+  lines.push(`---`);
+  lines.push('');
+  lines.push(`# 🌍 ピースデー地球一周リレー 仲間集め記録（${d}）`);
+  lines.push('');
+  lines.push(`## 進捗`);
+  lines.push(`- カバー率：${Math.round(filled/24*100)}% （${filled}/24時間）`);
+  lines.push(`- 登録メンバー：あなた + ${state.friends.length}人`);
+  lines.push('');
+  lines.push(`## あなた`);
+  lines.push(`- ${state.me.name || '?'} @ ${state.me.city || '?'} (UTC${formatOffset(state.me.offset || 0)})`);
+  lines.push('');
+  lines.push(`## 友人リスト`);
+  state.friends.forEach(f => {
+    lines.push(`- ${f.name} @ ${f.city} (UTC${formatOffset(f.offset)}) ${f.region ? `／ ${f.region}` : ''}`);
+  });
+  lines.push('');
+  lines.push(`## 24時間タイムライン（UTC）`);
+  lines.push('| UTC時刻 | 状態 | 参加者 |');
+  lines.push('|---|---|---|');
+  for(let h = 0; h < 24; h++){
+    const ppl = whoAtUTC(h);
+    const stt = ppl.length === 0 ? '🔴 空き' : '🟢 埋';
+    const names = ppl.map(p => p.name).join('・') || '—';
+    lines.push(`| ${pad(h)}:00 | ${stt} | ${names} |`);
+  }
+  lines.push('');
+  lines.push(`## 空き時間（次に探す）`);
+  const gaps = findGaps();
+  if(gaps.length === 0){
+    lines.push(`- 🎉 24時間ぜんぶ埋まっています！`);
+  } else {
+    gaps.forEach(g => {
+      const hint = guessRegionsForUTC(g.start, g.end);
+      lines.push(`- UTC ${pad(g.start)}:00〜${pad((g.end+1)%24)}:00 ── ${hint.regions.join('／') || '?'} の友人を探す`);
+    });
+  }
+  lines.push('');
+  lines.push(`## 招待文（日本語）`);
+  lines.push('```');
+  lines.push(document.getElementById('templateText').textContent);
+  lines.push('```');
+  lines.push('');
+  lines.push(`---`);
+  lines.push(`*🌍 ピースデー地球一周リレー 仲間集めアプリ ／ Claudian と一緒に*`);
+
+  const blob = new Blob([lines.join('\n')], {type:'text/markdown'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `ピースデー仲間集め_${d}.md`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+function findGaps(){
+  const gaps = [];
+  let cur = null;
+  for(let h = 0; h < 24; h++){
+    const ppl = whoAtUTC(h);
+    if(ppl.length === 0){
+      if(!cur) cur = {start:h, end:h};
+      else cur.end = h;
+    } else {
+      if(cur){ gaps.push(cur); cur = null; }
+    }
+  }
+  if(cur) gaps.push(cur);
+  return gaps;
+}
+function shareLink(){
+  const filled = countFilled();
+  const t = `🌍 ピースデー地球一周リレー 仲間集め中！
+現在カバー率：${Math.round(filled/24*100)}% (${filled}/24時間)
+参加者：${state.friends.length + 1}人
+
+9/21、24時間で世界を一周するリレーをやります。
+"あなたが起きている時間帯に1枚写真を投稿"だけ。
+無理なく参加できます。
+
+#PeaceDay #地球一周リレー`;
+  navigator.clipboard.writeText(t).then(() => {
+    alert('📋 シェア用テキストをコピーしました！\nX / Facebook / LINE に貼り付けて投稿してください。');
+  });
+}
+function resetAll(){
+  if(!confirm('すべての登録データを消して、最初からやり直しますか？\n（友人リストも消えます）')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  location.reload();
+}
+
+/* ===================== Utils ===================== */
+function pad(n){ return String(n).padStart(2,'0'); }
+function formatOffset(o){
+  if(o === 0) return '±0';
+  const sign = o > 0 ? '+' : '';
+  return sign + o;
+}
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[c]));
+}
+
+/* ===================== Boot ===================== */
+window.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
