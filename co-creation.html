@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>🌱 共創関係イメージング — 相手の成功が自分の利益になる50事例</title>
+<meta name="description" content="参加者の成長・成功が自分の利益の拡大になる「共創関係」を、50事例で発見し、自分の共創マップを描くアプリ。">
+<style>
+  :root{
+    --bg:#f5f0e0;
+    --bg-2:#eee6cf;
+    --card:#ffffff;
+    --card-2:#faf6e8;
+    --line:#d9cea6;
+    --text:#2a2a20;
+    --text-soft:#5a5644;
+    --text-mute:#8a8570;
+    --forest:#2d5016;       /* 深い緑 (成長) */
+    --forest-soft:#5a7d3a;
+    --leaf:#7ab85c;         /* 若葉 */
+    --gold:#c9962b;         /* 金 (豊かさ) */
+    --gold-soft:#e6ba54;
+    --sun:#e07a3a;          /* オレンジ (つながり) */
+    --sun-soft:#f4c298;
+    --sky:#4a7c9c;          /* 藍 (プロ) */
+    --plum:#8e5e8f;         /* 紫 (創造) */
+    --clay:#a67244;         /* 茶 (地域) */
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+    background:linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+    color:var(--text);line-height:1.75;
+    min-height:100vh;padding:20px 14px 80px;
+  }
+  .wrap{max-width:820px;margin:0 auto}
+  header{text-align:center;padding:20px 0 24px}
+  h1{font-size:1.5rem;margin-bottom:6px;letter-spacing:.02em;color:var(--forest)}
+  header p{color:var(--text-soft);font-size:.94rem}
+  .badge{
+    display:inline-block;padding:3px 12px;font-size:.72rem;
+    background:var(--forest);color:#fff;
+    border-radius:12px;margin-top:8px;
+  }
+
+  .progress{display:flex;gap:4px;margin:8px 0 20px;flex-wrap:wrap}
+  .progress span{
+    flex:1;min-width:30px;height:5px;border-radius:3px;background:#dccfa8;
+  }
+  .progress span.active{background:var(--forest)}
+  .progress span.done{background:var(--leaf)}
+
+  .phase{display:none}
+  .phase.active{display:block}
+
+  .card{
+    background:var(--card);border-radius:14px;padding:22px 20px;
+    margin:14px 0;box-shadow:0 2px 12px rgba(70,55,20,.08);
+  }
+  .card h2{font-size:1.18rem;margin-bottom:10px;color:var(--forest)}
+  .card h2.gold{color:var(--gold)}
+  .card h2.sun{color:var(--sun)}
+  .card p{color:var(--text-soft);font-size:.94rem;margin-bottom:10px}
+  .card p.mute{color:var(--text-mute);font-size:.85rem}
+  .lead{
+    font-size:1.02rem;color:var(--text);line-height:1.85;
+    background:var(--card-2);padding:14px 16px;border-radius:10px;
+    margin:10px 0;border-left:3px solid var(--forest);
+  }
+
+  label.field{display:block;margin:14px 0 4px;font-size:.9rem;color:var(--text-soft)}
+  input[type="text"],select,textarea{
+    width:100%;padding:10px 12px;border:1px solid var(--line);
+    background:#fff;color:var(--text);
+    border-radius:8px;font-size:.96rem;font-family:inherit;
+    transition:border .15s;
+  }
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--forest)}
+  textarea{min-height:80px;resize:vertical;line-height:1.6}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  @media(max-width:520px){.row{grid-template-columns:1fr}}
+
+  button.btn{
+    display:inline-block;padding:11px 22px;border-radius:8px;border:none;
+    background:var(--forest);color:#fff;font-weight:600;font-size:.94rem;
+    cursor:pointer;transition:transform .1s, background .15s;font-family:inherit;
+    margin:6px 4px;
+  }
+  button.btn:hover{background:#3d6b1e;transform:translateY(-1px)}
+  button.btn.gold{background:var(--gold)}
+  button.btn.gold:hover{background:#b78324}
+  button.btn.sun{background:var(--sun)}
+  button.btn.sun:hover{background:#c26429}
+  button.btn.outline{
+    background:transparent;border:1px solid var(--line);color:var(--text-soft);
+  }
+  button.btn.outline:hover{border-color:var(--forest);color:var(--forest);background:transparent}
+  button.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+  .nav{display:flex;justify-content:space-between;margin-top:18px;gap:8px}
+
+  /* Filter bar */
+  .filter-bar{
+    display:flex;flex-wrap:wrap;gap:6px;margin:14px 0;
+  }
+  .chip{
+    padding:6px 14px;border-radius:16px;
+    background:#fff;color:var(--text-soft);
+    border:1px solid var(--line);cursor:pointer;
+    font-size:.82rem;transition:all .12s;
+    user-select:none;
+  }
+  .chip:hover{border-color:var(--forest);color:var(--forest)}
+  .chip.active{background:var(--forest);color:#fff;border-color:var(--forest)}
+  .chip.cat-supply.active{background:var(--forest)}
+  .chip.cat-create.active{background:var(--plum);border-color:var(--plum)}
+  .chip.cat-pro.active{background:var(--sky);border-color:var(--sky)}
+  .chip.cat-educate.active{background:var(--leaf);border-color:var(--leaf)}
+  .chip.cat-invest.active{background:var(--gold);border-color:var(--gold)}
+  .chip.cat-platform.active{background:var(--sun);border-color:var(--sun)}
+  .chip.cat-alliance.active{background:#c25a7d;border-color:#c25a7d}
+  .chip.cat-community.active{background:var(--clay);border-color:var(--clay)}
+
+  .search-row{margin:10px 0 6px}
+
+  .case-count{
+    color:var(--text-mute);font-size:.82rem;margin:6px 0 12px;text-align:right;
+  }
+
+  /* Cases grid */
+  .cases{display:grid;gap:10px}
+  .case{
+    background:var(--card);border-radius:10px;padding:14px 16px;
+    border-left:4px solid var(--line);cursor:pointer;
+    transition:box-shadow .12s, transform .1s;
+    position:relative;
+  }
+  .case:hover{
+    box-shadow:0 4px 14px rgba(70,55,20,.12);transform:translateY(-1px);
+  }
+  .case.cat-supply{border-left-color:var(--forest)}
+  .case.cat-create{border-left-color:var(--plum)}
+  .case.cat-pro{border-left-color:var(--sky)}
+  .case.cat-educate{border-left-color:var(--leaf)}
+  .case.cat-invest{border-left-color:var(--gold)}
+  .case.cat-platform{border-left-color:var(--sun)}
+  .case.cat-alliance{border-left-color:#c25a7d}
+  .case.cat-community{border-left-color:var(--clay)}
+  .case.selected{background:#fef8e0;border-left-width:6px}
+
+  .case-head{display:flex;align-items:baseline;gap:8px;margin-bottom:6px}
+  .case-id{font-size:.72rem;color:var(--text-mute);font-weight:600}
+  .case-cat{
+    font-size:.68rem;padding:2px 8px;border-radius:8px;
+    background:#f2ecd4;color:var(--text-soft);
+  }
+  .case-title{font-size:.98rem;font-weight:600;color:var(--text);flex:1}
+  .case-flow{
+    font-size:.88rem;color:var(--text-soft);margin:4px 0;line-height:1.7;
+  }
+  .case-flow .arrow{color:var(--forest);font-weight:700;margin:0 4px}
+
+  .case-detail{
+    display:none;margin-top:10px;padding-top:10px;
+    border-top:1px dashed var(--line);
+  }
+  .case.open .case-detail{display:block}
+  .case-detail .lbl{
+    font-size:.72rem;color:var(--forest);font-weight:600;
+    text-transform:uppercase;letter-spacing:.05em;margin:8px 0 2px;
+  }
+  .case-detail .val{font-size:.9rem;color:var(--text-soft);line-height:1.7}
+  .case-detail .val strong{color:var(--text)}
+
+  .case-actions{margin-top:10px;display:flex;gap:6px;flex-wrap:wrap}
+  .mini-btn{
+    padding:5px 12px;border-radius:6px;border:1px solid var(--forest);
+    background:transparent;color:var(--forest);cursor:pointer;
+    font-size:.78rem;font-family:inherit;
+  }
+  .mini-btn:hover{background:var(--forest);color:#fff}
+  .mini-btn.gold{border-color:var(--gold);color:var(--gold)}
+  .mini-btn.gold:hover{background:var(--gold);color:#fff}
+
+  /* Map builder */
+  .map-slot{
+    background:var(--card-2);border-radius:10px;padding:12px 14px;
+    margin:10px 0;border-left:3px solid var(--gold);
+  }
+  .map-slot .slot-label{
+    font-size:.78rem;color:var(--gold);font-weight:700;margin-bottom:4px;
+  }
+  .map-slot .slot-hint{
+    font-size:.8rem;color:var(--text-mute);margin-bottom:6px;
+  }
+
+  .chain-viz{
+    display:flex;align-items:center;justify-content:space-between;gap:8px;
+    background:var(--card-2);border-radius:10px;padding:14px;margin:12px 0;
+    flex-wrap:wrap;
+  }
+  .chain-node{
+    flex:1;min-width:100px;text-align:center;
+    background:#fff;padding:12px 8px;border-radius:8px;
+    border:2px solid var(--forest);color:var(--forest);font-weight:600;
+    font-size:.88rem;
+  }
+  .chain-node.partner{border-color:var(--sun);color:var(--sun)}
+  .chain-arrow{
+    font-size:1.4rem;color:var(--gold);flex-shrink:0;
+  }
+  @media(max-width:520px){
+    .chain-viz{flex-direction:column}
+    .chain-arrow{transform:rotate(90deg)}
+  }
+
+  .help{
+    background:#fef4d8;padding:10px 14px;border-radius:8px;
+    font-size:.85rem;color:var(--text-soft);margin:10px 0;
+    border-left:3px solid var(--gold);
+  }
+  .help strong{color:var(--forest)}
+
+  .declaration{
+    background:linear-gradient(135deg, #fef4d8 0%, #fff 100%);
+    padding:16px 18px;border-radius:12px;margin:14px 0;
+    border-left:4px solid var(--gold);
+    font-size:1.02rem;color:var(--text);line-height:1.9;
+  }
+
+  .summary-section{
+    background:var(--card-2);border-radius:10px;padding:14px 16px;margin:10px 0;
+  }
+  .summary-section h3{font-size:.95rem;color:var(--forest);margin-bottom:6px}
+  .summary-section .data{color:var(--text);font-size:.92rem;line-height:1.75}
+
+  details{margin:8px 0}
+  summary{cursor:pointer;color:var(--text-soft);font-size:.86rem;padding:6px 0}
+  summary:hover{color:var(--forest)}
+
+  footer{
+    margin-top:30px;padding:18px 0;text-align:center;
+    color:var(--text-mute);font-size:.78rem;border-top:1px solid var(--line);
+  }
+  footer a{color:var(--forest);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>🌱 共創関係イメージング</h1>
+  <p>参加者の成長・成功が、自分の利益の拡大になる ── その関係を50事例で発見する</p>
+  <span class="badge">50事例ライブラリ ・ 自分の共創マップ ・ 約20分</span>
+</header>
+
+<div class="progress" id="progress"></div>
+
+<!-- Phase 0: START -->
+<div class="phase active" id="phase0">
+  <div class="card">
+    <h2>🌱 「相手が伸びる = 自分も伸びる」の関係を、意識できているか？</h2>
+    <p class="lead">
+      あなたが担当している相手が伸びたとき、あなたの利益も自動的に伸びる ──
+      そんな関係が、実はあなたの周りにもたくさん眠っています。
+      <br><br>
+      たとえば、<strong>あなたが供給している原材料を使った最終製品が売れれば、あなたの売上も上がる</strong>。
+      あなたが育てた部下が成果を出せば、あなたの評価も上がる。
+      あなたが投資したスタートアップが上場すれば、あなたの資産が増える。
+      <br><br>
+      このアプリは、そうした <strong>共創関係の50事例</strong> をライブラリで眺めながら、
+      <strong>あなた自身の共創マップ</strong> を描き、<strong>「明日、相手の成功のためにできる最初の一歩」</strong> まで導きます。
+    </p>
+
+    <h2 class="gold" style="margin-top:20px">🎯 ゴール</h2>
+    <p>
+      「自分だけ頑張る」から「相手の成功に投資する」への視点転換。<br>
+      これは競争ゲームではなく、<strong>共創ゲーム</strong> です。
+    </p>
+
+    <details>
+      <summary>💡 なぜ「共創関係」を意識するとよいのか（クリックで展開）</summary>
+      <div style="padding:10px 14px;color:var(--text-soft);font-size:.9rem;line-height:1.85">
+        ・<strong>自分の努力の "レバー" が長くなる</strong> ── 自分1人で稼ぐより、相手の成長を支えるほうがリターンが大きくなる場合がある<br>
+        ・<strong>相手も自分を応援したくなる</strong> ── 「この人は私が伸びると得をする」と分かると、相手は情報や仕事を渡してくれる<br>
+        ・<strong>「奪い合い」ではなく「育て合い」</strong> ── 業界全体が伸びると、みんなが伸びる<br>
+        ・<strong>関係が長期化する</strong> ── 1回の取引ではなく、10年20年続くパートナーシップになる
+      </div>
+    </details>
+
+    <div class="nav">
+      <span></span>
+      <button class="btn" onclick="goPhase(1)">50事例を見る →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Phase 1: 50 Case Library -->
+<div class="phase" id="phase1">
+  <div class="card">
+    <h2>📚 共創関係 50事例ライブラリ</h2>
+    <p>気になるカテゴリで絞り込み、自分に似た関係を探してみてください。<br>
+      ⭐ を押すと、次のステップの「自分の共創マップ」に持ち込めます。</p>
+
+    <div class="filter-bar" id="filterBar">
+      <span class="chip active" data-cat="all" onclick="filterCat('all', this)">すべて</span>
+      <span class="chip cat-supply" data-cat="supply" onclick="filterCat('supply', this)">🏭 サプライチェーン</span>
+      <span class="chip cat-create" data-cat="create" onclick="filterCat('create', this)">🎨 クリエイティブ</span>
+      <span class="chip cat-pro" data-cat="pro" onclick="filterCat('pro', this)">👔 プロフェッショナル</span>
+      <span class="chip cat-educate" data-cat="educate" onclick="filterCat('educate', this)">🌱 育成・教育</span>
+      <span class="chip cat-invest" data-cat="invest" onclick="filterCat('invest', this)">💰 投資・金融</span>
+      <span class="chip cat-platform" data-cat="platform" onclick="filterCat('platform', this)">🎭 プラットフォーム</span>
+      <span class="chip cat-alliance" data-cat="alliance" onclick="filterCat('alliance', this)">🤝 アライアンス</span>
+      <span class="chip cat-community" data-cat="community" onclick="filterCat('community', this)">🏘️ 地域・コミュニティ</span>
+    </div>
+
+    <div class="search-row">
+      <input type="text" id="searchInput" placeholder="🔍 キーワード検索（役割・業界・キーワード）" oninput="renderCases()">
+    </div>
+
+    <div class="case-count" id="caseCount"></div>
+    <div class="cases" id="casesGrid"></div>
+
+    <div class="nav">
+      <button class="btn outline" onclick="goPhase(0)">← 戻る</button>
+      <button class="btn gold" onclick="goPhase(2)">自分の共創マップを作る →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Phase 2: My Map -->
+<div class="phase" id="phase2">
+  <div class="card">
+    <h2 class="gold">🗺 あなた自身の共創マップ</h2>
+    <p>気になった事例を参考にしながら、あなたの共創関係を1つ、具体的に描いてみましょう。</p>
+
+    <div class="map-slot">
+      <div class="slot-label">① あなたの役割は？</div>
+      <div class="slot-hint">例：部品メーカー ／ 経営コーチ ／ 育成マネージャー ／ 家庭教師</div>
+      <input type="text" id="myRole" placeholder="例：ありえる楽考ファシリテーター">
+    </div>
+
+    <div class="map-slot">
+      <div class="slot-label">② その成功があなたの利益を広げる相手は誰？</div>
+      <div class="slot-hint">具体的な人・団体・企業の名前でOK（例：山田さん、A社、コミュニティ全体）</div>
+      <input type="text" id="myPartner" placeholder="例：GC参加者の皆さん">
+    </div>
+
+    <div class="map-slot">
+      <div class="slot-label">③ 「相手の成功 → 自分の利益」の連鎖を描く</div>
+      <div class="slot-hint">相手のどんな成功が、どういう経路で、自分の何の利益を増やすか？</div>
+      <textarea id="myChain" placeholder="例：GC参加者が自分のGCを主催しはじめる → コミュニティの実践者が増える → ありえる楽考のブランドが強まる → 私への研修・執筆依頼が増える"></textarea>
+    </div>
+
+    <div class="map-slot">
+      <div class="slot-label">④ 参考にした事例（任意）</div>
+      <div class="slot-hint">前のステップで ⭐ を押した事例が下に出ます</div>
+      <div id="pickedCases" style="margin-top:6px;color:var(--text-soft);font-size:.88rem">まだ選択されていません</div>
+    </div>
+
+    <div class="chain-viz">
+      <div class="chain-node" id="vizMe">あなた</div>
+      <div class="chain-arrow">↔</div>
+      <div class="chain-node partner" id="vizPartner">相手</div>
+    </div>
+
+    <div class="help">
+      💡 <strong>ポイント</strong>：相手の成功が自分の利益になる関係は、
+      「奪い合い」ではなく「共に育つ」関係です。相手が伸びれば伸びるほど、
+      自分の努力の "レバー" が長くなります。
+    </div>
+
+    <div class="nav">
+      <button class="btn outline" onclick="goPhase(1)">← 事例に戻る</button>
+      <button class="btn gold" onclick="saveMapAndNext()">宣言を作る →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Phase 3: Declaration & First Step -->
+<div class="phase" id="phase3">
+  <div class="card">
+    <h2 class="sun">🌟 共創宣言 & 24時間以内の最初の一歩</h2>
+    <p>共創マップから、宣言と行動を引き出します。</p>
+
+    <div class="declaration" id="declarationView">
+      （マップを作ると、ここに宣言が生成されます）
+    </div>
+
+    <label class="field">🎯 24時間以内にできる、相手の成功を後押しする最初の1歩</label>
+    <div class="slot-hint" style="color:var(--text-mute);font-size:.82rem;margin-bottom:6px">
+      具体的なアクション1つ。5分でできる小さなことでOK。
+    </div>
+    <textarea id="firstStep" placeholder="例：山田さんに『前回のGCで話してた企画、応援したいから資料共有しませんか』とメッセージを送る"></textarea>
+
+    <label class="field">📅 いつやる？</label>
+    <input type="text" id="whenDo" placeholder="例：今日の夜、寝る前 ／ 明日の朝一 ／ 週末">
+
+    <div class="help">
+      💡 <strong>コツ</strong>：見返りを期待せずに、まず相手の成功を1つ後押しする。<br>
+      共創関係は「先に投資する側」から始まります。
+    </div>
+
+    <div class="nav">
+      <button class="btn outline" onclick="goPhase(2)">← マップに戻る</button>
+      <button class="btn sun" onclick="goPhase(4)">まとめる →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Phase 4: Summary & Export -->
+<div class="phase" id="phase4">
+  <div class="card">
+    <h2>📤 サマリー</h2>
+    <p>今日の共創マップを Obsidian に持ち帰って、育てていきましょう。</p>
+
+    <div id="summaryView"></div>
+
+    <h3 style="margin-top:18px;color:var(--text-soft);font-size:.95rem">📤 持ち出す</h3>
+    <div style="margin-top:8px">
+      <button class="btn" onclick="exportMd()">📝 Markdownで保存</button>
+      <button class="btn outline" onclick="speak()">🔊 宣言を音声で聴く</button>
+      <button class="btn outline" onclick="resetAll()">🔄 最初から</button>
+    </div>
+
+    <div class="help" style="margin-top:14px">
+      💡 <strong>次にすること</strong>：ここで書いた「24時間以内の1歩」を、実際にやる。<br>
+      1週間後にまた戻ってきて、共創マップを更新してください。関係は生き物です。
+    </div>
+
+    <div class="nav">
+      <button class="btn outline" onclick="goPhase(0)">最初から見直す</button>
+      <span></span>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>🌱 共創関係イメージング ・ 完全ローカル動作 ・ オフライン OK</p>
+  <p style="margin-top:6px">制作: 鈴木利和（ありえる楽考ファシリテーター） / 編集サポート: Claudian</p>
+</footer>
+
+</div>
+
+<script>
+/* ===================== 50 Cases Library ===================== */
+const CASES = [
+  // 🏭 サプライチェーン (10)
+  {id:1, cat:'supply', catLabel:'🏭 サプライチェーン', role:'部品メーカー', partner:'完成品メーカー（自動車・家電など）', title:'あなたの部品が使われた完成品がヒット', chain:'完成品の売上が伸びる → あなたへの部品発注が自動的に増える', insight:'完成品メーカーの営業チームは、実質あなたの "隠れた営業マン"', action:'完成品メーカーの企画部門と直接つながり、次のヒット商品の企画段階から自分の技術を組み込んでもらう'},
+  {id:2, cat:'supply', catLabel:'🏭 サプライチェーン', role:'半導体メーカー', partner:'デバイスメーカー（スマホ・PC）', title:'デバイスの世界的ヒット', chain:'スマホ・PCの出荷台数が伸びる → あなたのチップ発注が指数的に増える', insight:'デバイスの世代交代ごとに、あなたのチップ需要も跳ねる', action:'次世代デバイスの設計チームに、あなたの新チップの技術説明会を仕掛ける'},
+  {id:3, cat:'supply', catLabel:'🏭 サプライチェーン', role:'原材料商社', partner:'加工メーカー', title:'加工メーカーの新製品が売れる', chain:'加工メーカーの製品売上増 → 原材料の継続発注＋量が増える', insight:'加工メーカーの企画会議に呼ばれる関係になれば、需要予測も精度UP', action:'加工メーカーの開発チームに、新原料のサンプルと使い方提案書を持参する'},
+  {id:4, cat:'supply', catLabel:'🏭 サプライチェーン', role:'農家', partner:'食品加工会社', title:'加工品ヒット → 農産物の指定買い付け', chain:'加工品ブランドが成長 → あなたの農作物が "指名で" 買われる契約に', insight:'加工会社にとって "安定供給できる農家" は宝物', action:'加工会社に、他の農家仲間と一緒に "産地連合" を提案し、安定供給パートナーになる'},
+  {id:5, cat:'supply', catLabel:'🏭 サプライチェーン', role:'ホップ生産者', partner:'クラフトビール醸造所', title:'醸造所の銘柄が全国区に', chain:'銘柄が有名になる → あなたのホップが "その味の秘密" として指名される', insight:'醸造所の成功物語に、あなたの品種名が刻まれる', action:'醸造所のイベントに参加し、飲み手にホップの魅力を直接語る場を作る'},
+  {id:6, cat:'supply', catLabel:'🏭 サプライチェーン', role:'コーヒー生豆商', partner:'焙煎所・カフェ', title:'焙煎所が全国のカフェから注目される', chain:'焙煎所のブランド化 → あなたの生豆が "選ばれた豆" として市場価値UP', insight:'一流の焙煎所と組むと、自分の目利きが世界に伝わる', action:'焙煎所と共同で "産地訪問ツアー" を企画し、ストーリーの一部になる'},
+  {id:7, cat:'supply', catLabel:'🏭 サプライチェーン', role:'織物工房', partner:'アパレルブランド', title:'アパレルのコレクションが話題に', chain:'コレクションのヒット → あなたの生地が "そのブランドの顔" になる', insight:'ブランドが成長すると、生地の希少価値もブランド化する', action:'デザイナーと一緒に "次のシーズンの素材開発" を共同で走らせる'},
+  {id:8, cat:'supply', catLabel:'🏭 サプライチェーン', role:'卸売業者', partner:'小売店', title:'小売店の販売増', chain:'小売の売れ行きUP → 発注ロットが増え、取引条件が良くなる', insight:'小売の販売員教育に投資すると、あなたの商品が推される', action:'小売店の店員向け "商品知識セミナー" を無料で開催する'},
+  {id:9, cat:'supply', catLabel:'🏭 サプライチェーン', role:'業務用食材卸', partner:'飲食店', title:'飲食店の繁盛', chain:'客数増 → 食材発注量が跳ね上がる', insight:'飲食店のメニュー開発に食い込むと、指名発注される', action:'旬の食材と、それを使ったレシピ提案を毎月1回、営業に持っていく'},
+  {id:10, cat:'supply', catLabel:'🏭 サプライチェーン', role:'ワイン輸入業者', partner:'レストラン', title:'レストランの人気が全国区に', chain:'レストランのブランド化 → あなたのワインが "そのお店の看板" になる', insight:'ソムリエと信頼関係を作ると、次の入荷情報が真っ先に届く', action:'ソムリエ向け "産地ツアー" を年1回開催、生産者と直接つなぐ'},
+
+  // 🎨 クリエイティブ (6)
+  {id:11, cat:'create', catLabel:'🎨 クリエイティブ', role:'楽器職人', partner:'プロ演奏家', title:'演奏家が世界的に評価される', chain:'演奏家の名声 → あなたの楽器が "巨匠の楽器" として希少価値化', insight:'演奏家のインタビューで楽器名が出るたび、あなたの受注が増える', action:'演奏家に、次のツアー用の "特注楽器" を無償で提供する'},
+  {id:12, cat:'create', catLabel:'🎨 クリエイティブ', role:'絵の具メーカー', partner:'画家', title:'画家の作品が高値で取引される', chain:'画家の評価UP → 「あの画家が使う絵の具」としてブランド価値UP', insight:'画家の展覧会は、あなたの絵の具の展示会でもある', action:'画家に、新色の試作を渡して、次の作品で使ってもらう'},
+  {id:13, cat:'create', catLabel:'🎨 クリエイティブ', role:'カメラメーカー', partner:'プロカメラマン', title:'プロが世界的な賞を受賞', chain:'受賞作品の機材情報 → プロ・アマ両方から購入希望が殺到', insight:'プロが選ぶ機材は、市場が選ぶ機材になる', action:'新機種の試作をプロに渡し、フィードバックを製品開発に反映'},
+  {id:14, cat:'create', catLabel:'🎨 クリエイティブ', role:'音響エンジニア', partner:'アーティスト', title:'アーティストのアルバムが年間ヒット', chain:'アルバムの評価UP → 「あの人にミックスしてもらいたい」と指名が殺到', insight:'クレジットに名前が残ると、10年後も呼ばれる', action:'アーティストの新曲デモに、自主的にミックス案を送りつける'},
+  {id:15, cat:'create', catLabel:'🎨 クリエイティブ', role:'スタイリスト', partner:'タレント・俳優', title:'タレントの露出増', chain:'タレントの人気UP → 「あの人のスタイリング」としてメディア露出', insight:'スタイリストの発想が、タレントの新しい魅力を引き出す', action:'タレントの次の作品テーマを聞き出し、独自スタイリングを提案する'},
+  {id:16, cat:'create', catLabel:'🎨 クリエイティブ', role:'舞台照明技師', partner:'演出家', title:'演出家の作品が国際評価', chain:'演出家の名声 → "あの光" を求めて他の演出家からも指名', insight:'技師の技術が、演出家の可能性を広げる', action:'演出家の次回作の初期段階から関わり、光の設計思想を共に作る'},
+
+  // 👔 プロフェッショナル (8)
+  {id:17, cat:'pro', catLabel:'👔 プロフェッショナル', role:'税理士', partner:'クライアント企業', title:'クライアントが上場・急成長', chain:'企業規模拡大 → 顧問料アップ、追加サービス（M&A、国際税務）', insight:'クライアントの成長ステージに合わせて、あなたの提供価値も成長する', action:'クライアントの経営会議に月1回参加し、成長機会を一緒に見つける'},
+  {id:18, cat:'pro', catLabel:'👔 プロフェッショナル', role:'弁護士', partner:'顧問企業', title:'企業がM&A・海外進出', chain:'案件の複雑化 → スポット業務の単価と依頼数が両方増える', insight:'企業のフェーズが変わるたびに、あなたのフィーも変わる', action:'企業の3年計画を一緒に読み、次に起こる法務ニーズを先回りで提案'},
+  {id:19, cat:'pro', catLabel:'👔 プロフェッショナル', role:'保険代理店', partner:'契約企業', title:'企業成長で従業員数・資産増加', chain:'企業成長 → 保険増額・新種目追加', insight:'企業の福利厚生の設計に食い込むと、長期の関係になる', action:'企業の人事と組んで、従業員向けライフプランセミナーを開催'},
+  {id:20, cat:'pro', catLabel:'👔 プロフェッショナル', role:'経営コンサルタント', partner:'クライアント企業', title:'コンサルが提案した戦略が成功', chain:'クライアント業績UP → 継続契約、他事業部・関連会社からも声', insight:'クライアントの成功事例が、次のクライアントを連れてくる', action:'クライアントの成功をケーススタディにまとめて、業界誌に共著で寄稿'},
+  {id:21, cat:'pro', catLabel:'👔 プロフェッショナル', role:'エグゼクティブコーチ', partner:'CEO・経営幹部', title:'CEOのリーダーシップが変わり業績UP', chain:'CEOの変容 → 継続契約＋役員陣・他社CEOへの紹介', insight:'あなたのコーチングは、CEOを通して会社全体に波及する', action:'CEOと合意の上で、役員合宿のファシリテーションを提案'},
+  {id:22, cat:'pro', catLabel:'👔 プロフェッショナル', role:'産業カウンセラー', partner:'顧問企業', title:'職場のメンタル改善で離職率減', chain:'職場健全化 → 顧問契約の長期化・他部署への展開', insight:'離職率という数字が、あなたの価値を代弁する', action:'顧問企業の人事と組んで、四半期ごとの職場診断レポートを制度化'},
+  {id:23, cat:'pro', catLabel:'👔 プロフェッショナル', role:'人材紹介エージェント', partner:'採用企業', title:'紹介した人材が企業で活躍', chain:'紹介成功事例UP → その企業からリピート発注、他部署へも展開', insight:'マッチング精度が、あなたのブランドを作る', action:'紹介した人材と半年後にランチをして、企業側にフィードバックを共有'},
+  {id:24, cat:'pro', catLabel:'👔 プロフェッショナル', role:'講師・研修講師', partner:'セミナー主催者・研修会社', title:'主催セミナーが満員御礼', chain:'主催者の売上UP → 継続依頼、講演料アップ、他主催者への紹介', insight:'主催者が儲かる講師は、市場でも選ばれ続ける', action:'主催者の集客に協力（自分のSNSで告知など）し、動員に貢献する'},
+
+  // 🌱 育成・教育 (8)
+  {id:25, cat:'educate', catLabel:'🌱 育成・教育', role:'師匠・宗家', partner:'弟子', title:'弟子が独立して成功', chain:'弟子の活躍 → 一門全体の評判、入門希望者増、師匠への依頼増', insight:'弟子の背中に、師匠の教えが刻まれている', action:'弟子の独立を全力で応援し、独立祝いで自分のネットワークを紹介'},
+  {id:26, cat:'educate', catLabel:'🌱 育成・教育', role:'教師', partner:'生徒', title:'生徒が難関校に合格・社会で活躍', chain:'合格実績・卒業生ネットワーク → 塾のブランド、あなたへの授業料', insight:'教え子が成人したとき、その人があなたの営業マンになる', action:'卒業生とのつながりを継続し、後輩へのメッセージを頼む'},
+  {id:27, cat:'educate', catLabel:'🌱 育成・教育', role:'家庭教師', partner:'教え子', title:'教え子が第一志望合格', chain:'合格実績 → 兄弟姉妹・友人・親戚からの指名', insight:'口コミ紹介は、広告より強い', action:'合格祝いで、教え子の家族全員に手紙を書く'},
+  {id:28, cat:'educate', catLabel:'🌱 育成・教育', role:'ゴルフコーチ', partner:'ツアープロ生徒', title:'生徒プロがツアー優勝', chain:'優勝インタビューでコーチ名が出る → 新規生徒殺到、指導料UP', insight:'プロの背後にコーチがいる、と分かった瞬間、市場が動く', action:'プロの練習ラウンドに帯同し、試合直前のメンタルまでサポート'},
+  {id:29, cat:'educate', catLabel:'🌱 育成・教育', role:'経営者', partner:'部下・幹部', title:'部下が事業を伸ばす', chain:'部下の成果 → 会社業績UP → 株式価値・配当・売却益', insight:'経営者の利益は、部下の成功の総和', action:'部下1人ずつと月1で "3年後の理想" を対話する時間を作る'},
+  {id:30, cat:'educate', catLabel:'🌱 育成・教育', role:'マネージャー', partner:'チームメンバー', title:'チームメンバーの成果', chain:'チーム成果 → あなたの評価・昇進・報酬', insight:'マネージャーの評価は、チームの成果で測られる', action:'メンバー1人ずつに "今週最大の障害" を聞き、あなたが取り除く'},
+  {id:31, cat:'educate', catLabel:'🌱 育成・教育', role:'メンター', partner:'若手・後輩', title:'メンティが業界で頭角を現す', chain:'若手の成功 → メンターとしての名声、次のメンティ依頼、講演依頼', insight:'あなたの教えが、若手のインタビューに登場する', action:'メンティが次にぶつかる壁を予測し、参考書籍と人脈を先回りで渡す'},
+  {id:32, cat:'educate', catLabel:'🌱 育成・教育', role:'塾長・スクール運営', partner:'生徒', title:'合格実績が積み上がる', chain:'合格実績 → 塾のブランド、新規生徒、月謝UP', insight:'合格実績は、塾の "資産" として蓄積する', action:'合格した生徒に、翌年の後輩への激励メッセージを頼む'},
+
+  // 💰 投資・金融 (4)
+  {id:33, cat:'invest', catLabel:'💰 投資・金融', role:'ベンチャーキャピタル', partner:'投資先スタートアップ', title:'投資先が上場・大型売却', chain:'IPO・M&A → キャピタルゲイン、ファンドの評判、次号ファンド組成', insight:'1社の成功が、ファンドの10年を決める', action:'投資先の経営に月1回参加し、次のラウンドの投資家を先回りで紹介'},
+  {id:34, cat:'invest', catLabel:'💰 投資・金融', role:'エンジェル投資家', partner:'起業家', title:'起業家の事業が急成長', chain:'株式価値UP → 個人資産増、次の起業家からの投資依頼', insight:'エンジェルは、起業家の成長曲線に乗る', action:'起業家に、自分のネットワークから最初の顧客を紹介する'},
+  {id:35, cat:'invest', catLabel:'💰 投資・金融', role:'銀行・融資担当', partner:'融資先企業', title:'融資先企業の業績が伸びる', chain:'企業成長 → 融資枠拡大、追加融資、決済口座の残高増', insight:'企業の伴走者としての銀行の役割が、あなたの評価を決める', action:'融資先経営者と月1でランチをし、事業の現在地を対話する'},
+  {id:36, cat:'invest', catLabel:'💰 投資・金融', role:'株主・投資家', partner:'投資先企業', title:'投資先企業が業績アップ', chain:'株価上昇・配当増 → あなたの資産増、投資判断の実績', insight:'長期保有株主は、経営陣にとって最強の応援団', action:'株主総会で建設的な質問をし、経営陣に「良い株主」と認識される'},
+
+  // 🎭 プラットフォーム・仲介 (6)
+  {id:37, cat:'platform', catLabel:'🎭 プラットフォーム', role:'商業モール運営', partner:'テナント店舗', title:'テナントの繁盛', chain:'テナント売上 → 賃料の歩合分、モール全体の集客力UP', insight:'テナントが儲かるモールに、次のテナント候補が集まる', action:'テナント店主の勉強会を月1で開催、成功事例を共有させる'},
+  {id:38, cat:'platform', catLabel:'🎭 プラットフォーム', role:'フランチャイズ本部', partner:'FC加盟店', title:'加盟店の売上増', chain:'加盟店売上 → ロイヤリティ増、新規加盟希望者の増加', insight:'儲かる加盟店の情報が、次の加盟希望者を連れてくる', action:'成功している加盟店の店長を、本部の "指導員" に登用する'},
+  {id:39, cat:'platform', catLabel:'🎭 プラットフォーム', role:'ECモール運営', partner:'出店者', title:'出店者のGMV増加', chain:'出店者売上 → プラットフォーム手数料増、出店者数増加', insight:'出店者の販売支援ツールが、プラットフォームの競争力', action:'出店者向けの販売ノウハウ講座を無料で開き、成功事例を集める'},
+  {id:40, cat:'platform', catLabel:'🎭 プラットフォーム', role:'クラウド事業者', partner:'SaaS企業', title:'SaaSのユーザー急増', chain:'SaaS成長 → クラウド利用料が指数的に増加', insight:'SaaS の成功物語に、あなたのインフラが下支えとして刻まれる', action:'成長中のSaaS企業に、専属ソリューションアーキテクトをつける'},
+  {id:41, cat:'platform', catLabel:'🎭 プラットフォーム', role:'YouTuber・配信者', partner:'広告主', title:'広告主の商品が視聴者に売れる', chain:'CVR増 → 広告単価UP、継続案件、他広告主からもオファー', insight:'広告主が儲かるチャンネルが、次の広告主を呼ぶ', action:'広告主の商品を実際に使い込み、視聴者にリアルな使用感を伝える'},
+  {id:42, cat:'platform', catLabel:'🎭 プラットフォーム', role:'アフィリエイター・ブロガー', partner:'商品提供企業', title:'紹介した商品の売上増', chain:'商品売上増 → アフィリエイト報酬、企業からの直接タイアップ依頼', insight:'紹介実績が信頼を作り、単価が上がる', action:'商品提供企業に、次回商品の企画段階から意見をフィードバックする'},
+
+  // 🤝 アライアンス (4)
+  {id:43, cat:'alliance', catLabel:'🤝 アライアンス', role:'業務提携パートナーA', partner:'業務提携パートナーB', title:'相手側の事業が拡大', chain:'相手の事業成長 → 相互紹介からの案件流入、共同開発の質UP', insight:'相手の勝ちを喜べるパートナーだけが、10年続く', action:'相手の営業会議に月1で参加し、自社の顧客ネットワークを共有'},
+  {id:44, cat:'alliance', catLabel:'🤝 アライアンス', role:'共同研究者', partner:'共同研究者（他大学・他社）', title:'共同論文が国際的に評価', chain:'論文評価 → 共著者としての名声、研究費・招待講演、次の共同研究', insight:'研究者の資産は、共著者リストに残る', action:'相手研究者の若手弟子を、自分の研究会に招待する'},
+  {id:45, cat:'alliance', catLabel:'🤝 アライアンス', role:'OSSコミッター', partner:'OSSを商用利用する企業', title:'企業が OSS を使って製品化', chain:'企業の売上増 → OSS への寄付・スポンサー契約、あなたへの技術顧問料', insight:'企業が OSS で儲けたとき、あなたに報いる企業だけが本物', action:'OSS を使う企業のカンファレンスに登壇し、技術ロードマップを共有'},
+  {id:46, cat:'alliance', catLabel:'🤝 アライアンス', role:'インフルエンサー', partner:'コラボブランド', title:'コラボ商品が話題に', chain:'ブランド売上増 → 継続案件、ロイヤリティ、他ブランドからも指名', insight:'ブランドの世界観と共鳴できる人だけが、長く選ばれる', action:'ブランドの中の人と月1で商品企画会議を持つ'},
+
+  // 🏘️ 地域・コミュニティ (4)
+  {id:47, cat:'community', catLabel:'🏘️ 地域・コミュニティ', role:'地元商店主', partner:'商店街・地元コミュニティ', title:'商店街が観光地化・活性化', chain:'通行量増 → 自店舗の客数増、地価上昇', insight:'自分の店だけ繁盛させるより、商店街全体を盛り上げるほうが儲かる', action:'商店街のイベントを主催し、他の店の宣伝も自店の SNS でする'},
+  {id:48, cat:'community', catLabel:'🏘️ 地域・コミュニティ', role:'NPO運営', partner:'支援対象者・地域住民', title:'受益者が自立・地域が変わる', chain:'成功事例UP → 寄付・助成金・行政連携、次の受益者候補が集まる', insight:'受益者の自立ストーリーが、NPOの資金を生む', action:'受益者に、体験談を発信してもらう場（ブログ・登壇）を作る'},
+  {id:49, cat:'community', catLabel:'🏘️ 地域・コミュニティ', role:'著者・作家', partner:'読者コミュニティ', title:'読者が本の内容を実践して成功', chain:'読者の成功事例 → 口コミで拡散、次の本の売上、講演依頼', insight:'本を書き終えたら、読者の実践がその本の続編を書いてくれる', action:'読者コミュニティで、実践事例を集める場（オンラインサロン）を作る'},
+  {id:50, cat:'community', catLabel:'🏘️ 地域・コミュニティ', role:'建築家', partner:'施主', title:'施主の家・ビルが評価される', chain:'建築が話題に → 施主の紹介で次の建築依頼、地域全体の設計依頼', insight:'建物は、あなたの営業マンとして街に立ち続ける', action:'完成後1年・5年に施主を訪ね、その暮らしの変化を写真集にまとめる'},
+];
+
+/* ===================== State ===================== */
+const STORAGE_KEY = 'co-creation-v1';
+const state = {
+  phase: 0,
+  filter: 'all',
+  search: '',
+  picked: [],        // IDs of picked cases
+  myRole: '',
+  myPartner: '',
+  myChain: '',
+  firstStep: '',
+  whenDo: '',
+};
+
+/* ===================== Init ===================== */
+function init(){
+  loadState();
+  renderProgress();
+  renderCases();
+  renderPickedCases();
+  renderChainViz();
+  renderDeclaration();
+  renderSummary();
+  restoreFormFields();
+}
+function restoreFormFields(){
+  if(state.myRole) document.getElementById('myRole').value = state.myRole;
+  if(state.myPartner) document.getElementById('myPartner').value = state.myPartner;
+  if(state.myChain) document.getElementById('myChain').value = state.myChain;
+  if(state.firstStep) document.getElementById('firstStep').value = state.firstStep;
+  if(state.whenDo) document.getElementById('whenDo').value = state.whenDo;
+  if(state.search) document.getElementById('searchInput').value = state.search;
+  // input listeners
+  ['myRole','myPartner','myChain','firstStep','whenDo'].forEach(id => {
+    document.getElementById(id).addEventListener('input', e => {
+      state[id] = e.target.value;
+      saveState();
+      renderChainViz();
+      renderDeclaration();
+    });
+  });
+}
+function saveState(){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
+}
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return;
+    Object.assign(state, JSON.parse(raw));
+  }catch(e){}
+}
+
+/* ===================== Navigation ===================== */
+const PHASE_LABELS = ['START','50事例','マップ','宣言','まとめ'];
+function renderProgress(){
+  const el = document.getElementById('progress');
+  el.innerHTML = '';
+  PHASE_LABELS.forEach((_, i) => {
+    const sp = document.createElement('span');
+    if(i === state.phase) sp.className = 'active';
+    else if(i < state.phase) sp.className = 'done';
+    el.appendChild(sp);
+  });
+}
+function goPhase(n){
+  state.phase = n;
+  document.querySelectorAll('.phase').forEach(el => el.classList.remove('active'));
+  document.getElementById('phase'+n).classList.add('active');
+  renderProgress();
+  if(n === 1) renderCases();
+  if(n === 2){ renderPickedCases(); renderChainViz(); }
+  if(n === 3) renderDeclaration();
+  if(n === 4) renderSummary();
+  saveState();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ===================== Phase 1: Cases ===================== */
+function filterCat(cat, chip){
+  state.filter = cat;
+  document.querySelectorAll('.filter-bar .chip').forEach(c => c.classList.remove('active'));
+  chip.classList.add('active');
+  renderCases();
+  saveState();
+}
+function renderCases(){
+  const grid = document.getElementById('casesGrid');
+  const cnt = document.getElementById('caseCount');
+  const search = document.getElementById('searchInput').value.trim().toLowerCase();
+  state.search = search;
+  const filtered = CASES.filter(c => {
+    if(state.filter !== 'all' && c.cat !== state.filter) return false;
+    if(search){
+      const hay = (c.role + c.partner + c.title + c.chain + c.insight + c.action).toLowerCase();
+      if(!hay.includes(search)) return false;
+    }
+    return true;
+  });
+  cnt.textContent = `${filtered.length} / ${CASES.length} 事例`;
+  grid.innerHTML = '';
+  filtered.forEach(c => {
+    const div = document.createElement('div');
+    div.className = 'case cat-' + c.cat;
+    if(state.picked.includes(c.id)) div.classList.add('selected');
+    div.dataset.id = c.id;
+    div.innerHTML = `
+      <div class="case-head">
+        <span class="case-id">#${String(c.id).padStart(2,'0')}</span>
+        <span class="case-cat">${escapeHtml(c.catLabel)}</span>
+      </div>
+      <div class="case-title">${escapeHtml(c.title)}</div>
+      <div class="case-flow">
+        <strong>${escapeHtml(c.role)}</strong>
+        <span class="arrow">↔</span>
+        <strong>${escapeHtml(c.partner)}</strong>
+      </div>
+      <div class="case-detail">
+          <div class="lbl">連鎖のストーリー</div>
+          <div class="val">${escapeHtml(c.chain)}</div>
+          <div class="lbl">気づき</div>
+          <div class="val">${escapeHtml(c.insight)}</div>
+          <div class="lbl">明日できる最初の1歩</div>
+          <div class="val"><strong>${escapeHtml(c.action)}</strong></div>
+          <div class="case-actions">
+            <button class="mini-btn gold" onclick="togglePick(${c.id}, event)">
+              ${state.picked.includes(c.id) ? '★ 参考にする（解除）' : '☆ この事例を参考にする'}
+            </button>
+          </div>
+      </div>
+    `;
+    div.addEventListener('click', () => div.classList.toggle('open'));
+    grid.appendChild(div);
+  });
+}
+function togglePick(id, ev){
+  ev.stopPropagation();
+  const i = state.picked.indexOf(id);
+  if(i >= 0) state.picked.splice(i, 1);
+  else state.picked.push(id);
+  saveState();
+  renderCases();
+  renderPickedCases();
+}
+
+/* ===================== Phase 2: Map ===================== */
+function renderPickedCases(){
+  const el = document.getElementById('pickedCases');
+  if(!el) return;
+  if(state.picked.length === 0){
+    el.textContent = 'まだ選択されていません';
+    return;
+  }
+  el.innerHTML = state.picked.map(id => {
+    const c = CASES.find(x => x.id === id);
+    if(!c) return '';
+    return `<div style="margin:4px 0;padding:6px 10px;background:#fff;border-radius:6px;border-left:3px solid var(--gold);">
+      <strong>#${String(c.id).padStart(2,'0')}</strong> ${escapeHtml(c.title)}<br>
+      <span style="color:var(--text-mute);font-size:.82rem">${escapeHtml(c.role)} ↔ ${escapeHtml(c.partner)}</span>
+    </div>`;
+  }).join('');
+}
+function renderChainViz(){
+  const me = document.getElementById('vizMe');
+  const partner = document.getElementById('vizPartner');
+  if(me) me.textContent = state.myRole || 'あなた';
+  if(partner) partner.textContent = state.myPartner || '相手';
+}
+function saveMapAndNext(){
+  const role = document.getElementById('myRole').value.trim();
+  const partner = document.getElementById('myPartner').value.trim();
+  const chain = document.getElementById('myChain').value.trim();
+  if(!role || !partner || !chain){
+    alert('①役割・②相手・③連鎖ストーリー の3つを入れてください');
+    return;
+  }
+  state.myRole = role;
+  state.myPartner = partner;
+  state.myChain = chain;
+  saveState();
+  goPhase(3);
+}
+
+/* ===================== Phase 3: Declaration ===================== */
+function renderDeclaration(){
+  const el = document.getElementById('declarationView');
+  if(!el) return;
+  if(!state.myRole || !state.myPartner){
+    el.textContent = '（マップを作ると、ここに宣言が生成されます）';
+    return;
+  }
+  el.innerHTML = `
+    私は <strong>${escapeHtml(state.myRole)}</strong> として、
+    <strong>${escapeHtml(state.myPartner)}</strong> の成功を、
+    自分の利益の拡大の源として大切にします。<br><br>
+    ${state.myChain ? `<span style="color:var(--text-soft);font-size:.9rem">連鎖のストーリー：${escapeHtml(state.myChain)}</span>` : ''}
+  `;
+}
+
+/* ===================== Phase 4: Summary & Export ===================== */
+function renderSummary(){
+  const el = document.getElementById('summaryView');
+  if(!el) return;
+  el.innerHTML = `
+    <div class="summary-section">
+      <h3>🌱 あなたの共創マップ</h3>
+      <div class="data">
+        <strong>役割</strong>：${escapeHtml(state.myRole || '?')}<br>
+        <strong>共創相手</strong>：${escapeHtml(state.myPartner || '?')}<br>
+        <strong>連鎖ストーリー</strong>：${escapeHtml(state.myChain || '?')}
+      </div>
+    </div>
+    <div class="summary-section">
+      <h3>🎯 24時間以内の最初の一歩</h3>
+      <div class="data">
+        ${escapeHtml(state.firstStep || '（未記入）')}<br>
+        <span style="color:var(--text-mute);font-size:.85rem">いつやる：${escapeHtml(state.whenDo || '（未定）')}</span>
+      </div>
+    </div>
+    <div class="summary-section">
+      <h3>⭐ 参考にした事例（${state.picked.length}件）</h3>
+      <div class="data">
+        ${state.picked.length === 0 ? '（なし）' :
+          state.picked.map(id => {
+            const c = CASES.find(x => x.id === id);
+            return c ? `#${String(c.id).padStart(2,'0')} ${escapeHtml(c.title)}` : '';
+          }).join('<br>')}
+      </div>
+    </div>
+  `;
+}
+function speak(){
+  if(!state.myRole || !state.myPartner){ alert('先に共創マップを作ってください'); return; }
+  const t = `私は ${state.myRole} として、${state.myPartner} の成功を、自分の利益の拡大の源として大切にします。`;
+  const u = new SpeechSynthesisUtterance(t);
+  u.lang = 'ja-JP';
+  u.rate = 0.95;
+  speechSynthesis.speak(u);
+}
+function exportMd(){
+  const d = new Date().toISOString().slice(0,10);
+  const lines = [];
+  lines.push(`---`);
+  lines.push(`title: 共創関係マップ ${d}`);
+  lines.push(`created: ${d}`);
+  lines.push(`tags: [共創関係, ありえる楽考, 相手の成功]`);
+  lines.push(`---`);
+  lines.push('');
+  lines.push(`# 🌱 共創関係マップ（${d}）`);
+  lines.push('');
+  lines.push(`## 🗺 私の共創マップ`);
+  lines.push(`- **役割**：${state.myRole || '?'}`);
+  lines.push(`- **共創相手**：${state.myPartner || '?'}`);
+  lines.push(`- **連鎖ストーリー**：${state.myChain || '?'}`);
+  lines.push('');
+  lines.push(`## 🌟 共創宣言`);
+  lines.push(`> 私は **${state.myRole || '?'}** として、**${state.myPartner || '?'}** の成功を、自分の利益の拡大の源として大切にします。`);
+  lines.push('');
+  lines.push(`## 🎯 24時間以内の最初の一歩`);
+  lines.push(`- ${state.firstStep || '（未記入）'}`);
+  lines.push(`- **いつやる**：${state.whenDo || '（未定）'}`);
+  lines.push('');
+  lines.push(`## ⭐ 参考にした事例（${state.picked.length}件）`);
+  if(state.picked.length === 0) lines.push('- なし');
+  else {
+    state.picked.forEach(id => {
+      const c = CASES.find(x => x.id === id);
+      if(!c) return;
+      lines.push(`### #${String(c.id).padStart(2,'0')} ${c.title}`);
+      lines.push(`- **カテゴリ**：${c.catLabel}`);
+      lines.push(`- **関係**：${c.role} ↔ ${c.partner}`);
+      lines.push(`- **連鎖**：${c.chain}`);
+      lines.push(`- **気づき**：${c.insight}`);
+      lines.push(`- **アクション**：${c.action}`);
+      lines.push('');
+    });
+  }
+  lines.push(`---`);
+  lines.push(`*🌱 共創関係イメージング / Claudian と一緒に*`);
+
+  const blob = new Blob([lines.join('\n')], {type:'text/markdown'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `共創関係マップ_${d}.md`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+function resetAll(){
+  if(!confirm('全ての入力を消して最初からやり直しますか？')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  location.reload();
+}
+
+/* ===================== Utils ===================== */
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[c]));
+}
+
+window.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
