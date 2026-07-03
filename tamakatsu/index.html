@@ -127,6 +127,33 @@
   .footer-note {
     text-align: center; color: var(--sub); font-size: 12px; padding: 30px 0 40px;
   }
+  .milestone-banner {
+    background: linear-gradient(135deg, #fdf4d8, #fce8b8);
+    border: 2px solid #e8b800; border-radius: 10px;
+    padding: 12px 16px; margin: 14px 0; font-size: 13px; color: #5a4a00;
+  }
+  .milestone-banner .headline { font-weight: 700; margin-bottom: 4px; font-size: 14px; }
+  .related-apps {
+    margin-top: 18px; padding: 16px 18px;
+    background: #fbfaf5; border: 1px solid var(--border); border-radius: 10px;
+  }
+  .related-apps .r-headline { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+  .related-apps .r-sub { color: var(--sub); font-size: 13px; margin-bottom: 12px; }
+  .related-app-card {
+    display: block; padding: 12px 14px; margin-bottom: 8px;
+    background: #fff; border: 1px solid var(--border); border-radius: 8px;
+    text-decoration: none; color: inherit;
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  }
+  .related-app-card:hover {
+    transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    border-color: var(--accent);
+  }
+  .related-app-card .app-name {
+    font-size: 10px; color: var(--sub); letter-spacing: 1px; text-transform: uppercase;
+  }
+  .related-app-card .theme-name { font-weight: 600; font-size: 14px; margin: 3px 0; }
+  .related-app-card .why { color: #555; font-size: 13px; line-height: 1.5; }
 </style>
 </head>
 <body>
@@ -165,6 +192,11 @@
   <div class="card">
     <div class="lo-tag-big" id="lo-tag"></div>
     <h2 id="lo-title"></h2>
+
+    <div id="lo-milestone-banner" class="milestone-banner" style="display:none;">
+      <div class="headline">🌱 このテーマは学習パスの中心マイルストーン</div>
+      <div id="lo-milestone-note"></div>
+    </div>
 
     <div class="field-label">本文より</div>
     <blockquote class="excerpt" id="lo-excerpt"></blockquote>
@@ -257,6 +289,12 @@
       <button class="secondary" onclick="shareTo('discord')">💬 ありえる楽考コミュニティに投げる（フラグのみ）</button>
     </div>
 
+    <div id="related-apps-container" class="related-apps" style="display:none;">
+      <div class="r-headline">🌱 この学びを深めるには</div>
+      <div class="r-sub">他の書籍アプリで、同じテーマを別の視点から鍛えられます。</div>
+      <div id="related-apps-list"></div>
+    </div>
+
     <div class="btn-row" style="justify-content: center;">
       <button onclick="showScreen('map')">🗺 マップに戻る</button>
     </div>
@@ -313,6 +351,33 @@ function showScreen(name) {
   document.getElementById("screen-" + name).classList.add("active");
   window.scrollTo({top: 0, behavior: "smooth"});
   if (name === "map") { renderMap(); renderHistory(); }
+  if (name === "done") { renderRelatedApps(); }
+}
+
+// ==================== Related apps (cross-book learning) ====================
+function renderRelatedApps() {
+  const container = document.getElementById("related-apps-container");
+  const list = document.getElementById("related-apps-list");
+  const related = (currentTheme && currentTheme.related_apps) || [];
+  if (!related.length) {
+    container.style.display = "none";
+    return;
+  }
+  container.style.display = "";
+  list.innerHTML = "";
+  related.forEach(r => {
+    const a = document.createElement("a");
+    a.className = "related-app-card";
+    a.href = r.app_href;
+    a.target = "_blank";
+    a.rel = "noopener";
+    a.innerHTML = `
+      <div class="app-name">📖 ${r.app_title}</div>
+      <div class="theme-name">${r.theme_title}</div>
+      <div class="why">${r.why}</div>
+    `;
+    list.appendChild(a);
+  });
 }
 
 // ==================== Map ====================
@@ -380,6 +445,14 @@ function openTheme(id) {
   document.getElementById("lo-excerpt").textContent = currentTheme.excerpt;
   document.getElementById("lo-question").textContent = currentTheme.seed_question;
   document.getElementById("lo-prompt").textContent = currentTheme.prompt;
+
+  const milestoneBanner = document.getElementById("lo-milestone-banner");
+  if (currentTheme.milestone) {
+    milestoneBanner.style.display = "";
+    document.getElementById("lo-milestone-note").textContent = currentTheme.milestone_note || "";
+  } else {
+    milestoneBanner.style.display = "none";
+  }
 
   document.getElementById("write-lo-tag").textContent = currentTheme.lo_tag + " · " + currentTheme.title;
   document.getElementById("write-text").value = "";

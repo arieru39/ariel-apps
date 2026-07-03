@@ -13,6 +13,12 @@
     { "level": 2, "label": "第2層 · 熟達と場づくり — 経験学習が回る場を実装する" },
     { "level": 1, "label": "第1層 · 認知強化 — 思考のエラーを見つけ、学習の本質を掴む" }
   ],
+  "rubric_labels": [
+    { "level": 1, "label": "気づいていない", "color": "#e0e0e0" },
+    { "level": 2, "label": "概念として理解している", "color": "#fff3b0" },
+    { "level": 3, "label": "実践できる", "color": "#a3d977" },
+    { "level": 4, "label": "文脈に応じて選び分けられる", "color": "#4a90e2" }
+  ],
   "themes": [
     {
       "id": "unconscious_assumption",
@@ -27,6 +33,32 @@
         "思い込みという概念は知っているが、その場で自分のスキーマを言語化することはできない",
         "感情の揺れを合図に立ち止まり、背後の思い込みを言葉にして修正する練習を続けられる",
         "文脈に応じて、修正すべき思い込みと使い続けるべき思い込みを選び分けられる"
+      ],
+      "related_apps": [
+        {
+          "app_slug": "genkai",
+          "app_title": "限界はあなたの頭の中にしかない",
+          "app_href": "../genkai/",
+          "theme_id": "limit_illusion",
+          "theme_title": "限界の正体",
+          "why": "「自分に課す限界」もまた無意識の思い込みそのもの。エイブラハムの視点で、限界という思考パターンを解体する"
+        },
+        {
+          "app_slug": "genkai",
+          "app_title": "限界はあなたの頭の中にしかない",
+          "app_href": "../genkai/",
+          "theme_id": "critical_thinking_leverage",
+          "theme_title": "点と点を結ぶクリティカル思考",
+          "why": "思い込みを疑うための「別の視点」を、点と点をつなぐ思考技術として体系的に鍛える"
+        },
+        {
+          "app_slug": "context-leadership",
+          "app_title": "コンテキスト・リーダーシップ",
+          "app_href": "../context-leadership/",
+          "theme_id": "action_illusion",
+          "theme_title": "行為論の限界",
+          "why": "「正しい行動」という思い込みそのものを、山口周の視点で捉え直す入り口"
+        }
       ],
       "implemented": true
     },
@@ -44,6 +76,32 @@
         "課題に応じて適切な方略を1つ選び、思考の焦点を切り替えられる",
         "複数の方略を組み合わせ、他者の思考の詰まりに応じて方略を渡すことができる"
       ],
+      "related_apps": [
+        {
+          "app_slug": "genkai",
+          "app_title": "限界はあなたの頭の中にしかない",
+          "app_href": "../genkai/",
+          "theme_id": "critical_thinking_leverage",
+          "theme_title": "点と点を結ぶクリティカル思考",
+          "why": "認知方略を「思考のレバレッジ」として使いこなすための実践編。アナロジーとカテゴリーの使い分けが磨かれる"
+        },
+        {
+          "app_slug": "genkai",
+          "app_title": "限界はあなたの頭の中にしかない",
+          "app_href": "../genkai/",
+          "theme_id": "extracting_from_experience",
+          "theme_title": "経験を糧にする自問法",
+          "why": "4方略のうち特にプログレッション（時間軸整理）を経験学習に応用する具体プロセス"
+        },
+        {
+          "app_slug": "context-leadership",
+          "app_title": "コンテキスト・リーダーシップ",
+          "app_href": "../context-leadership/",
+          "theme_id": "context_reading",
+          "theme_title": "文脈の読解",
+          "why": "マトリックス思考の応用として「文脈」を構造化して読む技術に接続する"
+        }
+      ],
       "implemented": true
     },
     {
@@ -59,6 +117,32 @@
         "「体験と結びつけると理解が深まる」と知ってはいるが、実際にはやっていない",
         "抽象概念を自分のエピソードで語り直し、他者にも通じる形に翻訳できる",
         "誤解・浅い理解を体験の設計で修正させることができる（記号接地の場を作れる）"
+      ],
+      "related_apps": [
+        {
+          "app_slug": "context-leadership",
+          "app_title": "コンテキスト・リーダーシップ",
+          "app_href": "../context-leadership/",
+          "theme_id": "meaning_over_action",
+          "theme_title": "行為ではなく意味へ",
+          "why": "記号接地の究極形。「言葉」を「意味」に接地させるとは何かを、山口周の視点で深める"
+        },
+        {
+          "app_slug": "genkai",
+          "app_title": "限界はあなたの頭の中にしかない",
+          "app_href": "../genkai/",
+          "theme_id": "extracting_from_experience",
+          "theme_title": "経験を糧にする自問法",
+          "why": "体験を意味あるものに変える自問プロセス。「体験→気づき→抽象化」の橋渡し"
+        },
+        {
+          "app_slug": "context-leadership",
+          "app_title": "コンテキスト・リーダーシップ",
+          "app_href": "../context-leadership/",
+          "theme_id": "interpreter_frame",
+          "theme_title": "相手の解釈フレーム",
+          "why": "記号は解釈の産物である、という発想を「他者の解釈フレーム」まで拡張する"
+        }
       ],
       "implemented": true
     },
@@ -76,6 +160,32 @@
         "自分のスキルの心的イメージを言語化し、次に磨くべき粒度を特定できる",
         "他者の熟達段階を観察して、その人の像に応じた練習課題を設計できる"
       ],
+      "related_apps": [
+        {
+          "app_slug": "genkai",
+          "app_title": "限界はあなたの頭の中にしかない",
+          "app_href": "../genkai/",
+          "theme_id": "small_action_compounding",
+          "theme_title": "小さなアクションの複利",
+          "why": "解像度を上げるのは日々の小さな練習の積み重ね。エイブラハムの「複利」で長期戦を仕組み化する"
+        },
+        {
+          "app_slug": "genkai",
+          "app_title": "限界はあなたの頭の中にしかない",
+          "app_href": "../genkai/",
+          "theme_id": "mentor_learning_uniqueness",
+          "theme_title": "メンターから独自性を発見する",
+          "why": "熟達の道筋を、既に到達した人の像を借りて短縮する。模倣→独自性の発見プロセス"
+        },
+        {
+          "app_slug": "context-leadership",
+          "app_title": "コンテキスト・リーダーシップ",
+          "app_href": "../context-leadership/",
+          "theme_id": "interpreter_frame",
+          "theme_title": "相手の解釈フレーム",
+          "why": "解像度は自分の中だけでなく「相手を読む」にも効く。熟達者ほど相手の解釈を精密に把握できる"
+        }
+      ],
       "implemented": true
     },
     {
@@ -91,6 +201,32 @@
         "ボトルネック理論を知っているが、自分の中の1点を選び切れず総花的に取り組む",
         "たった1つのボトルネックを特定し、そこに練習・時間・資源を集中できる",
         "チームや場のボトルネックを見抜き、他者の練習の焦点を導ける"
+      ],
+      "related_apps": [
+        {
+          "app_slug": "genkai",
+          "app_title": "限界はあなたの頭の中にしかない",
+          "app_href": "../genkai/",
+          "theme_id": "critical_thinking_leverage",
+          "theme_title": "点と点を結ぶクリティカル思考",
+          "why": "ボトルネックを見抜くのはクリティカル思考の中核。「何が本質的な制約か」の判断軸を鍛える"
+        },
+        {
+          "app_slug": "genkai",
+          "app_title": "限界はあなたの頭の中にしかない",
+          "app_href": "../genkai/",
+          "theme_id": "small_action_compounding",
+          "theme_title": "小さなアクションの複利",
+          "why": "たった1つの弱点に集中投下すると複利が最大化する。焦点と複利の合わせ技"
+        },
+        {
+          "app_slug": "context-leadership",
+          "app_title": "コンテキスト・リーダーシップ",
+          "app_href": "../context-leadership/",
+          "theme_id": "vision_flex",
+          "theme_title": "ビジョンと柔軟性の両立",
+          "why": "「何を絞るか」の判断は、ビジョンと文脈の両輪から生まれる。絞り方の質を上げる"
+        }
       ],
       "implemented": true
     },
@@ -108,6 +244,32 @@
         "定例のGCを回し、話し手が自分で答えを見つける「聞く」の質を保てる",
         "GCの設計を場に合わせて調整し、参加者の記号接地と熟達に効くGCを設計できる"
       ],
+      "related_apps": [
+        {
+          "app_slug": "context-leadership",
+          "app_title": "コンテキスト・リーダーシップ",
+          "app_href": "../context-leadership/",
+          "theme_id": "dialogic_leadership",
+          "theme_title": "対話としてのリーダーシップ",
+          "why": "GCの核心は「対話としてのリーダーシップ」の実装形態。山口周の視点で対話の意味を再定義する"
+        },
+        {
+          "app_slug": "context-leadership",
+          "app_title": "コンテキスト・リーダーシップ",
+          "app_href": "../context-leadership/",
+          "theme_id": "field_design",
+          "theme_title": "場のデザインとしてのリーダーシップ",
+          "why": "GCを「場」として設計する視点。安全性・非対称性・対等性の作り方を深める"
+        },
+        {
+          "app_slug": "genkai",
+          "app_title": "限界はあなたの頭の中にしかない",
+          "app_href": "../genkai/",
+          "theme_id": "socratic_dialogue",
+          "theme_title": "相手の本質を引き出す質問力",
+          "why": "GCで「聞く」を成立させる質問力。ソクラテス的対話としてのファシリテーション"
+        }
+      ],
       "implemented": true
     },
     {
@@ -123,6 +285,32 @@
         "オーナー／ファシリ／メンバーの三層構造は理解しているが、自分がどの層で話しているか自覚できない",
         "自分がいる層を自覚し、対等・率直・肯定の3原則で他層とやり取りできる",
         "場の停滞を見て「今、どの層が空席か」を診断し、必要な層の思考を立ち上げられる"
+      ],
+      "related_apps": [
+        {
+          "app_slug": "context-leadership",
+          "app_title": "コンテキスト・リーダーシップ",
+          "app_href": "../context-leadership/",
+          "theme_id": "delegation_split",
+          "theme_title": "任せると丸投げの分岐点",
+          "why": "三層構造の実装は「任せる」の技術。責任と判断の渡し方を精緻化する"
+        },
+        {
+          "app_slug": "context-leadership",
+          "app_title": "コンテキスト・リーダーシップ",
+          "app_href": "../context-leadership/",
+          "theme_id": "intent_transmission",
+          "theme_title": "意図と伝達の非対称",
+          "why": "オーナーの「なぜ」がファシリを経てメンバーに届く時、意図と伝達に非対称が生まれる。その修復の技術"
+        },
+        {
+          "app_slug": "genkai",
+          "app_title": "限界はあなたの頭の中にしかない",
+          "app_href": "../genkai/",
+          "theme_id": "philosophy_vs_tactic",
+          "theme_title": "理念と手段の違い",
+          "why": "オーナー層の「哲学」とメンバー層の「戦術」の分離を、エイブラハムの視点で徹底する"
+        }
       ],
       "implemented": true
     },
@@ -140,6 +328,50 @@
         "自分軸と相手軸の交差点を言語化でき、そこに時間を集中投下できる",
         "他者のたまかつを引き出す問いを持ち、場のたまかつを設計できる"
       ],
+      "milestone": true,
+      "milestone_note": "★このテーマは学習パスの中心マイルストーン。「たまかつを生きる／それ以外に時間・エネルギー・お金を使わない」という生き方の起点。他の11テーマは、たまかつを精緻化し、たまかつを実装するための技術。",
+      "related_apps": [
+        {
+          "app_slug": "genkai",
+          "app_title": "限界はあなたの頭の中にしかない",
+          "app_href": "../genkai/",
+          "theme_id": "value_creation_contribution",
+          "theme_title": "価値創造と貢献志向",
+          "why": "たまかつの相手軸「誰のために」を、貢献志向のマインドセットとして体系化する。エイブラハムの中核概念"
+        },
+        {
+          "app_slug": "genkai",
+          "app_title": "限界はあなたの頭の中にしかない",
+          "app_href": "../genkai/",
+          "theme_id": "philosophy_vs_tactic",
+          "theme_title": "理念と手段の違い",
+          "why": "たまかつは戦術ではなく「理念」。手段と混同しないための識別軸を鍛える"
+        },
+        {
+          "app_slug": "genkai",
+          "app_title": "限界はあなたの頭の中にしかない",
+          "app_href": "../genkai/",
+          "theme_id": "character_elegance",
+          "theme_title": "品格 — エレガンスへの道",
+          "why": "たまかつを生き続けた先に立ち上がる「品格ある生き方」。到達点をイメージする"
+        },
+        {
+          "app_slug": "context-leadership",
+          "app_title": "コンテキスト・リーダーシップ",
+          "app_href": "../context-leadership/",
+          "theme_id": "field_design",
+          "theme_title": "場のデザインとしてのリーダーシップ",
+          "why": "自分のたまかつは場を設計する。たまかつが伝播する場のつくり方を山口周の視点で"
+        },
+        {
+          "app_slug": "context-leadership",
+          "app_title": "コンテキスト・リーダーシップ",
+          "app_href": "../context-leadership/",
+          "theme_id": "vision_flex",
+          "theme_title": "ビジョンと柔軟性の両立",
+          "why": "たまかつは「1つの壮大な目的」ではなく柔軟なコアプロジェクト。しなやかな軸の作り方"
+        }
+      ],
       "implemented": true
     },
     {
@@ -155,6 +387,32 @@
         "場は共創だと理解しているが、自分から波紋を起こす一歩を出せていない",
         "小さな決意を場に投げ入れ、フィードバックループを回し始められる",
         "場の消耗のパターンを見抜き、失敗をチャージに変える設計を提案できる"
+      ],
+      "related_apps": [
+        {
+          "app_slug": "context-leadership",
+          "app_title": "コンテキスト・リーダーシップ",
+          "app_href": "../context-leadership/",
+          "theme_id": "field_design",
+          "theme_title": "場のデザインとしてのリーダーシップ",
+          "why": "「場を作る」ことそのものをリーダーシップとして再定義する。もっとも直接的な深化"
+        },
+        {
+          "app_slug": "context-leadership",
+          "app_title": "コンテキスト・リーダーシップ",
+          "app_href": "../context-leadership/",
+          "theme_id": "dialogic_leadership",
+          "theme_title": "対話としてのリーダーシップ",
+          "why": "場の波紋を起こすのは対話。誰と何を話すかで場が変わる"
+        },
+        {
+          "app_slug": "genkai",
+          "app_title": "限界はあなたの頭の中にしかない",
+          "app_href": "../genkai/",
+          "theme_id": "small_action_compounding",
+          "theme_title": "小さなアクションの複利",
+          "why": "1人の小さな決意が波紋を起こし複利で広がる原理。エイブラハムの複利マインドで加速する"
+        }
       ],
       "implemented": true
     },
@@ -172,6 +430,32 @@
         "経験を「誰の痛みに効くか」で切り取り、再現可能な手順として書ける",
         "プロダクトを場に投げ、他者のフィードバックで進化させ続けられる"
       ],
+      "related_apps": [
+        {
+          "app_slug": "genkai",
+          "app_title": "限界はあなたの頭の中にしかない",
+          "app_href": "../genkai/",
+          "theme_id": "value_creation_contribution",
+          "theme_title": "価値創造と貢献志向",
+          "why": "プロダクトは貢献の器。「誰の困りごとを解くために作るか」を貢献志向の視点で徹底する"
+        },
+        {
+          "app_slug": "genkai",
+          "app_title": "限界はあなたの頭の中にしかない",
+          "app_href": "../genkai/",
+          "theme_id": "customer_psychology_ethics",
+          "theme_title": "相手の心に寄り添う倫理的販売",
+          "why": "作ったプロダクトを届ける時の倫理。奪う販売でなく価値を届ける販売にする"
+        },
+        {
+          "app_slug": "context-leadership",
+          "app_title": "コンテキスト・リーダーシップ",
+          "app_href": "../context-leadership/",
+          "theme_id": "feedback_semantics",
+          "theme_title": "フィードバックの意味論",
+          "why": "プロダクトを進化させる燃料はフィードバック。他者の反応を意味として受け取る技術"
+        }
+      ],
       "implemented": true
     },
     {
@@ -188,6 +472,32 @@
         "「誰・何」が明快なビジョンを言語化し、繰り返し場に投げ入れられる",
         "集まった仲間の熱狂を触媒に、次のリクルーティングを設計できる"
       ],
+      "related_apps": [
+        {
+          "app_slug": "genkai",
+          "app_title": "限界はあなたの頭の中にしかない",
+          "app_href": "../genkai/",
+          "theme_id": "mentor_learning_uniqueness",
+          "theme_title": "メンターから独自性を発見する",
+          "why": "仲間を引き寄せるのは独自性。他者から学びつつ、自分の独自性を宣言できる形に整える"
+        },
+        {
+          "app_slug": "context-leadership",
+          "app_title": "コンテキスト・リーダーシップ",
+          "app_href": "../context-leadership/",
+          "theme_id": "vision_flex",
+          "theme_title": "ビジョンと柔軟性の両立",
+          "why": "ビジョンが固すぎると仲間は疲弊し、緩すぎると引力が弱まる。しなやかさの設計"
+        },
+        {
+          "app_slug": "context-leadership",
+          "app_title": "コンテキスト・リーダーシップ",
+          "app_href": "../context-leadership/",
+          "theme_id": "dialogic_leadership",
+          "theme_title": "対話としてのリーダーシップ",
+          "why": "リクルーティングは説得ではなく対話。「なぜ来たいか」を相手の言葉で立ち上げる"
+        }
+      ],
       "implemented": true
     },
     {
@@ -203,6 +513,32 @@
         "宣言→行動→報告のサイクルは理解しているが、自分でも他者とも回していない",
         "毎日の宣言と完了報告を仲間と共有し、小さな約束の積み重ねで自信を作れる",
         "他者の宣言システムを場に組み込み、集合的な自信構築の仕組みを運営できる"
+      ],
+      "related_apps": [
+        {
+          "app_slug": "genkai",
+          "app_title": "限界はあなたの頭の中にしかない",
+          "app_href": "../genkai/",
+          "theme_id": "small_action_compounding",
+          "theme_title": "小さなアクションの複利",
+          "why": "宣言→実行→報告のサイクルはまさに複利の実装。1日1回の複利効果を体感する"
+        },
+        {
+          "app_slug": "genkai",
+          "app_title": "限界はあなたの頭の中にしかない",
+          "app_href": "../genkai/",
+          "theme_id": "failure_resilience",
+          "theme_title": "失敗と逆境からの復活",
+          "why": "宣言は必ず途切れる。途切れた時に自分を責めず立ち上がるレジリエンスを鍛える"
+        },
+        {
+          "app_slug": "genkai",
+          "app_title": "限界はあなたの頭の中にしかない",
+          "app_href": "../genkai/",
+          "theme_id": "character_elegance",
+          "theme_title": "品格 — エレガンスへの道",
+          "why": "宣言を守り続けた先に立ち上がる品格。到達地点としてのエレガンス"
+        }
       ],
       "implemented": true
     }
