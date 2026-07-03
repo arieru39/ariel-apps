@@ -3,8 +3,16 @@
     "title": "コンテキスト・リーダーシップ",
     "author": "山口 周",
     "publisher": "光文社新書",
+    "product_line": "バイブコーディング・ギルド 第1プロダクト",
+    "slug": "context_leadership",
+    "hashtag": "#コンテキストリーダーシップ",
     "source_note": "参考図書/Kindle/コンテキスト・リーダーシップ/コンテキスト・リーダーシップ.md"
   },
+  "layers": [
+    { "level": 3, "label": "第3層 · 文脈論 — 場を設計する" },
+    { "level": 2, "label": "第2層 · 意味論 — 意味を届ける" },
+    { "level": 1, "label": "第1層 · 行為論の限界 — スタート地点" }
+  ],
   "rubric_labels": [
     { "level": 1, "label": "気づいていない", "color": "#e0e0e0" },
     { "level": 2, "label": "概念として理解している", "color": "#fff3b0" },
