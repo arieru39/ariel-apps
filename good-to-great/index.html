@@ -55,6 +55,34 @@
   .theme-cell .lo-tag { font-family: ui-monospace, monospace; font-size: 10px; color: var(--sub); }
   .theme-cell .title { font-size: 13px; font-weight: 600; margin-top: 4px; }
   .theme-cell .lvl { position: absolute; bottom: 6px; right: 8px; font-size: 10px; color: var(--sub); }
+  .theme-cell .ctype {
+    display: inline-block; font-size: 10px; padding: 1px 7px; border-radius: 8px;
+    background: #fff; color: #555; border: 1px solid var(--border); margin-top: 4px;
+  }
+  .theme-cell .ctype.concept { background: #f0ecf7; color: #6b4faf; border-color: #d4c7f0; }
+  .theme-cell .ctype.model   { background: #e6efd8; color: #4a6a1a; border-color: #c8d8a8; }
+  .theme-cell .ctype.story   { background: #fce8b8; color: #7a4a00; border-color: #e8c880; }
+  .career-translation {
+    background: #eef4fc; border-left: 3px solid #4a90e2; padding: 10px 14px;
+    margin: 10px 0; font-size: 13px; color: #2a4a7a; border-radius: 4px;
+  }
+  .career-translation strong { color: #1a3a6a; }
+  .book-intro-panel {
+    background: linear-gradient(135deg, #f7f2ea, #efe8dc);
+    border: 1px solid #d8c8a8; border-radius: 10px;
+    padding: 14px 18px; margin-bottom: 16px; font-size: 13px; color: #4a3a1a;
+    line-height: 1.7;
+  }
+  .book-intro-panel .panel-headline {
+    font-weight: 700; font-size: 14px; margin-bottom: 6px; color: #6b4a00;
+  }
+  .book-intro-panel .content-legend {
+    display: flex; gap: 12px; margin-top: 10px; flex-wrap: wrap; font-size: 12px;
+  }
+  .book-intro-panel .content-legend .lg-item {
+    padding: 3px 10px; border-radius: 10px; background: #fff; border: 1px solid #d8c8a8;
+  }
+  .layer-label { font-weight: 600; margin-top: 14px; margin-bottom: 6px; color: #444; font-size: 13px; }
   h2 { font-size: 20px; margin: 4px 0 8px; }
   .lo-tag-big { font-family: ui-monospace, monospace; color: var(--sub); font-size: 13px; }
   blockquote.excerpt {
@@ -172,6 +200,12 @@
 <!-- ========= [00] マップ画面 ========= -->
 <section id="screen-map" class="screen active">
   <div class="card">
+    <div class="book-intro-panel" id="book-intro-panel" style="display:none;">
+      <div class="panel-headline">📚 この本の読み方（個人キャリア戦略として）</div>
+      <div id="book-intro-text"></div>
+      <div class="content-legend" id="content-legend"></div>
+    </div>
+
     <div class="progress" id="progress-line">読み込み中…</div>
     <h2>今日、触る #LO を1つ選んでください</h2>
     <div style="color: var(--sub); font-size: 14px; margin-bottom: 8px;">
@@ -196,6 +230,11 @@
     <div id="lo-milestone-banner" class="milestone-banner" style="display:none;">
       <div class="headline">🌱 このテーマは学習パスの中心マイルストーン</div>
       <div id="lo-milestone-note"></div>
+    </div>
+
+    <div id="lo-career-translation" class="career-translation" style="display:none;">
+      <strong>🔀 企業版 → 個人キャリア版：</strong>
+      <span id="lo-career-translation-text"></span>
     </div>
 
     <div class="field-label">本文より</div>
@@ -338,10 +377,31 @@ function applyBookMeta() {
   if (b.author) metaParts.push(b.author);
   if (b.publisher) metaParts.push(b.publisher);
   if (b.product_line) metaParts.push(b.product_line);
+  if (b.tagline) metaParts.push(b.tagline);
   document.getElementById("header-meta").textContent = metaParts.join(" ／ ");
   // Also update <html lang> and STORAGE_KEY per book slug
   if (b.slug) {
     STORAGE_KEY = "ariel_learning_" + b.slug;
+  }
+
+  // Populate book-intro panel (personal translation + model/story intro + legend)
+  const introParts = [];
+  if (b.personal_translation_note) introParts.push(b.personal_translation_note);
+  if (b.model_and_story_intro) introParts.push(b.model_and_story_intro);
+  if (b.milestone_summary) introParts.push(b.milestone_summary);
+  const introText = introParts.join("<br><br>");
+  if (introText) {
+    document.getElementById("book-intro-text").innerHTML = introText;
+    const legend = DATA.content_type_legend || [];
+    const legendContainer = document.getElementById("content-legend");
+    legendContainer.innerHTML = "";
+    legend.forEach(lg => {
+      const span = document.createElement("span");
+      span.className = "lg-item";
+      span.innerHTML = `<strong>${lg.label}</strong> ${lg.description || ""}`;
+      legendContainer.appendChild(span);
+    });
+    document.getElementById("book-intro-panel").style.display = "";
   }
 }
 
@@ -407,9 +467,18 @@ function renderMap() {
       const lvl = bestByTheme[t.id] || 0;
       const color = lvl === 4 ? "var(--l4)" : lvl === 3 ? "var(--l3)" : lvl === 2 ? "var(--l2)" : "var(--l1)";
       cell.style.background = color;
+      // content_type バッジ
+      let ctypeBadge = "";
+      if (t.content_type) {
+        const legend = (DATA.content_type_legend || []).find(x => x.type === t.content_type);
+        const label = legend ? legend.label : t.content_type;
+        ctypeBadge = `<span class="ctype ${t.content_type}">${label}</span>`;
+      }
+      const milestoneMark = t.milestone ? " 🌱" : "";
       cell.innerHTML = `
-        <div class="lo-tag">${t.lo_tag}</div>
+        <div class="lo-tag">${t.lo_tag}${milestoneMark}</div>
         <div class="title">${t.title}</div>
+        ${ctypeBadge}
         <div class="lvl">${t.implemented ? (lvl ? "L" + lvl : "未着手") : "coming soon"}</div>
       `;
       if (t.implemented) cell.onclick = () => openTheme(t.id);
@@ -442,7 +511,11 @@ function openTheme(id) {
 
   document.getElementById("lo-tag").textContent = currentTheme.lo_tag;
   document.getElementById("lo-title").textContent = currentTheme.title;
-  document.getElementById("lo-excerpt").textContent = currentTheme.excerpt;
+  // excerpt: escape then convert **bold** to <strong>
+  const rawExcerpt = currentTheme.excerpt || "";
+  const escExcerpt = rawExcerpt.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const boldExcerpt = escExcerpt.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+  document.getElementById("lo-excerpt").innerHTML = boldExcerpt;
   document.getElementById("lo-question").textContent = currentTheme.seed_question;
   document.getElementById("lo-prompt").textContent = currentTheme.prompt;
 
@@ -452,6 +525,15 @@ function openTheme(id) {
     document.getElementById("lo-milestone-note").textContent = currentTheme.milestone_note || "";
   } else {
     milestoneBanner.style.display = "none";
+  }
+
+  // career translation panel
+  const careerPanel = document.getElementById("lo-career-translation");
+  if (currentTheme.career_translation) {
+    careerPanel.style.display = "";
+    document.getElementById("lo-career-translation-text").textContent = currentTheme.career_translation;
+  } else {
+    careerPanel.style.display = "none";
   }
 
   document.getElementById("write-lo-tag").textContent = currentTheme.lo_tag + " · " + currentTheme.title;
