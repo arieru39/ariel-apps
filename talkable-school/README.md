@@ -84,3 +84,5 @@ https://arieru39.github.io/ariel-apps/talkable-school/
   - 全テーマに `content_type`（コンセプト／モデル／ストーリー）
   - 対話の4モードを milestone に設定（対話による場づくりを "イメージする" 中心装置）
   - Book intro panel（本書を企業GC+TTPに翻訳する視座）をマップ画面に追加
+
+<!-- deploy-touch -->
