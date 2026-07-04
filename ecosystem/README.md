@@ -103,4 +103,5 @@ https://arieru39.github.io/ariel-apps/ecosystem/
   - Book intro panel（本書をエコシステム設計に翻訳する視座）をマップ画面に追加
   - 姉妹アプリ『たまかつ』と表裏の関係で運用（同じ本を2つの視点で読む）
 
-<!-- deploy-touch -->
+<!-- deploy-touch v0.1.1 -->
+
