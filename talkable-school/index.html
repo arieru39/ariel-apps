@@ -82,6 +82,30 @@
   .book-intro-panel .content-legend .lg-item {
     padding: 3px 10px; border-radius: 10px; background: #fff; border: 1px solid #d8c8a8;
   }
+  .book-links {
+    display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px;
+  }
+  .book-links a {
+    display: inline-block; padding: 6px 14px; border-radius: 6px;
+    background: #fff; color: #4a3a1a; border: 1px solid #d8c8a8;
+    font-size: 12px; text-decoration: none; font-weight: 600;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .book-links a:hover { background: #fdf4d8; border-color: #b89858; }
+  .book-video {
+    margin-top: 14px; border-radius: 8px; overflow: hidden;
+    background: #000; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .book-video .video-caption {
+    font-size: 12px; color: #6b4a00; margin-bottom: 6px; font-weight: 600;
+  }
+  .video-frame-wrap {
+    position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+    background: #000;
+  }
+  .video-frame-wrap iframe {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
+  }
   .layer-label { font-weight: 600; margin-top: 14px; margin-bottom: 6px; color: #444; font-size: 13px; }
   h2 { font-size: 20px; margin: 4px 0 8px; }
   .lo-tag-big { font-family: ui-monospace, monospace; color: var(--sub); font-size: 13px; }
@@ -204,6 +228,13 @@
       <div class="panel-headline" id="book-intro-headline">📚 この本の読み方</div>
       <div id="book-intro-text"></div>
       <div class="content-legend" id="content-legend"></div>
+      <div class="book-links" id="book-links"></div>
+      <div id="book-video" class="book-video" style="display:none; margin-top:14px;">
+        <div class="video-caption" id="book-video-caption" style="padding: 10px 12px 6px; background:#fdf4d8;"></div>
+        <div class="video-frame-wrap">
+          <iframe id="book-video-iframe" src="" title="解説動画" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
     </div>
 
     <div class="progress" id="progress-line">読み込み中…</div>
@@ -411,6 +442,34 @@ function applyBookMeta() {
   // Dynamic career-translation label
   if (b.translation_label) {
     document.getElementById("lo-career-translation-label").textContent = b.translation_label;
+  }
+
+  // Book links (Amazon 等)
+  const linksContainer = document.getElementById("book-links");
+  linksContainer.innerHTML = "";
+  if (b.amazon_url) {
+    const a = document.createElement("a");
+    a.href = b.amazon_url;
+    a.target = "_blank";
+    a.rel = "noopener";
+    a.textContent = "📕 Amazonで本を見る";
+    linksContainer.appendChild(a);
+  }
+  if (b.publisher_url) {
+    const a = document.createElement("a");
+    a.href = b.publisher_url;
+    a.target = "_blank";
+    a.rel = "noopener";
+    a.textContent = "🏛 出版社ページ";
+    linksContainer.appendChild(a);
+  }
+
+  // Video embed (YouTube / Vimeo 等)
+  if (b.video_embed_url) {
+    document.getElementById("book-video").style.display = "";
+    document.getElementById("book-video-iframe").src = b.video_embed_url;
+    document.getElementById("book-video-caption").textContent =
+      "🎬 " + (b.video_title || "解説動画");
   }
 }
 
