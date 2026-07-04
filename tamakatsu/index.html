@@ -154,6 +154,48 @@
   }
   .related-app-card .theme-name { font-weight: 600; font-size: 14px; margin: 3px 0; }
   .related-app-card .why { color: #555; font-size: 13px; line-height: 1.5; }
+  .book-intro-panel {
+    background: linear-gradient(135deg, #e6f0e2, #dbe9d5);
+    border: 1px solid #a8c8a0; border-radius: 10px;
+    padding: 14px 18px; margin-bottom: 16px; font-size: 13px; color: #2f5030;
+    line-height: 1.7;
+  }
+  .book-intro-panel .panel-headline {
+    font-weight: 700; font-size: 14px; margin-bottom: 6px; color: #2a5030;
+  }
+  .book-links {
+    display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px;
+  }
+  .book-links a {
+    display: inline-block; padding: 6px 14px; border-radius: 6px;
+    background: #fff; color: #2f5030; border: 1px solid #a8c8a0;
+    font-size: 12px; text-decoration: none; font-weight: 600;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .book-links a:hover { background: #d8e8d0; border-color: #7ea078; }
+  .book-video {
+    margin-top: 14px; border-radius: 8px; overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .book-video .video-caption {
+    font-size: 12px; color: #2a5030; font-weight: 600;
+    padding: 10px 12px 6px; background: #e6f0e2;
+  }
+  .video-frame-wrap {
+    position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+    background: #000;
+  }
+  .video-frame-wrap iframe {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
+  }
+  .lo-video {
+    margin: 14px 0; border-radius: 8px; overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .lo-video .video-caption {
+    font-size: 12px; color: #2a5030; font-weight: 600;
+    padding: 10px 12px 6px; background: #e6f0e2;
+  }
 </style>
 </head>
 <body>
@@ -172,6 +214,18 @@
 <!-- ========= [00] マップ画面 ========= -->
 <section id="screen-map" class="screen active">
   <div class="card">
+    <div class="book-intro-panel" id="book-intro-panel" style="display:none;">
+      <div class="panel-headline" id="book-intro-headline">📚 本と一緒に学べます</div>
+      <div id="book-intro-text"></div>
+      <div class="book-links" id="book-links"></div>
+      <div id="book-video" class="book-video" style="display:none; margin-top:14px;">
+        <div class="video-caption" id="book-video-caption"></div>
+        <div class="video-frame-wrap">
+          <iframe id="book-video-iframe" src="" title="解説動画" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+
     <div class="progress" id="progress-line">読み込み中…</div>
     <h2>今日、触る #LO を1つ選んでください</h2>
     <div style="color: var(--sub); font-size: 14px; margin-bottom: 8px;">
@@ -200,6 +254,13 @@
 
     <div class="field-label">本文より</div>
     <blockquote class="excerpt" id="lo-excerpt"></blockquote>
+
+    <div id="lo-video" class="lo-video" style="display:none;">
+      <div class="video-caption" id="lo-video-caption"></div>
+      <div class="video-frame-wrap">
+        <iframe id="lo-video-iframe" src="" title="このLOの解説動画" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
 
     <div class="question" id="lo-question"></div>
     <div class="prompt" id="lo-prompt"></div>
@@ -338,10 +399,43 @@ function applyBookMeta() {
   if (b.author) metaParts.push(b.author);
   if (b.publisher) metaParts.push(b.publisher);
   if (b.product_line) metaParts.push(b.product_line);
+  if (b.tagline) metaParts.push(b.tagline);
   document.getElementById("header-meta").textContent = metaParts.join(" ／ ");
   // Also update <html lang> and STORAGE_KEY per book slug
   if (b.slug) {
     STORAGE_KEY = "ariel_learning_" + b.slug;
+  }
+
+  // Book-intro panel: book link + playlist embed
+  const linksContainer = document.getElementById("book-links");
+  linksContainer.innerHTML = "";
+  if (b.amazon_url) {
+    const a = document.createElement("a");
+    a.href = b.amazon_url;
+    a.target = "_blank"; a.rel = "noopener";
+    a.textContent = "📕 Amazonで本を見る";
+    linksContainer.appendChild(a);
+  }
+  if (b.playlist_url) {
+    const a = document.createElement("a");
+    a.href = b.playlist_url;
+    a.target = "_blank"; a.rel = "noopener";
+    a.textContent = "🎬 YouTubeプレイリスト全19本";
+    linksContainer.appendChild(a);
+  }
+  const introText = b.book_intro_text || "各テーマの詳細画面で <strong>そのテーマに対応する章別解説動画</strong> が視聴できます。まずは触ってみて、動画を挟みながら記述→自己評価→たまかつ接続へ。";
+  document.getElementById("book-intro-text").innerHTML = introText;
+  if (b.book_intro_headline) {
+    document.getElementById("book-intro-headline").textContent = b.book_intro_headline;
+  }
+  if (b.playlist_embed_url) {
+    document.getElementById("book-video").style.display = "";
+    document.getElementById("book-video-iframe").src = b.playlist_embed_url;
+    document.getElementById("book-video-caption").textContent =
+      b.video_title || "🎬 章別解説プレイリスト";
+  }
+  if (b.amazon_url || b.playlist_url || b.playlist_embed_url) {
+    document.getElementById("book-intro-panel").style.display = "";
   }
 }
 
@@ -445,6 +539,19 @@ function openTheme(id) {
   document.getElementById("lo-excerpt").textContent = currentTheme.excerpt;
   document.getElementById("lo-question").textContent = currentTheme.seed_question;
   document.getElementById("lo-prompt").textContent = currentTheme.prompt;
+
+  // Per-theme video
+  const loVideo = document.getElementById("lo-video");
+  const loIframe = document.getElementById("lo-video-iframe");
+  if (currentTheme.video_embed_url) {
+    loVideo.style.display = "";
+    loIframe.src = currentTheme.video_embed_url;
+    document.getElementById("lo-video-caption").textContent =
+      "🎬 " + (currentTheme.video_title || "このテーマの解説動画");
+  } else {
+    loVideo.style.display = "none";
+    loIframe.src = "";
+  }
 
   const milestoneBanner = document.getElementById("lo-milestone-banner");
   if (currentTheme.milestone) {

@@ -6,18 +6,48 @@
     "product_line": "バイブコーディング・ギルド 第3プロダクト",
     "slug": "tamakatsu",
     "hashtag": "#たまかつ",
-    "source_note": "39毎週の活動の評価/価値共創コミュニティのエコシステムでたまかつを生きる/_meta_Kindle本のシリーズ/1たまかつ版"
+    "source_note": "39毎週の活動の評価/価値共創コミュニティのエコシステムでたまかつを生きる/_meta_Kindle本のシリーズ/1たまかつ版",
+    "amazon_url": "https://amzn.to/4ls2lSn",
+    "playlist_url": "https://www.youtube.com/playlist?list=PL5au6sDA9NgWwRIrghoc-PzyNNlvjna0Z",
+    "playlist_embed_url": "https://www.youtube.com/embed/videoseries?list=PL5au6sDA9NgWwRIrghoc-PzyNNlvjna0Z",
+    "video_title": "🎬 全19本の章別解説プレイリスト（YouTube）",
+    "tagline": "本の各章を、章別YouTube解説と対で学べます"
   },
   "layers": [
-    { "level": 3, "label": "第3層 · 価値共創 — コミュニティで熟達を他者に還元する" },
-    { "level": 2, "label": "第2層 · 熟達と場づくり — 経験学習が回る場を実装する" },
-    { "level": 1, "label": "第1層 · 認知強化 — 思考のエラーを見つけ、学習の本質を掴む" }
+    {
+      "level": 3,
+      "label": "第3層 · 価値共創 — コミュニティで熟達を他者に還元する"
+    },
+    {
+      "level": 2,
+      "label": "第2層 · 熟達と場づくり — 経験学習が回る場を実装する"
+    },
+    {
+      "level": 1,
+      "label": "第1層 · 認知強化 — 思考のエラーを見つけ、学習の本質を掴む"
+    }
   ],
   "rubric_labels": [
-    { "level": 1, "label": "気づいていない", "color": "#e0e0e0" },
-    { "level": 2, "label": "概念として理解している", "color": "#fff3b0" },
-    { "level": 3, "label": "実践できる", "color": "#a3d977" },
-    { "level": 4, "label": "文脈に応じて選び分けられる", "color": "#4a90e2" }
+    {
+      "level": 1,
+      "label": "気づいていない",
+      "color": "#e0e0e0"
+    },
+    {
+      "level": 2,
+      "label": "概念として理解している",
+      "color": "#fff3b0"
+    },
+    {
+      "level": 3,
+      "label": "実践できる",
+      "color": "#a3d977"
+    },
+    {
+      "level": 4,
+      "label": "文脈に応じて選び分けられる",
+      "color": "#4a90e2"
+    }
   ],
   "themes": [
     {
@@ -60,7 +90,9 @@
           "why": "「正しい行動」という思い込みそのものを、山口周の視点で捉え直す入り口"
         }
       ],
-      "implemented": true
+      "implemented": true,
+      "video_embed_url": "https://www.youtube.com/embed/uSHUnS7zTjs",
+      "video_title": "第１章 無意識の思い込みを見つけ修正する — 認知強化と理論"
     },
     {
       "id": "four_cognitive_strategies",
@@ -102,7 +134,9 @@
           "why": "マトリックス思考の応用として「文脈」を構造化して読む技術に接続する"
         }
       ],
-      "implemented": true
+      "implemented": true,
+      "video_embed_url": "https://www.youtube.com/embed/hOIQKrta_l8",
+      "video_title": "6 ４つの認知方略 — 思考をマスターする4つの戦略"
     },
     {
       "id": "symbol_grounding",
@@ -144,7 +178,9 @@
           "why": "記号は解釈の産物である、という発想を「他者の解釈フレーム」まで拡張する"
         }
       ],
-      "implemented": true
+      "implemented": true,
+      "video_embed_url": "https://www.youtube.com/embed/tLoDDjm1Qjk",
+      "video_title": "7 わかると記号接地 — 学習のスーパーパワー"
     },
     {
       "id": "expertise_resolution",
@@ -186,7 +222,9 @@
           "why": "解像度は自分の中だけでなく「相手を読む」にも効く。熟達者ほど相手の解釈を精密に把握できる"
         }
       ],
-      "implemented": true
+      "implemented": true,
+      "video_embed_url": "https://www.youtube.com/embed/eKW1CjI6O5g",
+      "video_title": "9 心象（心的イメージ） — エキスパートは世界をどう見ているのか"
     },
     {
       "id": "bottleneck_concentration",
@@ -228,7 +266,9 @@
           "why": "「何を絞るか」の判断は、ビジョンと文脈の両輪から生まれる。絞り方の質を上げる"
         }
       ],
-      "implemented": true
+      "implemented": true,
+      "video_embed_url": "https://www.youtube.com/embed/xYHoyXJsOnM",
+      "video_title": "10 評価表で熟達を測る"
     },
     {
       "id": "group_coaching",
@@ -270,7 +310,9 @@
           "why": "GCで「聞く」を成立させる質問力。ソクラテス的対話としてのファシリテーション"
         }
       ],
-      "implemented": true
+      "implemented": true,
+      "video_embed_url": "https://www.youtube.com/embed/wVE41GPGu8c",
+      "video_title": "12 グループコーチングで学習する組織をつくる"
     },
     {
       "id": "three_layer_team",
@@ -312,7 +354,9 @@
           "why": "オーナー層の「哲学」とメンバー層の「戦術」の分離を、エイブラハムの視点で徹底する"
         }
       ],
-      "implemented": true
+      "implemented": true,
+      "video_embed_url": "https://www.youtube.com/embed/piaMgTKUo_I",
+      "video_title": "13 三層構造で記号接地チームの天才性を解き放つ"
     },
     {
       "id": "tamakatsu_calling",
@@ -372,7 +416,9 @@
           "why": "たまかつは「1つの壮大な目的」ではなく柔軟なコアプロジェクト。しなやかな軸の作り方"
         }
       ],
-      "implemented": true
+      "implemented": true,
+      "video_embed_url": "https://www.youtube.com/embed/W-sUnlBXog4",
+      "video_title": "2「たまかつ」を生きる"
     },
     {
       "id": "collective_space",
@@ -414,7 +460,9 @@
           "why": "1人の小さな決意が波紋を起こし複利で広がる原理。エイブラハムの複利マインドで加速する"
         }
       ],
-      "implemented": true
+      "implemented": true,
+      "video_embed_url": "https://www.youtube.com/embed/572OUAcg_UU",
+      "video_title": "14 みんなでつくる場 — 私たちが輝く「場」のつくりかた"
     },
     {
       "id": "experience_to_product",
@@ -456,7 +504,9 @@
           "why": "プロダクトを進化させる燃料はフィードバック。他者の反応を意味として受け取る技術"
         }
       ],
-      "implemented": true
+      "implemented": true,
+      "video_embed_url": "https://www.youtube.com/embed/j6bjBDHBY2U",
+      "video_title": "15 プロダクトをつくる — 「忙しさ」から「価値」へ"
     },
     {
       "id": "recruitment_vision",
@@ -498,7 +548,9 @@
           "why": "リクルーティングは説得ではなく対話。「なぜ来たいか」を相手の言葉で立ち上げる"
         }
       ],
-      "implemented": true
+      "implemented": true,
+      "video_embed_url": "https://www.youtube.com/embed/JfOjD6L_3nc",
+      "video_title": "16 リクルーティング — 「不可能」から「可能」へ"
     },
     {
       "id": "declaration_system",
@@ -540,7 +592,9 @@
           "why": "宣言を守り続けた先に立ち上がる品格。到達地点としてのエレガンス"
         }
       ],
-      "implemented": true
+      "implemented": true,
+      "video_embed_url": "https://www.youtube.com/embed/MOex-YrtnCY",
+      "video_title": "19 あなこと（あなたはあなたの言葉でできている）— 宣言システム"
     }
   ]
 }
