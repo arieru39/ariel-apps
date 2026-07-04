@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title id="page-title">学習アプリ</title>
+<style>
+  :root {
+    --bg: #faf8f3;
+    --ink: #2b2b2b;
+    --sub: #6c6c6c;
+    --accent: #4a90e2;
+    --border: #d8d3c6;
+    --card: #ffffff;
+    --l1: #e0e0e0;
+    --l2: #fff3b0;
+    --l3: #a3d977;
+    --l4: #4a90e2;
+    --muted-l4: #b3cdec;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "Hiragino Sans", "Yu Gothic", sans-serif;
+    background: var(--bg); color: var(--ink);
+    margin: 0; padding: 0; line-height: 1.7;
+  }
+  header {
+    padding: 20px 32px; border-bottom: 1px solid var(--border);
+    background: #fff; display: flex; justify-content: space-between; align-items: center;
+  }
+  header h1 { margin: 0; font-size: 18px; font-weight: 600; }
+  header .book { font-size: 13px; color: var(--sub); }
+  main { max-width: 720px; margin: 24px auto; padding: 0 20px; }
+  .screen { display: none; animation: fade 0.25s; }
+  .screen.active { display: block; }
+  @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 24px; margin-bottom: 16px;
+  }
+  .layer-label {
+    font-size: 12px; color: var(--sub); letter-spacing: 2px;
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+  .theme-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px;
+  }
+  .theme-cell {
+    background: var(--l1); border-radius: 8px; padding: 14px 12px;
+    cursor: pointer; transition: transform 0.15s, box-shadow 0.15s;
+    position: relative; min-height: 88px;
+  }
+  .theme-cell:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+  .theme-cell.locked { opacity: 0.45; cursor: not-allowed; }
+  .theme-cell .lo-tag { font-family: ui-monospace, monospace; font-size: 10px; color: var(--sub); }
+  .theme-cell .title { font-size: 13px; font-weight: 600; margin-top: 4px; }
+  .theme-cell .lvl { position: absolute; bottom: 6px; right: 8px; font-size: 10px; color: var(--sub); }
+  .theme-cell .ctype {
+    display: inline-block; font-size: 10px; padding: 1px 7px; border-radius: 8px;
+    background: #fff; color: #555; border: 1px solid var(--border); margin-top: 4px;
+  }
+  .theme-cell .ctype.concept { background: #f0ecf7; color: #6b4faf; border-color: #d4c7f0; }
+  .theme-cell .ctype.model   { background: #e6efd8; color: #4a6a1a; border-color: #c8d8a8; }
+  .theme-cell .ctype.story   { background: #fce8b8; color: #7a4a00; border-color: #e8c880; }
+  .career-translation {
+    background: #eef4fc; border-left: 3px solid #4a90e2; padding: 10px 14px;
+    margin: 10px 0; font-size: 13px; color: #2a4a7a; border-radius: 4px;
+  }
+  .career-translation strong { color: #1a3a6a; }
+  .book-intro-panel {
+    background: linear-gradient(135deg, #f7f2ea, #efe8dc);
+    border: 1px solid #d8c8a8; border-radius: 10px;
+    padding: 14px 18px; margin-bottom: 16px; font-size: 13px; color: #4a3a1a;
+    line-height: 1.7;
+  }
+  .book-intro-panel .panel-headline {
+    font-weight: 700; font-size: 14px; margin-bottom: 6px; color: #6b4a00;
+  }
+  .book-intro-panel .content-legend {
+    display: flex; gap: 12px; margin-top: 10px; flex-wrap: wrap; font-size: 12px;
+  }
+  .book-intro-panel .content-legend .lg-item {
+    padding: 3px 10px; border-radius: 10px; background: #fff; border: 1px solid #d8c8a8;
+  }
+  .layer-label { font-weight: 600; margin-top: 14px; margin-bottom: 6px; color: #444; font-size: 13px; }
+  h2 { font-size: 20px; margin: 4px 0 8px; }
+  .lo-tag-big { font-family: ui-monospace, monospace; color: var(--sub); font-size: 13px; }
+  blockquote.excerpt {
+    border-left: 3px solid var(--accent); margin: 12px 0;
+    padding: 8px 16px; color: #444; font-size: 15px; background: #fbfbfb;
+  }
+  .question {
+    font-size: 17px; font-weight: 600; margin: 18px 0 4px;
+  }
+  .prompt {
+    color: var(--sub); font-size: 14px; margin-bottom: 12px;
+  }
+  textarea {
+    width: 100%; min-height: 140px; padding: 12px; border: 1px solid var(--border);
+    border-radius: 8px; font-family: inherit; font-size: 15px; line-height: 1.6;
+    resize: vertical; background: #fff;
+  }
+  input[type="text"] {
+    width: 100%; padding: 10px 12px; border: 1px solid var(--border);
+    border-radius: 8px; font-family: inherit; font-size: 14px; background: #fff;
+  }
+  .char-count { text-align: right; font-size: 12px; color: var(--sub); margin-top: 4px; }
+  .rubric-list { display: flex; flex-direction: column; gap: 10px; margin: 14px 0; }
+  .rubric-item {
+    border: 2px solid var(--border); border-radius: 10px; padding: 12px 14px;
+    cursor: pointer; background: #fff; transition: border-color 0.15s;
+  }
+  .rubric-item:hover { border-color: #bfbfbf; }
+  .rubric-item.selected { border-color: var(--accent); background: #f2f7fd; }
+  .rubric-item .level {
+    font-size: 12px; color: var(--sub); letter-spacing: 1px; font-weight: 600;
+  }
+  .rubric-item .label { font-weight: 600; margin: 2px 0 4px; }
+  .rubric-item .desc { font-size: 13px; color: #555; }
+  .btn-row { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; gap: 10px; }
+  button {
+    background: var(--accent); color: #fff; border: 0; padding: 12px 22px;
+    border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer;
+    font-family: inherit;
+  }
+  button:disabled { background: #ccc; cursor: not-allowed; }
+  button.secondary { background: transparent; color: var(--sub); border: 1px solid var(--border); }
+  .field-label {
+    font-size: 13px; font-weight: 600; margin: 16px 0 6px; color: #333;
+  }
+  .complete-msg {
+    text-align: center; padding: 30px 20px;
+  }
+  .complete-msg .emoji { font-size: 40px; }
+  .complete-msg .headline { font-size: 20px; font-weight: 600; margin: 12px 0 8px; }
+  .complete-msg .sub { color: var(--sub); font-size: 14px; }
+  .share-options { display: flex; flex-direction: column; gap: 10px; margin: 20px 0; }
+  .share-options button { text-align: left; padding: 14px 18px; }
+  .share-options button.secondary { color: var(--ink); }
+  .progress {
+    font-size: 12px; color: var(--sub); margin-bottom: 12px;
+  }
+  .helper-buttons { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+  .helper-buttons button {
+    background: #f0ede4; color: var(--ink); padding: 6px 12px; font-size: 12px; font-weight: 400;
+  }
+  .tamakatsu-hint {
+    background: #fdf4d8; border-left: 3px solid #e8b800; padding: 10px 14px;
+    margin: 10px 0; font-size: 13px; color: #5a4a00; border-radius: 4px;
+  }
+  .history-item {
+    padding: 10px 12px; border-bottom: 1px solid var(--border); font-size: 13px;
+  }
+  .history-item .h-date { color: var(--sub); font-size: 11px; }
+  .footer-note {
+    text-align: center; color: var(--sub); font-size: 12px; padding: 30px 0 40px;
+  }
+  .milestone-banner {
+    background: linear-gradient(135deg, #fdf4d8, #fce8b8);
+    border: 2px solid #e8b800; border-radius: 10px;
+    padding: 12px 16px; margin: 14px 0; font-size: 13px; color: #5a4a00;
+  }
+  .milestone-banner .headline { font-weight: 700; margin-bottom: 4px; font-size: 14px; }
+  .related-apps {
+    margin-top: 18px; padding: 16px 18px;
+    background: #fbfaf5; border: 1px solid var(--border); border-radius: 10px;
+  }
+  .related-apps .r-headline { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+  .related-apps .r-sub { color: var(--sub); font-size: 13px; margin-bottom: 12px; }
+  .related-app-card {
+    display: block; padding: 12px 14px; margin-bottom: 8px;
+    background: #fff; border: 1px solid var(--border); border-radius: 8px;
+    text-decoration: none; color: inherit;
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  }
+  .related-app-card:hover {
+    transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    border-color: var(--accent);
+  }
+  .related-app-card .app-name {
+    font-size: 10px; color: var(--sub); letter-spacing: 1px; text-transform: uppercase;
+  }
+  .related-app-card .theme-name { font-weight: 600; font-size: 14px; margin: 3px 0; }
+  .related-app-card .why { color: #555; font-size: 13px; line-height: 1.5; }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1 id="header-title">学習アプリ</h1>
+    <div class="book" id="header-meta"></div>
+  </div>
+  <div>
+    <button class="secondary" onclick="showScreen('map')">🗺 マップ</button>
+  </div>
+</header>
+
+<main>
+
+<!-- ========= [00] マップ画面 ========= -->
+<section id="screen-map" class="screen active">
+  <div class="card">
+    <div class="book-intro-panel" id="book-intro-panel" style="display:none;">
+      <div class="panel-headline" id="book-intro-headline">📚 この本の読み方</div>
+      <div id="book-intro-text"></div>
+      <div class="content-legend" id="content-legend"></div>
+    </div>
+
+    <div class="progress" id="progress-line">読み込み中…</div>
+    <h2>今日、触る #LO を1つ選んでください</h2>
+    <div style="color: var(--sub); font-size: 14px; margin-bottom: 8px;">
+      触っていないところが多くていい。地図はゆっくり色づいていきます。
+    </div>
+
+    <div id="layers-container"></div>
+  </div>
+
+  <div class="card">
+    <div class="field-label">これまでの学び（直近5件）</div>
+    <div id="history-list">まだありません。</div>
+  </div>
+</section>
+
+<!-- ========= [01] LO詳細 ========= -->
+<section id="screen-lo" class="screen">
+  <div class="card">
+    <div class="lo-tag-big" id="lo-tag"></div>
+    <h2 id="lo-title"></h2>
+
+    <div id="lo-milestone-banner" class="milestone-banner" style="display:none;">
+      <div class="headline">🌱 このテーマは学習パスの中心マイルストーン</div>
+      <div id="lo-milestone-note"></div>
+    </div>
+
+    <div id="lo-career-translation" class="career-translation" style="display:none;">
+      <strong id="lo-career-translation-label">🔀 変換：</strong>
+      <span id="lo-career-translation-text"></span>
+    </div>
+
+    <div class="field-label">本文より</div>
+    <blockquote class="excerpt" id="lo-excerpt"></blockquote>
+
+    <div class="question" id="lo-question"></div>
+    <div class="prompt" id="lo-prompt"></div>
+
+    <div class="btn-row">
+      <button class="secondary" onclick="showScreen('map')">← マップに戻る</button>
+      <button onclick="showScreen('write')">書く →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ========= [02] 記述入力 ========= -->
+<section id="screen-write" class="screen">
+  <div class="card">
+    <div class="lo-tag-big" id="write-lo-tag"></div>
+    <div class="field-label">あなたの言葉で（100〜300字めやす）</div>
+    <textarea id="write-text" oninput="updateCharCount()" placeholder="実務での具体シーンを1つ選んで、書いてみてください。"></textarea>
+    <div class="char-count"><span id="char-count">0</span> 字</div>
+
+    <div class="helper-buttons">
+      <button onclick="showHelper('時系列で書く： 何時／誰が／何をした → 相手はどう反応した → 自分はどう感じた の順で並べてみてください。')">言葉に詰まったら：時系列</button>
+      <button onclick="showHelper('相手の反応から書く： まず相手の反応（表情・返事・態度）を描写。そこから遡って、自分の行為はどんな意味として届いていたかを推定してください。')">相手の反応から</button>
+      <button onclick="showHelper('あなたの躊躇から書く： 実は「これ言おうかどうしようか」と迷った瞬間があったはず。その躊躇そのものが、何かを教えてくれます。')">躊躇から</button>
+    </div>
+    <div id="helper-text" class="tamakatsu-hint" style="display:none;"></div>
+
+    <div class="btn-row">
+      <button class="secondary" onclick="showScreen('lo')">← 戻る</button>
+      <button onclick="showScreen('rubric')">ルーブリックへ →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ========= [03] ルーブリック自己評価 ========= -->
+<section id="screen-rubric" class="screen">
+  <div class="card">
+    <h2>自己評価：今回のあなたはどの段階？</h2>
+    <div style="color: var(--sub); font-size: 14px; margin-bottom: 10px;">
+      「決めきれない」も学びです。無理に決めないでください。
+    </div>
+    <div class="rubric-list" id="rubric-list"></div>
+
+    <div class="field-label">なぜそのLか（根拠を1行）</div>
+    <input type="text" id="rubric-evidence" placeholder="例：責任と情報は渡したが、判断基準は自分の中にあった" />
+
+    <div class="btn-row">
+      <button class="secondary" onclick="showScreen('write')">← 戻る</button>
+      <button onclick="showScreen('tamakatsu')">たまかつ接続へ →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ========= [04] たまかつ接続 ========= -->
+<section id="screen-tamakatsu" class="screen">
+  <div class="card">
+    <h2>たまかつに接続する</h2>
+    <div class="tamakatsu-hint">
+      「わからない」もOK。ただし、何か書いてから次へ進んでください。書く行為が言葉を作ります。
+    </div>
+
+    <div class="field-label">何のために、これを学んだ？</div>
+    <textarea id="why" style="min-height: 80px;" placeholder="例：任せられる幅を広げるため"></textarea>
+
+    <div class="field-label">誰のために、明日これを使う？</div>
+    <textarea id="for-whom" style="min-height: 80px;" placeholder="例：田中さんの次のプロジェクトで、責任を残して判断を渡す試みをするため"></textarea>
+
+    <div class="btn-row">
+      <button class="secondary" onclick="showScreen('rubric')">← 戻る</button>
+      <button id="btn-finish" onclick="finishSession()">保存して完了 →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ========= [05] 完了 ========= -->
+<section id="screen-done" class="screen">
+  <div class="card">
+    <div class="complete-msg">
+      <div class="emoji">🌱</div>
+      <div class="headline">今日の学びを保存しました</div>
+      <div class="sub">触った #LO は増えていきます。触っていないところが多くていい。</div>
+    </div>
+
+    <div class="field-label">場に晒す（他者評価をもらう）</div>
+    <div class="share-options">
+      <button class="secondary" onclick="exportMarkdown()">📋 Markdownでコピー（ノート／SNS／Discordに貼れます）</button>
+      <button class="secondary" onclick="shareTo('gc')">👥 次に人と話す時の候補に入れる</button>
+      <button class="secondary" onclick="shareTo('discord')">💬 ありえる楽考コミュニティに投げる（フラグのみ）</button>
+    </div>
+
+    <div id="related-apps-container" class="related-apps" style="display:none;">
+      <div class="r-headline">🌱 この学びを深めるには</div>
+      <div class="r-sub">他の書籍アプリで、同じテーマを別の視点から鍛えられます。</div>
+      <div id="related-apps-list"></div>
+    </div>
+
+    <div class="btn-row" style="justify-content: center;">
+      <button onclick="showScreen('map')">🗺 マップに戻る</button>
+    </div>
+  </div>
+</section>
+
+<div class="footer-note">
+  ありえる楽考 / たまかつアプリ / v0.1 (P0)
+</div>
+</main>
+
+<script>
+// ==================== State ====================
+let DATA = null;
+let currentTheme = null;
+let currentSession = null;
+let STORAGE_KEY = "ariel_learning_sessions_v1";
+
+// ==================== Init ====================
+async function init() {
+  try {
+    const res = await fetch("data.json");
+    DATA = await res.json();
+  } catch (e) {
+    alert("データの読み込みに失敗しました。ネットワーク接続を確認してページを再読み込みしてください。");
+    return;
+  }
+  applyBookMeta();
+  renderMap();
+  renderHistory();
+}
+
+// ==================== Apply book-specific meta ====================
+function applyBookMeta() {
+  const b = DATA.book || {};
+  const title = (b.title || "学習アプリ") + " 学習アプリ";
+  document.title = title;
+  document.getElementById("page-title").textContent = title;
+  document.getElementById("header-title").textContent = title;
+  const metaParts = [];
+  if (b.author) metaParts.push(b.author);
+  if (b.publisher) metaParts.push(b.publisher);
+  if (b.product_line) metaParts.push(b.product_line);
+  if (b.tagline) metaParts.push(b.tagline);
+  document.getElementById("header-meta").textContent = metaParts.join(" ／ ");
+  // Also update <html lang> and STORAGE_KEY per book slug
+  if (b.slug) {
+    STORAGE_KEY = "ariel_learning_" + b.slug;
+  }
+
+  // Populate book-intro panel (personal translation + model/story intro + legend)
+  const introParts = [];
+  if (b.personal_translation_note) introParts.push(b.personal_translation_note);
+  if (b.model_and_story_intro) introParts.push(b.model_and_story_intro);
+  if (b.milestone_summary) introParts.push(b.milestone_summary);
+  const introText = introParts.join("<br><br>");
+  if (introText) {
+    document.getElementById("book-intro-text").innerHTML = introText;
+    // Dynamic headline (falls back to default if not set)
+    if (b.book_intro_headline) {
+      document.getElementById("book-intro-headline").textContent = b.book_intro_headline;
+    }
+    const legend = DATA.content_type_legend || [];
+    const legendContainer = document.getElementById("content-legend");
+    legendContainer.innerHTML = "";
+    legend.forEach(lg => {
+      const span = document.createElement("span");
+      span.className = "lg-item";
+      span.innerHTML = `<strong>${lg.label}</strong> ${lg.description || ""}`;
+      legendContainer.appendChild(span);
+    });
+    document.getElementById("book-intro-panel").style.display = "";
+  }
+
+  // Dynamic career-translation label
+  if (b.translation_label) {
+    document.getElementById("lo-career-translation-label").textContent = b.translation_label;
+  }
+}
+
+// ==================== Screens ====================
+function showScreen(name) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  document.getElementById("screen-" + name).classList.add("active");
+  window.scrollTo({top: 0, behavior: "smooth"});
+  if (name === "map") { renderMap(); renderHistory(); }
+  if (name === "done") { renderRelatedApps(); }
+}
+
+// ==================== Related apps (cross-book learning) ====================
+function renderRelatedApps() {
+  const container = document.getElementById("related-apps-container");
+  const list = document.getElementById("related-apps-list");
+  const related = (currentTheme && currentTheme.related_apps) || [];
+  if (!related.length) {
+    container.style.display = "none";
+    return;
+  }
+  container.style.display = "";
+  list.innerHTML = "";
+  related.forEach(r => {
+    const a = document.createElement("a");
+    a.className = "related-app-card";
+    a.href = r.app_href;
+    a.target = "_blank";
+    a.rel = "noopener";
+    a.innerHTML = `
+      <div class="app-name">📖 ${r.app_title}</div>
+      <div class="theme-name">${r.theme_title}</div>
+      <div class="why">${r.why}</div>
+    `;
+    list.appendChild(a);
+  });
+}
+
+// ==================== Map ====================
+function renderMap() {
+  const sessions = loadSessions();
+  const bestByTheme = {};
+  sessions.forEach(s => {
+    if (!bestByTheme[s.theme_id] || s.self_rubric > bestByTheme[s.theme_id]) {
+      bestByTheme[s.theme_id] = s.self_rubric;
+    }
+  });
+
+  const container = document.getElementById("layers-container");
+  container.innerHTML = "";
+  const layers = DATA.layers || [];
+  layers.forEach(ly => {
+    const label = document.createElement("div");
+    label.className = "layer-label";
+    label.textContent = ly.label;
+    container.appendChild(label);
+    const grid = document.createElement("div");
+    grid.className = "theme-grid";
+    container.appendChild(grid);
+    DATA.themes.filter(t => t.layer === ly.level).forEach(t => {
+      const cell = document.createElement("div");
+      cell.className = "theme-cell" + (t.implemented ? "" : " locked");
+      const lvl = bestByTheme[t.id] || 0;
+      const color = lvl === 4 ? "var(--l4)" : lvl === 3 ? "var(--l3)" : lvl === 2 ? "var(--l2)" : "var(--l1)";
+      cell.style.background = color;
+      // content_type バッジ
+      let ctypeBadge = "";
+      if (t.content_type) {
+        const legend = (DATA.content_type_legend || []).find(x => x.type === t.content_type);
+        const label = legend ? legend.label : t.content_type;
+        ctypeBadge = `<span class="ctype ${t.content_type}">${label}</span>`;
+      }
+      const milestoneMark = t.milestone ? " 🌱" : "";
+      cell.innerHTML = `
+        <div class="lo-tag">${t.lo_tag}${milestoneMark}</div>
+        <div class="title">${t.title}</div>
+        ${ctypeBadge}
+        <div class="lvl">${t.implemented ? (lvl ? "L" + lvl : "未着手") : "coming soon"}</div>
+      `;
+      if (t.implemented) cell.onclick = () => openTheme(t.id);
+      grid.appendChild(cell);
+    });
+  });
+
+  const implemented = DATA.themes.filter(t => t.implemented).length;
+  const touched = Object.keys(bestByTheme).length;
+  document.getElementById("progress-line").textContent =
+    `触った #LO: ${touched} / ${implemented}（実装済み） · セッション数: ${sessions.length}`;
+}
+
+// ==================== Open LO ====================
+function openTheme(id) {
+  currentTheme = DATA.themes.find(t => t.id === id);
+  currentSession = {
+    session_id: "s-" + Date.now(),
+    theme_id: id,
+    lo_tag: currentTheme.lo_tag,
+    text: "",
+    self_rubric: null,
+    rubric_evidence: "",
+    tamakatsu_why: "",
+    tamakatsu_for_whom: "",
+    created_at: new Date().toISOString(),
+    shared_at: null,
+    share_channels: []
+  };
+
+  document.getElementById("lo-tag").textContent = currentTheme.lo_tag;
+  document.getElementById("lo-title").textContent = currentTheme.title;
+  // excerpt: escape then convert **bold** to <strong>
+  const rawExcerpt = currentTheme.excerpt || "";
+  const escExcerpt = rawExcerpt.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const boldExcerpt = escExcerpt.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+  document.getElementById("lo-excerpt").innerHTML = boldExcerpt;
+  document.getElementById("lo-question").textContent = currentTheme.seed_question;
+  document.getElementById("lo-prompt").textContent = currentTheme.prompt;
+
+  const milestoneBanner = document.getElementById("lo-milestone-banner");
+  if (currentTheme.milestone) {
+    milestoneBanner.style.display = "";
+    document.getElementById("lo-milestone-note").textContent = currentTheme.milestone_note || "";
+  } else {
+    milestoneBanner.style.display = "none";
+  }
+
+  // career translation panel
+  const careerPanel = document.getElementById("lo-career-translation");
+  if (currentTheme.career_translation) {
+    careerPanel.style.display = "";
+    document.getElementById("lo-career-translation-text").textContent = currentTheme.career_translation;
+  } else {
+    careerPanel.style.display = "none";
+  }
+
+  document.getElementById("write-lo-tag").textContent = currentTheme.lo_tag + " · " + currentTheme.title;
+  document.getElementById("write-text").value = "";
+  document.getElementById("char-count").textContent = "0";
+  document.getElementById("helper-text").style.display = "none";
+
+  renderRubric();
+  document.getElementById("rubric-evidence").value = "";
+  document.getElementById("why").value = "";
+  document.getElementById("for-whom").value = "";
+
+  showScreen("lo");
+}
+
+// ==================== Write ====================
+function updateCharCount() {
+  const v = document.getElementById("write-text").value;
+  document.getElementById("char-count").textContent = v.length;
+  if (currentSession) currentSession.text = v;
+}
+function showHelper(msg) {
+  const el = document.getElementById("helper-text");
+  el.textContent = msg;
+  el.style.display = "block";
+}
+
+// ==================== Rubric ====================
+function renderRubric() {
+  const list = document.getElementById("rubric-list");
+  list.innerHTML = "";
+  DATA.rubric_labels.forEach((r, i) => {
+    const div = document.createElement("div");
+    div.className = "rubric-item";
+    div.dataset.level = r.level;
+    div.innerHTML = `
+      <div class="level">L${r.level}</div>
+      <div class="label">${r.label}</div>
+      <div class="desc">${currentTheme.rubric[i]}</div>
+    `;
+    div.onclick = () => {
+      document.querySelectorAll(".rubric-item").forEach(x => x.classList.remove("selected"));
+      div.classList.add("selected");
+      currentSession.self_rubric = r.level;
+    };
+    list.appendChild(div);
+  });
+}
+
+// ==================== Tamakatsu / Finish ====================
+function finishSession() {
+  currentSession.text = document.getElementById("write-text").value;
+  currentSession.rubric_evidence = document.getElementById("rubric-evidence").value;
+  currentSession.tamakatsu_why = document.getElementById("why").value;
+  currentSession.tamakatsu_for_whom = document.getElementById("for-whom").value;
+
+  if (!currentSession.text.trim()) {
+    alert("[書く] の記述が空です。50字以上を目安に書いてから完了してください。");
+    return;
+  }
+  if (!currentSession.self_rubric) {
+    alert("ルーブリックの自己評価を選んでください。");
+    return;
+  }
+  if (!currentSession.tamakatsu_why.trim() || !currentSession.tamakatsu_for_whom.trim()) {
+    alert("たまかつの2問（何のために／誰のために）を、何か書いてから完了してください。");
+    return;
+  }
+
+  const sessions = loadSessions();
+  sessions.push(currentSession);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions));
+  showScreen("done");
+}
+
+// ==================== Share ====================
+function shareTo(channel) {
+  const sessions = loadSessions();
+  const s = sessions[sessions.length - 1];
+  s.share_channels = s.share_channels || [];
+  s.share_channels.push(channel);
+  s.shared_at = new Date().toISOString();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions));
+
+  if (channel === "discord") {
+    alert("✅ 「コミュニティに投げる」フラグを立てました。\n（現在はローカル保存のみ。Webhook連携は次バージョンで対応予定）\n\n手動で共有したい場合は「Markdownでコピー」から本文をコピーできます。");
+  } else if (channel === "gc") {
+    alert("✅ 「人と話す時の候補」に入れました。\n次に誰かと話す機会があったら、この学びを持ち込んでみてください。");
+  }
+}
+
+// ==================== Export Markdown ====================
+function exportMarkdown() {
+  const sessions = loadSessions();
+  const s = sessions[sessions.length - 1];
+  const dt = new Date(s.created_at);
+  const md = `## ${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,"0")}-${String(dt.getDate()).padStart(2,"0")} ${String(dt.getHours()).padStart(2,"0")}:${String(dt.getMinutes()).padStart(2,"0")} ｜ ${currentTheme.title}
+
+**#LO**: \`${s.lo_tag}\` (${currentTheme.title})
+**自己評価**: L${s.self_rubric} — ${DATA.rubric_labels[s.self_rubric-1].label}
+**根拠**: ${s.rubric_evidence}
+
+### 記述
+${s.text}
+
+### たまかつ接続
+- **何のために**: ${s.tamakatsu_why}
+- **誰のために**: ${s.tamakatsu_for_whom}
+
+**タグ**: #ありえる楽考 ${(DATA.book && DATA.book.hashtag) ? DATA.book.hashtag + " " : ""}${s.lo_tag}
+`;
+  navigator.clipboard.writeText(md).then(() => {
+    alert("📋 Markdownをクリップボードにコピーしました。デイリーノートに貼れます。");
+  }).catch(() => {
+    prompt("以下をコピーしてください：", md);
+  });
+}
+
+// ==================== History ====================
+function renderHistory() {
+  const sessions = loadSessions().slice(-5).reverse();
+  const list = document.getElementById("history-list");
+  if (!sessions.length) { list.textContent = "まだありません。"; return; }
+  list.innerHTML = "";
+  sessions.forEach(s => {
+    const theme = DATA.themes.find(t => t.id === s.theme_id);
+    const dt = new Date(s.created_at);
+    const div = document.createElement("div");
+    div.className = "history-item";
+    div.innerHTML = `
+      <div class="h-date">${dt.getMonth()+1}/${dt.getDate()} ${String(dt.getHours()).padStart(2,"0")}:${String(dt.getMinutes()).padStart(2,"0")}</div>
+      <div><strong>L${s.self_rubric}</strong> · ${theme?.title || s.theme_id} <span class="lo-tag-big">${s.lo_tag}</span></div>
+      <div style="color: var(--sub); font-size: 12px;">${(s.text || "").slice(0, 60)}${(s.text||"").length > 60 ? "…" : ""}</div>
+    `;
+    list.appendChild(div);
+  });
+}
+
+// ==================== Storage ====================
+function loadSessions() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+  } catch (e) { return []; }
+}
+
+// ==================== Bootstrap ====================
+init();
+</script>
+</body>
+</html>
