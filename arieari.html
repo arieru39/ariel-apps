@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>90秒で「ありあり」と伝える — ありえる楽考</title>
+<meta name="description" content="専門外の人に、90秒で、暗黙知を身体表現で届ける。Before→キッカケ→見方の変化→After のスクリプトを組み立てる練習アプリ。">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#faf5ee; --ink:#2a2a2a; --sub:#666;
+    --accent:#c45e2a; --accent-d:#a44a1a;
+    --soft:#fde8d8; --card:#fff;
+    --line:#e6d8c4; --ok:#3d8f5a; --warn:#c44a4a;
+  }
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.7;
+    min-height:100vh;padding:20px 14px 60px;
+  }
+  .wrap{max-width:720px;margin:0 auto}
+  header{text-align:center;padding:20px 0 26px}
+  h1{font-size:1.55rem;margin-bottom:6px;color:var(--accent-d)}
+  .sub{color:var(--sub);font-size:.9rem;margin-bottom:14px}
+  .intro{
+    background:var(--card);border-left:4px solid var(--accent);
+    padding:14px 18px;border-radius:6px;font-size:.9rem;text-align:left;
+  }
+  .progress{
+    display:flex;gap:6px;justify-content:center;margin:20px 0 24px;flex-wrap:wrap;
+  }
+  .progress span{
+    display:inline-block;padding:4px 10px;border-radius:12px;
+    background:#e8ddc9;color:#8a7a5c;font-size:.72rem;font-weight:600;
+  }
+  .progress span.done{background:var(--soft);color:var(--accent-d)}
+  .progress span.current{background:var(--accent);color:#fff}
+  .step{
+    background:var(--card);border-radius:12px;padding:22px 20px;
+    box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:20px;
+    display:none;
+  }
+  .step.active{display:block}
+  .step h2{font-size:1.15rem;color:var(--accent-d);margin-bottom:6px;line-height:1.4}
+  .step .lead{color:var(--sub);font-size:.88rem;margin-bottom:16px}
+  .field{margin:14px 0}
+  .field label{
+    display:block;font-weight:600;font-size:.92rem;margin-bottom:4px;color:#3a3a3a;
+  }
+  .field .hint{font-size:.78rem;color:var(--sub);margin-bottom:6px;line-height:1.5}
+  .field textarea, .field input[type=text]{
+    width:100%;padding:10px 12px;border:1.5px solid var(--line);
+    border-radius:6px;font-family:inherit;font-size:.95rem;
+    background:#fff;line-height:1.6;resize:vertical;
+  }
+  .field textarea:focus, .field input:focus{
+    outline:none;border-color:var(--accent);
+  }
+  .field textarea{min-height:60px}
+  .example{
+    background:#fff8ec;border-radius:5px;padding:8px 12px;
+    font-size:.78rem;color:#7a5a2a;margin-top:6px;
+    border-left:3px solid #d8a860;
+  }
+  .example b{color:#5a3a10}
+  .taboo-list{
+    background:#ffeee8;border-radius:6px;padding:10px 14px;
+    margin-top:10px;font-size:.85rem;
+  }
+  .taboo-list b{color:var(--warn)}
+  .taboo-chip{
+    display:inline-block;background:#fff;color:var(--warn);
+    padding:2px 8px;border-radius:10px;margin:2px;font-size:.78rem;
+    border:1px solid #ffcabb;
+  }
+  .warn-taboo{
+    background:#fff5f2;border:1.5px dashed var(--warn);
+    padding:8px 12px;border-radius:6px;color:var(--warn);
+    font-size:.82rem;margin-top:6px;
+  }
+  .nav{display:flex;justify-content:space-between;gap:10px;margin-top:20px}
+  button, .btn{
+    padding:11px 22px;border:none;border-radius:8px;font-weight:600;
+    font-size:.95rem;cursor:pointer;font-family:inherit;
+    transition:background .15s, transform .1s;
+  }
+  .btn-primary{background:var(--accent);color:#fff}
+  .btn-primary:hover{background:var(--accent-d)}
+  .btn-ghost{background:#f0e6d8;color:#5a4a2a}
+  .btn-ghost:hover{background:#e6d8c0}
+  .btn-primary:active, .btn-ghost:active{transform:scale(.98)}
+  .btn:disabled{opacity:.4;cursor:not-allowed}
+  .script-box{
+    background:#fff8ec;border:2px solid var(--accent);border-radius:10px;
+    padding:20px;margin:16px 0;font-size:.95rem;line-height:2;
+    white-space:pre-wrap;
+  }
+  .script-box .stage{
+    color:var(--accent-d);font-weight:600;font-style:italic;
+    background:#fff2dd;padding:2px 8px;border-radius:4px;
+    display:inline-block;margin:2px 0;
+  }
+  .timer-box{
+    background:#3a2418;color:#fff;border-radius:12px;
+    padding:24px;text-align:center;margin:16px 0;
+  }
+  .timer-box .time{
+    font-size:3rem;font-weight:700;font-variant-numeric:tabular-nums;
+    color:#ffd6a5;
+  }
+  .timer-box .time.over{color:#ff8080}
+  .timer-box .status{font-size:.85rem;color:#c8a880;margin-top:4px}
+  .timer-controls{display:flex;justify-content:center;gap:10px;margin-top:14px}
+  .check-list{margin-top:16px}
+  .check-list label{
+    display:flex;align-items:flex-start;gap:10px;padding:8px 12px;
+    background:#f7f1e8;border-radius:6px;margin-bottom:6px;cursor:pointer;
+    font-size:.9rem;line-height:1.5;
+  }
+  .check-list label:hover{background:#efe6d5}
+  .check-list input[type=checkbox]{margin-top:5px;transform:scale(1.2);accent-color:var(--accent)}
+  .save-note{
+    text-align:center;font-size:.75rem;color:var(--sub);
+    padding:8px;background:#f0eadf;border-radius:6px;margin-top:12px;
+  }
+  .footer-tips{
+    background:#fff;border-radius:10px;padding:16px 20px;margin-top:16px;
+    font-size:.85rem;color:#555;
+  }
+  .footer-tips h3{color:var(--accent-d);font-size:.95rem;margin-bottom:8px}
+  .footer-tips ul{margin-left:1.2em;line-height:1.8}
+  .principles{
+    background:#f0eadf;border-radius:10px;padding:14px 18px;
+    font-size:.82rem;margin-top:12px;
+  }
+  .principles b{color:var(--accent-d)}
+  footer{text-align:center;margin-top:32px;padding:20px 0;
+    font-size:.75rem;color:var(--sub);border-top:1px solid var(--line);
+  }
+  footer a{color:var(--accent);text-decoration:none}
+  @media(max-width:520px){
+    h1{font-size:1.3rem}
+    .step{padding:18px 14px}
+    .timer-box .time{font-size:2.4rem}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>90秒で「ありあり」と伝える</h1>
+    <p class="sub">専門外の人に、暗黙知を身体で届ける練習アプリ</p>
+    <div class="intro">
+      <b>過去の話ではなく、今ここでその場面を体験している人</b> として、
+      <b>Before → キッカケ → 見方の変化 → After</b> を、
+      感情は言葉ではなく <b>身体で見せる</b> スクリプトを組み立てます。<br>
+      6ステップで90秒スクリプトが完成し、そのままタイマー付きで練習できます。
+    </div>
+  </header>
+
+  <div class="progress" id="progress"></div>
+
+  <!-- Step 1: 相手の想定と禁句 -->
+  <section class="step active" data-step="1">
+    <h2>Step 1 ／ 誰に届ける？ そして "使わない言葉" を決める</h2>
+    <p class="lead">最初に「この話を届けたい相手」を、顔まで見えるくらい具体的に。<br>そして、その人に通じない <b>専門用語＝禁句リスト</b> を書き出します。</p>
+
+    <div class="field">
+      <label>① この話を届ける、たったひとりの相手</label>
+      <div class="hint">「みんな」ではなく、特定の一人を思い浮かべる。</div>
+      <input type="text" id="audience" placeholder="例：私の仕事を全く知らない、姪っ子（8歳）／別業界の初対面の方">
+      <div class="example"><b>ヒント:</b> その人の顔・声・年齢が浮かぶくらい具体的に。それが90秒の "聴衆" になります。</div>
+    </div>
+
+    <div class="field">
+      <label>② その人に通じない禁句リスト（自分の業界の専門用語）</label>
+      <div class="hint">読点や改行で区切って、思いつくだけ。この後の全ステップで自動チェックします。</div>
+      <textarea id="taboo" rows="3" placeholder="例：エンロールメント、ラケット、コンテクスト、KPI、アジェンダ、ステークホルダー、UI/UX、リファクタ、..."></textarea>
+      <div class="example"><b>目安:</b> 自分の職場や勉強会で「ふつうに使っている」言葉を、10個以上。少なすぎると効きません。</div>
+    </div>
+
+    <div class="nav">
+      <span></span>
+      <button class="btn btn-primary" onclick="nextStep()">次へ →</button>
+    </div>
+  </section>
+
+  <!-- Step 2: Before -->
+  <section class="step" data-step="2">
+    <h2>Step 2 ／ Beforeの状態（今ここで、感じている）</h2>
+    <p class="lead">変化する前の私は、<b>今、その場所に立っています</b>。<br>過去形（〜だった）ではなく、<b>現在形</b>で、五感と体で書く。</p>
+
+    <div class="field">
+      <label>① Before の場面（1行）</label>
+      <div class="hint">「わたしは今、___ にいる」の形で。時刻や場所も具体的に。</div>
+      <input type="text" id="before_scene" placeholder="例：わたしは今、夜11時のオフィスの、消えかけた蛍光灯の下にいる">
+    </div>
+
+    <div class="field">
+      <label>② 目の前にあるもの（1つだけ）</label>
+      <input type="text" id="before_see" placeholder="例：机の上に、返信のないメールが7通ならんだ画面">
+    </div>
+
+    <div class="field">
+      <label>③ 聞こえてくる音（1つだけ）</label>
+      <input type="text" id="before_hear" placeholder="例：空調のかすかな音／隣の部署の笑い声／外を通る車のヘッドライトの音">
+    </div>
+
+    <div class="field">
+      <label>④ 体のどこに、何がある？（身体感覚）</label>
+      <div class="hint">感情の名前（「不安」「悲しい」）は使わず、体感で。</div>
+      <input type="text" id="before_body" placeholder="例：胸の真ん中に、冷たい石／のどの奥に、詰まったもの／背中に、鉛の板">
+      <div class="example"><b>これがコアです。</b> 感情を「悲しい」と言うのではなく、体のどこに何があるかで見せる。相手はあなたの身体を通してその感情を "受け取る"。</div>
+    </div>
+
+    <div class="field">
+      <label>⑤ 身体表現ト書き（この場面を体で演じるとどうなる？）</label>
+      <div class="hint">語らずに、体だけで見せるとしたら？ 90秒の練習で、あなたの体が実際にこう動く指示書。</div>
+      <textarea id="before_gesture" rows="2" placeholder="例：肩がすくむ。視線が下に落ちる。息が浅くなる。両手は膝の上で握りしめる。"></textarea>
+    </div>
+
+    <div class="nav">
+      <button class="btn btn-ghost" onclick="prevStep()">← 戻る</button>
+      <button class="btn btn-primary" onclick="nextStep()">次へ →</button>
+    </div>
+  </section>
+
+  <!-- Step 3: キッカケ -->
+  <section class="step" data-step="3">
+    <h2>Step 3 ／ キッカケの体験（今ここで、起きている）</h2>
+    <p class="lead">変化が起きた、<b>まさにその瞬間</b>、あなたはそこにいる。<br>ゆっくり、細部を思い出す。時間が引き延ばされたように。</p>
+
+    <div class="field">
+      <label>① キッカケの出来事（誰が／何が／どうした）</label>
+      <div class="hint">1文で。長い説明はいらない。</div>
+      <input type="text" id="trigger_event" placeholder="例：上司が、机に手をついて、わたしの目を見て "君はよくやってる" と言った">
+    </div>
+
+    <div class="field">
+      <label>② 相手の身体表現（相手の声・目・間）</label>
+      <div class="hint">相手が言ったことより、相手が "どう" 言ったか。</div>
+      <textarea id="trigger_other" rows="2" placeholder="例：低い声で、いつもより一拍だけ長く目を合わせて。半歩だけ距離を詰めて。"></textarea>
+    </div>
+
+    <div class="field">
+      <label>③ 自分の体の反応（その瞬間、体はどう動いた？）</label>
+      <div class="hint">Step 2の④「胸の石」など、身体感覚がどう揺れたか。</div>
+      <input type="text" id="trigger_reaction" placeholder="例：胸の石が、一瞬揺れた／のどの詰まりが、緩んだ／背中の鉛が、軽くなった">
+    </div>
+
+    <div class="nav">
+      <button class="btn btn-ghost" onclick="prevStep()">← 戻る</button>
+      <button class="btn btn-primary" onclick="nextStep()">次へ →</button>
+    </div>
+  </section>
+
+  <!-- Step 4: 見方の変化 -->
+  <section class="step" data-step="4">
+    <h2>Step 4 ／ 見方・解釈の変化（今、書き換えている）</h2>
+    <p class="lead">その瞬間、あなたの中で <b>世界の見え方が変わった</b>。<br>専門用語ではなく、姪っ子にも通じる日常語で。</p>
+
+    <div class="field">
+      <label>① 前は、世界がこう見えていた（古い見方）</label>
+      <div class="hint">「わたしは___だ」「世界は___だ」の形で。</div>
+      <input type="text" id="before_view" placeholder="例：わたしは、独りで戦っている／わたしは、期待に応えないと消される">
+    </div>
+
+    <div class="field">
+      <label>② 今は、世界がこう見えている（新しい見方）</label>
+      <div class="hint">古い見方の反対、ではなく、"同じ場所に別の景色" が見えている感じ。</div>
+      <input type="text" id="after_view" placeholder="例：わたしは、誰かの手を借りて立っている／わたしは、応えなくても、そこにいていい">
+      <div class="example"><b>核心はここです。</b> 「事実は変わっていない」「解釈が変わった」ことを言葉にできると、相手に "見方の書き換え" という抽象概念が、90秒で伝わります。</div>
+    </div>
+
+    <div class="nav">
+      <button class="btn btn-ghost" onclick="prevStep()">← 戻る</button>
+      <button class="btn btn-primary" onclick="nextStep()">次へ →</button>
+    </div>
+  </section>
+
+  <!-- Step 5: After -->
+  <section class="step" data-step="5">
+    <h2>Step 5 ／ Afterの状態（今ここで、感じている）</h2>
+    <p class="lead">同じ場所にいるのに、体が違う。<br>Step 2 の身体感覚と対になる After を書きます。</p>
+
+    <div class="field">
+      <label>① 同じ場所を、今はどう見ている？</label>
+      <input type="text" id="after_scene" placeholder="例：同じ夜11時のオフィス。でも、蛍光灯の点滅が、リズムのように見えている">
+    </div>
+
+    <div class="field">
+      <label>② 身体感覚の変化（Step 2 の "石" は、今どうなった？）</label>
+      <div class="hint">消える／溶ける／変わる／灯る／ゆるむ／流れる 等。</div>
+      <input type="text" id="after_body" placeholder="例：胸の石が、灯りに変わった／のどの詰まりが、ほどけて息が通った">
+    </div>
+
+    <div class="field">
+      <label>③ 身体表現ト書き（After の体を演じるとどうなる？）</label>
+      <textarea id="after_gesture" rows="2" placeholder="例：肩が下がる。視線が上がる。息が深くなる。握りしめていた手が、ひらく。"></textarea>
+    </div>
+
+    <div class="nav">
+      <button class="btn btn-ghost" onclick="prevStep()">← 戻る</button>
+      <button class="btn btn-primary" onclick="nextStep()">スクリプト生成 →</button>
+    </div>
+  </section>
+
+  <!-- Step 6: スクリプト & 練習 -->
+  <section class="step" data-step="6">
+    <h2>Step 6 ／ 90秒スクリプト & 練習</h2>
+    <p class="lead">生成されたスクリプトを、90秒タイマーと一緒に <b>実際に体を動かしながら</b> 話してください。<br>ト書き（<span class="stage">🎭</span>）は声に出さず、体で見せる。</p>
+
+    <div id="taboo-warning"></div>
+
+    <div class="script-box" id="scriptOut"></div>
+
+    <div class="timer-box">
+      <div class="time" id="time">01:30</div>
+      <div class="status" id="tstatus">スタートを押して、実際に立って、体を動かしながら話してみましょう</div>
+      <div class="timer-controls">
+        <button class="btn btn-primary" id="startBtn" onclick="startTimer()">▶ 90秒スタート</button>
+        <button class="btn btn-ghost" onclick="resetTimer()">リセット</button>
+      </div>
+    </div>
+
+    <h3 style="margin-top:20px;color:var(--accent-d);font-size:1rem">練習後の自己チェック</h3>
+    <div class="check-list">
+      <label><input type="checkbox"> ① 過去形（〜だった／〜と思った）にならず、<b>現在形</b>で話し切れた</label>
+      <label><input type="checkbox"> ② <b>禁句リスト</b>の専門用語を1つも使わずに話し切れた</label>
+      <label><input type="checkbox"> ③ 感情を「悲しい」「不安だ」と <b>言葉で言わず</b>、体（声・呼吸・視線・姿勢）で見せられた</label>
+      <label><input type="checkbox"> ④ Before → キッカケ → 見方の変化 → After の <b>4層が、相手に伝わっている</b>手応えがある</label>
+      <label><input type="checkbox"> ⑤ <b>90秒 ±10秒</b> の中に収まった</label>
+      <label><input type="checkbox"> ⑥ 話し終わった後、相手が「その景色、見えた」と言えそうな <b>身体化された理解</b> を渡せた</label>
+    </div>
+
+    <div class="footer-tips">
+      <h3>💡 練習の質を上げるコツ</h3>
+      <ul>
+        <li><b>録画・録音</b>して、自分の姿を "聴衆" の視点で観る。「肩がすくんでいる」「視線が動いている」が事実として確認できる。</li>
+        <li><b>実際に立って、体を動かしながら</b>話す。座って原稿を読むと "体で見せる" ができない。</li>
+        <li>90秒より短く終わったら、<b>間（ま）</b>が足りない可能性。感情のピークで一拍だけ止まる勇気を。</li>
+        <li>禁句が出たら、その瞬間だけ止まって「今、専門用語が出た」と気づき、日常語に言い換える練習。</li>
+        <li><b>3周目くらいから、原稿を捨てて</b>体だけで語る。すると "暗黙知の伝達" が起きる。</li>
+      </ul>
+    </div>
+
+    <div class="principles">
+      <b>この練習の原理:</b><br>
+      感情を「言葉」で伝えると、相手は "情報" として受け取る（頭で理解）。<br>
+      感情を「身体表現」で伝えると、相手は "共振" として受け取る（体で理解）。<br>
+      90秒の制約は、<b>言葉で説明する余裕をなくすことで、身体表現に頼らざるを得ない</b>状況を作る装置です。
+    </div>
+
+    <div class="nav">
+      <button class="btn btn-ghost" onclick="prevStep()">← 戻る</button>
+      <button class="btn btn-primary" onclick="location.reload()">↻ 新しい話で最初から</button>
+    </div>
+
+    <div class="save-note">
+      💾 入力はブラウザに自動保存されます（同じ端末で続きから再開できます）。<br>
+      サーバーには何も送信されません。全てあなたのブラウザの中だけで動いています。
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <a href="index.html">← ありえる楽考 対話アプリ集に戻る</a><br>
+  Made with ❤️ by ありえる楽考 × Claudian
+</footer>
+
+<script>
+const STORAGE_KEY = 'arieari_v1';
+const FIELDS = [
+  'audience','taboo',
+  'before_scene','before_see','before_hear','before_body','before_gesture',
+  'trigger_event','trigger_other','trigger_reaction',
+  'before_view','after_view',
+  'after_scene','after_body','after_gesture'
+];
+let currentStep = 1;
+const TOTAL = 6;
+
+// --- localStorage save/restore ---
+function save(){
+  const data = {};
+  FIELDS.forEach(f => {
+    const el = document.getElementById(f);
+    if(el) data[f] = el.value;
+  });
+  data._step = currentStep;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+function restore(){
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if(!raw) return;
+  try{
+    const data = JSON.parse(raw);
+    FIELDS.forEach(f => {
+      const el = document.getElementById(f);
+      if(el && data[f] !== undefined) el.value = data[f];
+    });
+  }catch(e){}
+}
+
+// --- step navigation ---
+function showStep(n){
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  const target = document.querySelector(`.step[data-step="${n}"]`);
+  if(target) target.classList.add('active');
+  currentStep = n;
+  renderProgress();
+  window.scrollTo({top:0,behavior:'smooth'});
+  save();
+  if(n === 6) generateScript();
+}
+function nextStep(){
+  save();
+  if(currentStep < TOTAL) showStep(currentStep + 1);
+}
+function prevStep(){
+  save();
+  if(currentStep > 1) showStep(currentStep - 1);
+}
+function renderProgress(){
+  const labels = ['相手','Before','キッカケ','見方','After','90秒'];
+  const p = document.getElementById('progress');
+  p.innerHTML = labels.map((l,i) => {
+    const n = i + 1;
+    const cls = n < currentStep ? 'done' : (n === currentStep ? 'current' : '');
+    return `<span class="${cls}">${n}. ${l}</span>`;
+  }).join('');
+}
+
+// --- taboo detection ---
+function getTabooList(){
+  const raw = document.getElementById('taboo').value || '';
+  return raw.split(/[\s,、，,／\/\n]+/).map(s => s.trim()).filter(s => s.length >= 2);
+}
+function detectTaboos(text){
+  const list = getTabooList();
+  return list.filter(t => text.includes(t));
+}
+
+// --- script generation ---
+function g(id){ return (document.getElementById(id).value || '').trim(); }
+function generateScript(){
+  const audience = g('audience');
+  const b_scene = g('before_scene');
+  const b_see   = g('before_see');
+  const b_hear  = g('before_hear');
+  const b_body  = g('before_body');
+  const b_gest  = g('before_gesture');
+  const t_event = g('trigger_event');
+  const t_other = g('trigger_other');
+  const t_react = g('trigger_reaction');
+  const v_old   = g('before_view');
+  const v_new   = g('after_view');
+  const a_scene = g('after_scene');
+  const a_body  = g('after_body');
+  const a_gest  = g('after_gesture');
+
+  const stage = (s) => s ? `🎭 【ト書き：${s}】\n\n` : '';
+
+  const script =
+`${stage(b_gest)}${b_scene ? b_scene + '。\n' : ''}${b_see ? b_see + '、が見える。\n' : ''}${b_hear ? b_hear + '、が聞こえる。\n' : ''}${b_body ? b_body + '。' : ''}
+
+そこに、${t_event ? t_event : '（キッカケの出来事）'}。
+
+${stage(t_other)}${t_react ? t_react + '。' : ''}
+
+前は、こう見えていた。「${v_old || '（古い見方）'}」
+今、こう見えている。「${v_new || '（新しい見方）'}」
+
+${stage(a_gest)}同じ場所に、わたしは今もいる。
+${a_scene ? a_scene + '。\n' : ''}${a_body ? a_body + '。' : ''}`;
+
+  const out = document.getElementById('scriptOut');
+  // stage direction highlighting
+  const html = script
+    .replace(/🎭 【ト書き：(.+?)】/g, '<span class="stage">🎭 【ト書き：$1】</span>');
+  out.innerHTML = html;
+
+  // taboo warning
+  const found = detectTaboos(script);
+  const warn = document.getElementById('taboo-warning');
+  if(found.length > 0){
+    warn.innerHTML = `<div class="warn-taboo">⚠️ スクリプトの中に、禁句リストの言葉が見つかりました：${found.map(t => `<span class="taboo-chip">${t}</span>`).join('')}<br>この言葉を、姪っ子（8歳）にも通じる <b>日常語に置き換え</b> てから、練習に入りましょう。前のステップに戻って書き換えてください。</div>`;
+  } else if(audience){
+    warn.innerHTML = `<div style="background:#ecf7ec;color:var(--ok);padding:8px 12px;border-radius:6px;font-size:.85rem;margin-bottom:12px;">✅ 禁句は使われていません。「${audience}」に、この90秒を届けましょう。</div>`;
+  } else {
+    warn.innerHTML = '';
+  }
+}
+
+// --- 90-second timer ---
+let timerId = null;
+let elapsed = 0;
+const TARGET = 90;
+function fmt(s){
+  const m = Math.floor(Math.abs(s) / 60);
+  const sec = Math.abs(s) % 60;
+  return (s < 0 ? '+' : '') + String(m).padStart(2,'0') + ':' + String(sec).padStart(2,'0');
+}
+function updateTimer(){
+  const remain = TARGET - elapsed;
+  const el = document.getElementById('time');
+  const st = document.getElementById('tstatus');
+  if(remain >= 0){
+    el.textContent = fmt(remain);
+    el.classList.remove('over');
+    if(remain <= 10 && remain > 0) st.textContent = 'ラスト10秒 — 結論の "身体表現" にたどり着けそうですか？';
+    else if(remain > 60) st.textContent = '導入：Before の身体をありありと';
+    else if(remain > 30) st.textContent = '中盤：キッカケ〜見方の変化';
+    else st.textContent = '終盤：After の身体で締めくくる';
+  } else {
+    el.textContent = fmt(remain);
+    el.classList.add('over');
+    st.textContent = '90秒を超過。次回は、間（ま）を残しつつ、身体表現をもう少し早く前に';
+  }
+}
+function startTimer(){
+  if(timerId) return;
+  elapsed = 0;
+  updateTimer();
+  document.getElementById('startBtn').textContent = '⏸ 進行中';
+  document.getElementById('startBtn').disabled = true;
+  timerId = setInterval(() => {
+    elapsed++;
+    updateTimer();
+    if(elapsed === TARGET){
+      // gentle vibration on mobile
+      if(navigator.vibrate) navigator.vibrate([100,50,100]);
+    }
+  }, 1000);
+}
+function resetTimer(){
+  if(timerId){ clearInterval(timerId); timerId = null; }
+  elapsed = 0;
+  document.getElementById('time').textContent = '01:30';
+  document.getElementById('time').classList.remove('over');
+  document.getElementById('tstatus').textContent = 'スタートを押して、実際に立って、体を動かしながら話してみましょう';
+  document.getElementById('startBtn').textContent = '▶ 90秒スタート';
+  document.getElementById('startBtn').disabled = false;
+}
+
+// --- init ---
+document.addEventListener('DOMContentLoaded', () => {
+  restore();
+  // resume last step (but only if user was mid-flow)
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      if(data._step && data._step >= 1 && data._step <= TOTAL){
+        // resume at last step, but generateScript only fires when arriving at step 6
+        currentStep = data._step;
+      }
+    }
+  } catch(e){}
+  showStep(currentStep);
+  // autosave on any input
+  document.querySelectorAll('input,textarea').forEach(el => {
+    el.addEventListener('input', save);
+  });
+});
+</script>
+</body>
+</html>
