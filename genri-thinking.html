@@ -148,6 +148,7 @@ label b{color:var(--gold)}
   <span id="pg4"></span>
   <span id="pg5"></span>
   <span id="pg6"></span>
+  <span id="pg7"></span>
 </div>
 
 <!-- ===== PHASE 0: START ===== -->
@@ -180,10 +181,14 @@ label b{color:var(--gold)}
   </div>
 
   <div class="callout violet">
-    <b>接続する実践知</b><br>
+    <b>接続する実践知（すべて同じ現象の別の顔）</b><br>
     ● <b>センスメイキング</b>（カール・ワイク）：観察 → 解釈 → 行動 で物語を編み直す<br>
     ● <b>コンテキスト・リーダーシップ</b>：断片的な現実を一貫した物語に編集し、人々に腹落ちさせる<br>
-    <span class="dim" style="font-size:.85rem">原理レベル思考の修練は、これらの上流にある「達人の視座」を作る筋トレです。</span>
+    ● <b>Mental Representation</b>（Ericsson）：エキスパートの頭の中の超高解像度ネットワーク<br>
+    ● <b>Fast &amp; Slow</b>（Kahneman）：修練を積むと <em>Fast の解像度</em> が上がる<br>
+    ● <b>適応的無意識 / 第1感</b>（Wilson → Gladwell）：言語化できないが正確な瞬間判断<br>
+    ● <b>熟達直観</b>（Gary Klein × Kahneman 2009）：規則性のある領域＋速いフィードバック＋十分な練習の3条件で信頼できる<br>
+    <span class="dim" style="font-size:.85rem">原理は一つ：<b>Slow で意図的に検証・失敗・修正した経験が、Fast に沈殿する</b>。原理レベル思考の修練は、Fast を彫刻する筋トレです。</span>
   </div>
 
   <div class="loop">
@@ -338,13 +343,52 @@ label b{color:var(--gold)}
   <input type="text" id="my_transfer2" placeholder="例：この原理は、地域コミュニティの運営にも効くのでは？">
 
   <div class="btn-row">
-    <button class="btn" onclick="go(5)">✓ 書けた／宣言へ →</button>
+    <button class="btn" onclick="go(5)">✓ 書けた／Fastの検証へ →</button>
   </div>
 </div>
 
-<!-- ===== PHASE 5: あり方の宣言 ===== -->
+<!-- ===== PHASE 5: Fast が信頼できる領域 ===== -->
 <div id="phase5" class="phase hidden">
-  <h2>🗣 Phase 5 ── あり方の宣言</h2>
+  <h2>⚡ Phase 5 ── あなたの Fast が信頼できる領域は？</h2>
+  <p>達人の勘は、Slow の投資の <em>跡</em>。<b>Fast の解像度は、修練で作られる。</b></p>
+  <p class="dim">Kahneman『Fast &amp; Slow』／ Gladwell『第1感』の適応的無意識／ Gary Klein の熟達直観 ── すべて同じ原理を別の顔で語っています：<b>Slow で意図的に検証・失敗・修正した経験が、Fast に沈殿する</b>。Deliberate Practice の正体は、Fast の意図的なプログラミング。</p>
+
+  <div class="callout gold">
+    <b>山勘 vs educated guess ── 表面(1秒で答える)は同じ。中身は真逆。</b><br>
+    ● 山勘：統計ノイズ／連想／バイアスに賭ける（誰でもタダ）<br>
+    ● educated guess：精緻化された Mental Representation から立ち上がる（Slow の投資の跡）<br>
+    <span class="dim" style="font-size:.85rem">達人の直観が信頼できる条件（Klein × Kahneman 2009）：規則性のある領域＋速いフィードバック＋十分な練習。</span>
+  </div>
+
+  <h3>① あなたの Fast が信頼できる領域を1つ</h3>
+  <p class="dim">「これは1秒で正しい答えが出せる」と思えるドメイン。あなたの educated guess が効く場所。</p>
+  <label>Fast が効くドメイン</label>
+  <input type="text" id="fast_ok" placeholder="例：顧客先で相手の温度感を1秒で読む／楽器のチューニング／会議の空気の詰まり...">
+
+  <label>そこで、あなたはどれだけの Slow を投資してきましたか？<br><span class="dim" style="font-size:.8rem">回数・時間・失敗の量。どんな検証と修正の繰り返しがあったか</span></label>
+  <textarea id="fast_ok_slow" placeholder="例：15年間、毎週2件×50週の商談。うち失注の振り返りを800件。想定と結果のズレをその都度書き出した..."></textarea>
+
+  <h3>② あなたの Fast が「山勘」の域を出ていない領域を1つ</h3>
+  <p class="dim">「勘で言ってるだけで、当たったり外れたりする」ドメイン。ここが次の修練の入り口。</p>
+  <label>Fast が山勘のドメイン</label>
+  <input type="text" id="fast_ng" placeholder="例：新規事業の "行ける気がする" 判断／人事評価／初対面の相手の信用度...">
+
+  <label>ここで達人になるために、これから積むべき Slow の修練は？</label>
+  <textarea id="fast_ng_slow" placeholder="例：直感の後に "なぜそう感じたか" を必ず書き出す／半年後に振り返って当たったかを検証する／同じ現象を10件並べて比較する..."></textarea>
+
+  <div class="callout leaf">
+    <b>気づき</b>：達人の勘は、才能ではなく <em>修練の跡</em>。あなたが1秒で答えられる領域は、あなたが Slow を投資してきた領域。<br>
+    そして── <b>未来の自分の Fast を、いま自分で設計できる</b>。これが Ericsson が最終章で言った「人生の可能性を切り拓く」の正体です。
+  </div>
+
+  <div class="btn-row">
+    <button class="btn" onclick="go(6)">✓ 書けた／宣言へ →</button>
+  </div>
+</div>
+
+<!-- ===== PHASE 6: あり方の宣言 ===== -->
+<div id="phase6" class="phase hidden">
+  <h2>🗣 Phase 6 ── あり方の宣言</h2>
   <p>今日つくった心的イメージを、<em>あり方</em> の言葉で言い切ります。ホモ・サピエンス（賢い人）から <b>ホモ・エクセサンス（練習する人）</b> へ。</p>
 
   <div class="beings">
@@ -371,13 +415,13 @@ label b{color:var(--gold)}
   <div class="btn-row">
     <button class="btn ghost" onclick="regenDec()">🔄 宣言文を再生成</button>
     <button class="btn sky" onclick="speakDec()">🔊 声に出す</button>
-    <button class="btn" onclick="go(6)">✓ サマリーへ →</button>
+    <button class="btn" onclick="go(7)">✓ サマリーへ →</button>
   </div>
 </div>
 
-<!-- ===== PHASE 6: サマリー ===== -->
-<div id="phase6" class="phase hidden">
-  <h2>📜 Phase 6 ── サマリー</h2>
+<!-- ===== PHASE 7: サマリー ===== -->
+<div id="phase7" class="phase hidden">
+  <h2>📜 Phase 7 ── サマリー</h2>
   <p>今日の限界的練習1周分の記録です。</p>
   <div id="summary"></div>
 
@@ -389,11 +433,13 @@ label b{color:var(--gold)}
   <div class="callout violet">
     <b>🎯 この修練が向かっている先</b><br>
     今日の1周は、達人の視座への<b>1歩目</b>。修練を積むほどに ──<br>
-    ● <b>Mental Representation</b> が精緻になる（達人の頭の中の "見え方"）<br>
-    ● <b>センスメイキング</b>（観察 → 解釈 → 行動）が速く・深くなる<br>
+    ● <b>Mental Representation</b> が精緻になる（Ericsson）<br>
+    ● <b>Fast の解像度</b> が上がる（Kahneman）── 山勘ではなく educated guess で応答できるようになる<br>
+    ● <b>適応的無意識 / 第1感</b>（Wilson → Gladwell）── 言語化できないが正確な瞬間判断が育つ<br>
+    ● <b>センスメイキング</b>（観察 → 解釈 → 行動）が速く・深くなる（ワイク）<br>
     ● <b>コンテキスト・リーダーシップ</b>：断片的な現実を、一貫した物語に編集できるようになる<br>
     ● そして、<em>これまで聞こえなかったものが聞こえる</em> ようになる<br>
-    <span class="dim" style="font-size:.85rem">出典: [[コンテキスト・リーダーシップ]] ／ カール・ワイク『センスメイキング』</span>
+    <span class="dim" style="font-size:.85rem">共通原理：<b>Slow で意図的に検証・失敗・修正した経験が、Fast に沈殿する</b>。Deliberate Practice の正体は、Fast の意図的なプログラミング。</span>
   </div>
 
   <div class="callout leaf">
@@ -473,6 +519,7 @@ const state = load() || {
   l2:{surface:"",pattern:"",principle:""},
   t3:{a:"",b:"",c:""},
   my:{role:"",scene:"",surface:"",pattern:"",principle:"",transfer1:"",transfer2:"",action:"",when:""},
+  fast:{ok:"",okSlow:"",ng:"",ngSlow:""},
   dec:""
 };
 
@@ -506,10 +553,14 @@ function captureInputs(){
   state.my.transfer2 = gv("my_transfer2");
   state.my.action = gv("my_action");
   state.my.when = gv("my_when");
+  state.fast.ok = gv("fast_ok");
+  state.fast.okSlow = gv("fast_ok_slow");
+  state.fast.ng = gv("fast_ng");
+  state.fast.ngSlow = gv("fast_ng_slow");
 }
 
 function render(){
-  for(let i=0;i<=6;i++){
+  for(let i=0;i<=7;i++){
     const el = document.getElementById("phase"+i);
     if(el) el.classList.toggle("hidden", i!==state.phase);
     const p = document.getElementById("pg"+i);
@@ -529,11 +580,13 @@ function render(){
   set("my_surface", state.my.surface); set("my_pattern", state.my.pattern); set("my_principle", state.my.principle);
   set("my_transfer1", state.my.transfer1); set("my_transfer2", state.my.transfer2);
   set("my_action", state.my.action); set("my_when", state.my.when);
+  set("fast_ok", state.fast.ok); set("fast_ok_slow", state.fast.okSlow);
+  set("fast_ng", state.fast.ng); set("fast_ng_slow", state.fast.ngSlow);
 
   if(state.phase===1){ renderQuiz(); }
   if(state.phase===3){ drawNetwork(); }
-  if(state.phase===5){ renderDec(); }
-  if(state.phase===6){ renderSummary(); }
+  if(state.phase===6){ renderDec(); }
+  if(state.phase===7){ renderSummary(); }
 }
 
 // ============================ QUIZ ============================
@@ -656,7 +709,9 @@ function regenDec(){
   const p = state.my.principle || "──（まだ言語化されていない原理）──";
   const t1 = state.my.transfer1 || "──";
   const t2 = state.my.transfer2 || "──";
-  state.dec = `私は <em>${role}</em> として、<br>今日から <em>「達人のように考える人」</em> というあり方を目指して、修練を積みます。<br><br>私が今日握った原理は、<em>${p}</em>。<br>この原理は、<em>${t1}</em> でも、<em>${t2}</em> でも、通用します。<br><br>修練を重ねて心的イメージを精緻にし、<br><em>これまで聞こえなかったコンテキストが聞こえる</em> 自分になっていきます。<br>私は <em>ホモ・エクセサンス</em>、練習する人です。`;
+  const fastOk = state.fast.ok || "──";
+  const fastNg = state.fast.ng || "──";
+  state.dec = `私は <em>${role}</em> として、<br>今日から <em>「達人のように考える人」</em> というあり方を目指して、修練を積みます。<br><br>私が今日握った原理は、<em>${p}</em>。<br>この原理は、<em>${t1}</em> でも、<em>${t2}</em> でも、通用します。<br><br>私の Fast がすでに信頼できる領域は <em>${fastOk}</em>。<br>まだ山勘の域を出ていない <em>${fastNg}</em> に、これから Slow を投資し、<em>未来の私の Fast</em> を彫刻します。<br><br>修練を重ねて Mental Representation を精緻にし、<br><em>これまで聞こえなかったコンテキストが聞こえる</em> 自分になっていきます。<br>私は <em>ホモ・エクセサンス</em>、練習する人です。`;
   document.getElementById("dec").innerHTML = state.dec;
   save();
 }
@@ -703,6 +758,13 @@ function renderSummary(){
       🚀 転移①：${esc(state.my.transfer1)||"—"}<br>
       🚀 転移②：${esc(state.my.transfer2)||"—"}
     </div>
+    <div class="callout">
+      <b>◆ Phase 5 あなたの Fast の地図</b><br>
+      ⚡ Fast が信頼できる領域（educated guess の場）：${esc(state.fast.ok)||"—"}<br>
+      &nbsp;&nbsp;└ そこに投資してきた Slow：${esc(state.fast.okSlow)||"—"}<br>
+      ⚠ まだ山勘のドメイン：${esc(state.fast.ng)||"—"}<br>
+      &nbsp;&nbsp;└ これから積む Slow の修練：${esc(state.fast.ngSlow)||"—"}
+    </div>
     <div class="declaration">${state.dec || ""}</div>
     <div class="callout leaf">
       <b>◆ 24時間以内の限界的練習（1周分）</b><br>
@@ -719,9 +781,10 @@ function exportMd(){
   const today = new Date().toISOString().slice(0,10);
   const md = `# 原理レベル思考トレーニング（${today}）
 
-> 出典: Anders Ericsson『超一流になるのは才能か努力か？』最終章 ／ カール・ワイマン実験 ／ 石井遼介『コンテキスト・リーダーシップ』 ／ カール・ワイク『センスメイキング』
+> 出典: Anders Ericsson『超一流になるのは才能か努力か？』最終章 ／ カール・ワイマン実験 ／ 石井遼介『コンテキスト・リーダーシップ』 ／ カール・ワイク『センスメイキング』 ／ Kahneman『Fast & Slow』 ／ Gladwell『第1感』(Wilson の適応的無意識) ／ Klein × Kahneman 2009「熟達直観」
 > ありえる楽考「達人の実践知 系統」第1弾
-> 目指すあり方の最高峰 = 達人のように考える。修練で Mental Representation を精緻にし、聞こえなかったコンテキストが聞こえる自分になる。
+> 目指すあり方の最高峰 = 達人のように考える。修練で Mental Representation を精緻にし、Fast の解像度を上げ、聞こえなかったコンテキストが聞こえる自分になる。
+> 共通原理: Slow で意図的に検証・失敗・修正した経験が、Fast に沈殿する。Deliberate Practice の正体は、Fast の意図的なプログラミング。
 
 ## Phase 1 判別ゲーム
 - スコア: ${state.qScore}/${QUIZ.length}（${Math.round(state.qScore/QUIZ.length*100)}%）
@@ -798,7 +861,7 @@ render();
 let saveTimer;
 document.addEventListener("input", ()=>{
   clearTimeout(saveTimer);
-  saveTimer = setTimeout(()=>{ captureInputs(); save(); if(state.phase===3) drawNetwork(); if(state.phase===5) renderDec(); }, 400);
+  saveTimer = setTimeout(()=>{ captureInputs(); save(); if(state.phase===3) drawNetwork(); if(state.phase===6) renderDec(); }, 400);
 });
 </script>
 </body>
