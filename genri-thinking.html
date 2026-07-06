@@ -137,7 +137,7 @@ label b{color:var(--gold)}
   <h1>🔭 原理レベル思考トレーニング
     <span class="small">— 物理学者のように考える練習 —</span>
   </h1>
-  <span class="badge">強い手札 系統・第2弾</span>
+  <span class="badge">達人の実践知 系統・第1弾</span>
 </header>
 
 <div class="progress">
@@ -174,9 +174,16 @@ label b{color:var(--gold)}
   </div>
 
   <div class="callout gold">
-    <b>このアプリで扱うのは、その「考え方」そのもの。</b><br>
-    「知識を溜める人」から、「<b>原理を掴んで、別の場面に転移する人</b>」へ。<br>
-    ありえる楽考でいうと、これは <b>あり方</b> のシフトです。
+    <b>このアプリで扱うのは、"あり方の最高峰" ── 達人のように考えるという実践知。</b><br>
+    ストレス下でつい出るワンパターン（=強い手札）とは別の階層。<br>
+    <b>修練を積むことで Mental Representation（心的イメージ）が精緻になり、これまで聞こえなかったものが聞こえるようになる</b> ── その景色を目指すトレーニングです。
+  </div>
+
+  <div class="callout violet">
+    <b>接続する実践知</b><br>
+    ● <b>センスメイキング</b>（カール・ワイク）：観察 → 解釈 → 行動 で物語を編み直す<br>
+    ● <b>コンテキスト・リーダーシップ</b>：断片的な現実を一貫した物語に編集し、人々に腹落ちさせる<br>
+    <span class="dim" style="font-size:.85rem">原理レベル思考の修練は、これらの上流にある「達人の視座」を作る筋トレです。</span>
   </div>
 
   <div class="loop">
@@ -342,13 +349,13 @@ label b{color:var(--gold)}
 
   <div class="beings">
     <div class="being old">
-      <div class="title">古いあり方</div>
-      <div class="body">知識を溜める人<br><span class="dim" style="font-size:.8rem">「何を知ってるか」で自分の価値を測る</span></div>
+      <div class="title">これまでのあり方</div>
+      <div class="body">知識を溜める人／ストレスでワンパターンに戻る人<br><span class="dim" style="font-size:.8rem">「何を知ってるか」で自分の価値を測る</span></div>
     </div>
     <div class="arrow">→</div>
     <div class="being new">
-      <div class="title">新しいあり方</div>
-      <div class="body"><b>原理を掴んで転移する人</b><br><span class="dim" style="font-size:.8rem">「何ができるか」に立ち返る／限界的練習で自分を作る</span></div>
+      <div class="title">目指す最高峰のあり方</div>
+      <div class="body"><b>達人のように考える人</b><br><span class="dim" style="font-size:.8rem">修練で心的イメージを精緻にし、聞こえなかったものが聞こえる</span></div>
     </div>
   </div>
 
@@ -379,11 +386,21 @@ label b{color:var(--gold)}
     <span class="dim" style="font-size:.88rem">─ Anders Ericsson『超一流になるのは才能か努力か？』最終章より</span>
   </div>
 
+  <div class="callout violet">
+    <b>🎯 この修練が向かっている先</b><br>
+    今日の1周は、達人の視座への<b>1歩目</b>。修練を積むほどに ──<br>
+    ● <b>Mental Representation</b> が精緻になる（達人の頭の中の "見え方"）<br>
+    ● <b>センスメイキング</b>（観察 → 解釈 → 行動）が速く・深くなる<br>
+    ● <b>コンテキスト・リーダーシップ</b>：断片的な現実を、一貫した物語に編集できるようになる<br>
+    ● そして、<em>これまで聞こえなかったものが聞こえる</em> ようになる<br>
+    <span class="dim" style="font-size:.85rem">出典: [[コンテキスト・リーダーシップ]] ／ カール・ワイク『センスメイキング』</span>
+  </div>
+
   <div class="callout leaf">
     <b>🌱 たまかつとの接続</b><br>
-    たまかつも実は同じ3層構造。<br>
+    たまかつも同じ3層構造で編まれている。<br>
     🌊 <b>現象</b>（日常の行動） → 🔗 <b>モデル</b>（3つの原則・3つの壁） → ⭐ <b>コンセプト</b>（価値共創・魂の活性化）<br>
-    <span class="dim" style="font-size:.85rem">原理レベルで考える練習は、たまかつを "知識" から "スキル" にする筋トレです。</span>
+    <span class="dim" style="font-size:.85rem">原理レベルで考える修練は、たまかつを "知識" から "達人の実践知" に育てる筋トレです。</span>
   </div>
 
   <div class="btn-row">
@@ -639,7 +656,7 @@ function regenDec(){
   const p = state.my.principle || "──（まだ言語化されていない原理）──";
   const t1 = state.my.transfer1 || "──";
   const t2 = state.my.transfer2 || "──";
-  state.dec = `私は <em>${role}</em> として、<br>今日から <em>「原理を掴んで、別の場面に転移する人」</em> というあり方で生きます。<br><br>私が握った原理は、<em>${p}</em>。<br>この原理は、<em>${t1}</em> でも、<em>${t2}</em> でも、通用します。<br><br>知識を溜めるより、この原理を <em>体で覚える</em> 練習を、日々続けます。<br>私は <em>ホモ・エクセサンス</em>、練習する人です。`;
+  state.dec = `私は <em>${role}</em> として、<br>今日から <em>「達人のように考える人」</em> というあり方を目指して、修練を積みます。<br><br>私が今日握った原理は、<em>${p}</em>。<br>この原理は、<em>${t1}</em> でも、<em>${t2}</em> でも、通用します。<br><br>修練を重ねて心的イメージを精緻にし、<br><em>これまで聞こえなかったコンテキストが聞こえる</em> 自分になっていきます。<br>私は <em>ホモ・エクセサンス</em>、練習する人です。`;
   document.getElementById("dec").innerHTML = state.dec;
   save();
 }
@@ -702,8 +719,9 @@ function exportMd(){
   const today = new Date().toISOString().slice(0,10);
   const md = `# 原理レベル思考トレーニング（${today}）
 
-> 出典: Anders Ericsson『超一流になるのは才能か努力か？』最終章 ／ カール・ワイマン実験
-> ありえる楽考「強い手札 系統」第2弾
+> 出典: Anders Ericsson『超一流になるのは才能か努力か？』最終章 ／ カール・ワイマン実験 ／ 石井遼介『コンテキスト・リーダーシップ』 ／ カール・ワイク『センスメイキング』
+> ありえる楽考「達人の実践知 系統」第1弾
+> 目指すあり方の最高峰 = 達人のように考える。修練で Mental Representation を精緻にし、聞こえなかったコンテキストが聞こえる自分になる。
 
 ## Phase 1 判別ゲーム
 - スコア: ${state.qScore}/${QUIZ.length}（${Math.round(state.qScore/QUIZ.length*100)}%）
@@ -742,11 +760,18 @@ ${(state.dec||"").replace(/<br>/g,"\n").replace(/<[^>]+>/g,"")}
 > あなたの可能性は、決して決まっていません。
 > ─ Anders Ericsson『超一流になるのは才能か努力か？』最終章より
 
+### 🎯 この修練が向かっている先（達人の視座）
+今日の1周は、達人の視座への1歩目。修練を積むほどに：
+- Mental Representation が精緻になる
+- センスメイキング（観察 → 解釈 → 行動）が速く・深くなる
+- コンテキスト・リーダーシップ：断片的な現実を、一貫した物語に編集できるようになる
+- これまで聞こえなかったコンテキストが聞こえるようになる
+
 ### たまかつとの接続
-たまかつも同じ3層構造：
+たまかつも同じ3層構造で編まれている：
 - 🌊 現象（日常の行動） → 🔗 モデル（3つの原則・3つの壁） → ⭐ コンセプト（価値共創・魂の活性化）
 
-原理レベルで考える練習は、たまかつを「知識」から「スキル」にする筋トレ。
+原理レベルで考える修練は、たまかつを「知識」から「達人の実践知」に育てる筋トレ。
 
 制作: 鈴木利和（ありえる楽考ファシリテーター） / 編集サポート: Claudian
 `;
