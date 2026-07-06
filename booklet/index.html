@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>📖 中綴じ小冊子メーカー — A4二つ折り面付けツール</title>
+<meta name="description" content="GoogleドキュメントやPDFを、A4二つ折り・中綴じの小冊子用に自動で面付け（ページ並べ替え）するツール。ブラウザ内で完結。">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+    background:#f5f0e6;color:#2a2a2a;line-height:1.7;min-height:100vh;padding:24px 16px;
+  }
+  .wrap{max-width:680px;margin:0 auto}
+  header{text-align:center;padding:20px 0 28px}
+  h1{font-size:1.6rem;color:#7a4a8f;margin-bottom:8px}
+  .sub{color:#666;font-size:.92rem}
+  .card{background:#fff;border-radius:14px;padding:22px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:20px}
+  .card h2{font-size:1.1rem;margin-bottom:12px;color:#7a4a8f;display:flex;align-items:center;gap:8px}
+  .step-num{background:#7a4a8f;color:#fff;width:26px;height:26px;border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;font-size:.9rem;flex:none}
+  .drop{
+    border:2px dashed #c9b3d6;border-radius:12px;padding:34px 20px;text-align:center;
+    background:#faf6fc;color:#7a4a8f;cursor:pointer;transition:.15s;font-size:.95rem;
+  }
+  .drop:hover,.drop.over{background:#f2e6f7;border-color:#7a4a8f}
+  .drop strong{display:block;font-size:1.05rem;margin-bottom:6px}
+  .or{text-align:center;color:#aaa;font-size:.85rem;margin:14px 0}
+  .btn{
+    display:inline-block;padding:11px 20px;border-radius:9px;background:#7a4a8f;color:#fff;
+    border:none;text-decoration:none;font-weight:600;font-size:.95rem;cursor:pointer;transition:.15s;
+  }
+  .btn:hover{background:#653a78}
+  .btn:disabled{background:#c9b3d6;cursor:not-allowed}
+  .btn.ghost{background:#fff;color:#7a4a8f;border:1.5px solid #c9b3d6}
+  .btn.ghost:hover{background:#f7f0fb}
+  .btn.big{width:100%;padding:15px;font-size:1.05rem}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .muted{color:#888;font-size:.85rem}
+  .filebox{display:none;margin-top:14px;padding:14px;background:#f2e6f7;border-radius:10px}
+  .filebox.show{display:block}
+  .filebox .name{font-weight:600;word-break:break-all}
+  .stats{display:flex;gap:18px;flex-wrap:wrap;margin-top:10px;font-size:.9rem}
+  .stats b{color:#7a4a8f;font-size:1.15rem}
+  .opts{margin-top:16px;display:grid;gap:12px}
+  .opt{display:flex;align-items:flex-start;gap:10px;font-size:.9rem}
+  .opt input{margin-top:4px}
+  select,input[type=text]{padding:8px 10px;border:1px solid #d5c3e0;border-radius:8px;font-size:.9rem;font-family:inherit}
+  .hidden{display:none}
+  .settings summary{cursor:pointer;color:#7a4a8f;font-weight:600;font-size:.9rem}
+  .settings{margin-top:14px;border-top:1px dashed #e0d0ea;padding-top:14px}
+  .settings label{display:block;font-size:.82rem;color:#666;margin:10px 0 4px}
+  .settings input{width:100%}
+  .note{background:#fff8ec;border-radius:8px;padding:12px 14px;font-size:.83rem;color:#5a4a2a;margin-top:12px}
+  .note code{background:#f0e6d0;padding:1px 5px;border-radius:4px}
+  #msg{margin-top:14px;font-size:.9rem;min-height:1.4em}
+  #msg.err{color:#c0392b}
+  #msg.ok{color:#2f8f5b}
+  .spinner{display:inline-block;width:14px;height:14px;border:2px solid #d5c3e0;border-top-color:#7a4a8f;
+    border-radius:50%;animation:sp .7s linear infinite;vertical-align:middle;margin-right:6px}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  ol.guide{margin:8px 0 0 20px;font-size:.88rem;color:#555}
+  ol.guide li{margin-bottom:6px}
+  footer{text-align:center;color:#999;font-size:.82rem;margin-top:30px}
+  footer a{color:#7a4a8f;text-decoration:none}
+  .backlink{display:inline-block;margin-bottom:16px;color:#7a4a8f;text-decoration:none;font-size:.88rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="backlink" href="../">← アプリ集にもどる</a>
+
+<header>
+  <h1>📖 中綴じ小冊子メーカー</h1>
+  <p class="sub">A4を二つ折り・2ページずつ・中綴じの小冊子用に、ページを自動で面付けします</p>
+</header>
+
+<!-- STEP 1: 読み込み -->
+<div class="card">
+  <h2><span class="step-num">1</span> 原稿を読み込む</h2>
+
+  <div class="drop" id="drop">
+    <strong>PDFをここにドラッグ＆ドロップ</strong>
+    <span class="muted">またはクリックして選択（Googleドキュメントは「ファイル→ダウンロード→PDF」で書き出し）</span>
+    <input type="file" id="file" accept="application/pdf" class="hidden">
+  </div>
+
+  <div class="or">— または —</div>
+
+  <div class="row" style="justify-content:center">
+    <button class="btn ghost" id="gbtn">📁 Googleドライブから選ぶ</button>
+  </div>
+  <p class="muted" style="text-align:center;margin-top:8px">
+    Googleドキュメントを直接選んで自動でPDF化します（初回のみ下の「⚙ 連携設定」が必要）
+  </p>
+
+  <div class="filebox" id="filebox">
+    <div class="name" id="fname">—</div>
+    <div class="stats">
+      <span>ページ数 <b id="pcount">0</b></span>
+      <span>A4用紙 <b id="sheets">0</b>枚</span>
+      <span>白紙補充 <b id="blanks">0</b>ページ</span>
+    </div>
+  </div>
+
+  <details class="settings">
+    <summary>⚙ Googleドライブ連携設定（初回のみ）</summary>
+    <ol class="guide">
+      <li><a href="https://console.cloud.google.com/" target="_blank" rel="noopener">Google Cloud Console</a> でプロジェクトを作成し、<b>Google Drive API</b> と <b>Google Picker API</b> を有効化</li>
+      <li>「APIキー」を作成 → 下の欄に貼り付け</li>
+      <li>「OAuth 2.0 クライアント ID（ウェブアプリケーション）」を作成。<b>承認済みのJavaScript生成元</b>に <code>https://arieru39.github.io</code> を追加 → クライアントIDを下の欄に貼り付け</li>
+    </ol>
+    <label>APIキー</label>
+    <input type="text" id="apikey" placeholder="AIza...">
+    <label>OAuth クライアント ID</label>
+    <input type="text" id="clientid" placeholder="xxxx.apps.googleusercontent.com">
+    <div class="row" style="margin-top:12px">
+      <button class="btn ghost" id="savekeys">保存</button>
+      <span class="muted">この端末のブラウザ内だけに保存されます</span>
+    </div>
+  </details>
+</div>
+
+<!-- STEP 2: 設定 -->
+<div class="card">
+  <h2><span class="step-num">2</span> 面付け設定</h2>
+  <div class="opts">
+    <div class="opt">
+      <span>綴じ方向：</span>
+      <select id="binding">
+        <option value="left">左綴じ（横書き・左開き）</option>
+        <option value="right">右綴じ（縦書き・右開き）</option>
+      </select>
+    </div>
+    <label class="opt">
+      <input type="checkbox" id="marks">
+      <span>センターに折り線ガイドを薄く入れる</span>
+    </label>
+  </div>
+  <div class="note">
+    A4横1枚に2ページ（表2p・裏2p＝計4p）を配置します。ページ数が4の倍数でないときは、
+    末尾に白紙を自動で足して調整します。
+  </div>
+</div>
+
+<!-- STEP 3: 出力 -->
+<div class="card">
+  <h2><span class="step-num">3</span> 小冊子PDFを作る</h2>
+  <button class="btn big" id="make" disabled>📖 面付けして書き出す</button>
+  <div id="msg"></div>
+  <div class="note" style="margin-top:16px">
+    <b>印刷のコツ</b>：出力PDFを<b>両面印刷</b>（長辺とじ／「短辺で反転」がうまく合わないときは反対を試す）→
+    真ん中で二つ折り → 重ねて中央をホチキス（中綴じ）。用紙は A4横向き のままでOK。
+  </div>
+</div>
+
+<footer>
+  <p>制作: 鈴木利和（ありえる楽考ファシリテーター） / 編集サポート: Claudian</p>
+  <p style="margin-top:6px"><a href="../">← アプリ集</a> ・ <a href="https://github.com/arieru39/ariel-apps" target="_blank" rel="noopener">GitHub</a></p>
+  <p style="margin-top:6px;color:#bbb">PDFの面付けはすべてブラウザ内で処理され、外部に送信されません。</p>
+</footer>
+
+</div>
+
+<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="https://apis.google.com/js/api.js" async defer></script>
+<script>
+const $ = s => document.querySelector(s);
+let inputBytes = null, inputName = null, pageCount = 0;
+
+/* ---------- ファイル読み込み共通 ---------- */
+async function loadPdfBytes(bytes, name){
+  try{
+    const doc = await PDFLib.PDFDocument.load(bytes,{ignoreEncryption:true});
+    pageCount = doc.getPageCount();
+    inputBytes = bytes; inputName = name;
+    const N = Math.ceil(pageCount/4)*4;
+    $('#fname').textContent = name;
+    $('#pcount').textContent = pageCount;
+    $('#sheets').textContent = N/4;
+    $('#blanks').textContent = N - pageCount;
+    $('#filebox').classList.add('show');
+    $('#make').disabled = false;
+    setMsg('','');
+  }catch(e){
+    setMsg('このファイルを読み込めませんでした（PDF形式か確認してください）','err');
+  }
+}
+function setMsg(t,cls){const m=$('#msg');m.textContent=t;m.className=cls;}
+
+/* ---------- ドラッグ&ドロップ / ファイル選択 ---------- */
+const drop = $('#drop');
+drop.addEventListener('click',()=>$('#file').click());
+$('#file').addEventListener('change',e=>{
+  const f=e.target.files[0]; if(f) readFile(f);
+});
+['dragover','dragenter'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('over');}));
+['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('over');}));
+drop.addEventListener('drop',e=>{const f=e.dataTransfer.files[0]; if(f) readFile(f);});
+function readFile(f){
+  const r=new FileReader();
+  r.onload=()=>loadPdfBytes(new Uint8Array(r.result), f.name.replace(/\.pdf$/i,''));
+  r.readAsArrayBuffer(f);
+}
+
+/* ---------- 面付けエンジン ---------- */
+async function imposeBooklet(bytes, {binding, marks}){
+  const { PDFDocument, rgb } = PDFLib;
+  const out = await PDFDocument.create();
+  const P = pageCount;
+  const N = Math.ceil(P/4)*4;
+
+  // 全ページを埋め込み
+  const indices = Array.from({length:P},(_,i)=>i);
+  const emb = await out.embedPdf(bytes, indices);
+
+  // A4横（ポイント）
+  const A4W = 841.89, A4H = 595.28, half = A4W/2;
+
+  // 中綴じのページ順を組み立てる（1始まり、範囲外=白紙）
+  const order = [];
+  for(let i=0;i<N/4;i++){
+    order.push(N-2*i, 1+2*i);   // 表：外側左・内側右
+    order.push(2+2*i, N-1-2*i); // 裏：内側左・外側右
+  }
+
+  for(let s=0;s<order.length;s+=2){
+    const page = out.addPage([A4W, A4H]);
+    let a = order[s], b = order[s+1];
+    // 右綴じは左右を入れ替える
+    if(binding==='right'){ const t=a; a=b; b=t; }
+    place(page, a, 0);
+    place(page, b, half);
+    if(marks){
+      page.drawLine({start:{x:half,y:0},end:{x:half,y:A4H},thickness:0.4,color:rgb(.8,.8,.8),dashArray:[3,3]});
+    }
+  }
+
+  function place(page, pnum, xOff){
+    if(pnum<1||pnum>P) return; // 白紙
+    const ep = emb[pnum-1];
+    const sc = Math.min(half/ep.width, A4H/ep.height);
+    const w = ep.width*sc, h = ep.height*sc;
+    page.drawPage(ep,{x: xOff+(half-w)/2, y:(A4H-h)/2, width:w, height:h});
+  }
+
+  return await out.save();
+}
+
+$('#make').addEventListener('click', async ()=>{
+  if(!inputBytes) return;
+  const btn=$('#make'); btn.disabled=true;
+  setMsg('','');
+  const m=$('#msg'); m.className=''; m.innerHTML='<span class="spinner"></span>面付け中…';
+  try{
+    const bytes = await imposeBooklet(inputBytes,{
+      binding: $('#binding').value,
+      marks: $('#marks').checked
+    });
+    const blob = new Blob([bytes],{type:'application/pdf'});
+    const url = URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url; a.download=`${inputName||'booklet'}_中綴じ.pdf`; a.click();
+    URL.revokeObjectURL(url);
+    setMsg('✅ 完成しました。両面印刷 → 二つ折り → 中央をホチキスで小冊子になります。','ok');
+  }catch(e){
+    console.error(e);
+    setMsg('面付けに失敗しました：'+e.message,'err');
+  }finally{
+    btn.disabled=false;
+  }
+});
+
+/* ---------- Googleドライブ連携 ---------- */
+const KEYS = 'booklet_gapi_keys';
+(function loadKeys(){
+  try{
+    const k=JSON.parse(localStorage.getItem(KEYS)||'{}');
+    if(k.apikey) $('#apikey').value=k.apikey;
+    if(k.clientid) $('#clientid').value=k.clientid;
+  }catch(e){}
+})();
+$('#savekeys').addEventListener('click',()=>{
+  localStorage.setItem(KEYS, JSON.stringify({
+    apikey: $('#apikey').value.trim(),
+    clientid: $('#clientid').value.trim()
+  }));
+  setMsg('連携設定を保存しました。','ok');
+});
+
+let tokenClient=null, accessToken=null, pickerReady=false;
+function getKeys(){ try{return JSON.parse(localStorage.getItem(KEYS)||'{}')}catch(e){return {}} }
+
+function initPicker(){
+  return new Promise(res=>{
+    if(pickerReady) return res();
+    gapi.load('picker',()=>{ pickerReady=true; res(); });
+  });
+}
+
+$('#gbtn').addEventListener('click', async ()=>{
+  const k=getKeys();
+  if(!k.apikey||!k.clientid){
+    setMsg('先に「⚙ Googleドライブ連携設定」でAPIキーとクライアントIDを保存してください。','err');
+    $('.settings').setAttribute('open','');
+    return;
+  }
+  if(typeof google==='undefined'||typeof gapi==='undefined'){
+    setMsg('Google連携ライブラリの読み込み中です。数秒後にもう一度お試しください。','err');
+    return;
+  }
+  try{
+    if(!tokenClient){
+      tokenClient = google.accounts.oauth2.initTokenClient({
+        client_id: k.clientid,
+        scope: 'https://www.googleapis.com/auth/drive.readonly',
+        callback: t=>{ accessToken=t.access_token; openPicker(k.apikey); }
+      });
+    }
+    setMsg('Googleにサインインしています…','');
+    if(accessToken){ openPicker(k.apikey); }
+    else tokenClient.requestAccessToken({prompt:''});
+  }catch(e){
+    setMsg('Google連携でエラー：'+e.message,'err');
+  }
+});
+
+async function openPicker(apiKey){
+  await initPicker();
+  const view = new google.picker.DocsView(google.picker.ViewId.DOCUMENTS)
+    .setMimeTypes('application/vnd.google-apps.document,application/pdf')
+    .setMode(google.picker.DocsViewMode.LIST);
+  const picker = new google.picker.PickerBuilder()
+    .addView(view)
+    .setOAuthToken(accessToken)
+    .setDeveloperKey(apiKey)
+    .setCallback(pickerCallback)
+    .build();
+  picker.setVisible(true);
+}
+
+async function pickerCallback(data){
+  if(data.action!==google.picker.Action.PICKED) return;
+  const doc = data.docs[0];
+  setMsg('<span class="spinner"></span>Googleドキュメントを取得中…','');
+  $('#msg').innerHTML='<span class="spinner"></span>Googleドキュメントを取得中…';
+  try{
+    let url, name=doc.name||'googledoc';
+    if(doc.mimeType==='application/vnd.google-apps.document'){
+      // ドキュメント → PDFに書き出し
+      url=`https://www.googleapis.com/drive/v3/files/${doc.id}/export?mimeType=application/pdf`;
+    }else{
+      // すでにPDF
+      url=`https://www.googleapis.com/drive/v3/files/${doc.id}?alt=media`;
+    }
+    const res=await fetch(url,{headers:{Authorization:'Bearer '+accessToken}});
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const buf=await res.arrayBuffer();
+    await loadPdfBytes(new Uint8Array(buf), name);
+    setMsg('「'+name+'」を読み込みました。','ok');
+  }catch(e){
+    setMsg('取得に失敗しました：'+e.message+'（共有権限・API有効化をご確認ください）','err');
+  }
+}
+</script>
+</body>
+</html>
