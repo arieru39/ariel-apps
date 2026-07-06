@@ -485,6 +485,14 @@ function applyBookMeta() {
     a.textContent = "🎬 全章解説プレイリスト";
     linksContainer.appendChild(a);
   }
+  if (b.video_url && !b.playlist_url) {
+    const a = document.createElement("a");
+    a.href = b.video_url;
+    a.target = "_blank";
+    a.rel = "noopener";
+    a.textContent = "🎬 解説動画をYouTubeで見る";
+    linksContainer.appendChild(a);
+  }
 
   // Video embed: prefer playlist, fall back to single video
   const bookVideoUrl = b.playlist_embed_url || b.video_embed_url;
@@ -496,7 +504,7 @@ function applyBookMeta() {
   }
 
   // Ensure book-intro-panel is visible if there is any link or video content
-  if (b.amazon_url || b.publisher_url || b.playlist_url || bookVideoUrl) {
+  if (b.amazon_url || b.publisher_url || b.playlist_url || b.video_url || bookVideoUrl) {
     document.getElementById("book-intro-panel").style.display = "";
   }
 }
