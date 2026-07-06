@@ -137,6 +137,43 @@
   .daily-practice .dp-text {
     color: #223; line-height: 1.6;
   }
+  .dp-steps {
+    background: #f7f9ff; border-left: 4px solid #5a6bb0; border-radius: 6px;
+    padding: 12px 14px; margin: 10px 0 8px; font-size: 14px;
+  }
+  .dp-steps .dps-header {
+    font-weight: 700; color: #3d4a80; font-size: 12px;
+    text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;
+  }
+  .dp-steps .dps-variation {
+    display: inline-block; font-weight: 600; color: #3d4a80;
+    background: #e5eaff; padding: 2px 8px; border-radius: 999px;
+    font-size: 11px; margin-bottom: 10px;
+  }
+  .dp-steps ol.dps-list {
+    list-style: none; counter-reset: dps-counter;
+    margin: 0; padding: 0;
+  }
+  .dp-steps ol.dps-list li {
+    counter-increment: dps-counter;
+    position: relative;
+    padding: 8px 10px 8px 40px;
+    margin-bottom: 6px;
+    background: #fff;
+    border-radius: 4px;
+    line-height: 1.55;
+    color: #223;
+  }
+  .dp-steps ol.dps-list li::before {
+    content: counter(dps-counter);
+    position: absolute; left: 10px; top: 8px;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: #5a6bb0; color: #fff;
+    font-weight: 700; font-size: 12px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .dp-steps ol.dps-list li:last-child { margin-bottom: 0; }
   textarea {
     width: 100%; min-height: 140px; padding: 12px; border: 1px solid var(--border);
     border-radius: 8px; font-family: inherit; font-size: 15px; line-height: 1.6;
@@ -302,6 +339,16 @@
     <div id="lo-daily-practice" class="daily-practice" style="display:none;">
       <div class="dp-label">🌱 今日／今週の実践</div>
       <div class="dp-text" id="lo-daily-practice-text"></div>
+    </div>
+
+    <div id="lo-daily-practice-steps" class="dp-steps" style="display:none;">
+      <div class="dps-header">🎬 3ステップで実践（ありえるシート3層理論）</div>
+      <div class="dps-variation" id="lo-dps-variation"></div>
+      <ol class="dps-list">
+        <li id="lo-dps-step1"></li>
+        <li id="lo-dps-step2"></li>
+        <li id="lo-dps-step3"></li>
+      </ol>
     </div>
 
     <div class="btn-row">
@@ -646,6 +693,20 @@ function openTheme(id) {
     document.getElementById("lo-daily-practice-text").textContent = currentTheme.daily_practice;
   } else {
     dpEl.style.display = "none";
+  }
+
+  // Daily practice steps (ありえるシート3層理論の3ステップ)
+  const dpsEl = document.getElementById("lo-daily-practice-steps");
+  const dps = currentTheme.daily_practice_steps;
+  if (dps && dps.step1 && dps.step2 && dps.step3) {
+    dpsEl.style.display = "";
+    document.getElementById("lo-dps-variation").textContent =
+      dps.variation_label || dps.variation || "";
+    document.getElementById("lo-dps-step1").textContent = dps.step1;
+    document.getElementById("lo-dps-step2").textContent = dps.step2;
+    document.getElementById("lo-dps-step3").textContent = dps.step3;
+  } else {
+    dpsEl.style.display = "none";
   }
 
   const milestoneBanner = document.getElementById("lo-milestone-banner");
