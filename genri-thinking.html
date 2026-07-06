@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>原理レベル思考トレーニング — 物理学者のように考える練習</title>
+<meta name="description" content="カール・ワイマンの奇跡の授業を骨に、「知識派」から「原理派」へのあり方シフトを、限界的練習ループで体に叩き込むトレーニングアプリ。">
+<style>
+:root{
+  --bg1:#0f1e33; --bg2:#1a2b45; --bg3:#233a5c;
+  --ink:#f4ead1; --ink-dim:#c8bfa2; --ink-mute:#8a8168;
+  --gold:#f4b942; --gold-deep:#d19a1e;
+  --violet:#a891d8; --violet-deep:#6b4faf;
+  --sky:#5aa3d4; --sky-deep:#3d7ea8;
+  --coral:#e07a3a; --coral-deep:#b85a1a;
+  --leaf:#7ab85c; --leaf-deep:#5a9840;
+  --card:rgba(255,248,225,.06);
+  --card-hi:rgba(255,248,225,.10);
+  --line:rgba(244,234,209,.18);
+  --shadow:0 8px 28px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:radial-gradient(1200px 800px at 20% -10%, #1e3358 0%, transparent 60%),
+             radial-gradient(1000px 700px at 100% 100%, #3d2350 0%, transparent 55%),
+             linear-gradient(180deg,var(--bg1) 0%, var(--bg2) 60%, var(--bg3) 100%);
+  color:var(--ink); line-height:1.75; min-height:100vh; padding:24px 14px;
+}
+.wrap{max-width:760px;margin:0 auto}
+header{padding:8px 0 20px;text-align:center}
+h1{font-size:1.7rem;letter-spacing:.03em;color:var(--gold);text-shadow:0 2px 12px rgba(244,185,66,.25)}
+h1 .small{font-size:.65em;color:var(--ink-dim);display:block;font-weight:normal;margin-top:6px;letter-spacing:.05em}
+.badge{display:inline-block;padding:3px 12px;border-radius:12px;background:rgba(244,185,66,.15);color:var(--gold);font-size:.72rem;letter-spacing:.05em;margin-top:8px}
+
+.progress{display:flex;gap:6px;margin:14px 0 22px}
+.progress span{flex:1;height:6px;background:rgba(255,255,255,.08);border-radius:3px;transition:background .3s}
+.progress span.active{background:var(--gold)}
+.progress span.done{background:var(--sky)}
+
+.phase{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 20px;margin-bottom:16px;box-shadow:var(--shadow);backdrop-filter:blur(8px)}
+.phase h2{font-size:1.15rem;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.phase h2::before{content:"";display:inline-block;width:4px;height:22px;background:linear-gradient(180deg,var(--gold),var(--gold-deep));border-radius:2px}
+.phase h3{font-size:.98rem;color:var(--violet);margin:16px 0 8px}
+.phase p{color:var(--ink);margin:8px 0;font-size:.94rem}
+.phase p.dim{color:var(--ink-dim);font-size:.87rem}
+.phase p em{color:var(--gold);font-style:normal;font-weight:600}
+.phase p strong{color:var(--gold)}
+
+.callout{background:rgba(90,163,212,.10);border-left:3px solid var(--sky);padding:12px 14px;border-radius:6px;margin:12px 0;font-size:.9rem;color:var(--ink)}
+.callout.gold{background:rgba(244,185,66,.10);border-color:var(--gold)}
+.callout.violet{background:rgba(168,145,216,.10);border-color:var(--violet)}
+.callout.leaf{background:rgba(122,184,92,.10);border-color:var(--leaf)}
+.callout b{color:var(--gold)}
+
+.loop{background:rgba(255,255,255,.05);border-radius:10px;padding:12px;margin:12px 0;font-size:.82rem;text-align:center;letter-spacing:.06em;color:var(--ink-dim)}
+.loop span{display:inline-block;padding:3px 10px;background:rgba(244,185,66,.12);color:var(--gold);border-radius:8px;margin:0 3px}
+
+textarea,input[type=text]{width:100%;background:rgba(0,0,0,.25);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-family:inherit;font-size:.94rem;resize:vertical;transition:border-color .2s}
+textarea:focus,input[type=text]:focus{outline:none;border-color:var(--gold)}
+textarea{min-height:70px}
+
+label{display:block;font-size:.88rem;color:var(--ink-dim);margin:12px 0 6px;letter-spacing:.02em}
+label b{color:var(--gold)}
+
+.btn{background:linear-gradient(180deg,var(--gold),var(--gold-deep));color:#1a1409;border:none;border-radius:10px;padding:11px 22px;font-family:inherit;font-size:.96rem;font-weight:700;cursor:pointer;letter-spacing:.03em;transition:transform .15s,box-shadow .15s;box-shadow:0 4px 12px rgba(244,185,66,.3)}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(244,185,66,.45)}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn.ghost{background:transparent;color:var(--ink-dim);box-shadow:none;border:1px solid var(--line)}
+.btn.ghost:hover{color:var(--gold);border-color:var(--gold)}
+.btn.sky{background:linear-gradient(180deg,var(--sky),var(--sky-deep));color:#0a1a28;box-shadow:0 4px 12px rgba(90,163,212,.3)}
+.btn.violet{background:linear-gradient(180deg,var(--violet),var(--violet-deep));color:#f4ead1;box-shadow:0 4px 12px rgba(168,145,216,.3)}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+
+/* 判別ゲーム */
+.game-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:.86rem;color:var(--ink-dim)}
+.game-head .score{color:var(--gold);font-weight:700}
+.scene{background:rgba(90,163,212,.08);border:1px solid rgba(90,163,212,.25);border-radius:10px;padding:14px;margin:12px 0;font-size:.95rem;color:var(--ink)}
+.scene b{color:var(--sky)}
+.choices{display:grid;gap:10px;margin:12px 0}
+.choice{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;cursor:pointer;transition:all .15s;text-align:left;color:var(--ink);font-family:inherit;font-size:.92rem;line-height:1.6}
+.choice:hover{background:var(--card-hi);border-color:var(--gold);transform:translateY(-1px)}
+.choice.correct{background:rgba(122,184,92,.15);border-color:var(--leaf);color:var(--ink)}
+.choice.wrong{background:rgba(224,122,58,.12);border-color:var(--coral);color:var(--ink);opacity:.85}
+.choice .tag{display:inline-block;font-size:.7rem;padding:2px 8px;border-radius:6px;margin-right:8px;background:rgba(255,255,255,.08);color:var(--ink-dim)}
+.choice.correct .tag{background:var(--leaf);color:#0a1a28}
+.choice.wrong .tag{background:var(--coral);color:#0a1a28}
+.feedback{margin:10px 0;padding:12px;border-radius:8px;font-size:.88rem;line-height:1.7;display:none}
+.feedback.show{display:block}
+.feedback.correct{background:rgba(122,184,92,.10);border-left:3px solid var(--leaf);color:var(--ink)}
+.feedback.wrong{background:rgba(224,122,58,.10);border-left:3px solid var(--coral);color:var(--ink)}
+.feedback b{color:var(--gold)}
+
+/* 3層分解 */
+.layers{display:grid;gap:10px;margin:14px 0}
+.layer{background:var(--card);border-left:4px solid;padding:12px 14px;border-radius:8px}
+.layer.surface{border-color:var(--coral)}
+.layer.pattern{border-color:var(--sky)}
+.layer.principle{border-color:var(--gold)}
+.layer .label{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.layer.surface .label{color:var(--coral)}
+.layer.pattern .label{color:var(--sky)}
+.layer.principle .label{color:var(--gold)}
+.layer .text{color:var(--ink);font-size:.95rem}
+
+/* あり方対比 */
+.beings{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;margin:16px 0}
+.being{background:var(--card);border-radius:10px;padding:14px;text-align:center}
+.being.old{border:1px solid rgba(224,122,58,.4)}
+.being.new{border:1px solid rgba(244,185,66,.4);background:rgba(244,185,66,.06)}
+.being .title{font-size:.78rem;letter-spacing:.05em;margin-bottom:4px}
+.being.old .title{color:var(--coral)}
+.being.new .title{color:var(--gold)}
+.being .body{font-size:.86rem;color:var(--ink);line-height:1.5}
+.beings .arrow{font-size:1.4rem;color:var(--gold);text-align:center}
+@media (max-width:520px){.beings{grid-template-columns:1fr;text-align:center}.beings .arrow{transform:rotate(90deg)}}
+
+/* 心的イメージ ネットワーク（成長可視化） */
+.network{margin:14px 0;padding:12px;background:rgba(0,0,0,.15);border-radius:10px;text-align:center}
+.network .label{font-size:.78rem;color:var(--ink-dim);letter-spacing:.05em;margin-bottom:6px}
+.network svg{max-width:100%;height:auto}
+
+/* 宣言 */
+.declaration{background:linear-gradient(135deg, rgba(244,185,66,.12), rgba(168,145,216,.10));border:1px solid rgba(244,185,66,.35);border-radius:14px;padding:18px;margin:14px 0;font-size:1.02rem;line-height:1.85;color:var(--ink);font-style:italic}
+.declaration em{color:var(--gold);font-style:normal;font-weight:700}
+
+.foot{text-align:center;color:var(--ink-mute);font-size:.78rem;padding:20px 0;letter-spacing:.02em}
+.foot a{color:var(--ink-dim);text-decoration:none;border-bottom:1px dotted var(--ink-mute)}
+
+.hidden{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>🔭 原理レベル思考トレーニング
+    <span class="small">— 物理学者のように考える練習 —</span>
+  </h1>
+  <span class="badge">強い手札 系統・第2弾</span>
+</header>
+
+<div class="progress">
+  <span id="pg0" class="active"></span>
+  <span id="pg1"></span>
+  <span id="pg2"></span>
+  <span id="pg3"></span>
+  <span id="pg4"></span>
+  <span id="pg5"></span>
+  <span id="pg6"></span>
+</div>
+
+<!-- ===== PHASE 0: START ===== -->
+<div id="phase0" class="phase">
+  <h2>🎬 START ── 奇跡の授業</h2>
+  <p>ブリティッシュコロンビア大学。ノーベル物理学賞受賞者カール・ワイマンが仕掛けた、大学1年生への<strong>物理の授業実験</strong>。</p>
+  <div class="callout">
+    <b>ベテラン教授の伝統授業</b> → 平均正答率 <b>41%</b><br>
+    <b>大学院生の実験授業</b> → 平均正答率 <b>74%</b><br>
+    <span class="dim" style="font-size:.85rem">学習の伸び率で<b>2.5倍以上</b>。教育史上ありえないレベルの成果。</span>
+  </div>
+
+  <h3>何が違ったのか？</h3>
+  <div class="beings">
+    <div class="being old">
+      <div class="title">伝統授業のゴール</div>
+      <div class="body">学生に <b>知識</b> を与えること<br><span class="dim" style="font-size:.8rem">「あなたは何を知っていますか？」</span></div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="being new">
+      <div class="title">実験授業のゴール</div>
+      <div class="body"><b>物理学者のように考える</b> 練習をさせること<br><span class="dim" style="font-size:.8rem">「あなたは何ができますか？」</span></div>
+    </div>
+  </div>
+
+  <div class="callout gold">
+    <b>このアプリで扱うのは、その「考え方」そのもの。</b><br>
+    「知識を溜める人」から、「<b>原理を掴んで、別の場面に転移する人</b>」へ。<br>
+    ありえる楽考でいうと、これは <b>あり方</b> のシフトです。
+  </div>
+
+  <div class="loop">
+    このアプリの骨: <span>予習</span> → <span>挑戦</span> → <span>即FB</span> → <span>修正</span> ── 6分で1周
+  </div>
+
+  <p class="dim">※ すべてブラウザ内で完結。送信なし・保存なし。途中で閉じても、次回この画面から再開できます。</p>
+
+  <div class="btn-row">
+    <button class="btn" onclick="go(1)">▶ 1周目：判別ゲームへ</button>
+  </div>
+</div>
+
+<!-- ===== PHASE 1: 判別ゲーム ===== -->
+<div id="phase1" class="phase hidden">
+  <h2>🎯 Phase 1 ── 判別ゲーム</h2>
+  <p class="dim">6つの場面が出てきます。各場面で、<b>「知識レベルの答え」</b> と <b>「原理レベルの答え」</b> ── どちらが原理派の思考か、選んでください。</p>
+  <p class="dim">正解不正解の後に <em>なぜそうなのか</em> のフィードバックが出ます。それが今日つくる <b>心的イメージ</b> の材料です。</p>
+
+  <div class="game-head">
+    <div>問題 <span id="qNum">1</span> / 6</div>
+    <div>スコア: <span class="score" id="qScore">0</span> / 6</div>
+  </div>
+
+  <div id="quizArea"></div>
+
+  <div class="btn-row hidden" id="quizNextRow">
+    <button class="btn" onclick="nextQuiz()">次の問題 →</button>
+  </div>
+</div>
+
+<!-- ===== PHASE 2: 3層分解トレーニング ===== -->
+<div id="phase2" class="phase hidden">
+  <h2>🔍 Phase 2 ── 3層分解トレーニング</h2>
+  <p>ある現象を <b>表面 → パターン → 原理</b> の3層に降ろす練習。エキスパートの頭の中にある <em>心的イメージ</em> は、この3層のネットワークです。</p>
+
+  <div class="callout violet">
+    <b>お題：スターバックスで、なぜコーヒーがあの値段で売れるのか？</b><br>
+    <span class="dim" style="font-size:.85rem">同じ豆で、缶コーヒーの何倍も高い。なのに世界中で買われる。なぜ？</span>
+  </div>
+
+  <h3>あなたなりに、3層に降ろしてみてください</h3>
+
+  <div class="layers">
+    <div class="layer surface">
+      <div class="label">🌊 表面（現象）</div>
+      <div class="text">見える事実、目の前で起きていること。</div>
+      <label>あなたの答え</label>
+      <textarea id="l2_surface" placeholder="例：おしゃれ／店員がフレンドリー／Wi-Fiがある..."></textarea>
+    </div>
+    <div class="layer pattern">
+      <div class="label">🔗 パターン（構造）</div>
+      <div class="text">表面の事実を貫く、繰り返し観察される構造。</div>
+      <label>あなたの答え</label>
+      <textarea id="l2_pattern" placeholder="例：モノではなく「場」を売っている..."></textarea>
+    </div>
+    <div class="layer principle">
+      <div class="label">⭐ 原理（なぜそうなるのか）</div>
+      <div class="text">パターンが成立する根本の力学。一言で言える。</div>
+      <label>あなたの答え</label>
+      <textarea id="l2_principle" placeholder="例：人には「家でも職場でもない第三の居場所」への欲求がある..."></textarea>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn ghost" onclick="revealPrinciple()">💡 参考答えを見る</button>
+    <button class="btn" onclick="go(3)">✓ 書けた／次へ →</button>
+  </div>
+
+  <div id="l2_reveal" class="callout gold hidden" style="margin-top:14px">
+    <b>参考答え（Ericsson 的な原理レベルの答え方）</b><br><br>
+    🌊 <b>表面</b>：おしゃれ／Wi-Fi／店員がフレンドリー／緑のロゴ<br>
+    🔗 <b>パターン</b>：モノを売っているのではなく、"場" を売っている（コーヒーはチケット）<br>
+    ⭐ <b>原理</b>：<em>サードプレイス</em> ── 人には「家でも職場でもない、第三の居場所」への根源的な欲求がある<br><br>
+    ここで大事なのは、<b>「正解」を暗記することではなく</b>、この <b>3層に降ろすプロセス</b> を自分の頭で回したこと。それが心的イメージを作る筋トレです。
+  </div>
+</div>
+
+<!-- ===== PHASE 3: 転移テスト ===== -->
+<div id="phase3" class="phase hidden">
+  <h2>🚀 Phase 3 ── 転移テスト</h2>
+  <p>Phase 2で掴んだ原理 <em>「サードプレイス」</em> を、別のドメインに転移してみます。</p>
+  <p class="dim">原理を握った合図は、<b>「まったく違う場面に、その原理を適用できる」</b> こと。ここができたら、あなたは知識ではなくスキルを手にしています。</p>
+
+  <div class="callout sky">
+    <b>原理：サードプレイス</b> ── 家でも職場でもない、第三の居場所への欲求
+  </div>
+
+  <label>① <b>銭湯</b> にこの原理を当ててみると？（何を提供しているか？）</label>
+  <textarea id="t3_a" placeholder="例：裸で並ぶことで肩書きが消える「無役」の居場所..."></textarea>
+
+  <label>② <b>ジム</b> にこの原理を当ててみると？</label>
+  <textarea id="t3_b" placeholder="例：..."></textarea>
+
+  <label>③ <b>ありえる楽考</b> にこの原理を当ててみると？</label>
+  <textarea id="t3_c" placeholder="例：..."></textarea>
+
+  <div class="btn-row">
+    <button class="btn ghost" onclick="revealTransfer()">💡 参考の当て方を見る</button>
+    <button class="btn" onclick="go(4)">✓ 書けた／次へ →</button>
+  </div>
+
+  <div id="t3_reveal" class="callout gold hidden" style="margin-top:14px">
+    <b>参考の当て方（正解というより "こう転移できる" の例）</b><br><br>
+    ① 銭湯：<em>裸になることで肩書きが消え、"無役" で人と並ぶ第三の場</em>。だからサウナブームは "整い" だけでなく "無役感" が本体。<br>
+    ② ジム：<em>「変わりたい自分」に取り組む儀式の場</em>。家では言い訳が出るし職場では鎧を着るから、鎧なしで自分を鍛える場が要る。<br>
+    ③ ありえる楽考：<em>「たまかつ」を試して失敗して学べる第三の実験場</em>。家庭でも職場でもない、"あり方" を試せる稽古場。<br><br>
+    <b>ここまで書けたら</b>、あなたはもう「知識としてのサードプレイス」ではなく、「<em>転移できる原理としてのサードプレイス</em>」を握っています。<br>
+    <span class="dim">これが Ericsson の言う <b>心的イメージ</b> の実体です。</span>
+  </div>
+
+  <div class="network">
+    <div class="label">◆ あなたの心的イメージ ネットワーク（成長中）</div>
+    <svg id="netSvg" viewBox="0 0 400 130" width="400" height="130"></svg>
+  </div>
+</div>
+
+<!-- ===== PHASE 4: 自分の仕事に持ち帰る ===== -->
+<div id="phase4" class="phase hidden">
+  <h2>💼 Phase 4 ── 自分の仕事に持ち帰る</h2>
+  <p>ここが本番。<b>あなた自身の職業／役割</b> から、ひとつ現象を選んで、3層に降ろし、そして<b>別の場面に転移</b> してみます。</p>
+
+  <label>あなたの職業／役割は？</label>
+  <input type="text" id="my_role" placeholder="例：営業／マネージャー／エンジニア／親／ファシリテーター...">
+
+  <label>あなたの仕事で、いつも起きているけど <b>「なんでこれ、こうなるんだろう？」</b> と感じる現象を1つ</label>
+  <textarea id="my_scene" placeholder="例：部下がフィードバックを素直に聞けない／新規客が2回目に来ない／会議で意見が出ない..."></textarea>
+
+  <h3>これを3層に降ろす</h3>
+  <div class="layers">
+    <div class="layer surface">
+      <div class="label">🌊 表面（現象）</div>
+      <textarea id="my_surface" placeholder="目に見える事実を書く"></textarea>
+    </div>
+    <div class="layer pattern">
+      <div class="label">🔗 パターン（構造）</div>
+      <textarea id="my_pattern" placeholder="繰り返し観察される構造を書く"></textarea>
+    </div>
+    <div class="layer principle">
+      <div class="label">⭐ 原理（なぜそうなるのか）</div>
+      <textarea id="my_principle" placeholder="根本の力学を、できれば1行で"></textarea>
+    </div>
+  </div>
+
+  <h3>その原理を、まったく違う場面に転移してみる</h3>
+  <p class="dim">同業種ではなく、なるべく <b>遠いドメイン</b> に飛ばしてみるのがトレーニングです。</p>
+
+  <label>転移先①</label>
+  <input type="text" id="my_transfer1" placeholder="例：この原理は、子育てにも効くのでは？">
+
+  <label>転移先②</label>
+  <input type="text" id="my_transfer2" placeholder="例：この原理は、地域コミュニティの運営にも効くのでは？">
+
+  <div class="btn-row">
+    <button class="btn" onclick="go(5)">✓ 書けた／宣言へ →</button>
+  </div>
+</div>
+
+<!-- ===== PHASE 5: あり方の宣言 ===== -->
+<div id="phase5" class="phase hidden">
+  <h2>🗣 Phase 5 ── あり方の宣言</h2>
+  <p>今日つくった心的イメージを、<em>あり方</em> の言葉で言い切ります。ホモ・サピエンス（賢い人）から <b>ホモ・エクセサンス（練習する人）</b> へ。</p>
+
+  <div class="beings">
+    <div class="being old">
+      <div class="title">古いあり方</div>
+      <div class="body">知識を溜める人<br><span class="dim" style="font-size:.8rem">「何を知ってるか」で自分の価値を測る</span></div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="being new">
+      <div class="title">新しいあり方</div>
+      <div class="body"><b>原理を掴んで転移する人</b><br><span class="dim" style="font-size:.8rem">「何ができるか」に立ち返る／限界的練習で自分を作る</span></div>
+    </div>
+  </div>
+
+  <h3>宣言文（自動生成 — 触って良い）</h3>
+  <div id="dec" class="declaration"></div>
+
+  <label>この宣言を、24時間以内に <b>実際にやる練習</b>（限界的練習ループ1周分）</label>
+  <textarea id="my_action" placeholder="例：明日の1on1で「現象 → パターン → 原理」に1回だけ降ろしてみる"></textarea>
+
+  <label>いつやる？（時刻・場所を1行で）</label>
+  <input type="text" id="my_when" placeholder="例：明日の朝10時、田中さんとの1on1で">
+
+  <div class="btn-row">
+    <button class="btn ghost" onclick="regenDec()">🔄 宣言文を再生成</button>
+    <button class="btn sky" onclick="speakDec()">🔊 声に出す</button>
+    <button class="btn" onclick="go(6)">✓ サマリーへ →</button>
+  </div>
+</div>
+
+<!-- ===== PHASE 6: サマリー ===== -->
+<div id="phase6" class="phase hidden">
+  <h2>📜 Phase 6 ── サマリー</h2>
+  <p>今日の限界的練習1周分の記録です。</p>
+  <div id="summary"></div>
+
+  <div class="callout gold">
+    <b>あなたの可能性は、決して決まっていません。</b><br>
+    <span class="dim" style="font-size:.88rem">─ Anders Ericsson『超一流になるのは才能か努力か？』最終章より</span>
+  </div>
+
+  <div class="callout leaf">
+    <b>🌱 たまかつとの接続</b><br>
+    たまかつも実は同じ3層構造。<br>
+    🌊 <b>現象</b>（日常の行動） → 🔗 <b>モデル</b>（3つの原則・3つの壁） → ⭐ <b>コンセプト</b>（価値共創・魂の活性化）<br>
+    <span class="dim" style="font-size:.85rem">原理レベルで考える練習は、たまかつを "知識" から "スキル" にする筋トレです。</span>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn" onclick="exportMd()">📥 Markdownでダウンロード</button>
+    <button class="btn ghost" onclick="resetAll()">🔄 最初からやり直す</button>
+  </div>
+</div>
+
+<div class="foot">
+  <p>制作: 鈴木利和（ありえる楽考ファシリテーター） / 編集サポート: Claudian</p>
+  <p style="margin-top:6px">出典: Anders Ericsson『超一流になるのは才能か努力か？』最終章 ／ カール・ワイマン実験</p>
+</div>
+
+</div>
+
+<script>
+// ============================ DATA ============================
+const QUIZ = [
+  {
+    scene: "営業成績が3ヶ月連続で下がっている。上司に相談することになった。",
+    a: {text:"先月の失注案件をすべてリストアップし、どの段階で失注したかを分析する", type:"知識"},
+    b: {text:"そもそも「顧客が買う理由の構造」は何か？を問い直し、その構造が壊れているのか、それとも自分の当て方がズレているのかを見る", type:"原理"},
+    correct: "b",
+    why: "aは「今ある知識の中で答えを探す」動き。bは「なぜ買うのか」という<b>根本の力学</b>まで一度降りて、そこから今回の失敗を意味付けし直そうとしている。──これが原理レベル。"
+  },
+  {
+    scene: "部下が育たない。1on1もしているし、指導もしているのに変化がない。",
+    a: {text:"1on1の頻度を週1から週2に上げて、フィードバックの回数を増やす", type:"知識"},
+    b: {text:"そもそも人が成長する条件（限界に触れる／即フィードバック／心的イメージの構築）が、この1on1で満たされているかを問い直す", type:"原理"},
+    correct: "b",
+    why: "aは「今の枠のまま量を増やす」対応。bは「そもそも成長という現象は何によって起きるのか」という<b>原理</b>まで降りて、今の1on1がその原理を成立させているかを診断している。"
+  },
+  {
+    scene: "新規事業の売上が計画通りに伸びない。マーケティング予算をどうするか会議中。",
+    a: {text:"広告予算を1.5倍にして、リーチとコンバージョンを上げる",type:"知識"},
+    b: {text:"人が新しいものを買うときのS字カーブ（イノベーター → アーリーマジョリティに渡るキャズム）の中で、今どの段階にいるのかを見る。段階が違えば効く手も違う",type:"原理"},
+    correct: "b",
+    why: "aは「今できる打ち手を大きくする」動き。bは「新規事業が伸びる原理」まで降りて、いまの現象がその原理のどの段階かを診断する。段階を見誤ると、予算を増やしても効かない。"
+  },
+  {
+    scene: "ダイエットが3週間で続かなくなる。今回こそはと思って始めたのに。",
+    a: {text:"来週から筋トレアプリを入れて、毎日通知を鳴らして意志を強くする", type:"知識"},
+    b: {text:"行動が習慣化する原理（トリガー → 行動 → 報酬）が壊れている場所はどこか？を診断し、その1点だけを設計し直す", type:"原理"},
+    correct: "b",
+    why: "aは「意志を強くする」＝<b>意志に頼る</b> 発想。bは「習慣化の原理」を降ろして、意志ではなく<b>場のデザイン</b>で解こうとしている。──ありえる楽考も同じ姿勢。"
+  },
+  {
+    scene: "会議でいつも意見が出ない。ファシリテーターとしてどうするか。",
+    a: {text:"最初の10分でアイスブレイクを入れて、場を温めてから議題に入る", type:"知識"},
+    b: {text:"そもそも「意見が出せる場」が成立する原理（心理的安全／目的の明確化／権威勾配の緩和）のうち、今欠けているのはどれかを見立てる", type:"原理"},
+    correct: "b",
+    why: "aは「効くと言われているテクニック」を当てる動き。bは「意見が出る場とは何によって成立するのか」の<b>原理</b>を降ろし、今欠けている1点を特定してから手を打つ。"
+  },
+  {
+    scene: "子どもが宿題をやらない。何度言ってもやらない。",
+    a: {text:"やったらポイントをつけるルールを作り、たまったらお菓子と交換できるようにする", type:"知識"},
+    b: {text:"「学ぶ」という行為が本人の中で成立する条件（<em>意味</em> と <em>できるかも</em> と <em>安全</em>）のうち、今どれが折れているかを見立てる。折れた1つが埋まらないと、報酬をどれだけ積んでも動かない", type:"原理"},
+    correct: "b",
+    why: "aは「外側から報酬で釣る」ハック。bは「学ぶ／動く」が成立する原理まで降りて、本人の内側の何が折れているかを見る。── ありえる楽考の <em>心的イメージ</em> の話とほぼ同じ層。"
+  }
+];
+
+// ============================ STATE ============================
+const KEY = "genri-thinking-v1";
+const state = load() || {
+  phase: 0,
+  qi: 0,       // 現在の問題番号
+  qScore: 0,
+  qAnswered: [], // {correct:bool}
+  l2:{surface:"",pattern:"",principle:""},
+  t3:{a:"",b:"",c:""},
+  my:{role:"",scene:"",surface:"",pattern:"",principle:"",transfer1:"",transfer2:"",action:"",when:""},
+  dec:""
+};
+
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+function load(){ try{ return JSON.parse(localStorage.getItem(KEY)||"null"); }catch(e){return null} }
+
+// ============================ NAVIGATION ============================
+function go(n){
+  // 保存
+  captureInputs();
+  state.phase = n;
+  save();
+  render();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function captureInputs(){
+  const gv = id => (document.getElementById(id)?.value || "").trim();
+  state.l2.surface = gv("l2_surface");
+  state.l2.pattern = gv("l2_pattern");
+  state.l2.principle = gv("l2_principle");
+  state.t3.a = gv("t3_a");
+  state.t3.b = gv("t3_b");
+  state.t3.c = gv("t3_c");
+  state.my.role = gv("my_role");
+  state.my.scene = gv("my_scene");
+  state.my.surface = gv("my_surface");
+  state.my.pattern = gv("my_pattern");
+  state.my.principle = gv("my_principle");
+  state.my.transfer1 = gv("my_transfer1");
+  state.my.transfer2 = gv("my_transfer2");
+  state.my.action = gv("my_action");
+  state.my.when = gv("my_when");
+}
+
+function render(){
+  for(let i=0;i<=6;i++){
+    const el = document.getElementById("phase"+i);
+    if(el) el.classList.toggle("hidden", i!==state.phase);
+    const p = document.getElementById("pg"+i);
+    if(p){
+      p.classList.remove("active","done");
+      if(i<state.phase) p.classList.add("done");
+      else if(i===state.phase) p.classList.add("active");
+    }
+  }
+  // 入力復元
+  const set = (id,val)=>{ const el=document.getElementById(id); if(el) el.value = val||""; };
+  set("l2_surface", state.l2.surface);
+  set("l2_pattern", state.l2.pattern);
+  set("l2_principle", state.l2.principle);
+  set("t3_a", state.t3.a); set("t3_b", state.t3.b); set("t3_c", state.t3.c);
+  set("my_role", state.my.role); set("my_scene", state.my.scene);
+  set("my_surface", state.my.surface); set("my_pattern", state.my.pattern); set("my_principle", state.my.principle);
+  set("my_transfer1", state.my.transfer1); set("my_transfer2", state.my.transfer2);
+  set("my_action", state.my.action); set("my_when", state.my.when);
+
+  if(state.phase===1){ renderQuiz(); }
+  if(state.phase===3){ drawNetwork(); }
+  if(state.phase===5){ renderDec(); }
+  if(state.phase===6){ renderSummary(); }
+}
+
+// ============================ QUIZ ============================
+function renderQuiz(){
+  const area = document.getElementById("quizArea");
+  const nextRow = document.getElementById("quizNextRow");
+  document.getElementById("qScore").textContent = state.qScore;
+
+  if(state.qi >= QUIZ.length){
+    area.innerHTML = `
+      <div class="callout gold">
+        <b>🎉 6問クリア！ スコア: ${state.qScore} / 6</b><br>
+        判別の心的イメージが一つ、あなたの中に立ち上がりました。次は、<b>自分で3層に降ろす練習</b> に進みます。
+      </div>
+      <div class="btn-row">
+        <button class="btn" onclick="go(2)">▶ Phase 2：3層分解トレーニングへ</button>
+      </div>`;
+    nextRow.classList.add("hidden");
+    return;
+  }
+
+  document.getElementById("qNum").textContent = state.qi+1;
+  const q = QUIZ[state.qi];
+  // A/Bのラベルはあえてどちらが原理かを隠す
+  const showA = q.a, showB = q.b;
+  area.innerHTML = `
+    <div class="scene"><b>場面</b>：${q.scene}</div>
+    <div class="choices">
+      <button class="choice" id="cA" onclick="pickAns('a')">
+        <span class="tag">A</span>${showA.text}
+      </button>
+      <button class="choice" id="cB" onclick="pickAns('b')">
+        <span class="tag">B</span>${showB.text}
+      </button>
+    </div>
+    <div class="feedback" id="fb"></div>
+  `;
+  nextRow.classList.add("hidden");
+}
+
+function pickAns(choice){
+  const q = QUIZ[state.qi];
+  const cA = document.getElementById("cA");
+  const cB = document.getElementById("cB");
+  const fb = document.getElementById("fb");
+  cA.onclick = cB.onclick = null;
+  const correctChoice = q.correct;
+  const isCorrect = choice === correctChoice;
+
+  if(correctChoice==='a'){
+    cA.classList.add('correct');
+    if(choice==='b') cB.classList.add('wrong');
+  } else {
+    cB.classList.add('correct');
+    if(choice==='a') cA.classList.add('wrong');
+  }
+
+  // タグの内容も、判定後は「知識/原理」に更新
+  cA.querySelector('.tag').textContent = "A（"+q.a.type+"派）";
+  cB.querySelector('.tag').textContent = "B（"+q.b.type+"派）";
+
+  if(isCorrect){
+    state.qScore++;
+    fb.className = "feedback correct show";
+    fb.innerHTML = "✅ <b>正解</b>。 "+q.why;
+  } else {
+    fb.className = "feedback wrong show";
+    fb.innerHTML = "◇ 正解は <b>"+correctChoice.toUpperCase()+"</b> でした。 "+q.why;
+  }
+  state.qAnswered.push({q:state.qi, correct:isCorrect});
+  document.getElementById("qScore").textContent = state.qScore;
+  save();
+  document.getElementById("quizNextRow").classList.remove("hidden");
+}
+
+function nextQuiz(){
+  state.qi++;
+  save();
+  renderQuiz();
+}
+
+// ============================ PHASE 2 / 3 reveals ============================
+function revealPrinciple(){ document.getElementById("l2_reveal").classList.remove("hidden"); }
+function revealTransfer(){ document.getElementById("t3_reveal").classList.remove("hidden"); }
+
+// ============================ NETWORK VIS ============================
+function drawNetwork(){
+  const svg = document.getElementById("netSvg");
+  if(!svg) return;
+  // シンプルな心的イメージ：中心＝原理、周囲にPhase 3の3つの転移先
+  const centerX=200, centerY=65;
+  const nodes = [
+    {x:centerX,y:centerY,label:"原理",color:"#f4b942",r:24},
+    {x:60, y:35, label:"銭湯", color:"#5aa3d4", r:15, filled:!!state.t3.a},
+    {x:60, y:95, label:"ジム", color:"#5aa3d4", r:15, filled:!!state.t3.b},
+    {x:340,y:65, label:"楽考",color:"#7ab85c", r:16, filled:!!state.t3.c}
+  ];
+  let out = '';
+  // edges
+  nodes.slice(1).forEach(n=>{
+    const on = n.filled ? .8 : .2;
+    out += `<line x1="${centerX}" y1="${centerY}" x2="${n.x}" y2="${n.y}" stroke="#f4b942" stroke-opacity="${on}" stroke-width="1.5"/>`;
+  });
+  // nodes
+  nodes.forEach(n=>{
+    const opacity = n.filled===undefined ? 1 : (n.filled? 1 : .4);
+    out += `<circle cx="${n.x}" cy="${n.y}" r="${n.r}" fill="${n.color}" opacity="${opacity}"/>`;
+    out += `<text x="${n.x}" y="${n.y+4}" text-anchor="middle" font-size="11" fill="#0a1a28" font-weight="700">${n.label}</text>`;
+  });
+  svg.innerHTML = out;
+}
+
+// ============================ DECLARATION ============================
+function renderDec(){
+  regenDec();
+}
+function regenDec(){
+  captureInputs();
+  const role = state.my.role || "私";
+  const p = state.my.principle || "──（まだ言語化されていない原理）──";
+  const t1 = state.my.transfer1 || "──";
+  const t2 = state.my.transfer2 || "──";
+  state.dec = `私は <em>${role}</em> として、<br>今日から <em>「原理を掴んで、別の場面に転移する人」</em> というあり方で生きます。<br><br>私が握った原理は、<em>${p}</em>。<br>この原理は、<em>${t1}</em> でも、<em>${t2}</em> でも、通用します。<br><br>知識を溜めるより、この原理を <em>体で覚える</em> 練習を、日々続けます。<br>私は <em>ホモ・エクセサンス</em>、練習する人です。`;
+  document.getElementById("dec").innerHTML = state.dec;
+  save();
+}
+
+function speakDec(){
+  if(!window.speechSynthesis){ alert("このブラウザは音声読み上げに対応していません"); return; }
+  const text = (document.getElementById("dec").innerText || "").replace(/\s+/g," ").trim();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "ja-JP";
+  u.rate = 0.95;
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(u);
+}
+
+// ============================ SUMMARY & EXPORT ============================
+function renderSummary(){
+  captureInputs();
+  const s = document.getElementById("summary");
+  const q = QUIZ.length;
+  const rate = Math.round(state.qScore/q*100);
+  s.innerHTML = `
+    <div class="callout">
+      <b>◆ Phase 1 判別ゲーム</b>：${state.qScore}/${q} 問正解（${rate}%）
+    </div>
+    <div class="callout violet">
+      <b>◆ Phase 2 3層分解（スタバ→サードプレイス）</b><br>
+      🌊 表面：${esc(state.l2.surface)||"—"}<br>
+      🔗 パターン：${esc(state.l2.pattern)||"—"}<br>
+      ⭐ 原理：${esc(state.l2.principle)||"—"}
+    </div>
+    <div class="callout sky">
+      <b>◆ Phase 3 転移テスト（サードプレイス）</b><br>
+      ① 銭湯：${esc(state.t3.a)||"—"}<br>
+      ② ジム：${esc(state.t3.b)||"—"}<br>
+      ③ ありえる楽考：${esc(state.t3.c)||"—"}
+    </div>
+    <div class="callout gold">
+      <b>◆ Phase 4 自分の仕事に持ち帰る</b><br>
+      役割：${esc(state.my.role)||"—"}<br>
+      現象：${esc(state.my.scene)||"—"}<br>
+      🌊 表面：${esc(state.my.surface)||"—"}<br>
+      🔗 パターン：${esc(state.my.pattern)||"—"}<br>
+      ⭐ 原理：${esc(state.my.principle)||"—"}<br>
+      🚀 転移①：${esc(state.my.transfer1)||"—"}<br>
+      🚀 転移②：${esc(state.my.transfer2)||"—"}
+    </div>
+    <div class="declaration">${state.dec || ""}</div>
+    <div class="callout leaf">
+      <b>◆ 24時間以内の限界的練習（1周分）</b><br>
+      アクション：${esc(state.my.action)||"—"}<br>
+      いつやる：${esc(state.my.when)||"—"}
+    </div>
+  `;
+}
+
+function esc(s){ return (s||"").replace(/[&<>"']/g, c=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c])); }
+
+function exportMd(){
+  captureInputs();
+  const today = new Date().toISOString().slice(0,10);
+  const md = `# 原理レベル思考トレーニング（${today}）
+
+> 出典: Anders Ericsson『超一流になるのは才能か努力か？』最終章 ／ カール・ワイマン実験
+> ありえる楽考「強い手札 系統」第2弾
+
+## Phase 1 判別ゲーム
+- スコア: ${state.qScore}/${QUIZ.length}（${Math.round(state.qScore/QUIZ.length*100)}%）
+
+## Phase 2 3層分解（お題：スタバでコーヒーが売れる理由）
+- 🌊 表面：${state.l2.surface||"—"}
+- 🔗 パターン：${state.l2.pattern||"—"}
+- ⭐ 原理：${state.l2.principle||"—"}
+
+（参考の答え：原理＝サードプレイス。人には「家でも職場でもない、第三の居場所」への欲求がある）
+
+## Phase 3 転移テスト（原理：サードプレイス）
+- 銭湯に当てると：${state.t3.a||"—"}
+- ジムに当てると：${state.t3.b||"—"}
+- ありえる楽考に当てると：${state.t3.c||"—"}
+
+## Phase 4 自分の仕事に持ち帰る
+- 役割：${state.my.role||"—"}
+- 現象：${state.my.scene||"—"}
+- 🌊 表面：${state.my.surface||"—"}
+- 🔗 パターン：${state.my.pattern||"—"}
+- ⭐ 原理：${state.my.principle||"—"}
+- 🚀 転移①：${state.my.transfer1||"—"}
+- 🚀 転移②：${state.my.transfer2||"—"}
+
+## Phase 5 あり方の宣言
+
+${(state.dec||"").replace(/<br>/g,"\n").replace(/<[^>]+>/g,"")}
+
+## 24時間以内の限界的練習（1周分）
+- アクション：${state.my.action||"—"}
+- いつやる：${state.my.when||"—"}
+
+---
+
+> あなたの可能性は、決して決まっていません。
+> ─ Anders Ericsson『超一流になるのは才能か努力か？』最終章より
+
+### たまかつとの接続
+たまかつも同じ3層構造：
+- 🌊 現象（日常の行動） → 🔗 モデル（3つの原則・3つの壁） → ⭐ コンセプト（価値共創・魂の活性化）
+
+原理レベルで考える練習は、たまかつを「知識」から「スキル」にする筋トレ。
+
+制作: 鈴木利和（ありえる楽考ファシリテーター） / 編集サポート: Claudian
+`;
+
+  const blob = new Blob([md], {type:"text/markdown"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `原理レベル思考トレーニング_${today}.md`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function resetAll(){
+  if(!confirm("最初からやり直します。今書いた内容はすべて消えます。よろしいですか？")) return;
+  localStorage.removeItem(KEY);
+  location.reload();
+}
+
+// ============================ BOOT ============================
+render();
+
+// 入力の自動保存（デバウンス）
+let saveTimer;
+document.addEventListener("input", ()=>{
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(()=>{ captureInputs(); save(); if(state.phase===3) drawNetwork(); if(state.phase===5) renderDec(); }, 400);
+});
+</script>
+</body>
+</html>
