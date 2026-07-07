@@ -31,22 +31,129 @@
     {
       "level": 1,
       "label": "気づいていない",
-      "color": "#e0e0e0"
+      "color": "#e0e0e0",
+      "fast_slow": "Fast が自動で誤作動（Slow が起動していない）"
     },
     {
       "level": 2,
       "label": "概念として理解している",
-      "color": "#fff3b0"
+      "color": "#fff3b0",
+      "fast_slow": "Slow で意識すれば使える（Fast にはまだ沈殿していない）"
     },
     {
       "level": 3,
       "label": "実践できる",
-      "color": "#a3d977"
+      "color": "#a3d977",
+      "fast_slow": "Slow の反復で Fast に沈殿し始めた"
     },
     {
       "level": 4,
       "label": "文脈に応じて選び分けられる",
-      "color": "#4a90e2"
+      "color": "#4a90e2",
+      "fast_slow": "Fast が高解像度（educated guess）／熟達直観の域"
+    }
+  ],
+  "getting_started": {
+    "enabled": true,
+    "banner_title": "🌱 初めての方へ — 第1層から始めましょう",
+    "banner_body": "12テーマは <strong>3層構造</strong> です。第2層以降は第1層の思考を土台にしているので、まずは <strong>第1層（認知強化）</strong> の3テーマから。特に <strong>「無意識の思い込みを見つけ修正する」</strong> が最初の扉です。<br>いきなり書くのが重かったら、まず <strong>4択の関係性クイズ（8問）</strong> で12テーマ全体の関係を掴んでください。",
+    "first_theme_id": "unconscious_assumption",
+    "quiz_cta_label": "🎯 関係性クイズで全体を掴む（4択・8問・書かなくてOK）",
+    "write_cta_label": "✍️ 第1層から直接書く"
+  },
+  "engine_note": {
+    "unified_principle": "Slow で意図的に検証・失敗・修正した経験が、Fast に沈殿する",
+    "sub": "『たまかつ』の12テーマは、Slow で意識化 → 反復で Fast に沈殿 → 文脈で選び分け、という熟達曲線を辿ります。ルーブリックL1→L4はこの Fast/Slow の位相を表しています。",
+    "sources": "原理レベル思考トレーニング（Ericsson『超一流になるのは才能か努力か?』最終章／Kahneman『Fast & Slow』／Gladwell『第1感』／Klein × Kahneman 2009 熟達直観）"
+  },
+  "relationship_quiz": [
+    {
+      "q": "12テーマは3層構造で並んでいます。<strong>第1層（認知強化）</strong> から始めるべき理由は?",
+      "choices": [
+        {"text": "第1層が最も簡単だから", "correct": false, "why": "難易度ではなく <strong>土台の順序</strong> です。第1層は易しいから始めるのではなく、上位層を支える基礎だから。"},
+        {"text": "第2層以降は第1層の思考を土台にしているから", "correct": true, "why": "認知強化（第1層）→ 熟達と場づくり（第2層）→ 価値共創（第3層）。下が上を支える構造で、土台が固まってから上に登ります。"},
+        {"text": "順番があったほうが心地よいから", "correct": false, "why": "心地よさではなく <strong>意味の順序</strong>。第2層以降は第1層の言葉を前提にしています。"},
+        {"text": "どこから始めても関係ない", "correct": false, "why": "螺旋的に往復はできますが、初めての方には第1層が最短。上位テーマの理解が深まります。"}
+      ],
+      "focus_theme": "unconscious_assumption",
+      "insight": "🌱 第1層 = 土台の思考。まずは「無意識の思い込みを見つける」から。"
+    },
+    {
+      "q": "<strong>「無意識の思い込み」（第1層）</strong> と <strong>「たまかつを生きる」（第3層）</strong> の関係は?",
+      "choices": [
+        {"text": "独立した2つのテーマで、関係はない", "correct": false, "why": "実は深く繋がっています。第3層の理解には第1層が土台になります。"},
+        {"text": "思い込みを外さないと、自分の本当のたまかつが見えない", "correct": true, "why": "「やらねば」で動く思い込みが自分軸を歪める。まず思い込みを見つけることで、本当の自分軸=たまかつが立ち上がります。"},
+        {"text": "たまかつを掴めば思い込みは自動で外れる", "correct": false, "why": "逆向きです。思い込みが自分軸を偽装しているので、まず思い込みを見つけるのが先。"},
+        {"text": "どちらか一方だけで十分", "correct": false, "why": "両方が必要。第1層で認知強化 → 第3層でたまかつを言語化、の順に進みます。"}
+      ],
+      "focus_theme": "tamakatsu_calling",
+      "insight": "🎯 たまかつは、思い込みの霧が晴れて初めて見える。"
+    },
+    {
+      "q": "<strong>「記号接地」（第1層）</strong> とは何をすることでしょう?",
+      "choices": [
+        {"text": "記号（言葉）を丸暗記すること", "correct": false, "why": "暗記は「知っている」レベル。記号接地は「わかる」レベルへの跳躍です。"},
+        {"text": "抽象概念を自分の体験と結びつけ、意味として立ち上げること", "correct": true, "why": "「体験→気づき→ぼんやりした推測→反復→シャープな理解」の順で、記号が意味を持ちます。これが「わかる」の正体。"},
+        {"text": "記号を人に教えられるようになること", "correct": false, "why": "教えられるのは記号接地の結果として起こりますが、目的ではありません。"},
+        {"text": "難しい記号を否定・拒絶すること", "correct": false, "why": "拒絶ではなく、体験と結びつけて自分の言葉に翻訳することです。"}
+      ],
+      "focus_theme": "symbol_grounding",
+      "insight": "🔗 「わかる」= 体験と言葉が結びつく瞬間。それまでは「知っている」だけ。"
+    },
+    {
+      "q": "<strong>「熟達」（第2層）</strong> の本質は?",
+      "choices": [
+        {"text": "大量の情報を暗記すること", "correct": false, "why": "情報量ではなく <strong>解像度</strong> です。同じ現場でも見えるものが違う。"},
+        {"text": "才能があること", "correct": false, "why": "Ericsson の研究では、才能より <strong>意識的な反復練習</strong>（Deliberate Practice）が熟達を作ります。"},
+        {"text": "心的表象（頭の中の解像度）を精緻にすること", "correct": true, "why": "エキスパートは「見えているものが違う」。ぼんやりしたイメージ → シャープな心的イメージへの磨き上げが熟達の正体。"},
+        {"text": "資格・肩書きを得ること", "correct": false, "why": "外形ではなく <strong>内部の見え方</strong> の変化が熟達です。"}
+      ],
+      "focus_theme": "expertise_resolution",
+      "insight": "🔭 熟達 = 世界の解像度が上がること。Mental Representation の精緻化。"
+    },
+    {
+      "q": "全体を良くしたい時、<strong>「ボトルネックへの1点集中」</strong> が最速なのはなぜ?",
+      "choices": [
+        {"text": "楽だから", "correct": false, "why": "楽さではなく、全体の成果を1点が決めているからです。"},
+        {"text": "全体の成果はいちばん弱い部分で制限されているから", "correct": true, "why": "制約理論の核心。他をどれだけ強くしても、ボトルネックが動かなければ全体は動かない。逆にボトルネックを動かせば、全体が動く。"},
+        {"text": "満遍なくやるのは不可能だから", "correct": false, "why": "可能／不可能の話ではなく、<strong>効率の話</strong>です。"},
+        {"text": "集中しないと疲れるから", "correct": false, "why": "疲労ではなく、全体構造の中で1点が決定的だから、が正解。"}
+      ],
+      "focus_theme": "bottleneck_concentration",
+      "insight": "🎯 ボトルネックに集中投下 = 複利効果が最大化する場所。"
+    },
+    {
+      "q": "<strong>グループコーチング（GC）</strong> で「話し手が自分で答えを見つける」のは、なぜ?",
+      "choices": [
+        {"text": "上手なアドバイスがもらえるから", "correct": false, "why": "GCの本質は<strong>アドバイスをしないこと</strong>。聞き手は感じたことだけを返します。"},
+        {"text": "邪魔されず「聞いてもらえる」体験によって、自分の思考が構造化されるから", "correct": true, "why": "話し手は「聞かれる」体験そのものによって、自分の中にすでにあった答えを言葉にできる。これがGCの4ステップの核心。"},
+        {"text": "評価されて緊張するから", "correct": false, "why": "GCは<strong>評価しない場</strong>。緊張ではなく安心が答えを引き出します。"},
+        {"text": "沈黙が気まずいから発言せざるを得ないから", "correct": false, "why": "沈黙も許される場です。強制ではなく安全が鍵。"}
+      ],
+      "focus_theme": "group_coaching",
+      "insight": "👂 GC = 集合天才が育つ土壌。「聞かれる」ことで答えが立ち上がる。"
+    },
+    {
+      "q": "<strong>三層構造</strong>（オーナー／ファシリ／メンバー）は、何を分担していますか?",
+      "choices": [
+        {"text": "上下の階級（偉さの順）", "correct": false, "why": "階級ではなく<strong>思考のレベル</strong>の分担です。"},
+        {"text": "年功序列", "correct": false, "why": "年齢や在籍期間ではなく、担う<strong>思考の役割</strong>です。"},
+        {"text": "「なぜ／何が必要か／どうやって」という思考レベル", "correct": true, "why": "オーナーはWhy（哲学・目的）、ファシリはWhat（仕組み・理論）、メンバーはHow（実践）。1人が1日の中で3層を往復することもある。"},
+        {"text": "得意分野・専門スキル", "correct": false, "why": "スキルではなく<strong>思考の抽象度</strong>で分けます。"}
+      ],
+      "focus_theme": "three_layer_team",
+      "insight": "🏛 三層構造 = 抽象度の分担。対等・率直・肯定の3原則で往復する。"
+    },
+    {
+      "q": "12テーマの中で、<strong>学習パスの中心マイルストーン</strong>はどれ?",
+      "choices": [
+        {"text": "4つの認知方略", "correct": false, "why": "重要な道具ですが、中心ではなく<strong>手段</strong>です。"},
+        {"text": "グループコーチング", "correct": false, "why": "GCは「たまかつ」を育てる<strong>場</strong>ですが、中心そのものではありません。"},
+        {"text": "たまかつを生きる（自分軸と相手軸の交差点）", "correct": true, "why": "他の11テーマは、たまかつを精緻化し、実装するための技術。「たまかつ以外に時間・エネルギー・お金を使わない」という生き方の起点。"},
+        {"text": "宣言システム", "correct": false, "why": "宣言システムはたまかつを<strong>守る仕組み</strong>ですが、中心ではありません。"}
+      ],
+      "focus_theme": "tamakatsu_calling",
+      "insight": "⭐ 12テーマの中心 = たまかつを生きる。他の11テーマは、それを支える技術。"
     }
   ],
   "themes": [

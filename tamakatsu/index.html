@@ -196,6 +196,119 @@
     font-size: 12px; color: #2a5030; font-weight: 600;
     padding: 10px 12px 6px; background: #e6f0e2;
   }
+  /* ==== 第1層ガイドバナー ==== */
+  .getting-started-banner {
+    background: linear-gradient(135deg, #fff8e6, #fdefc7);
+    border: 2px solid #e8b800; border-radius: 12px;
+    padding: 18px 20px; margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(232, 184, 0, 0.15);
+  }
+  .getting-started-banner .gs-title {
+    font-weight: 700; font-size: 16px; margin-bottom: 8px; color: #5a4a00;
+  }
+  .getting-started-banner .gs-body {
+    font-size: 13.5px; color: #5a4a00; line-height: 1.75; margin-bottom: 12px;
+  }
+  .getting-started-banner .gs-actions {
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .getting-started-banner button {
+    background: #4a90e2; color: #fff; padding: 12px 18px;
+    border-radius: 8px; font-size: 14px; font-weight: 700;
+    text-align: left; cursor: pointer; border: 0;
+  }
+  .getting-started-banner button.secondary {
+    background: #fff; color: #5a4a00; border: 2px solid #e8b800;
+  }
+  .getting-started-banner button:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+  .getting-started-banner .gs-collapse {
+    background: transparent; color: #8a7000; border: 0; padding: 4px 8px;
+    font-size: 12px; text-align: right; margin-top: 4px; font-weight: 400;
+  }
+  /* 第1層ハイライト */
+  .theme-cell.first-layer-highlight {
+    box-shadow: 0 0 0 3px #e8b800, 0 4px 12px rgba(232,184,0,0.25);
+    animation: firstlayerpulse 2.5s ease-in-out infinite;
+  }
+  @keyframes firstlayerpulse {
+    0%, 100% { box-shadow: 0 0 0 3px #e8b800, 0 4px 12px rgba(232,184,0,0.25); }
+    50% { box-shadow: 0 0 0 5px #f4d055, 0 6px 18px rgba(232,184,0,0.4); }
+  }
+  .theme-cell .entry-badge {
+    position: absolute; top: 6px; right: 6px;
+    background: #e8b800; color: #fff; font-size: 9px; font-weight: 700;
+    padding: 2px 6px; border-radius: 4px; letter-spacing: 0.5px;
+  }
+  /* ==== 4択関係性クイズ ==== */
+  .quiz-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 14px;
+  }
+  .quiz-progress { font-size: 12px; color: var(--sub); }
+  .quiz-score { font-size: 12px; font-weight: 700; color: #4a90e2; }
+  .quiz-question {
+    font-size: 16px; font-weight: 600; line-height: 1.7; margin: 8px 0 20px;
+    color: #2b2b2b;
+  }
+  .quiz-choices { display: flex; flex-direction: column; gap: 10px; }
+  .quiz-choice {
+    border: 2px solid var(--border); border-radius: 10px;
+    padding: 14px 18px; cursor: pointer; background: #fff;
+    transition: border-color 0.15s, background 0.15s;
+    font-size: 14px; line-height: 1.6;
+  }
+  .quiz-choice:hover:not(.disabled) { border-color: #4a90e2; background: #f2f7fd; }
+  .quiz-choice.disabled { cursor: default; }
+  .quiz-choice.correct {
+    border-color: #7ab85c; background: #e9f5df;
+  }
+  .quiz-choice.incorrect {
+    border-color: #d64545; background: #fce9e9;
+  }
+  .quiz-choice.faded { opacity: 0.55; }
+  .quiz-feedback {
+    margin-top: 16px; padding: 14px 16px; border-radius: 10px;
+    font-size: 14px; line-height: 1.7;
+  }
+  .quiz-feedback.correct {
+    background: #e9f5df; border-left: 4px solid #7ab85c; color: #2f5030;
+  }
+  .quiz-feedback.incorrect {
+    background: #fce9e9; border-left: 4px solid #d64545; color: #5a2020;
+  }
+  .quiz-feedback .verdict { font-weight: 700; margin-bottom: 6px; }
+  .quiz-insight {
+    margin-top: 12px; padding: 12px 16px;
+    background: #fdf4d8; border-left: 4px solid #e8b800;
+    border-radius: 8px; font-size: 13px; color: #5a4a00; line-height: 1.7;
+  }
+  .quiz-result {
+    text-align: center; padding: 30px 20px;
+  }
+  .quiz-result .emoji { font-size: 44px; }
+  .quiz-result .headline { font-size: 20px; font-weight: 700; margin: 12px 0 8px; }
+  .quiz-result .score { font-size: 32px; font-weight: 700; color: #4a90e2; margin: 8px 0; }
+  .quiz-result .sub { color: var(--sub); font-size: 14px; margin-bottom: 20px; }
+  .quiz-touched-themes {
+    background: #fbfaf5; border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 18px; margin-top: 16px; text-align: left;
+  }
+  .quiz-touched-themes .h { font-weight: 700; font-size: 13px; margin-bottom: 8px; color: #333; }
+  .quiz-touched-themes ul { margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.9; color: #444; }
+  /* ==== エンジン注釈（Fast/Slow） ==== */
+  .rubric-item .fast-slow-note {
+    font-size: 11px; color: #4a90e2; font-weight: 600; margin-top: 4px;
+    letter-spacing: 0.3px; font-family: ui-monospace, monospace;
+  }
+  .engine-principle {
+    margin-top: 16px; padding: 12px 16px;
+    background: linear-gradient(135deg, #f0f4ff, #e6ecfa);
+    border: 1px solid #b3cdec; border-radius: 8px;
+    font-size: 12.5px; color: #2a3c60; line-height: 1.7;
+  }
+  .engine-principle .ep-title {
+    font-weight: 700; margin-bottom: 4px; color: #1a2b45; font-size: 13px;
+  }
 </style>
 </head>
 <body>
@@ -226,10 +339,21 @@
       </div>
     </div>
 
+    <!-- 第1層ガイドバナー -->
+    <div class="getting-started-banner" id="getting-started-banner" style="display:none;">
+      <div class="gs-title" id="gs-title">🌱 初めての方へ</div>
+      <div class="gs-body" id="gs-body"></div>
+      <div class="gs-actions">
+        <button onclick="showQuiz()" id="gs-quiz-btn">🎯 関係性クイズで全体を掴む（4択・8問・書かなくてOK）</button>
+        <button class="secondary" onclick="openFirstTheme()" id="gs-write-btn">✍️ 第1層から直接書く</button>
+      </div>
+      <button class="gs-collapse" onclick="dismissBanner()">今日は非表示にする →</button>
+    </div>
+
     <div class="progress" id="progress-line">読み込み中…</div>
     <h2>今日、触る #LO を1つ選んでください</h2>
     <div style="color: var(--sub); font-size: 14px; margin-bottom: 8px;">
-      触っていないところが多くていい。地図はゆっくり色づいていきます。
+      触っていないところが多くていい。地図はゆっくり色づいていきます。<strong>第1層</strong>（下段）から始めるのがおすすめです。
     </div>
 
     <div id="layers-container"></div>
@@ -238,6 +362,57 @@
   <div class="card">
     <div class="field-label">これまでの学び（直近5件）</div>
     <div id="history-list">まだありません。</div>
+  </div>
+</section>
+
+<!-- ========= [0.5] 関係性クイズ（4択・8問） ========= -->
+<section id="screen-quiz" class="screen">
+  <div class="card">
+    <div class="quiz-header">
+      <div class="quiz-progress" id="quiz-progress">Q1 / 8</div>
+      <div class="quiz-score" id="quiz-score">正解 0 / 0</div>
+    </div>
+
+    <h2 style="font-size:15px; color:var(--sub); margin:0 0 4px; letter-spacing:1px;">🎯 関係性クイズ</h2>
+    <div class="quiz-question" id="quiz-question"></div>
+    <div class="quiz-choices" id="quiz-choices"></div>
+
+    <div class="quiz-feedback" id="quiz-feedback" style="display:none;"></div>
+    <div class="quiz-insight" id="quiz-insight" style="display:none;"></div>
+
+    <div class="btn-row">
+      <button class="secondary" onclick="showScreen('map')">← マップに戻る</button>
+      <button id="quiz-next-btn" onclick="nextQuizQuestion()" style="display:none;">次の問い →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ========= [0.6] クイズ完了画面 ========= -->
+<section id="screen-quiz-result" class="screen">
+  <div class="card">
+    <div class="quiz-result">
+      <div class="emoji" id="quiz-result-emoji">🎯</div>
+      <div class="headline">関係性クイズ 完了</div>
+      <div class="score" id="quiz-result-score">0 / 8</div>
+      <div class="sub" id="quiz-result-sub"></div>
+
+      <div class="quiz-touched-themes">
+        <div class="h">この8問で触れた主要テーマ</div>
+        <ul id="quiz-touched-list"></ul>
+      </div>
+
+      <div class="engine-principle" style="margin-top:20px; text-align:left;">
+        <div class="ep-title">⚡ 学習エンジンの統一原理</div>
+        <div id="quiz-engine-principle-body"></div>
+      </div>
+
+      <div class="btn-row" style="justify-content:center; margin-top:20px;">
+        <button onclick="openFirstTheme()">✍️ 第1層 #unconscious_assumption から書く →</button>
+      </div>
+      <div class="btn-row" style="justify-content:center; margin-top:8px;">
+        <button class="secondary" onclick="showScreen('map')">🗺 マップを見る</button>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -302,6 +477,11 @@
       「決めきれない」も学びです。無理に決めないでください。
     </div>
     <div class="rubric-list" id="rubric-list"></div>
+
+    <div class="engine-principle" id="rubric-engine-principle" style="display:none;">
+      <div class="ep-title">⚡ ルーブリックの読み方（Fast / Slow）</div>
+      <div id="rubric-engine-principle-body"></div>
+    </div>
 
     <div class="field-label">なぜそのLか（根拠を1行）</div>
     <input type="text" id="rubric-evidence" placeholder="例：責任と情報は渡したが、判断基準は自分の中にあった" />
@@ -373,6 +553,13 @@ let DATA = null;
 let currentTheme = null;
 let currentSession = null;
 let STORAGE_KEY = "ariel_learning_sessions_v1";
+let QUIZ_STATE_KEY = "ariel_learning_quiz_v1";
+let BANNER_KEY = "ariel_learning_banner_dismissed_v1";
+// Quiz runtime
+let quizIdx = 0;
+let quizCorrect = 0;
+let quizAnswered = 0;
+let quizTouchedThemes = new Set();
 
 // ==================== Init ====================
 async function init() {
@@ -386,6 +573,7 @@ async function init() {
   applyBookMeta();
   renderMap();
   renderHistory();
+  renderGettingStartedBanner();
 }
 
 // ==================== Apply book-specific meta ====================
@@ -444,8 +632,9 @@ function showScreen(name) {
   document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
   document.getElementById("screen-" + name).classList.add("active");
   window.scrollTo({top: 0, behavior: "smooth"});
-  if (name === "map") { renderMap(); renderHistory(); }
+  if (name === "map") { renderMap(); renderHistory(); renderGettingStartedBanner(); }
   if (name === "done") { renderRelatedApps(); }
+  if (name === "rubric") { renderRubricEnginePrinciple(); }
 }
 
 // ==================== Related apps (cross-book learning) ====================
@@ -501,7 +690,13 @@ function renderMap() {
       const lvl = bestByTheme[t.id] || 0;
       const color = lvl === 4 ? "var(--l4)" : lvl === 3 ? "var(--l3)" : lvl === 2 ? "var(--l2)" : "var(--l1)";
       cell.style.background = color;
+      // Highlight the "first theme" (getting_started.first_theme_id) if untouched
+      const gs = DATA.getting_started;
+      const isFirstEntry = gs && gs.enabled && gs.first_theme_id === t.id && !bestByTheme[t.id];
+      if (isFirstEntry) cell.classList.add("first-layer-highlight");
+      const entryBadge = isFirstEntry ? '<div class="entry-badge">START</div>' : "";
       cell.innerHTML = `
+        ${entryBadge}
         <div class="lo-tag">${t.lo_tag}</div>
         <div class="title">${t.title}</div>
         <div class="lvl">${t.implemented ? (lvl ? "L" + lvl : "未着手") : "coming soon"}</div>
@@ -594,10 +789,12 @@ function renderRubric() {
     const div = document.createElement("div");
     div.className = "rubric-item";
     div.dataset.level = r.level;
+    const fsNote = r.fast_slow ? `<div class="fast-slow-note">⚡ ${r.fast_slow}</div>` : "";
     div.innerHTML = `
       <div class="level">L${r.level}</div>
       <div class="label">${r.label}</div>
       <div class="desc">${currentTheme.rubric[i]}</div>
+      ${fsNote}
     `;
     div.onclick = () => {
       document.querySelectorAll(".rubric-item").forEach(x => x.classList.remove("selected"));
@@ -606,6 +803,15 @@ function renderRubric() {
     };
     list.appendChild(div);
   });
+}
+function renderRubricEnginePrinciple() {
+  const en = DATA.engine_note;
+  if (!en) return;
+  const box = document.getElementById("rubric-engine-principle");
+  const body = document.getElementById("rubric-engine-principle-body");
+  if (!box || !body) return;
+  body.innerHTML = `<strong>「${en.unified_principle}」</strong><br>${en.sub || ""}`;
+  box.style.display = "";
 }
 
 // ==================== Tamakatsu / Finish ====================
@@ -702,6 +908,154 @@ function loadSessions() {
   try {
     return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
   } catch (e) { return []; }
+}
+
+// ==================== Getting Started Banner ====================
+function renderGettingStartedBanner() {
+  const gs = DATA && DATA.getting_started;
+  const banner = document.getElementById("getting-started-banner");
+  if (!banner || !gs || !gs.enabled) { if (banner) banner.style.display = "none"; return; }
+
+  // Hide when: dismissed OR user already has 2+ sessions
+  const dismissed = localStorage.getItem(BANNER_KEY) === "1";
+  const sessions = loadSessions();
+  if (dismissed || sessions.length >= 2) { banner.style.display = "none"; return; }
+
+  banner.style.display = "";
+  document.getElementById("gs-title").innerHTML = gs.banner_title || "🌱 初めての方へ";
+  document.getElementById("gs-body").innerHTML = gs.banner_body || "";
+  if (gs.quiz_cta_label) document.getElementById("gs-quiz-btn").textContent = gs.quiz_cta_label;
+  if (gs.write_cta_label) document.getElementById("gs-write-btn").textContent = gs.write_cta_label;
+}
+function dismissBanner() {
+  localStorage.setItem(BANNER_KEY, "1");
+  const banner = document.getElementById("getting-started-banner");
+  if (banner) banner.style.display = "none";
+}
+function openFirstTheme() {
+  const gs = DATA && DATA.getting_started;
+  const id = (gs && gs.first_theme_id) || (DATA.themes.find(t => t.layer === 1 && t.implemented) || {}).id;
+  if (id) openTheme(id);
+}
+
+// ==================== Relationship Quiz (4-choice engine) ====================
+function showQuiz() {
+  const quiz = DATA && DATA.relationship_quiz;
+  if (!quiz || !quiz.length) { alert("クイズデータが読み込めていません。"); return; }
+  quizIdx = 0; quizCorrect = 0; quizAnswered = 0;
+  quizTouchedThemes = new Set();
+  showScreen("quiz");
+  renderQuizQuestion();
+}
+function renderQuizQuestion() {
+  const quiz = DATA.relationship_quiz;
+  const q = quiz[quizIdx];
+  document.getElementById("quiz-progress").textContent = `Q${quizIdx + 1} / ${quiz.length}`;
+  document.getElementById("quiz-score").textContent = `正解 ${quizCorrect} / ${quizAnswered}`;
+  document.getElementById("quiz-question").innerHTML = q.q;
+
+  const choicesEl = document.getElementById("quiz-choices");
+  choicesEl.innerHTML = "";
+  q.choices.forEach((c, i) => {
+    const div = document.createElement("div");
+    div.className = "quiz-choice";
+    div.textContent = c.text;
+    div.onclick = () => selectChoice(i);
+    choicesEl.appendChild(div);
+  });
+
+  document.getElementById("quiz-feedback").style.display = "none";
+  document.getElementById("quiz-insight").style.display = "none";
+  document.getElementById("quiz-next-btn").style.display = "none";
+}
+function selectChoice(idx) {
+  const quiz = DATA.relationship_quiz;
+  const q = quiz[quizIdx];
+  const chosen = q.choices[idx];
+  const items = document.querySelectorAll("#quiz-choices .quiz-choice");
+  items.forEach((el, i) => {
+    el.classList.add("disabled");
+    el.onclick = null;
+    if (i === idx) {
+      el.classList.add(chosen.correct ? "correct" : "incorrect");
+    } else if (q.choices[i].correct) {
+      el.classList.add("correct");
+    } else {
+      el.classList.add("faded");
+    }
+  });
+  quizAnswered++;
+  if (chosen.correct) quizCorrect++;
+  if (q.focus_theme) quizTouchedThemes.add(q.focus_theme);
+
+  const fb = document.getElementById("quiz-feedback");
+  fb.className = "quiz-feedback " + (chosen.correct ? "correct" : "incorrect");
+  fb.innerHTML = `
+    <div class="verdict">${chosen.correct ? "✅ 正解！" : "🔄 惜しい、もう一段掘り下げましょう"}</div>
+    <div>${chosen.why}</div>
+  `;
+  fb.style.display = "";
+  if (q.insight) {
+    const ins = document.getElementById("quiz-insight");
+    ins.innerHTML = q.insight;
+    ins.style.display = "";
+  }
+  document.getElementById("quiz-score").textContent = `正解 ${quizCorrect} / ${quizAnswered}`;
+  const nextBtn = document.getElementById("quiz-next-btn");
+  nextBtn.style.display = "";
+  nextBtn.textContent = (quizIdx + 1 >= quiz.length) ? "結果を見る →" : "次の問い →";
+}
+function nextQuizQuestion() {
+  const quiz = DATA.relationship_quiz;
+  quizIdx++;
+  if (quizIdx >= quiz.length) {
+    finishQuiz();
+  } else {
+    renderQuizQuestion();
+  }
+}
+function finishQuiz() {
+  const total = DATA.relationship_quiz.length;
+  showScreen("quiz-result");
+  document.getElementById("quiz-result-score").textContent = `${quizCorrect} / ${total}`;
+  const emoji = quizCorrect === total ? "🌟" : quizCorrect >= total * 0.75 ? "🎯" : quizCorrect >= total * 0.5 ? "🌱" : "🔍";
+  document.getElementById("quiz-result-emoji").textContent = emoji;
+  const sub = quizCorrect === total
+    ? "全問正解。12テーマの関係が地図として立ち上がりました。"
+    : quizCorrect >= total * 0.75
+    ? "十分な理解。書くステップに進んで大丈夫です。"
+    : quizCorrect >= total * 0.5
+    ? "半分掴めています。もう一度クイズを回すと関係が定着します。"
+    : "ここからが本番。第1層 #unconscious_assumption から書いてみると、腑に落ちます。";
+  document.getElementById("quiz-result-sub").textContent = sub;
+
+  // Touched themes list
+  const ul = document.getElementById("quiz-touched-list");
+  ul.innerHTML = "";
+  Array.from(quizTouchedThemes).forEach(tid => {
+    const th = DATA.themes.find(x => x.id === tid);
+    if (th) {
+      const li = document.createElement("li");
+      li.innerHTML = `<code style="font-family:ui-monospace,monospace;color:#4a90e2;">${th.lo_tag}</code> ${th.title}`;
+      ul.appendChild(li);
+    }
+  });
+
+  // Engine principle
+  const en = DATA.engine_note;
+  if (en) {
+    document.getElementById("quiz-engine-principle-body").innerHTML =
+      `<strong>「${en.unified_principle}」</strong><br>${en.sub || ""}<br><span style="font-size:11px;color:#5a6a80;">${en.sources || ""}</span>`;
+  }
+
+  // Save quiz state
+  try {
+    localStorage.setItem(QUIZ_STATE_KEY, JSON.stringify({
+      correct: quizCorrect, total,
+      touched: Array.from(quizTouchedThemes),
+      completed_at: new Date().toISOString()
+    }));
+  } catch (e) { /* ignore */ }
 }
 
 // ==================== Bootstrap ====================
