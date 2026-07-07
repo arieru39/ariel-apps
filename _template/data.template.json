@@ -1,0 +1,168 @@
+{
+  "book": {
+    "title": "<書籍タイトル>",
+    "author": "<著者名>",
+    "publisher": "<出版社／副題>",
+    "product_line": "バイブコーディング・ギルド 第N プロダクト",
+    "slug": "<英語スネークケース。URLパスに使う。例: context-leadership>",
+    "hashtag": "#<英語スネークケース>",
+    "source_note": "参考図書/Kindle/<本のタイトル>/<本のタイトル>.md",
+    "amazon_url": "https://www.amazon.co.jp/dp/<ASIN>",
+    "playlist_url": "https://www.youtube.com/playlist?list=<PLAYLIST_ID>",
+    "playlist_embed_url": "https://www.youtube.com/embed/videoseries?list=<PLAYLIST_ID>",
+    "video_title": "🎬 本の解説プレイリスト（全N本）",
+    "tagline": "<本のキャッチコピー1行>"
+  },
+
+  "layers": [
+    { "level": 3, "label": "第3層 · <名前> — <一言説明>" },
+    { "level": 2, "label": "第2層 · <名前> — <一言説明>" },
+    { "level": 1, "label": "第1層 · <名前> — <一言説明>" }
+  ],
+
+  "rubric_labels": [
+    { "level": 1, "label": "気づいていない", "color": "#e0e0e0", "fast_slow": "Fast が自動で誤作動（Slow が起動していない）" },
+    { "level": 2, "label": "概念として理解している", "color": "#fff3b0", "fast_slow": "Slow で意識すれば使える（Fast にはまだ沈殿していない）" },
+    { "level": 3, "label": "実践できる", "color": "#a3d977", "fast_slow": "Slow の反復で Fast に沈殿し始めた" },
+    { "level": 4, "label": "文脈に応じて選び分けられる", "color": "#4a90e2", "fast_slow": "Fast が高解像度（educated guess）／熟達直観の域" }
+  ],
+
+  "getting_started": {
+    "enabled": true,
+    "banner_title": "🌱 初めての方へ — 第1層から始めましょう",
+    "banner_body": "Nテーマは <strong>3層構造</strong> です。第2層以降は第1層の思考を土台にしているので、まずは <strong>第1層（<名前>）</strong> のNテーマから。特に <strong>「<最初の扉のテーマタイトル>」</strong> が最初の扉です。<br>いきなり書くのが重かったら、まず <strong>4択の関係性クイズ（N問）</strong> でNテーマ全体の関係を掴んでください。",
+    "first_theme_id": "<最初の扉として推奨する Layer 1 のテーマ id>",
+    "quiz_cta_label": "🎯 関係性クイズで全体を掴む（4択・N問・書かなくてOK）",
+    "write_cta_label": "✍️ 第1層から直接書く"
+  },
+
+  "engine_note": {
+    "sources": "原理レベル思考トレーニング（Ericsson『超一流になるのは才能か努力か?』最終章／Kahneman『Fast & Slow』／Gladwell『第1感』／Klein × Kahneman 2009 熟達直観）",
+    "sub": "この本のNテーマは、Slow で意識化 → 反復で Fast に沈殿 → 文脈で選び分け、という熟達曲線を辿ります。ルーブリックL1→L4はこの Fast/Slow の位相を表しています。",
+    "unified_principle": "Slow で意図的に検証・失敗・修正した経験が、Fast に沈殿する"
+  },
+
+  "relationship_quiz_meta": {
+    "framing": "この4択は正解探しではありません。あなたのあり方を映す鏡です。選んだ選択肢に応じて、あなたの視点／本の視座／立ち止まりの問い、の3つが返ってきます。",
+    "deliberate_practice_note": "Comprehensible Input（あなたに届く言葉）× 即時のフィードバック × 明確で具体的な目標 × 完全な集中 × コンフォートゾーンの一段外 × 専門家の設計（書籍） ── の6要件で組んでいます。",
+    "score_label": "触れた視点"
+  },
+
+  "relationship_quiz": [
+    {
+      "focus_theme": "<関連するテーマ id>",
+      "learning_objective": "<この設問で掴みたいこと>",
+      "q": "<問い本文>",
+      "insight": "🌱 <このテーマの1行要約>",
+      "choices": [
+        {
+          "text": "<選択肢テキスト>",
+          "correct": false,
+          "stance": "🔍 <視点の名前> ── <スタンスのラベル>",
+          "phase": "⚡ Fast の反射",
+          "phase_note": "<なぜこの位相か、1行>",
+          "author_view": "📖 本ではこう語られている：<本文から具体的な引用／要旨>",
+          "slow_question": "🌱 <一段深めるための問い>"
+        },
+        {
+          "text": "<選択肢テキスト>",
+          "correct": true,
+          "stance": "🔍 <視点の名前> ── <スタンスのラベル>",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "<なぜこの位相か、1行>",
+          "author_view": "📖 本ではこう語られている：<本文から具体的な引用／要旨>",
+          "slow_question": "🌱 <一段深めるための問い>"
+        },
+        {
+          "text": "<選択肢テキスト>",
+          "correct": false,
+          "stance": "🔍 <視点の名前> ── <スタンスのラベル>",
+          "phase": "🌊 身体の感覚",
+          "phase_note": "<なぜこの位相か、1行>",
+          "author_view": "📖 本ではこう語られている：<本文から具体的な引用／要旨>",
+          "slow_question": "🌱 <一段深めるための問い>"
+        },
+        {
+          "text": "<選択肢テキスト>",
+          "correct": false,
+          "stance": "🔍 <視点の名前> ── <スタンスのラベル>",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "<なぜこの位相か、1行>",
+          "author_view": "📖 本ではこう語られている：<本文から具体的な引用／要旨>",
+          "slow_question": "🌱 <一段深めるための問い>"
+        }
+      ]
+    }
+  ],
+
+  "themes": [
+    {
+      "id": "<英語スネークケース。例: unconscious_assumption>",
+      "layer": 1,
+      "title": "<テーマの日本語タイトル>",
+      "lo_tag": "#<英語スネークケース>",
+      "seed_question": "<種の問い。読者が今日触るきっかけになる問い1行>",
+      "excerpt": "<OCRからの抜き書き100〜200字。**強調** で書籍の重要語をハイライト可>",
+      "prompt": "<実務例で書かせる問い1行>",
+      "rubric": [
+        "<L1: 気づいていない状態の具体>",
+        "<L2: 概念として理解している状態の具体>",
+        "<L3: 実践できる状態の具体>",
+        "<L4: 文脈に応じて選び分けられる状態の具体>"
+      ],
+      "implemented": true,
+      "video_embed_url": "https://www.youtube.com/embed/<VIDEO_ID>",
+      "video_title": "<動画タイトル。例: 第1章 〇〇 — サブタイトル>",
+      "perspective_quiz": [
+        {
+          "q": "<動画を観る前の観点づくり Q1。本文／動画の主題への現在地を確かめる問い>",
+          "learning_objective": "<この設問で掴みたいこと1行>",
+          "choices": [
+            {
+              "text": "<選択肢テキスト>",
+              "stance": "🔍 <視点の名前> ── <スタンスのラベル>",
+              "phase": "⚡ Fast の反射",
+              "phase_note": "<なぜこの位相か、1行>",
+              "author_view": "📖 本ではこう語られている：<本文から具体的な引用／要旨>",
+              "slow_question": "🌱 <一段深めるための問い>"
+            },
+            {
+              "text": "<選択肢テキスト>",
+              "stance": "🔍 <視点の名前> ── <スタンスのラベル>",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "<なぜこの位相か、1行>",
+              "author_view": "📖 本ではこう語られている：<本文から具体的な引用／要旨>",
+              "slow_question": "🌱 <一段深めるための問い>"
+            },
+            {
+              "text": "<選択肢テキスト>",
+              "stance": "🔍 <視点の名前> ── <スタンスのラベル>",
+              "phase": "🌊 身体の感覚",
+              "phase_note": "<なぜこの位相か、1行>",
+              "author_view": "📖 本ではこう語られている：<本文から具体的な引用／要旨>",
+              "slow_question": "🌱 <一段深めるための問い>"
+            },
+            {
+              "text": "<選択肢テキスト>",
+              "stance": "🔍 <視点の名前> ── <スタンスのラベル>",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "<なぜこの位相か、1行>",
+              "author_view": "📖 本ではこう語られている：<本文から具体的な引用／要旨>",
+              "slow_question": "🌱 <一段深めるための問い>"
+            }
+          ]
+        }
+      ],
+      "related_apps": [
+        {
+          "app_slug": "<他アプリの slug>",
+          "app_title": "<他アプリの書籍タイトル>",
+          "app_href": "../<他アプリの slug>/",
+          "theme_id": "<他アプリ内のテーマ id>",
+          "theme_title": "<他アプリ内のテーマタイトル>",
+          "why": "<なぜ関連しているか、1〜2行>"
+        }
+      ]
+    }
+  ]
+}
