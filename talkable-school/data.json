@@ -1392,5 +1392,13 @@
         }
       ]
     }
-  ]
+  ],
+  "getting_started": {
+    "enabled": true,
+    "first_theme_id": "adaptive_challenges",
+    "banner_title": "🌱 初めての方へ — 第1層から始めましょう",
+    "banner_body": "11テーマは <strong>3層構造</strong> です。第2層以降は第1層の見立てを土台にしているので、まずは <strong>第1層（土台 · 場を見立てる）</strong> の4テーマから。特に <strong>「適応課題を見極める」</strong> が最初の扉です。<br>各テーマは <strong>本文を読み直す前に4択の観点クイズ</strong> から始まるので、いきなり書くのが重かったら選ぶだけでも足を踏み入れられます。",
+    "quiz_cta_label": "🎯 観点クイズから足を踏み入れる（第1層・4択・書かなくてOK）",
+    "write_cta_label": "✍️ 第1層から直接書く"
+  }
 }

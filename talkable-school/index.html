@@ -207,6 +207,50 @@
   .related-app-card .theme-name { font-weight: 600; font-size: 14px; margin: 3px 0; }
   .related-app-card .why { color: #555; font-size: 13px; line-height: 1.5; }
 
+  /* ==== 第1層ガイドバナー ==== */
+  .getting-started-banner {
+    background: linear-gradient(135deg, #fff8e6, #fdefc7);
+    border: 2px solid #e8b800; border-radius: 12px;
+    padding: 18px 20px; margin: 14px 0 20px;
+    box-shadow: 0 4px 12px rgba(232, 184, 0, 0.15);
+  }
+  .getting-started-banner .gs-title {
+    font-weight: 700; font-size: 16px; margin-bottom: 8px; color: #5a4a00;
+  }
+  .getting-started-banner .gs-body {
+    font-size: 13.5px; color: #5a4a00; line-height: 1.75; margin-bottom: 12px;
+  }
+  .getting-started-banner .gs-actions {
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .getting-started-banner button {
+    background: #4a90e2; color: #fff; padding: 12px 18px;
+    border-radius: 8px; font-size: 14px; font-weight: 700;
+    text-align: left; cursor: pointer; border: 0;
+  }
+  .getting-started-banner button.secondary {
+    background: #fff; color: #5a4a00; border: 2px solid #e8b800;
+  }
+  .getting-started-banner button:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+  .getting-started-banner .gs-collapse {
+    background: transparent; color: #8a7000; border: 0; padding: 4px 8px;
+    font-size: 12px; text-align: right; margin-top: 4px; font-weight: 400;
+  }
+  /* 第1層ハイライト */
+  .theme-cell.first-layer-highlight {
+    box-shadow: 0 0 0 3px #e8b800, 0 4px 12px rgba(232,184,0,0.25);
+    animation: firstlayerpulse 2.5s ease-in-out infinite;
+  }
+  @keyframes firstlayerpulse {
+    0%, 100% { box-shadow: 0 0 0 3px #e8b800, 0 4px 12px rgba(232,184,0,0.25); }
+    50% { box-shadow: 0 0 0 5px #f4d055, 0 6px 18px rgba(232,184,0,0.4); }
+  }
+  .theme-cell .entry-badge {
+    position: absolute; top: 6px; right: 6px;
+    background: #e8b800; color: #fff; font-size: 9px; font-weight: 700;
+    padding: 2px 6px; border-radius: 4px; letter-spacing: 0.5px;
+  }
+
   /* ==== 本文を読む前の観点クイズ（perspective_quiz） ==== */
   .perspective-quiz-block {
     background: linear-gradient(135deg, #f7f4ea, #ede6d0);
@@ -318,6 +362,17 @@
           <iframe id="book-video-iframe" src="" title="解説動画" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
         </div>
       </div>
+    </div>
+
+    <!-- 第1層ガイドバナー -->
+    <div class="getting-started-banner" id="getting-started-banner" style="display:none;">
+      <div class="gs-title" id="gs-title">🌱 初めての方へ</div>
+      <div class="gs-body" id="gs-body"></div>
+      <div class="gs-actions">
+        <button onclick="openFirstTheme()" id="gs-quiz-btn">🎯 観点クイズから足を踏み入れる（第1層・4択・書かなくてOK）</button>
+        <button class="secondary" onclick="openFirstTheme()" id="gs-write-btn">✍️ 第1層から直接書く</button>
+      </div>
+      <button class="gs-collapse" onclick="dismissBanner()">今日は非表示にする →</button>
     </div>
 
     <div class="progress" id="progress-line">読み込み中…</div>
@@ -493,6 +548,7 @@ let DATA = null;
 let currentTheme = null;
 let currentSession = null;
 let STORAGE_KEY = "ariel_learning_sessions_v1";
+let BANNER_KEY = "ariel_learning_banner_dismissed_v1";
 let perspectiveIdx = 0;
 let perspectiveStanceTrail = [];
 
@@ -508,6 +564,7 @@ async function init() {
   applyBookMeta();
   renderMap();
   renderHistory();
+  renderGettingStartedBanner();
 }
 
 // ==================== Apply book-specific meta ====================
@@ -526,6 +583,7 @@ function applyBookMeta() {
   // Also update <html lang> and STORAGE_KEY per book slug
   if (b.slug) {
     STORAGE_KEY = "ariel_learning_" + b.slug;
+    BANNER_KEY = "ariel_learning_banner_dismissed_" + b.slug;
   }
 
   // Populate book-intro panel (personal translation + model/story intro + legend)
@@ -591,7 +649,7 @@ function showScreen(name) {
   document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
   document.getElementById("screen-" + name).classList.add("active");
   window.scrollTo({top: 0, behavior: "smooth"});
-  if (name === "map") { renderMap(); renderHistory(); }
+  if (name === "map") { renderMap(); renderHistory(); renderGettingStartedBanner(); }
   if (name === "done") { renderRelatedApps(); }
 }
 
@@ -648,6 +706,11 @@ function renderMap() {
       const lvl = bestByTheme[t.id] || 0;
       const color = lvl === 4 ? "var(--l4)" : lvl === 3 ? "var(--l3)" : lvl === 2 ? "var(--l2)" : "var(--l1)";
       cell.style.background = color;
+      // 第1層エントリテーマのハイライト（getting_started.first_theme_id）
+      const gs = DATA.getting_started;
+      const isFirstEntry = gs && gs.enabled && gs.first_theme_id === t.id && !bestByTheme[t.id];
+      if (isFirstEntry) cell.classList.add("first-layer-highlight");
+      const entryBadge = isFirstEntry ? '<div class="entry-badge">START</div>' : "";
       // content_type バッジ
       let ctypeBadge = "";
       if (t.content_type) {
@@ -657,6 +720,7 @@ function renderMap() {
       }
       const milestoneMark = t.milestone ? " 🌱" : "";
       cell.innerHTML = `
+        ${entryBadge}
         <div class="lo-tag">${t.lo_tag}${milestoneMark}</div>
         <div class="title">${t.title}</div>
         ${ctypeBadge}
@@ -858,6 +922,35 @@ function finishPerspectiveQuiz() {
     const excerpt = document.getElementById("lo-excerpt");
     if (excerpt && excerpt.scrollIntoView) excerpt.scrollIntoView({behavior:"smooth", block:"start"});
   }, 100);
+}
+
+// ==================== Getting Started Banner (第1層ガイド) ====================
+function renderGettingStartedBanner() {
+  const gs = DATA && DATA.getting_started;
+  const banner = document.getElementById("getting-started-banner");
+  if (!banner || !gs || !gs.enabled) { if (banner) banner.style.display = "none"; return; }
+
+  // 非表示条件：ユーザーが dismiss したか、2セッション以上ある
+  const dismissed = localStorage.getItem(BANNER_KEY) === "1";
+  const sessions = loadSessions();
+  if (dismissed || sessions.length >= 2) { banner.style.display = "none"; return; }
+
+  banner.style.display = "";
+  document.getElementById("gs-title").innerHTML = gs.banner_title || "🌱 初めての方へ";
+  document.getElementById("gs-body").innerHTML = gs.banner_body || "";
+  if (gs.quiz_cta_label) document.getElementById("gs-quiz-btn").textContent = gs.quiz_cta_label;
+  if (gs.write_cta_label) document.getElementById("gs-write-btn").textContent = gs.write_cta_label;
+}
+function dismissBanner() {
+  localStorage.setItem(BANNER_KEY, "1");
+  const banner = document.getElementById("getting-started-banner");
+  if (banner) banner.style.display = "none";
+}
+function openFirstTheme() {
+  const gs = DATA && DATA.getting_started;
+  const id = (gs && gs.first_theme_id) ||
+    (DATA.themes.find(t => t.layer === 1 && t.implemented) || {}).id;
+  if (id) openTheme(id);
 }
 
 // ==================== Write ====================
