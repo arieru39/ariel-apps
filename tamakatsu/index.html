@@ -239,13 +239,28 @@
     background: #e8b800; color: #fff; font-size: 9px; font-weight: 700;
     padding: 2px 6px; border-radius: 4px; letter-spacing: 0.5px;
   }
-  /* ==== 4択関係性クイズ ==== */
+  /* ==== 4択関係性クイズ（あり方を映す鏡・正解探しではない） ==== */
   .quiz-header {
     display: flex; justify-content: space-between; align-items: center;
     margin-bottom: 14px;
   }
   .quiz-progress { font-size: 12px; color: var(--sub); }
   .quiz-score { font-size: 12px; font-weight: 700; color: #4a90e2; }
+  .quiz-framing {
+    font-size: 12px; color: #6a6a6a; line-height: 1.7;
+    background: #f7f6f0; border-left: 3px solid #d0c8a8;
+    padding: 8px 12px; border-radius: 6px; margin-bottom: 14px;
+  }
+  .quiz-learning-objective {
+    background: linear-gradient(135deg, #fffbe8, #fff5cc);
+    border: 1px solid #f0d878; border-radius: 8px;
+    padding: 10px 14px; margin: 12px 0 16px;
+    font-size: 13px; line-height: 1.7; color: #5a4a00;
+  }
+  .quiz-learning-objective .lo-label {
+    font-weight: 700; font-size: 11px; letter-spacing: 1px;
+    color: #b89400; margin-bottom: 3px; display: block;
+  }
   .quiz-question {
     font-size: 16px; font-weight: 600; line-height: 1.7; margin: 8px 0 20px;
     color: #2b2b2b;
@@ -259,27 +274,42 @@
   }
   .quiz-choice:hover:not(.disabled) { border-color: #4a90e2; background: #f2f7fd; }
   .quiz-choice.disabled { cursor: default; }
-  .quiz-choice.correct {
-    border-color: #7ab85c; background: #e9f5df;
+  .quiz-choice.chosen {
+    border-color: #4a90e2; background: #f2f7fd; box-shadow: 0 0 0 3px rgba(74,144,226,0.12);
   }
-  .quiz-choice.incorrect {
-    border-color: #d64545; background: #fce9e9;
-  }
-  .quiz-choice.faded { opacity: 0.55; }
-  .quiz-feedback {
+  .quiz-choice.dim { opacity: 0.62; }
+  /* あなたの視点（🔍 stance + ⚡🐢🌊 phase） */
+  .fb-stance {
     margin-top: 16px; padding: 14px 16px; border-radius: 10px;
-    font-size: 14px; line-height: 1.7;
+    background: #eef7e6; border-left: 4px solid #7ab85c;
+    font-size: 14px; line-height: 1.7; color: #2f5030;
   }
-  .quiz-feedback.correct {
-    background: #e9f5df; border-left: 4px solid #7ab85c; color: #2f5030;
+  .fb-stance .fb-title { font-weight: 700; margin-bottom: 4px; font-size: 15px; }
+  .fb-stance .fb-phase {
+    display: inline-block; margin-top: 8px; padding: 3px 10px;
+    background: #ffffff88; border-radius: 12px; font-size: 12px;
+    font-weight: 600; color: #4a6a3a;
   }
-  .quiz-feedback.incorrect {
-    background: #fce9e9; border-left: 4px solid #d64545; color: #5a2020;
+  .fb-stance .fb-phase-note {
+    font-size: 12px; color: #4a6a3a; margin-top: 4px; font-style: italic;
   }
-  .quiz-feedback .verdict { font-weight: 700; margin-bottom: 6px; }
+  /* 本の視座（📖 author_view） */
+  .fb-author {
+    margin-top: 10px; padding: 14px 16px; border-radius: 10px;
+    background: #fdf4d8; border-left: 4px solid #e8b800;
+    font-size: 14px; line-height: 1.7; color: #5a4a00;
+  }
+  .fb-author .fb-title { font-weight: 700; margin-bottom: 4px; font-size: 13px; letter-spacing: 0.5px; }
+  /* 立ち止まりの問い（🌱 slow_question） */
+  .fb-slow {
+    margin-top: 10px; padding: 14px 16px; border-radius: 10px;
+    background: #f0f4ff; border-left: 4px solid #6a8fd8;
+    font-size: 14px; line-height: 1.7; color: #2a3c60;
+  }
+  .fb-slow .fb-title { font-weight: 700; margin-bottom: 4px; font-size: 13px; letter-spacing: 0.5px; }
   .quiz-insight {
     margin-top: 12px; padding: 12px 16px;
-    background: #fdf4d8; border-left: 4px solid #e8b800;
+    background: #fbf7ea; border-left: 4px solid #d4b854;
     border-radius: 8px; font-size: 13px; color: #5a4a00; line-height: 1.7;
   }
   .quiz-result {
@@ -287,14 +317,21 @@
   }
   .quiz-result .emoji { font-size: 44px; }
   .quiz-result .headline { font-size: 20px; font-weight: 700; margin: 12px 0 8px; }
-  .quiz-result .score { font-size: 32px; font-weight: 700; color: #4a90e2; margin: 8px 0; }
-  .quiz-result .sub { color: var(--sub); font-size: 14px; margin-bottom: 20px; }
+  .quiz-result .touched-count { font-size: 22px; font-weight: 700; color: #4a90e2; margin: 4px 0; }
+  .quiz-result .sub { color: var(--sub); font-size: 14px; margin-bottom: 20px; line-height: 1.7; }
   .quiz-touched-themes {
     background: #fbfaf5; border: 1px solid var(--border); border-radius: 10px;
     padding: 14px 18px; margin-top: 16px; text-align: left;
   }
   .quiz-touched-themes .h { font-weight: 700; font-size: 13px; margin-bottom: 8px; color: #333; }
   .quiz-touched-themes ul { margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.9; color: #444; }
+  .quiz-stance-trail {
+    background: #f2f7fd; border: 1px solid #b3cdec; border-radius: 10px;
+    padding: 14px 18px; margin-top: 16px; text-align: left;
+  }
+  .quiz-stance-trail .h { font-weight: 700; font-size: 13px; margin-bottom: 8px; color: #2a3c60; }
+  .quiz-stance-trail ul { margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.9; color: #2a3c60; }
+  .quiz-stance-trail .qnum { color: #4a90e2; font-weight: 700; margin-right: 4px; }
   /* ==== エンジン注釈（Fast/Slow） ==== */
   .rubric-item .fast-slow-note {
     font-size: 11px; color: #4a90e2; font-weight: 600; margin-top: 4px;
@@ -365,19 +402,28 @@
   </div>
 </section>
 
-<!-- ========= [0.5] 関係性クイズ（4択・8問） ========= -->
+<!-- ========= [0.5] 関係性クイズ（4択・8問・あり方を映す鏡） ========= -->
 <section id="screen-quiz" class="screen">
   <div class="card">
     <div class="quiz-header">
       <div class="quiz-progress" id="quiz-progress">Q1 / 8</div>
-      <div class="quiz-score" id="quiz-score">正解 0 / 0</div>
+      <div class="quiz-score" id="quiz-score">触れた視点 0 / 8</div>
     </div>
 
     <h2 style="font-size:15px; color:var(--sub); margin:0 0 4px; letter-spacing:1px;">🎯 関係性クイズ</h2>
+    <div class="quiz-framing" id="quiz-framing"></div>
+
+    <div class="quiz-learning-objective" id="quiz-learning-objective" style="display:none;">
+      <span class="lo-label">🎯 この問いで掴みたいこと</span>
+      <div id="quiz-lo-body"></div>
+    </div>
+
     <div class="quiz-question" id="quiz-question"></div>
     <div class="quiz-choices" id="quiz-choices"></div>
 
-    <div class="quiz-feedback" id="quiz-feedback" style="display:none;"></div>
+    <div id="quiz-feedback-stance" class="fb-stance" style="display:none;"></div>
+    <div id="quiz-feedback-author" class="fb-author" style="display:none;"></div>
+    <div id="quiz-feedback-slow" class="fb-slow" style="display:none;"></div>
     <div class="quiz-insight" id="quiz-insight" style="display:none;"></div>
 
     <div class="btn-row">
@@ -387,14 +433,21 @@
   </div>
 </section>
 
-<!-- ========= [0.6] クイズ完了画面 ========= -->
+<!-- ========= [0.6] クイズ完了画面（8つの視点の軌跡） ========= -->
 <section id="screen-quiz-result" class="screen">
   <div class="card">
     <div class="quiz-result">
-      <div class="emoji" id="quiz-result-emoji">🎯</div>
-      <div class="headline">関係性クイズ 完了</div>
-      <div class="score" id="quiz-result-score">0 / 8</div>
-      <div class="sub" id="quiz-result-sub"></div>
+      <div class="emoji">🌱</div>
+      <div class="headline">8つの視点に触れました</div>
+      <div class="touched-count" id="quiz-result-touched-count">0 / 8 の視点に触れました</div>
+      <div class="sub" id="quiz-result-sub">
+        正解を数える場ではありません。あなたが8つの問いで見せた「あり方」の輪郭が、これからの学びの入口になります。
+      </div>
+
+      <div class="quiz-stance-trail">
+        <div class="h">🔍 今日のあなたの視点の軌跡</div>
+        <ul id="quiz-stance-list"></ul>
+      </div>
 
       <div class="quiz-touched-themes">
         <div class="h">この8問で触れた主要テーマ</div>
@@ -555,11 +608,11 @@ let currentSession = null;
 let STORAGE_KEY = "ariel_learning_sessions_v1";
 let QUIZ_STATE_KEY = "ariel_learning_quiz_v1";
 let BANNER_KEY = "ariel_learning_banner_dismissed_v1";
-// Quiz runtime
+// Quiz runtime（あり方を映す鏡・正解探しではない）
 let quizIdx = 0;
-let quizCorrect = 0;
 let quizAnswered = 0;
 let quizTouchedThemes = new Set();
+let quizStanceTrail = []; // {q_index, question_short, stance, phase}
 
 // ==================== Init ====================
 async function init() {
@@ -938,12 +991,21 @@ function openFirstTheme() {
   if (id) openTheme(id);
 }
 
-// ==================== Relationship Quiz (4-choice engine) ====================
+// ==================== Relationship Quiz (4択・あり方を映す鏡) ====================
+// 判定（正解／不正解）は表示しない。選んだ選択肢に応じて3層のフィードバックを返す：
+//   🔍 あなたの視点（stance）＋⚡🐢🌊 phase
+//   📖 本の視座（author_view・判定ではなく参照）
+//   🌱 立ち止まりの問い（slow_question・コンフォートゾーンの一段外）
 function showQuiz() {
   const quiz = DATA && DATA.relationship_quiz;
   if (!quiz || !quiz.length) { alert("クイズデータが読み込めていません。"); return; }
-  quizIdx = 0; quizCorrect = 0; quizAnswered = 0;
+  quizIdx = 0; quizAnswered = 0;
   quizTouchedThemes = new Set();
+  quizStanceTrail = [];
+  // Framing message (relationship_quiz_meta.framing)
+  const meta = DATA.relationship_quiz_meta;
+  const framingEl = document.getElementById("quiz-framing");
+  if (framingEl && meta && meta.framing) framingEl.textContent = meta.framing;
   showScreen("quiz");
   renderQuizQuestion();
 }
@@ -951,8 +1013,20 @@ function renderQuizQuestion() {
   const quiz = DATA.relationship_quiz;
   const q = quiz[quizIdx];
   document.getElementById("quiz-progress").textContent = `Q${quizIdx + 1} / ${quiz.length}`;
-  document.getElementById("quiz-score").textContent = `正解 ${quizCorrect} / ${quizAnswered}`;
+  document.getElementById("quiz-score").textContent = `触れた視点 ${quizAnswered} / ${quiz.length}`;
   document.getElementById("quiz-question").innerHTML = q.q;
+
+  // Learning objective（DPの「明確で具体的な目標」）
+  const loEl = document.getElementById("quiz-learning-objective");
+  const loBody = document.getElementById("quiz-lo-body");
+  if (loEl && loBody) {
+    if (q.learning_objective) {
+      loBody.innerHTML = q.learning_objective;
+      loEl.style.display = "";
+    } else {
+      loEl.style.display = "none";
+    }
+  }
 
   const choicesEl = document.getElementById("quiz-choices");
   choicesEl.innerHTML = "";
@@ -964,46 +1038,79 @@ function renderQuizQuestion() {
     choicesEl.appendChild(div);
   });
 
-  document.getElementById("quiz-feedback").style.display = "none";
-  document.getElementById("quiz-insight").style.display = "none";
+  // Hide all feedback blocks
+  ["quiz-feedback-stance","quiz-feedback-author","quiz-feedback-slow","quiz-insight"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = "none";
+  });
   document.getElementById("quiz-next-btn").style.display = "none";
 }
 function selectChoice(idx) {
   const quiz = DATA.relationship_quiz;
   const q = quiz[quizIdx];
   const chosen = q.choices[idx];
+  // 選んだ選択肢だけ soft-blue で強調、他は dim。判定色（赤／緑）は使わない
   const items = document.querySelectorAll("#quiz-choices .quiz-choice");
   items.forEach((el, i) => {
     el.classList.add("disabled");
     el.onclick = null;
     if (i === idx) {
-      el.classList.add(chosen.correct ? "correct" : "incorrect");
-    } else if (q.choices[i].correct) {
-      el.classList.add("correct");
+      el.classList.add("chosen");
     } else {
-      el.classList.add("faded");
+      el.classList.add("dim");
     }
   });
   quizAnswered++;
-  if (chosen.correct) quizCorrect++;
   if (q.focus_theme) quizTouchedThemes.add(q.focus_theme);
+  // Record stance trail
+  quizStanceTrail.push({
+    q_index: quizIdx,
+    stance: chosen.stance || "",
+    phase: chosen.phase || ""
+  });
 
-  const fb = document.getElementById("quiz-feedback");
-  fb.className = "quiz-feedback " + (chosen.correct ? "correct" : "incorrect");
-  fb.innerHTML = `
-    <div class="verdict">${chosen.correct ? "✅ 正解！" : "🔄 惜しい、もう一段掘り下げましょう"}</div>
-    <div>${chosen.why}</div>
-  `;
-  fb.style.display = "";
+  // 🔍 あなたの視点 + ⚡🐢🌊 phase
+  const fbStance = document.getElementById("quiz-feedback-stance");
+  if (fbStance) {
+    fbStance.innerHTML = `
+      <div class="fb-title">${chosen.stance || ""}</div>
+      ${chosen.phase ? `<div class="fb-phase">${chosen.phase}</div>` : ""}
+      ${chosen.phase_note ? `<div class="fb-phase-note">${chosen.phase_note}</div>` : ""}
+    `;
+    fbStance.style.display = "";
+  }
+
+  // 📖 本の視座（判定ではなく参照）
+  const fbAuthor = document.getElementById("quiz-feedback-author");
+  if (fbAuthor && chosen.author_view) {
+    fbAuthor.innerHTML = `
+      <div class="fb-title">本の視座として</div>
+      <div>${chosen.author_view}</div>
+    `;
+    fbAuthor.style.display = "";
+  }
+
+  // 🌱 立ち止まりの問い
+  const fbSlow = document.getElementById("quiz-feedback-slow");
+  if (fbSlow && chosen.slow_question) {
+    fbSlow.innerHTML = `
+      <div class="fb-title">立ち止まって聞いてみる</div>
+      <div>${chosen.slow_question}</div>
+    `;
+    fbSlow.style.display = "";
+  }
+
+  // Insight
   if (q.insight) {
     const ins = document.getElementById("quiz-insight");
     ins.innerHTML = q.insight;
     ins.style.display = "";
   }
-  document.getElementById("quiz-score").textContent = `正解 ${quizCorrect} / ${quizAnswered}`;
+
+  document.getElementById("quiz-score").textContent = `触れた視点 ${quizAnswered} / ${quiz.length}`;
   const nextBtn = document.getElementById("quiz-next-btn");
   nextBtn.style.display = "";
-  nextBtn.textContent = (quizIdx + 1 >= quiz.length) ? "結果を見る →" : "次の問い →";
+  nextBtn.textContent = (quizIdx + 1 >= quiz.length) ? "8つの軌跡を見る →" : "次の問い →";
 }
 function nextQuizQuestion() {
   const quiz = DATA.relationship_quiz;
@@ -1015,19 +1122,22 @@ function nextQuizQuestion() {
   }
 }
 function finishQuiz() {
-  const total = DATA.relationship_quiz.length;
+  const quiz = DATA.relationship_quiz;
+  const total = quiz.length;
   showScreen("quiz-result");
-  document.getElementById("quiz-result-score").textContent = `${quizCorrect} / ${total}`;
-  const emoji = quizCorrect === total ? "🌟" : quizCorrect >= total * 0.75 ? "🎯" : quizCorrect >= total * 0.5 ? "🌱" : "🔍";
-  document.getElementById("quiz-result-emoji").textContent = emoji;
-  const sub = quizCorrect === total
-    ? "全問正解。12テーマの関係が地図として立ち上がりました。"
-    : quizCorrect >= total * 0.75
-    ? "十分な理解。書くステップに進んで大丈夫です。"
-    : quizCorrect >= total * 0.5
-    ? "半分掴めています。もう一度クイズを回すと関係が定着します。"
-    : "ここからが本番。第1層 #unconscious_assumption から書いてみると、腑に落ちます。";
-  document.getElementById("quiz-result-sub").textContent = sub;
+  document.getElementById("quiz-result-touched-count").textContent = `${quizAnswered} / ${total} の視点に触れました`;
+
+  // Stance trail: あなたの視点の軌跡
+  const stanceUl = document.getElementById("quiz-stance-list");
+  stanceUl.innerHTML = "";
+  quizStanceTrail.forEach(entry => {
+    const li = document.createElement("li");
+    // Extract short question label from q content
+    const rawQ = quiz[entry.q_index] && quiz[entry.q_index].q ? quiz[entry.q_index].q : "";
+    const shortQ = rawQ.replace(/<[^>]+>/g, "").replace(/[?？].*$/, "?").slice(0, 40);
+    li.innerHTML = `<span class="qnum">Q${entry.q_index + 1}</span>${entry.stance || ""}${entry.phase ? ` <span style="font-size:11px;color:#4a90e2;">${entry.phase}</span>` : ""}<div style="font-size:11px;color:#5a6a80;margin-left:22px;margin-top:2px;">${shortQ}</div>`;
+    stanceUl.appendChild(li);
+  });
 
   // Touched themes list
   const ul = document.getElementById("quiz-touched-list");
@@ -1048,11 +1158,12 @@ function finishQuiz() {
       `<strong>「${en.unified_principle}」</strong><br>${en.sub || ""}<br><span style="font-size:11px;color:#5a6a80;">${en.sources || ""}</span>`;
   }
 
-  // Save quiz state
+  // Save quiz state（正解数の概念は廃止・軌跡ベース）
   try {
     localStorage.setItem(QUIZ_STATE_KEY, JSON.stringify({
-      correct: quizCorrect, total,
       touched: Array.from(quizTouchedThemes),
+      stance_trail: quizStanceTrail,
+      total,
       completed_at: new Date().toISOString()
     }));
   } catch (e) { /* ignore */ }
