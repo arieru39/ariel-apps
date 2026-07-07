@@ -332,6 +332,60 @@
   .quiz-stance-trail .h { font-weight: 700; font-size: 13px; margin-bottom: 8px; color: #2a3c60; }
   .quiz-stance-trail ul { margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.9; color: #2a3c60; }
   .quiz-stance-trail .qnum { color: #4a90e2; font-weight: 700; margin-right: 4px; }
+  /* ==== 動画前の観点クイズ（perspective_quiz） ==== */
+  .perspective-quiz-block {
+    background: linear-gradient(135deg, #f7f4ea, #ede6d0);
+    border: 1px solid #d0c8a8; border-radius: 12px;
+    padding: 16px 18px; margin: 14px 0 18px;
+  }
+  .perspective-quiz-block .pq-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 8px; font-size: 12px; letter-spacing: 0.5px;
+  }
+  .perspective-quiz-block .pq-label { font-weight: 700; color: #5a4a00; }
+  .perspective-quiz-block .pq-progress { color: #7a6a30; font-family: ui-monospace, monospace; }
+  .perspective-quiz-block .pq-lo {
+    background: #fffbe8; border: 1px solid #f0d878; border-radius: 8px;
+    padding: 8px 12px; font-size: 12.5px; line-height: 1.6; color: #5a4a00; margin-bottom: 10px;
+  }
+  .perspective-quiz-block .pq-lo .pq-lo-label {
+    font-weight: 700; font-size: 10.5px; letter-spacing: 1px;
+    color: #b89400; margin-bottom: 3px; display: block;
+  }
+  .perspective-quiz-block .pq-question {
+    font-size: 15px; font-weight: 600; line-height: 1.7; margin: 4px 0 12px; color: #2b2b2b;
+  }
+  .perspective-quiz-block .pq-choices { display: flex; flex-direction: column; gap: 8px; }
+  .perspective-quiz-block .pq-choice {
+    border: 2px solid #d8d0b0; border-radius: 10px; padding: 10px 14px;
+    background: #fff; cursor: pointer; font-size: 13.5px; line-height: 1.55;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .perspective-quiz-block .pq-choice:hover:not(.disabled) {
+    border-color: #b89400; background: #fdf7e0;
+  }
+  .perspective-quiz-block .pq-choice.disabled { cursor: default; }
+  .perspective-quiz-block .pq-choice.chosen {
+    border-color: #b89400; background: #fdf4c8;
+    box-shadow: 0 0 0 3px rgba(232, 184, 0, 0.15);
+  }
+  .perspective-quiz-block .pq-choice.dim { opacity: 0.55; }
+  .perspective-quiz-block .pq-hint {
+    font-size: 11.5px; color: #7a6a30; margin-top: 8px; line-height: 1.6;
+  }
+  /* 動画を観たあとの1〜2行反応 */
+  .lo-reaction {
+    margin: 14px 0 4px;
+  }
+  .lo-reaction textarea {
+    min-height: 70px;
+  }
+  .lo-reaction-label {
+    font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #333;
+  }
+  .lo-reaction-hint {
+    font-size: 11.5px; color: var(--sub); margin-top: 4px;
+  }
   /* ==== エンジン注釈（Fast/Slow） ==== */
   .rubric-item .fast-slow-note {
     font-size: 11px; color: #4a90e2; font-weight: 600; margin-top: 4px;
@@ -483,6 +537,28 @@
     <div class="field-label">本文より</div>
     <blockquote class="excerpt" id="lo-excerpt"></blockquote>
 
+    <!-- 動画を観る前の観点クイズ（最大3問／あり方を映す鏡・正解探しではない） -->
+    <div id="perspective-quiz-block" class="perspective-quiz-block" style="display:none;">
+      <div class="pq-header">
+        <span class="pq-label">🎯 動画を観る前の観点づくり</span>
+        <span class="pq-progress" id="pq-progress"></span>
+      </div>
+      <div class="pq-lo" id="pq-lo" style="display:none;">
+        <span class="pq-lo-label">🎯 この問いで掴みたいこと</span>
+        <div id="pq-lo-body"></div>
+      </div>
+      <div class="pq-question" id="pq-question"></div>
+      <div class="pq-choices" id="pq-choices"></div>
+      <div id="pq-feedback-stance" class="fb-stance" style="display:none;"></div>
+      <div id="pq-feedback-author" class="fb-author" style="display:none;"></div>
+      <div id="pq-feedback-slow" class="fb-slow" style="display:none;"></div>
+      <div class="pq-hint" id="pq-hint" style="display:none;"></div>
+      <div class="btn-row" id="pq-next-row" style="display:none; margin-top:12px;">
+        <span></span>
+        <button id="pq-next-btn" onclick="nextPerspectiveQuestion()">次の観点 →</button>
+      </div>
+    </div>
+
     <div id="lo-video" class="lo-video" style="display:none;">
       <div class="video-caption" id="lo-video-caption"></div>
       <div class="video-frame-wrap">
@@ -490,12 +566,19 @@
       </div>
     </div>
 
+    <!-- 動画を観たあとの1〜2行反応 -->
+    <div id="lo-reaction-block" class="lo-reaction" style="display:none;">
+      <div class="lo-reaction-label">🎥 動画を観て感じたこと（1〜2行）</div>
+      <textarea id="lo-reaction" placeholder="動画で心に残った言葉・違和感・引っかかりを1〜2行で。"></textarea>
+      <div class="lo-reaction-hint">正しく要約する必要はありません。あなたの中で動いたものだけ書いてください。</div>
+    </div>
+
     <div class="question" id="lo-question"></div>
     <div class="prompt" id="lo-prompt"></div>
 
     <div class="btn-row">
       <button class="secondary" onclick="showScreen('map')">← マップに戻る</button>
-      <button onclick="showScreen('write')">書く →</button>
+      <button onclick="showScreen('write')">さらに深める →</button>
     </div>
   </div>
 </section>
@@ -613,6 +696,9 @@ let quizIdx = 0;
 let quizAnswered = 0;
 let quizTouchedThemes = new Set();
 let quizStanceTrail = []; // {q_index, question_short, stance, phase}
+// Per-theme perspective quiz runtime（動画を観る前の観点づくり）
+let perspectiveIdx = 0;
+let perspectiveStanceTrail = []; // {q_index, stance, phase}
 
 // ==================== Init ====================
 async function init() {
@@ -777,6 +863,8 @@ function openTheme(id) {
     rubric_evidence: "",
     tamakatsu_why: "",
     tamakatsu_for_whom: "",
+    post_video_reflection: "",
+    perspective_stance_trail: [],
     created_at: new Date().toISOString(),
     shared_at: null,
     share_channels: []
@@ -788,17 +876,39 @@ function openTheme(id) {
   document.getElementById("lo-question").textContent = currentTheme.seed_question;
   document.getElementById("lo-prompt").textContent = currentTheme.prompt;
 
-  // Per-theme video
+  // Per-theme video（観点クイズが終わってから表示）
   const loVideo = document.getElementById("lo-video");
   const loIframe = document.getElementById("lo-video-iframe");
-  if (currentTheme.video_embed_url) {
-    loVideo.style.display = "";
+  const hasVideo = !!currentTheme.video_embed_url;
+  if (hasVideo) {
     loIframe.src = currentTheme.video_embed_url;
     document.getElementById("lo-video-caption").textContent =
       "🎬 " + (currentTheme.video_title || "このテーマの解説動画");
   } else {
-    loVideo.style.display = "none";
     loIframe.src = "";
+  }
+
+  // Reset reaction textarea
+  const reactionBlock = document.getElementById("lo-reaction-block");
+  const reactionEl = document.getElementById("lo-reaction");
+  if (reactionEl) reactionEl.value = "";
+  if (reactionBlock) reactionBlock.style.display = "none";
+
+  // Perspective quiz initialization
+  perspectiveIdx = 0;
+  perspectiveStanceTrail = [];
+  const pqList = currentTheme.perspective_quiz || [];
+  const pqBlock = document.getElementById("perspective-quiz-block");
+  if (pqList.length && pqBlock) {
+    // まず動画を隠す。観点クイズを解き終わってから動画＋反応を表示
+    pqBlock.style.display = "";
+    if (loVideo) loVideo.style.display = "none";
+    renderPerspectiveQuestion();
+  } else {
+    // 観点クイズがなければ最初から動画＋反応を出す
+    if (pqBlock) pqBlock.style.display = "none";
+    if (loVideo) loVideo.style.display = hasVideo ? "" : "none";
+    if (hasVideo && reactionBlock) reactionBlock.style.display = "";
   }
 
   const milestoneBanner = document.getElementById("lo-milestone-banner");
@@ -820,6 +930,123 @@ function openTheme(id) {
   document.getElementById("for-whom").value = "";
 
   showScreen("lo");
+}
+
+// ==================== Perspective Quiz (動画前の観点づくり) ====================
+// 各LOで最大3問／正解／不正解のジャッジは出さない。選んだ選択肢に応じて
+//   🔍 あなたの視点＋位相 / 📖 本の視座 / 🌱 立ち止まりの問い を返す。
+// 全問終わったら動画＋反応欄が出現する。
+function renderPerspectiveQuestion() {
+  const pqList = (currentTheme && currentTheme.perspective_quiz) || [];
+  if (!pqList.length) { finishPerspectiveQuiz(); return; }
+  const q = pqList[perspectiveIdx];
+  if (!q) { finishPerspectiveQuiz(); return; }
+
+  document.getElementById("pq-progress").textContent = `Q${perspectiveIdx + 1} / ${pqList.length}`;
+  document.getElementById("pq-question").innerHTML = q.q || "";
+
+  const loEl = document.getElementById("pq-lo");
+  const loBody = document.getElementById("pq-lo-body");
+  if (q.learning_objective && loEl && loBody) {
+    loBody.innerHTML = q.learning_objective;
+    loEl.style.display = "";
+  } else if (loEl) {
+    loEl.style.display = "none";
+  }
+
+  const choicesEl = document.getElementById("pq-choices");
+  choicesEl.innerHTML = "";
+  (q.choices || []).forEach((c, i) => {
+    const div = document.createElement("div");
+    div.className = "pq-choice";
+    div.textContent = c.text;
+    div.onclick = () => selectPerspectiveChoice(i);
+    choicesEl.appendChild(div);
+  });
+
+  ["pq-feedback-stance","pq-feedback-author","pq-feedback-slow","pq-hint"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = "none";
+  });
+  document.getElementById("pq-next-row").style.display = "none";
+}
+function selectPerspectiveChoice(idx) {
+  const pqList = currentTheme.perspective_quiz || [];
+  const q = pqList[perspectiveIdx];
+  const chosen = q.choices[idx];
+
+  const items = document.querySelectorAll("#pq-choices .pq-choice");
+  items.forEach((el, i) => {
+    el.classList.add("disabled");
+    el.onclick = null;
+    if (i === idx) el.classList.add("chosen");
+    else el.classList.add("dim");
+  });
+
+  perspectiveStanceTrail.push({
+    q_index: perspectiveIdx,
+    stance: chosen.stance || "",
+    phase: chosen.phase || ""
+  });
+
+  const fbStance = document.getElementById("pq-feedback-stance");
+  if (fbStance) {
+    fbStance.innerHTML = `
+      <div class="fb-title">${chosen.stance || ""}</div>
+      ${chosen.phase ? `<div class="fb-phase">${chosen.phase}</div>` : ""}
+      ${chosen.phase_note ? `<div class="fb-phase-note">${chosen.phase_note}</div>` : ""}
+    `;
+    fbStance.style.display = "";
+  }
+  const fbAuthor = document.getElementById("pq-feedback-author");
+  if (fbAuthor && chosen.author_view) {
+    fbAuthor.innerHTML = `
+      <div class="fb-title">本の視座として</div>
+      <div>${chosen.author_view}</div>
+    `;
+    fbAuthor.style.display = "";
+  }
+  const fbSlow = document.getElementById("pq-feedback-slow");
+  if (fbSlow && chosen.slow_question) {
+    fbSlow.innerHTML = `
+      <div class="fb-title">立ち止まって聞いてみる</div>
+      <div>${chosen.slow_question}</div>
+    `;
+    fbSlow.style.display = "";
+  }
+
+  const nextRow = document.getElementById("pq-next-row");
+  const nextBtn = document.getElementById("pq-next-btn");
+  const isLast = (perspectiveIdx + 1 >= pqList.length);
+  nextBtn.textContent = isLast ? "🎬 動画を観る →" : "次の観点 →";
+  nextRow.style.display = "";
+}
+function nextPerspectiveQuestion() {
+  const pqList = (currentTheme && currentTheme.perspective_quiz) || [];
+  perspectiveIdx++;
+  if (perspectiveIdx >= pqList.length) {
+    finishPerspectiveQuiz();
+  } else {
+    renderPerspectiveQuestion();
+    // Scroll perspective block into view
+    const pq = document.getElementById("perspective-quiz-block");
+    if (pq && pq.scrollIntoView) pq.scrollIntoView({behavior:"smooth", block:"start"});
+  }
+}
+function finishPerspectiveQuiz() {
+  // Save trail into session
+  if (currentSession) currentSession.perspective_stance_trail = perspectiveStanceTrail.slice();
+  // Reveal the video + reaction block
+  const loVideo = document.getElementById("lo-video");
+  const reactionBlock = document.getElementById("lo-reaction-block");
+  if (loVideo && currentTheme && currentTheme.video_embed_url) {
+    loVideo.style.display = "";
+  }
+  if (reactionBlock) reactionBlock.style.display = "";
+  // Scroll to video
+  setTimeout(() => {
+    if (loVideo && loVideo.scrollIntoView) loVideo.scrollIntoView({behavior:"smooth", block:"start"});
+  }, 100);
 }
 
 // ==================== Write ====================
@@ -873,6 +1100,8 @@ function finishSession() {
   currentSession.rubric_evidence = document.getElementById("rubric-evidence").value;
   currentSession.tamakatsu_why = document.getElementById("why").value;
   currentSession.tamakatsu_for_whom = document.getElementById("for-whom").value;
+  const reactionEl = document.getElementById("lo-reaction");
+  if (reactionEl) currentSession.post_video_reflection = reactionEl.value;
 
   if (!currentSession.text.trim()) {
     alert("[書く] の記述が空です。50字以上を目安に書いてから完了してください。");
@@ -914,12 +1143,15 @@ function exportMarkdown() {
   const sessions = loadSessions();
   const s = sessions[sessions.length - 1];
   const dt = new Date(s.created_at);
+  const reactionBlock = (s.post_video_reflection && s.post_video_reflection.trim())
+    ? `\n### 🎥 動画を観て感じたこと\n${s.post_video_reflection}\n`
+    : "";
   const md = `## ${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,"0")}-${String(dt.getDate()).padStart(2,"0")} ${String(dt.getHours()).padStart(2,"0")}:${String(dt.getMinutes()).padStart(2,"0")} ｜ ${currentTheme.title}
 
 **#LO**: \`${s.lo_tag}\` (${currentTheme.title})
 **自己評価**: L${s.self_rubric} — ${DATA.rubric_labels[s.self_rubric-1].label}
 **根拠**: ${s.rubric_evidence}
-
+${reactionBlock}
 ### 記述
 ${s.text}
 
