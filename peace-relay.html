@@ -209,6 +209,49 @@
     border-left:3px solid var(--earth);
   }
 
+  /* Japan Map */
+  .japan-map-wrap{
+    background:var(--bg-2);border-radius:10px;padding:10px;
+    margin:10px 0;border:1px solid var(--line);
+  }
+  .japan-map-wrap svg{
+    width:100%;height:auto;max-height:520px;display:block;
+  }
+  .pref-dot{
+    cursor:default;transition:r .15s, fill .15s, stroke .15s;
+  }
+  .pref-dot.count-0{fill:#2a4560;stroke:#3a5c7d;stroke-width:.6}
+  .pref-dot.count-lo{fill:#8fd67a;stroke:#c4f0af;stroke-width:1}
+  .pref-dot.count-md{fill:#5cbf2e;stroke:#9df06f;stroke-width:1.2}
+  .pref-dot.count-hi{fill:#3fa010;stroke:#7fd044;stroke-width:1.5}
+  .pref-dot:hover{stroke:var(--sun);stroke-width:2}
+  .pref-label{
+    font-size:8px;fill:var(--text-mute);pointer-events:none;
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;
+  }
+  .pref-label.has{fill:var(--text);font-weight:600}
+  .japan-map-legend{
+    display:flex;gap:14px;flex-wrap:wrap;padding:8px 4px;
+    font-size:.78rem;color:var(--text-mute);
+  }
+  .japan-map-legend span{display:flex;align-items:center;gap:6px}
+  .japan-map-legend span::before{
+    content:"";width:12px;height:12px;border-radius:50%;display:inline-block;
+  }
+  .japan-map-legend .lg-none::before{background:#2a4560}
+  .japan-map-legend .lg-lo::before{background:#8fd67a}
+  .japan-map-legend .lg-md::before{background:#5cbf2e}
+  .japan-map-legend .lg-hi::before{background:#3fa010}
+  .japan-map-stats{
+    background:var(--card-2);border-radius:8px;padding:10px 14px;
+    margin-top:10px;font-size:.86rem;color:var(--text-soft);
+  }
+  .japan-map-stats strong{color:var(--peace)}
+  .japan-map-stats .pref-chip{
+    display:inline-block;background:var(--peace-soft);color:var(--peace);
+    padding:2px 8px;border-radius:10px;margin:2px 4px 2px 0;font-size:.78rem;
+  }
+
   .summary-section{
     background:var(--card-2);border-radius:10px;padding:14px 16px;margin:10px 0;
   }
@@ -376,6 +419,32 @@
       </div>
     </details>
 
+    <details open>
+      <summary>🇯🇵 日本の友人を <strong>都道府県レベル</strong> で登録</summary>
+      <div style="padding:10px 0">
+        <p class="mute" style="margin-bottom:8px">
+          日本国内の仲間は都道府県で登録すると、次のステップの <strong>🗾 日本地図</strong> に色が付きます。<br>
+          （全都道府県 UTC+9 として自動計上されます）
+        </p>
+        <div class="row3">
+          <div>
+            <label class="field">名前</label>
+            <input type="text" id="frNameJp" placeholder="例：山田さん">
+          </div>
+          <div>
+            <label class="field">都道府県</label>
+            <select id="frPref">
+              <option value="">── 選ぶ ──</option>
+            </select>
+          </div>
+          <div>
+            <label class="field">　</label>
+            <button class="btn peace" onclick="addFriendByPref()" style="width:100%">＋ 追加</button>
+          </div>
+        </div>
+      </div>
+    </details>
+
     <h3 style="margin-top:18px;font-size:.95rem;color:var(--text-soft)">
       登録済み（<span id="friendCount">0</span>人）
     </h3>
@@ -419,7 +488,32 @@
     <p class="mute" style="margin-top:8px">
       ※ 各マスの上段は UTC時刻、下段は そこにいる人の名前（複数いる場合は最初の1人＋"+"）。
     </p>
+  </div>
 
+  <div class="card" id="japanMapCard" style="display:none">
+    <h2 class="peace">🗾 日本地図（都道府県レベル）</h2>
+    <p>登録された日本国内の仲間を、住んでいる都道府県ごとに可視化。<br>
+      <strong>色が濃いほど、その県に登録メンバーが多い</strong>。ホバーで名前が見えます。</p>
+
+    <div class="japan-map-wrap">
+      <svg id="japanMap" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid meet" role="img" aria-label="日本地図（都道府県レベル参加者マップ）"></svg>
+    </div>
+
+    <div class="japan-map-legend">
+      <span class="lg-none">未登録</span>
+      <span class="lg-lo">1人</span>
+      <span class="lg-md">2〜3人</span>
+      <span class="lg-hi">4人以上</span>
+    </div>
+
+    <div class="japan-map-stats" id="japanMapStats"></div>
+
+    <p class="mute" style="margin-top:8px">
+      ※ 各点の位置は都道府県のおよその中心。海外の仲間（都市登録）はこの地図には表示されません。
+    </p>
+  </div>
+
+  <div class="card">
     <div class="nav">
       <button class="btn outline" onclick="goPhase(2)">← 友人を追加する</button>
       <button class="btn earth" onclick="goPhase(4)">空き時間を見る →</button>
@@ -578,6 +672,68 @@ const CITIES = [
   {city:'オークランド', offset:12, region:'オセアニア', label:'オークランド (UTC+12)'},
 ];
 
+/* ===================== Japan Prefectures Database ===================== */
+// SVG coord system: viewBox 0 0 400 500  (x=左右, y=上下)。全県 UTC+9。
+const PREFECTURES = [
+  // 北海道
+  {code:'01', name:'北海道',   region:'北海道', x:340, y:70},
+  // 東北
+  {code:'02', name:'青森県',   region:'東北', x:320, y:135},
+  {code:'03', name:'岩手県',   region:'東北', x:335, y:165},
+  {code:'04', name:'宮城県',   region:'東北', x:325, y:195},
+  {code:'05', name:'秋田県',   region:'東北', x:305, y:160},
+  {code:'06', name:'山形県',   region:'東北', x:305, y:195},
+  {code:'07', name:'福島県',   region:'東北', x:315, y:225},
+  // 関東
+  {code:'08', name:'茨城県',   region:'関東', x:330, y:255},
+  {code:'09', name:'栃木県',   region:'関東', x:310, y:245},
+  {code:'10', name:'群馬県',   region:'関東', x:290, y:245},
+  {code:'11', name:'埼玉県',   region:'関東', x:302, y:262},
+  {code:'12', name:'千葉県',   region:'関東', x:328, y:275},
+  {code:'13', name:'東京都',   region:'関東', x:308, y:272},
+  {code:'14', name:'神奈川県', region:'関東', x:305, y:285},
+  // 中部
+  {code:'15', name:'新潟県',   region:'中部', x:275, y:215},
+  {code:'16', name:'富山県',   region:'中部', x:258, y:238},
+  {code:'17', name:'石川県',   region:'中部', x:245, y:230},
+  {code:'18', name:'福井県',   region:'中部', x:228, y:258},
+  {code:'19', name:'山梨県',   region:'中部', x:288, y:278},
+  {code:'20', name:'長野県',   region:'中部', x:270, y:252},
+  {code:'21', name:'岐阜県',   region:'中部', x:248, y:275},
+  {code:'22', name:'静岡県',   region:'中部', x:275, y:295},
+  {code:'23', name:'愛知県',   region:'中部', x:248, y:295},
+  // 近畿
+  {code:'24', name:'三重県',   region:'近畿', x:225, y:305},
+  {code:'25', name:'滋賀県',   region:'近畿', x:218, y:285},
+  {code:'26', name:'京都府',   region:'近畿', x:200, y:275},
+  {code:'27', name:'大阪府',   region:'近畿', x:202, y:300},
+  {code:'28', name:'兵庫県',   region:'近畿', x:182, y:290},
+  {code:'29', name:'奈良県',   region:'近畿', x:215, y:308},
+  {code:'30', name:'和歌山県', region:'近畿', x:200, y:325},
+  // 中国
+  {code:'31', name:'鳥取県',   region:'中国', x:158, y:278},
+  {code:'32', name:'島根県',   region:'中国', x:130, y:282},
+  {code:'33', name:'岡山県',   region:'中国', x:152, y:302},
+  {code:'34', name:'広島県',   region:'中国', x:125, y:302},
+  {code:'35', name:'山口県',   region:'中国', x:100, y:308},
+  // 四国
+  {code:'36', name:'徳島県',   region:'四国', x:155, y:335},
+  {code:'37', name:'香川県',   region:'四国', x:145, y:322},
+  {code:'38', name:'愛媛県',   region:'四国', x:120, y:335},
+  {code:'39', name:'高知県',   region:'四国', x:132, y:355},
+  // 九州
+  {code:'40', name:'福岡県',   region:'九州', x:75,  y:322},
+  {code:'41', name:'佐賀県',   region:'九州', x:55,  y:330},
+  {code:'42', name:'長崎県',   region:'九州', x:38,  y:342},
+  {code:'43', name:'熊本県',   region:'九州', x:65,  y:355},
+  {code:'44', name:'大分県',   region:'九州', x:85,  y:340},
+  {code:'45', name:'宮崎県',   region:'九州', x:78,  y:378},
+  {code:'46', name:'鹿児島県', region:'九州', x:55,  y:398},
+  // 沖縄
+  {code:'47', name:'沖縄県',   region:'沖縄', x:35,  y:455},
+];
+const PREF_REGIONS = ['北海道','東北','関東','中部','近畿','中国','四国','九州','沖縄'];
+
 /* ===================== State ===================== */
 const STORAGE_KEY = 'peace-relay-v1';
 const state = {
@@ -591,9 +747,11 @@ const state = {
 function init(){
   loadState();
   populateCityDropdowns();
+  populatePrefectureDropdown();
   renderProgress();
   renderFriends();
   renderTimeline();
+  renderJapanMap();
   renderGapList();
   showTemplate(state.templateLang, null);
   renderSummary();
@@ -633,6 +791,29 @@ function populateCityDropdowns(){
   });
 }
 
+function populatePrefectureDropdown(){
+  const sel = document.getElementById('frPref');
+  if(!sel) return;
+  // group by region
+  const byRegion = {};
+  PREFECTURES.forEach(p => {
+    if(!byRegion[p.region]) byRegion[p.region] = [];
+    byRegion[p.region].push(p);
+  });
+  PREF_REGIONS.forEach(r => {
+    if(!byRegion[r]) return;
+    const og = document.createElement('optgroup');
+    og.label = r;
+    byRegion[r].forEach(p => {
+      const opt = document.createElement('option');
+      opt.value = p.code;
+      opt.textContent = p.name;
+      og.appendChild(opt);
+    });
+    sel.appendChild(og);
+  });
+}
+
 /* ===================== Persistence ===================== */
 function saveState(){
   try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
@@ -663,7 +844,7 @@ function goPhase(n){
   document.querySelectorAll('.phase').forEach(el => el.classList.remove('active'));
   document.getElementById('phase'+n).classList.add('active');
   renderProgress();
-  if(n === 3) renderTimeline();
+  if(n === 3){ renderTimeline(); renderJapanMap(); }
   if(n === 4) renderGapList();
   if(n === 5) showTemplate(state.templateLang, null);
   if(n === 6){ renderSummary(); renderDays(); }
@@ -717,6 +898,7 @@ function addFriend(){
   saveState();
   renderFriends();
   renderTimeline();
+  renderJapanMap();
 }
 function addFriendManual(){
   const name = document.getElementById('frNameM').value.trim();
@@ -730,12 +912,35 @@ function addFriendManual(){
   saveState();
   renderFriends();
   renderTimeline();
+  renderJapanMap();
+}
+function findPref(code){ return PREFECTURES.find(p => p.code === code); }
+function addFriendByPref(){
+  const name = document.getElementById('frNameJp').value.trim();
+  const prefCode = document.getElementById('frPref').value;
+  if(!name || !prefCode){ alert('名前と都道府県を入れてください'); return; }
+  const p = findPref(prefCode);
+  state.friends.push({
+    name,
+    city: p.name,
+    offset: 9,
+    region: p.region + '（日本）',
+    prefecture: p.code,
+    prefName: p.name
+  });
+  document.getElementById('frNameJp').value = '';
+  document.getElementById('frPref').value = '';
+  saveState();
+  renderFriends();
+  renderTimeline();
+  renderJapanMap();
 }
 function removeFriend(i){
   state.friends.splice(i, 1);
   saveState();
   renderFriends();
   renderTimeline();
+  renderJapanMap();
 }
 function renderFriends(){
   const el = document.getElementById('friendList');
@@ -744,9 +949,10 @@ function renderFriends(){
   state.friends.forEach((f, i) => {
     const row = document.createElement('div');
     row.className = 'friend-row';
+    const flag = f.prefecture ? '🇯🇵 ' : '';
     row.innerHTML = `
       <span class="who"><strong>${escapeHtml(f.name)}</strong>
-        <span class="where">@ ${escapeHtml(f.city)}</span>
+        <span class="where">@ ${flag}${escapeHtml(f.city)}</span>
         <span class="tz">UTC${formatOffset(f.offset)}</span>
       </span>
       <button class="del" onclick="removeFriend(${i})">×</button>
@@ -803,6 +1009,143 @@ function renderTimeline(){
   document.getElementById('filledCount').textContent = filled;
   document.getElementById('gapCount').textContent = 24 - filled;
   document.getElementById('totalPeople').textContent = state.friends.length + (state.me.offset !== null ? 1 : 0);
+}
+
+/* ===================== Japan Map (Prefecture level) ===================== */
+function countByPrefecture(){
+  const counts = {};
+  // 「あなた」も prefecture フィールドを持てる場合に備えて（現行は未対応だが将来的に拡張可能）
+  if(state.me.prefecture){
+    counts[state.me.prefecture] = (counts[state.me.prefecture] || 0) + 1;
+  }
+  state.friends.forEach(f => {
+    if(f.prefecture){
+      counts[f.prefecture] = (counts[f.prefecture] || 0) + 1;
+    }
+  });
+  return counts;
+}
+function membersByPrefecture(){
+  const map = {};
+  if(state.me.prefecture){
+    (map[state.me.prefecture] = map[state.me.prefecture] || []).push(state.me.name || 'あなた');
+  }
+  state.friends.forEach(f => {
+    if(f.prefecture){
+      (map[f.prefecture] = map[f.prefecture] || []).push(f.name);
+    }
+  });
+  return map;
+}
+function countClass(n){
+  if(!n || n <= 0) return 'count-0';
+  if(n === 1) return 'count-lo';
+  if(n <= 3) return 'count-md';
+  return 'count-hi';
+}
+function renderJapanMap(){
+  const svg = document.getElementById('japanMap');
+  const card = document.getElementById('japanMapCard');
+  if(!svg || !card) return;
+  const counts = countByPrefecture();
+  const members = membersByPrefecture();
+  const anyJapanese = Object.keys(counts).length > 0;
+  // 日本国内の登録者が誰もいなくても地図は表示（0人プレースホルダとして）
+  card.style.display = 'block';
+
+  // Build SVG content
+  const ns = 'http://www.w3.org/2000/svg';
+  svg.innerHTML = '';
+
+  // Background subtle grid (region labels)
+  const bg = document.createElementNS(ns, 'rect');
+  bg.setAttribute('x', 0);
+  bg.setAttribute('y', 0);
+  bg.setAttribute('width', 400);
+  bg.setAttribute('height', 500);
+  bg.setAttribute('fill', 'transparent');
+  svg.appendChild(bg);
+
+  // Region hint labels (subtle guide)
+  const regionHints = [
+    {r:'北海道', x:360, y:50},
+    {r:'東北',   x:355, y:170},
+    {r:'関東',   x:360, y:270},
+    {r:'中部',   x:270, y:200},
+    {r:'近畿',   x:200, y:255},
+    {r:'中国',   x:130, y:265},
+    {r:'四国',   x:150, y:370},
+    {r:'九州',   x:35,  y:315},
+    {r:'沖縄',   x:65,  y:455},
+  ];
+  regionHints.forEach(h => {
+    const t = document.createElementNS(ns, 'text');
+    t.setAttribute('x', h.x);
+    t.setAttribute('y', h.y);
+    t.setAttribute('fill', 'rgba(138,167,189,.35)');
+    t.setAttribute('font-size', '11');
+    t.setAttribute('font-weight', '600');
+    t.setAttribute('text-anchor', 'middle');
+    t.textContent = h.r;
+    svg.appendChild(t);
+  });
+
+  // Draw each prefecture as a dot + label
+  PREFECTURES.forEach(p => {
+    const n = counts[p.code] || 0;
+    const cls = countClass(n);
+    const r = n === 0 ? 4.5 : Math.min(10, 5 + n * 1.2);
+    const g = document.createElementNS(ns, 'g');
+
+    const c = document.createElementNS(ns, 'circle');
+    c.setAttribute('cx', p.x);
+    c.setAttribute('cy', p.y);
+    c.setAttribute('r', r);
+    c.setAttribute('class', 'pref-dot ' + cls);
+    // Tooltip
+    const ttl = document.createElementNS(ns, 'title');
+    const names = members[p.code] || [];
+    ttl.textContent = n === 0
+      ? `${p.name}：未登録`
+      : `${p.name}：${n}人 ── ${names.join('、')}`;
+    c.appendChild(ttl);
+    g.appendChild(c);
+
+    // Show name label only when has members (avoid clutter)
+    if(n > 0){
+      const t = document.createElementNS(ns, 'text');
+      t.setAttribute('x', p.x);
+      t.setAttribute('y', p.y - r - 3);
+      t.setAttribute('class', 'pref-label has');
+      t.setAttribute('text-anchor', 'middle');
+      // 「県／府／都／道」を落として短くする
+      const short = p.name.replace(/(都|道|府|県)$/, '');
+      t.textContent = short + (n > 1 ? `(${n})` : '');
+      g.appendChild(t);
+    }
+    svg.appendChild(g);
+  });
+
+  // Stats
+  const stats = document.getElementById('japanMapStats');
+  const totalJp = Object.values(counts).reduce((a,b) => a+b, 0);
+  const uniquePrefs = Object.keys(counts).length;
+  if(!anyJapanese){
+    stats.innerHTML = `
+      🇯🇵 まだ日本国内の仲間が登録されていません。<br>
+      <span style="color:var(--text-mute);font-size:.8rem">上の「🇯🇵 日本の友人を <strong>都道府県レベル</strong> で登録」から追加すると、この地図に色が付きます。</span>
+    `;
+  } else {
+    const chips = PREFECTURES
+      .filter(p => counts[p.code])
+      .sort((a,b) => (counts[b.code]||0) - (counts[a.code]||0))
+      .map(p => `<span class="pref-chip">${escapeHtml(p.name)} ${counts[p.code]}人</span>`)
+      .join('');
+    stats.innerHTML = `
+      🇯🇵 <strong>${uniquePrefs}都道府県 / ${totalJp}人</strong> が登録済み<br>
+      <div style="margin-top:6px">${chips}</div>
+    `;
+  }
 }
 
 /* ===================== Phase 4: Gap Analysis ===================== */
@@ -942,6 +1285,9 @@ function renderSummary(){
   const filled = countFilled();
   const gaps = 24 - filled;
   const pct = Math.round(filled / 24 * 100);
+  const prefCounts = countByPrefecture();
+  const uniquePrefsCount = Object.keys(prefCounts).length;
+  const totalJp = Object.values(prefCounts).reduce((a,b) => a+b, 0);
   el.innerHTML = `
     <div class="summary-section">
       <h3>🌍 進捗</h3>
@@ -950,11 +1296,23 @@ function renderSummary(){
         登録メンバー：あなた + ${state.friends.length}人
       </div>
     </div>
+    ${uniquePrefsCount > 0 ? `
+    <div class="summary-section">
+      <h3>🗾 日本国内マップ</h3>
+      <div class="data">
+        <strong>${uniquePrefsCount}都道府県</strong> / ${totalJp}人<br>
+        ${PREFECTURES.filter(p => prefCounts[p.code])
+          .sort((a,b) => (prefCounts[b.code]||0) - (prefCounts[a.code]||0))
+          .map(p => `<span class="pref-chip">${escapeHtml(p.name)} ${prefCounts[p.code]}人</span>`)
+          .join('')}
+      </div>
+    </div>
+    ` : ''}
     <div class="summary-section">
       <h3>👥 仲間リスト</h3>
       <div class="data">
         ${state.me.name ? `<strong>${escapeHtml(state.me.name)}</strong> @ ${escapeHtml(state.me.city || '?')} (UTC${formatOffset(state.me.offset || 0)})` : '（あなたが未登録）'}
-        ${state.friends.map(f => `<br>${escapeHtml(f.name)} @ ${escapeHtml(f.city)} (UTC${formatOffset(f.offset)})`).join('')}
+        ${state.friends.map(f => `<br>${f.prefecture ? '🇯🇵 ' : ''}${escapeHtml(f.name)} @ ${escapeHtml(f.city)} (UTC${formatOffset(f.offset)})`).join('')}
       </div>
     </div>
     <div class="summary-section">
@@ -1003,9 +1361,26 @@ function exportMd(){
   lines.push('');
   lines.push(`## 友人リスト`);
   state.friends.forEach(f => {
-    lines.push(`- ${f.name} @ ${f.city} (UTC${formatOffset(f.offset)}) ${f.region ? `／ ${f.region}` : ''}`);
+    const flag = f.prefecture ? '🇯🇵 ' : '';
+    lines.push(`- ${f.name} @ ${flag}${f.city} (UTC${formatOffset(f.offset)}) ${f.region ? `／ ${f.region}` : ''}`);
   });
   lines.push('');
+
+  // 都道府県サマリ（1件以上あるときだけ）
+  const prefCounts = countByPrefecture();
+  const uniquePrefsCount = Object.keys(prefCounts).length;
+  if(uniquePrefsCount > 0){
+    const totalJp = Object.values(prefCounts).reduce((a,b) => a+b, 0);
+    lines.push(`## 🗾 日本国内マップ（都道府県レベル）`);
+    lines.push(`- 登録：${uniquePrefsCount}都道府県 / ${totalJp}人`);
+    PREFECTURES
+      .filter(p => prefCounts[p.code])
+      .sort((a,b) => (prefCounts[b.code]||0) - (prefCounts[a.code]||0))
+      .forEach(p => {
+        lines.push(`  - ${p.name}：${prefCounts[p.code]}人`);
+      });
+    lines.push('');
+  }
   lines.push(`## 24時間タイムライン（UTC）`);
   lines.push('| UTC時刻 | 状態 | 参加者 |');
   lines.push('|---|---|---|');
