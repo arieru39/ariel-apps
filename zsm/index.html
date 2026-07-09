@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>全社戦略メモ ジェネレーター | ありえる楽考 × 戸田さん戦略スクール</title>
+<style>
+  :root {
+    --bg: #f7f5f0;
+    --panel: #ffffff;
+    --ink: #1f2933;
+    --sub: #4a5568;
+    --muted: #7a8390;
+    --accent: #2b6cb0;
+    --accent-2: #d69e2e;
+    --line: #e2e2df;
+    --hint-bg: #fef9e7;
+    --example-bg: #f3f6fa;
+    --code-bg: #f8f5ee;
+    --btn-shadow: 0 1px 2px rgba(0,0,0,.08);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "游ゴシック", "YuGothic", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  header {
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
+    padding: 14px 24px;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  header h1 { margin: 0; font-size: 18px; }
+  header .subtitle { color: var(--muted); font-size: 13px; }
+  header .actions { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
+  button {
+    font-family: inherit;
+    font-size: 14px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--ink);
+    cursor: pointer;
+    box-shadow: var(--btn-shadow);
+    transition: transform .05s, background .15s;
+  }
+  button:hover { background: #f0efeb; }
+  button:active { transform: translateY(1px); }
+  button.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  button.primary:hover { background: #245a94; }
+  button.warn { color: #742a2a; }
+  .progress-bar {
+    height: 4px;
+    background: var(--line);
+    position: sticky;
+    top: 56px;
+    z-index: 9;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    transition: width .3s;
+    width: 0%;
+  }
+  main {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: 0;
+    min-height: calc(100vh - 60px);
+  }
+  .left {
+    padding: 24px 32px 80px;
+    border-right: 1px solid var(--line);
+    background: var(--panel);
+  }
+  .right {
+    padding: 24px 32px 80px;
+    background: var(--bg);
+    position: sticky;
+    top: 60px;
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+  }
+  .step-nav {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+  .step-nav button {
+    padding: 4px 10px;
+    font-size: 12px;
+    border-radius: 12px;
+    color: var(--muted);
+  }
+  .step-nav button.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .step-nav button.filled {
+    background: #e6f4ea;
+    color: #1e6c3a;
+    border-color: #c9e5d3;
+  }
+  .step-nav button.active.filled {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .step-header {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+  }
+  .step-header h2 { margin: 0 0 6px; font-size: 22px; }
+  .step-framework {
+    display: inline-block;
+    background: var(--example-bg);
+    color: var(--accent);
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+  }
+  .framework-desc {
+    color: var(--sub);
+    font-size: 13px;
+    background: var(--hint-bg);
+    padding: 10px 14px;
+    border-radius: 6px;
+    border-left: 3px solid var(--accent-2);
+    margin-bottom: 12px;
+  }
+  .step-intro {
+    color: var(--sub);
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  .field { margin-bottom: 20px; }
+  .field label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 4px;
+    font-size: 14px;
+  }
+  .field .hint {
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+  .field input[type="text"],
+  .field input[type="date"],
+  .field textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 14px;
+    background: #fff;
+    color: var(--ink);
+    line-height: 1.6;
+    resize: vertical;
+  }
+  .field textarea { min-height: 90px; }
+  .field textarea.large { min-height: 140px; }
+  .field input:focus, .field textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(43,108,176,.15);
+  }
+  details.ariel-example {
+    background: var(--example-bg);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-top: 12px;
+    font-size: 13px;
+    border: 1px solid #dbe4ee;
+  }
+  details.ariel-example summary {
+    cursor: pointer;
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 13px;
+  }
+  details.ariel-example pre {
+    white-space: pre-wrap;
+    font-family: inherit;
+    color: var(--sub);
+    margin: 10px 0 0;
+    line-height: 1.7;
+  }
+  .step-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+  }
+  .meta-panel {
+    background: var(--example-bg);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 24px;
+  }
+  .meta-panel h3 { margin: 0 0 10px; font-size: 14px; }
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .meta-grid .field { margin-bottom: 0; }
+  .meta-grid .field label { font-size: 12px; margin-bottom: 2px; }
+  .meta-grid input {
+    padding: 6px 8px;
+    font-size: 13px;
+  }
+  .right h3 {
+    margin: 0 0 12px;
+    font-size: 14px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
+  .preview {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 22px 26px;
+    font-size: 13.5px;
+    line-height: 1.85;
+    color: var(--ink);
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: "Menlo", "Consolas", "Hiragino Sans", monospace;
+    max-height: none;
+  }
+  .preview .empty-hint {
+    color: var(--muted);
+    font-style: italic;
+  }
+  @media (max-width: 900px) {
+    main { grid-template-columns: 1fr; }
+    .right { position: static; height: auto; border-top: 1px solid var(--line); }
+    .meta-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1 id="app-title">全社戦略メモ ジェネレーター</h1>
+    <div class="subtitle" id="app-subtitle">Loading…</div>
+  </div>
+  <div class="actions">
+    <button id="btn-reset" class="warn" title="全入力をクリア">🗑 リセット</button>
+    <button id="btn-copy">📋 Markdownをコピー</button>
+    <button id="btn-download" class="primary">💾 .mdをダウンロード</button>
+  </div>
+</header>
+<div class="progress-bar"><div class="progress-bar-fill" id="progress-fill"></div></div>
+
+<main>
+  <section class="left">
+    <div class="meta-panel">
+      <h3>📌 基本情報</h3>
+      <div class="meta-grid" id="meta-grid"></div>
+    </div>
+
+    <div class="step-nav" id="step-nav"></div>
+
+    <div id="step-container"></div>
+
+    <div class="step-controls">
+      <button id="btn-prev">← 前へ</button>
+      <span id="step-indicator" style="align-self:center; color:var(--muted); font-size:13px;"></span>
+      <button id="btn-next" class="primary">次へ →</button>
+    </div>
+  </section>
+
+  <aside class="right">
+    <h3>📄 ライブプレビュー（Markdown）</h3>
+    <div class="preview" id="preview"></div>
+  </aside>
+</main>
+
+<script>
+const STORAGE_KEY = 'ariel_zsm';
+let DATA = null;
+let state = { meta: {}, steps: {} };
+let currentStep = 0;
+
+async function loadData() {
+  const res = await fetch('data.json');
+  DATA = await res.json();
+  document.getElementById('app-title').textContent = DATA.app.name;
+  document.getElementById('app-subtitle').textContent = DATA.app.subtitle || '';
+  document.title = DATA.app.name;
+  loadState();
+  renderMeta();
+  renderStepNav();
+  renderStep();
+  renderPreview();
+}
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      state = { meta: parsed.meta || {}, steps: parsed.steps || {} };
+      currentStep = parsed.currentStep || 0;
+    }
+  } catch (e) {
+    console.warn('Failed to load state', e);
+  }
+  // Default created_date to today
+  if (!state.meta.created_date) {
+    const d = new Date();
+    state.meta.created_date = d.toISOString().slice(0, 10);
+  }
+}
+
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      meta: state.meta,
+      steps: state.steps,
+      currentStep: currentStep
+    }));
+  } catch (e) {
+    console.warn('Failed to save state', e);
+  }
+}
+
+function renderMeta() {
+  const grid = document.getElementById('meta-grid');
+  grid.innerHTML = '';
+  DATA.meta_fields.forEach(f => {
+    const wrap = document.createElement('div');
+    wrap.className = 'field';
+    const label = document.createElement('label');
+    label.textContent = f.label + (f.required ? ' *' : '');
+    label.htmlFor = 'meta-' + f.id;
+    const input = document.createElement('input');
+    input.type = f.type === 'date' ? 'date' : 'text';
+    input.id = 'meta-' + f.id;
+    input.placeholder = f.placeholder || '';
+    input.value = state.meta[f.id] || '';
+    input.addEventListener('input', e => {
+      state.meta[f.id] = e.target.value;
+      saveState();
+      renderPreview();
+    });
+    wrap.appendChild(label);
+    wrap.appendChild(input);
+    grid.appendChild(wrap);
+  });
+}
+
+function renderStepNav() {
+  const nav = document.getElementById('step-nav');
+  nav.innerHTML = '';
+  DATA.steps.forEach((step, idx) => {
+    const btn = document.createElement('button');
+    btn.textContent = step.title.replace(/^[\d.付録AB]+\.\s*/, '').substring(0, 12);
+    btn.title = step.title;
+    if (idx === currentStep) btn.classList.add('active');
+    if (isStepFilled(step)) btn.classList.add('filled');
+    btn.addEventListener('click', () => {
+      currentStep = idx;
+      saveState();
+      renderStepNav();
+      renderStep();
+    });
+    nav.appendChild(btn);
+  });
+  // Progress bar
+  const filledCount = DATA.steps.filter(isStepFilled).length;
+  const pct = Math.round((filledCount / DATA.steps.length) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+}
+
+function isStepFilled(step) {
+  const stepData = state.steps[step.id] || {};
+  return step.fields.some(f => (stepData[f.id] || '').trim().length > 0);
+}
+
+function renderStep() {
+  const step = DATA.steps[currentStep];
+  const container = document.getElementById('step-container');
+  container.innerHTML = '';
+
+  const header = document.createElement('div');
+  header.className = 'step-header';
+  const badge = document.createElement('div');
+  badge.className = 'step-framework';
+  badge.textContent = '📐 ' + step.framework;
+  header.appendChild(badge);
+  const h2 = document.createElement('h2');
+  h2.textContent = step.title;
+  header.appendChild(h2);
+  container.appendChild(header);
+
+  if (step.framework_description) {
+    const desc = document.createElement('div');
+    desc.className = 'framework-desc';
+    desc.textContent = '💡 ' + step.framework_description;
+    container.appendChild(desc);
+  }
+
+  if (step.intro) {
+    const intro = document.createElement('div');
+    intro.className = 'step-intro';
+    intro.textContent = step.intro;
+    container.appendChild(intro);
+  }
+
+  if (!state.steps[step.id]) state.steps[step.id] = {};
+
+  step.fields.forEach(f => {
+    const wrap = document.createElement('div');
+    wrap.className = 'field';
+    const label = document.createElement('label');
+    label.textContent = f.label;
+    label.htmlFor = 'field-' + step.id + '-' + f.id;
+    wrap.appendChild(label);
+    if (f.hint) {
+      const hint = document.createElement('div');
+      hint.className = 'hint';
+      hint.textContent = f.hint;
+      wrap.appendChild(hint);
+    }
+    let input;
+    if (f.type === 'textarea') {
+      input = document.createElement('textarea');
+      const placeholderLines = (f.placeholder || '').split('\n').length;
+      if (placeholderLines > 5) input.classList.add('large');
+    } else {
+      input = document.createElement('input');
+      input.type = 'text';
+    }
+    input.id = 'field-' + step.id + '-' + f.id;
+    input.placeholder = f.placeholder || '';
+    input.value = state.steps[step.id][f.id] || '';
+    input.addEventListener('input', e => {
+      state.steps[step.id][f.id] = e.target.value;
+      saveState();
+      renderPreview();
+      renderStepNav();
+    });
+    wrap.appendChild(input);
+    container.appendChild(wrap);
+  });
+
+  if (step.ariel_example) {
+    const details = document.createElement('details');
+    details.className = 'ariel-example';
+    const summary = document.createElement('summary');
+    summary.textContent = '💠 ありえる楽考の記入例を見る';
+    details.appendChild(summary);
+    const pre = document.createElement('pre');
+    pre.textContent = step.ariel_example;
+    details.appendChild(pre);
+    container.appendChild(details);
+  }
+
+  document.getElementById('step-indicator').textContent =
+    `Step ${currentStep + 1} / ${DATA.steps.length}`;
+  document.getElementById('btn-prev').disabled = currentStep === 0;
+  document.getElementById('btn-next').disabled = currentStep === DATA.steps.length - 1;
+}
+
+function compileTemplate() {
+  let out = DATA.output_template;
+  // Meta fields
+  DATA.meta_fields.forEach(f => {
+    const val = (state.meta[f.id] || '').trim() || `（${f.label}未入力）`;
+    out = out.split(`{{${f.id}}}`).join(val);
+  });
+  // Step fields
+  DATA.steps.forEach(step => {
+    const stepData = state.steps[step.id] || {};
+    step.fields.forEach(f => {
+      const key = `{{${step.id}.${f.id}}}`;
+      const val = (stepData[f.id] || '').trim() || `_（${f.label}を入力してください）_`;
+      out = out.split(key).join(val);
+    });
+  });
+  return out;
+}
+
+function renderPreview() {
+  const preview = document.getElementById('preview');
+  const compiled = compileTemplate();
+  preview.textContent = compiled;
+}
+
+function copyToClipboard() {
+  const text = compileTemplate();
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('btn-copy');
+    const orig = btn.textContent;
+    btn.textContent = '✅ コピーしました';
+    setTimeout(() => { btn.textContent = orig; }, 1800);
+  }).catch(err => {
+    alert('コピーに失敗しました: ' + err.message);
+  });
+}
+
+function downloadMarkdown() {
+  const text = compileTemplate();
+  const company = (state.meta.company_name || 'company').replace(/[\s\/\\:*?"<>|]/g, '_');
+  const date = state.meta.created_date || new Date().toISOString().slice(0, 10);
+  const filename = `${date}_${company}_全社戦略メモ.md`;
+  const blob = new Blob([text], { type: 'text/markdown;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function resetAll() {
+  if (!confirm('本当にすべての入力をクリアしますか？（この操作は取り消せません）')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  state = { meta: {}, steps: {} };
+  currentStep = 0;
+  loadState();
+  renderMeta();
+  renderStepNav();
+  renderStep();
+  renderPreview();
+}
+
+document.getElementById('btn-prev').addEventListener('click', () => {
+  if (currentStep > 0) {
+    currentStep--;
+    saveState();
+    renderStepNav();
+    renderStep();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+});
+document.getElementById('btn-next').addEventListener('click', () => {
+  if (currentStep < DATA.steps.length - 1) {
+    currentStep++;
+    saveState();
+    renderStepNav();
+    renderStep();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+});
+document.getElementById('btn-copy').addEventListener('click', copyToClipboard);
+document.getElementById('btn-download').addEventListener('click', downloadMarkdown);
+document.getElementById('btn-reset').addEventListener('click', resetAll);
+
+loadData().catch(err => {
+  console.error(err);
+  document.body.innerHTML = '<p style="padding:40px; color:#742a2a;">データの読み込みに失敗しました: ' + err.message + '</p>';
+});
+</script>
+</body>
+</html>
