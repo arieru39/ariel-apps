@@ -6,7 +6,13 @@
     "product_line": "バイブコーディング・ギルド 第1プロダクト",
     "slug": "context_leadership",
     "hashtag": "#コンテキストリーダーシップ",
-    "source_note": "参考図書/Kindle/コンテキスト・リーダーシップ/コンテキスト・リーダーシップ.md"
+    "source_note": "参考図書/Kindle/コンテキスト・リーダーシップ/コンテキスト・リーダーシップ.md",
+    "amazon_url": "https://amzn.asia/d/0aejrJb8",
+    "playlist_embed_url": "https://www.youtube.com/embed/QXGhp63U1wg",
+    "video_title": "🎬 全体像動画 — 3層 × 10LO × 4段階の旅の地図",
+    "book_intro_headline": "📚 まずは全体像から",
+    "book_intro_text": "この本の <strong>3層 × 10LO × 4段階</strong> の骨格を、まず <strong>全体像動画（動画①）</strong> で掴んでください。各テーマの詳細画面には <strong>そのテーマに対応する解説動画</strong> が埋め込まれています。動画で観点を作ってから、記述→自己評価→たまかつ接続へ。",
+    "tagline": "「最高の上司」と「最悪の上司」は文脈で決まる"
   },
   "layers": [
     { "level": 3, "label": "第3層 · 文脈論 — 場を設計する" },
@@ -34,7 +40,9 @@
         "自分の直近の行為について「これは任せるとして届いた／丸投げとして届いた」を事後にレビューできる",
         "行為を出す前に「これは相手にどちらとして届く可能性が高いか」を予測でき、届き方をデザインしてから行為を出せる"
       ],
-      "implemented": true
+      "implemented": true,
+      "video_embed_url": "https://www.youtube.com/embed/h8avmywSgJU",
+      "video_title": "動画② 第1層 #action_illusion — 行為論の限界"
     },
     {
       "id": "meaning_over_action",
@@ -50,7 +58,9 @@
         "週1回程度、「先週の自分の関わりは、どんな意味として届いたか」を振り返れる",
         "毎日、行為の前に「この場でこれはどんな意味として届くか」を先に考えてから行為している"
       ],
-      "implemented": true
+      "implemented": true,
+      "video_embed_url": "https://www.youtube.com/embed/LqdK9UIWiWY",
+      "video_title": "動画③ 第2層 #meaning_over_action — 行為ではなく意味へ"
     },
     {
       "id": "context_reading",
@@ -66,7 +76,9 @@
         "事後に少なくとも2つの文脈変数で説明できる",
         "場に入る前に「今日この場で、どの変数がドミナントか」を読み、応答を組み替えられる"
       ],
-      "implemented": true
+      "implemented": true,
+      "video_embed_url": "https://www.youtube.com/embed/PyNAB7_fRZI",
+      "video_title": "動画④ 第3層 #context_reading — 文脈の読解"
     },
     {
       "id": "interpreter_frame",
@@ -82,7 +94,9 @@
         "重要な会話の前に、相手のフレーム候補を1つは想定している",
         "2つ以上のフレーム想定を持ち、外れた瞬間に別フレームへ切り替えられる"
       ],
-      "implemented": true
+      "implemented": true,
+      "video_embed_url": "https://www.youtube.com/embed/Lx-0n-sST6Q",
+      "video_title": "動画⑤ 第3層 #interpreter_frame — 相手の解釈フレーム"
     },
     {
       "id": "intent_transmission",
@@ -98,7 +112,9 @@
         "事後に辿って「どこでズレたか」を言語化できる",
         "伝える瞬間に「今この伝え方だと、意図の何%が届くか」を推定し、必要なら伝え方の設計を先にやる"
       ],
-      "implemented": true
+      "implemented": true,
+      "video_embed_url": "https://www.youtube.com/embed/d3RJPfBPP8E",
+      "video_title": "動画⑥ 第2層 #intent_transmission — 意図と伝達の非対称"
     },
     {
       "id": "delegation_split",
@@ -114,7 +130,9 @@
         "任せる時に「何を残し／何を渡すか」を明示できる",
         "相手の熟達度と場の緊急性に応じて、3軸それぞれの渡し方を場ごとに設計できる"
       ],
-      "implemented": true
+      "implemented": true,
+      "video_embed_url": "https://www.youtube.com/embed/HBR0X0Q0i-M",
+      "video_title": "動画⑦ 第2層 #delegation_split — 任せると丸投げの分岐点"
     },
     {
       "id": "feedback_semantics",
@@ -130,7 +148,9 @@
         "FBの前に「これは気づきになるか／攻撃になるか」の予測ができる",
         "予測が外れた時、その場で意味の再設計ができる"
       ],
-      "implemented": true
+      "implemented": true,
+      "video_embed_url": "https://www.youtube.com/embed/M9-1xstOIx8",
+      "video_title": "動画⑧ 第2層 #feedback_semantics — フィードバックの意味論"
     },
     {
       "id": "vision_flex",
@@ -146,7 +166,9 @@
         "自分の意思決定について「これは軸／これは枝葉」を宣言してから決められる",
         "チームメンバーが「今どちらが変わり、どちらが変わらないか」を常に読める状態を維持している"
       ],
-      "implemented": true
+      "implemented": true,
+      "video_embed_url": "https://www.youtube.com/embed/s8cfQnMlAPU",
+      "video_title": "動画⑨ 第2層 #vision_flex — ビジョンと柔軟性の両立"
     },
     {
       "id": "dialogic_leadership",
@@ -162,7 +184,9 @@
         "決定プロセスに関与者が「聞かれた」体験を残せている",
         "決定のスピードと対話の深さを場ごとにトレードオフでき、その判断理由を関与者と共有できる"
       ],
-      "implemented": true
+      "implemented": true,
+      "video_embed_url": "https://www.youtube.com/embed/Pc3KKYnVrjw",
+      "video_title": "動画⑩ 第3層 #dialogic_leadership — 対話としてのリーダーシップ"
     },
     {
       "id": "field_design",
@@ -178,7 +202,9 @@
         "中期の課題については、行為より場の設計を優先している",
         "短期・中期・長期のどの時間軸でも「場を動かす／行為を出す」の使い分けができる"
       ],
-      "implemented": true
+      "implemented": true,
+      "video_embed_url": "https://www.youtube.com/embed/CX0nGm4-3gU",
+      "video_title": "動画⑪ 第3層 #field_design — 場のデザインとしてのリーダーシップ"
     }
   ]
 }
