@@ -1,0 +1,2661 @@
+{
+  "meta": {
+    "version": "v0.2.1",
+    "generated_note": "手動で追記OK。次のバージョンで自動再生成する。",
+    "purpose": "掛け書棚：私（鈴木さん）の発想力を鍛える3つの筋肉（連結／偏見脱／視座切替）を回すための資産棚"
+  },
+  "modes": [
+    {
+      "id": "why",
+      "label": "🌟 Why掛け",
+      "hint": "3つの共通する目的・あり方・カテゴリー思考を1本抽出する"
+    },
+    {
+      "id": "what",
+      "label": "🧩 What掛け",
+      "hint": "3つのギャップと補完を三角形で見る"
+    },
+    {
+      "id": "how",
+      "label": "🎬 How掛け",
+      "hint": "3つの3ステップを1本のプログレッションに繋げる"
+    }
+  ],
+  "counts": {
+    "books": 28,
+    "apps": 7,
+    "themes": 77,
+    "videos": 35
+  },
+  "books": [
+    {
+      "id": " the book of est",
+      "type": "book",
+      "title": "the book of est",
+      "ocr_path": "35参考図書/Kindle/ the book of est/the book of est.md",
+      "tags": [],
+      "note": "[[the book of est]]"
+    },
+    {
+      "id": "10倍成長",
+      "type": "book",
+      "title": "10倍成長",
+      "ocr_path": "35参考図書/Kindle/10倍成長/10倍成長.md",
+      "tags": [
+        "#成長",
+        "#限界超え"
+      ],
+      "note": "[[10倍成長]]"
+    },
+    {
+      "id": "Eric Berne",
+      "type": "book",
+      "title": "Gamed People play",
+      "ocr_path": "35参考図書/Kindle/Eric Berne/Gamed People play.md",
+      "tags": [
+        "#価値観"
+      ],
+      "note": "[[Gamed People play]]"
+    },
+    {
+      "id": "KPIマネジメント",
+      "type": "book",
+      "title": "KPIマネジメント",
+      "ocr_path": "35参考図書/Kindle/KPIマネジメント/KPIマネジメント.md",
+      "tags": [
+        "#数値"
+      ],
+      "note": "[[KPIマネジメント]]"
+    },
+    {
+      "id": "NVC",
+      "type": "book",
+      "title": "NVC",
+      "ocr_path": "35参考図書/Kindle/NVC/NVC.md",
+      "tags": [],
+      "note": "[[NVC]]"
+    },
+    {
+      "id": "Who you are",
+      "type": "book",
+      "title": "Who you are",
+      "ocr_path": "35参考図書/Kindle/Who you are/Who you are.md",
+      "tags": [],
+      "note": "[[Who you are]]"
+    },
+    {
+      "id": "flow",
+      "type": "book",
+      "title": "flow",
+      "ocr_path": "35参考図書/Kindle/flow/flow.md",
+      "tags": [
+        "#フロー"
+      ],
+      "note": "[[flow]]"
+    },
+    {
+      "id": "true north group",
+      "type": "book",
+      "title": "true north group",
+      "ocr_path": "35参考図書/Kindle/true north group/true north group.md",
+      "tags": [],
+      "note": "[[true north group]]"
+    },
+    {
+      "id": "ばかなとなるほど",
+      "type": "book",
+      "title": "ばかなとなるほど",
+      "ocr_path": "35参考図書/Kindle/ばかなとなるほど/ばかなとなるほど.md",
+      "tags": [],
+      "note": "[[ばかなとなるほど]]"
+    },
+    {
+      "id": "みんなが「話せる」学校",
+      "type": "book",
+      "title": "みんなが「話せる」学校",
+      "ocr_path": "35参考図書/Kindle/みんなが「話せる」学校/みんなが「話せる」学校.md",
+      "tags": [
+        "#対話"
+      ],
+      "note": "[[みんなが「話せる」学校]]"
+    },
+    {
+      "id": "アルバート・エリス",
+      "type": "book",
+      "title": "現実は厳しいでも幸せになれる",
+      "ocr_path": "35参考図書/Kindle/アルバート・エリス/現実は厳しいでも幸せになれる.md",
+      "tags": [],
+      "note": "[[現実は厳しいでも幸せになれる]]"
+    },
+    {
+      "id": "アービンジャー",
+      "type": "book",
+      "title": "箱から脱出",
+      "ocr_path": "35参考図書/Kindle/アービンジャー/箱から脱出.md",
+      "tags": [],
+      "note": "[[箱から脱出]]"
+    },
+    {
+      "id": "ゲームチェンジの世界史",
+      "type": "book",
+      "title": "ゲームチェンジの世界史",
+      "ocr_path": "35参考図書/Kindle/ゲームチェンジの世界史/ゲームチェンジの世界史.md",
+      "tags": [],
+      "note": "[[ゲームチェンジの世界史]]"
+    },
+    {
+      "id": "コミュニティ・オブ・プラクティス",
+      "type": "book",
+      "title": "コミュニティ・オブ・プラクティス",
+      "ocr_path": "35参考図書/Kindle/コミュニティ・オブ・プラクティス/コミュニティ・オブ・プラクティス.md",
+      "tags": [
+        "#共創"
+      ],
+      "note": "[[コミュニティ・オブ・プラクティス]]"
+    },
+    {
+      "id": "ゴールドラット",
+      "type": "book",
+      "title": "チェンジザルール",
+      "ocr_path": "35参考図書/Kindle/ゴールドラット/チェンジザルール.md",
+      "tags": [],
+      "note": "[[チェンジザルール]]"
+    },
+    {
+      "id": "ソース",
+      "type": "book",
+      "title": "ソース",
+      "ocr_path": "35参考図書/Kindle/ソース/ソース.md",
+      "tags": [],
+      "note": "[[ソース]]"
+    },
+    {
+      "id": "パラダイムの魔力",
+      "type": "book",
+      "title": "パラダイムの魔力",
+      "ocr_path": "35参考図書/Kindle/パラダイムの魔力/パラダイムの魔力.md",
+      "tags": [],
+      "note": "[[パラダイムの魔力]]"
+    },
+    {
+      "id": "ミネルバ式 最先端リーダーシップ不確実な時代に成果を出し続けるリーダーの18の思考習慣",
+      "type": "book",
+      "title": "ミネルバ式 最先端リーダーシップ不確実な時代に成果を出し続けるリーダーの18の思考習慣",
+      "ocr_path": "35参考図書/Kindle/ミネルバ式 最先端リーダーシップ不確実な時代に成果を出し続けるリーダーの18の思考習慣/ミネルバ式 最先端リーダーシップ不確実な時代に成果を出し続けるリーダーの18の思考習慣.md",
+      "tags": [
+        "#リーダーシップ",
+        "#学び方"
+      ],
+      "note": "[[ミネルバ式 最先端リーダーシップ不確実な時代に成果を出し続けるリーダーの18の思考習慣]]"
+    },
+    {
+      "id": "ルールメイキング戦略",
+      "type": "book",
+      "title": "ルールメイキング戦略",
+      "ocr_path": "35参考図書/Kindle/ルールメイキング戦略/ルールメイキング戦略.md",
+      "tags": [],
+      "note": "[[ルールメイキング戦略]]"
+    },
+    {
+      "id": "世界のハイパフォーマーが学んだ「最高の自分」の引き出し方",
+      "type": "book",
+      "title": "世界のハイパフォーマーが学んだ「最高の自分」の引き出し方",
+      "ocr_path": "35参考図書/Kindle/世界のハイパフォーマーが学んだ「最高の自分」の引き出し方/世界のハイパフォーマーが学んだ「最高の自分」の引き出し方.md",
+      "tags": [],
+      "note": "[[世界のハイパフォーマーが学んだ「最高の自分」の引き出し方]]"
+    },
+    {
+      "id": "両立思考",
+      "type": "book",
+      "title": "両立思考",
+      "ocr_path": "35参考図書/Kindle/両立思考/両立思考.md",
+      "tags": [],
+      "note": "[[両立思考]]"
+    },
+    {
+      "id": "何が企業の目的を妨げるのか",
+      "type": "book",
+      "title": "何が企業の目的を妨げるのか",
+      "ocr_path": "35参考図書/Kindle/何が企業の目的を妨げるのか/何が企業の目的を妨げるのか.md",
+      "tags": [
+        "#価値観",
+        "#ミッション"
+      ],
+      "note": "[[何が企業の目的を妨げるのか]]"
+    },
+    {
+      "id": "何回説明しても伝わらないはなぜ起こるのか",
+      "type": "book",
+      "title": "何回説明しても伝わらないはなぜ起こるのか",
+      "ocr_path": "35参考図書/Kindle/何回説明しても伝わらないはなぜ起こるのか/何回説明しても伝わらないはなぜ起こるのか.md",
+      "tags": [],
+      "note": "[[何回説明しても伝わらないはなぜ起こるのか]]"
+    },
+    {
+      "id": "学習する組織",
+      "type": "book",
+      "title": "学習する組織",
+      "ocr_path": "35参考図書/Kindle/学習する組織/学習する組織.md",
+      "tags": [
+        "#学び方"
+      ],
+      "note": "[[学習する組織]]"
+    },
+    {
+      "id": "成人発達理論による能力の成長",
+      "type": "book",
+      "title": "成人発達理論による能力の成長",
+      "ocr_path": "35参考図書/Kindle/成人発達理論による能力の成長/成人発達理論による能力の成長.md",
+      "tags": [
+        "#成長",
+        "#成人発達"
+      ],
+      "note": "[[成人発達理論による能力の成長]]"
+    },
+    {
+      "id": "最難関のリーダーシップ",
+      "type": "book",
+      "title": "最難関のリーダーシップ",
+      "ocr_path": "35参考図書/Kindle/最難関のリーダーシップ/最難関のリーダーシップ.md",
+      "tags": [
+        "#リーダーシップ"
+      ],
+      "note": "[[最難関のリーダーシップ]]"
+    },
+    {
+      "id": "野中郁次郎",
+      "type": "book",
+      "title": "全員経営",
+      "ocr_path": "35参考図書/Kindle/野中郁次郎/全員経営.md",
+      "tags": [
+        "#知識創造"
+      ],
+      "note": "[[全員経営]]"
+    },
+    {
+      "id": "限界はあなたの頭の中にしかない小さなアクションで、最大の成果を引き寄せる",
+      "type": "book",
+      "title": "限界はあなたの頭の中にしかない小さなアクションで、最大の成果を引き寄せる",
+      "ocr_path": "35参考図書/Kindle/限界はあなたの頭の中にしかない小さなアクションで、最大の成果を引き寄せる/限界はあなたの頭の中にしかない小さなアクションで、最大の成果を引き寄せる.md",
+      "tags": [
+        "#限界超え"
+      ],
+      "note": "[[限界はあなたの頭の中にしかない小さなアクションで、最大の成果を引き寄せる]]"
+    }
+  ],
+  "apps": [
+    {
+      "id": "tamakatsu",
+      "type": "app",
+      "slug": "tamakatsu",
+      "title": "価値共創コミュニティで「たまかつ」を生きる",
+      "author": "鈴木 利和（ありえる楽考）",
+      "book_url": "https://amzn.to/4ls2lSn",
+      "book_video_url": "",
+      "themes_count": 12,
+      "url": "https://arieru39.github.io/ariel-apps/tamakatsu/",
+      "tags": [
+        "#関係性",
+        "#価値観",
+        "#共創"
+      ]
+    },
+    {
+      "id": "kpi",
+      "type": "app",
+      "slug": "kpi",
+      "title": "最高の結果を出すKPIマネジメント",
+      "author": "中尾 隆一郎",
+      "book_url": "https://amzn.to/4cQvPVL",
+      "book_video_url": "https://youtu.be/liDoRiWWlbQ",
+      "themes_count": 11,
+      "url": "https://arieru39.github.io/ariel-apps/kpi/",
+      "tags": [
+        "#対話",
+        "#場のデザイン",
+        "#数値",
+        "#学び方"
+      ]
+    },
+    {
+      "id": "nvc",
+      "type": "app",
+      "slug": "nvc",
+      "title": "NVC — 人と人との関係にいのちを吹き込む法 新版",
+      "author": "マーシャル・B・ローゼンバーグ",
+      "book_url": "https://amzn.asia/d/05ceGeMz",
+      "book_video_url": "https://youtu.be/uGdiku3s4kQ",
+      "themes_count": 11,
+      "url": "https://arieru39.github.io/ariel-apps/nvc/",
+      "tags": [
+        "#対話",
+        "#関係性",
+        "#学び方",
+        "#成長",
+        "#知識創造"
+      ]
+    },
+    {
+      "id": "ecosystem",
+      "type": "app",
+      "slug": "ecosystem",
+      "title": "価値共創コミュニティのエコシステムづくり",
+      "author": "鈴木 利和（ありえる楽考）",
+      "book_url": "https://amzn.to/4ls2lSn",
+      "book_video_url": "",
+      "themes_count": 11,
+      "url": "https://arieru39.github.io/ariel-apps/ecosystem/",
+      "tags": [
+        "#場のデザイン",
+        "#価値観",
+        "#共創"
+      ]
+    },
+    {
+      "id": "talkable-school",
+      "type": "app",
+      "slug": "talkable-school",
+      "title": "みんなが「話せる」学校",
+      "author": "吉村春美",
+      "book_url": "https://amzn.asia/d/0e6b09aF",
+      "book_video_url": "",
+      "themes_count": 11,
+      "url": "https://arieru39.github.io/ariel-apps/talkable-school/",
+      "tags": [
+        "#対話",
+        "#場のデザイン"
+      ]
+    },
+    {
+      "id": "context-leadership",
+      "type": "app",
+      "slug": "context-leadership",
+      "title": "コンテキスト・リーダーシップ",
+      "author": "山口 周",
+      "book_url": "https://amzn.asia/d/0aejrJb8",
+      "book_video_url": "",
+      "themes_count": 10,
+      "url": "https://arieru39.github.io/ariel-apps/context-leadership/",
+      "tags": [
+        "#リーダーシップ"
+      ]
+    },
+    {
+      "id": "genkai",
+      "type": "app",
+      "slug": "genkai",
+      "title": "限界はあなたの頭の中にしかない",
+      "author": "ジェイ・エイブラハム",
+      "book_url": "",
+      "book_video_url": "",
+      "themes_count": 11,
+      "url": "https://arieru39.github.io/ariel-apps/genkai/",
+      "tags": [
+        "#限界超え"
+      ]
+    }
+  ],
+  "themes": [
+    {
+      "id": "tamakatsu.unconscious_assumption",
+      "type": "theme",
+      "app_slug": "tamakatsu",
+      "theme_id": "unconscious_assumption",
+      "title": "無意識の思い込みを見つけ修正する",
+      "layer": 1,
+      "content_type": "",
+      "seed_question": "あなたが今日「これは当たり前だ」と思い込んでいることの中に、実は修正可能な思考のエラーは隠れていませんか？",
+      "daily_practice": "",
+      "rubric": [
+        "自分の反応を「事実」だと信じて疑わず、感情の揺れを外部のせいにしている",
+        "思い込みという概念は知っているが、その場で自分のスキーマを言語化することはできない",
+        "感情の揺れを合図に立ち止まり、背後の思い込みを言葉にして修正する練習を続けられる",
+        "文脈に応じて、修正すべき思い込みと使い続けるべき思い込みを選び分けられる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:tamakatsu",
+        "#無意識の思い込み"
+      ]
+    },
+    {
+      "id": "tamakatsu.four_cognitive_strategies",
+      "type": "theme",
+      "app_slug": "tamakatsu",
+      "theme_id": "four_cognitive_strategies",
+      "title": "4つの認知方略で思考を構造化する",
+      "layer": 1,
+      "content_type": "",
+      "seed_question": "今直面している複雑な問題を、プログレッション／カテゴリー／マトリックス／アナロジーのどれで捉え直すと、視界が変わりそうですか？",
+      "daily_practice": "",
+      "rubric": [
+        "「なんとなく考える」ことが多く、思考の手数を意識していない",
+        "4つの方略の名前は知っているが、目の前の課題にどれを当てるべきか選べない",
+        "課題に応じて適切な方略を1つ選び、思考の焦点を切り替えられる",
+        "複数の方略を組み合わせ、他者の思考の詰まりに応じて方略を渡すことができる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:tamakatsu"
+      ]
+    },
+    {
+      "id": "tamakatsu.symbol_grounding",
+      "type": "theme",
+      "app_slug": "tamakatsu",
+      "theme_id": "symbol_grounding",
+      "title": "記号接地 — 体験から言葉の意味を立ち上げる",
+      "layer": 1,
+      "content_type": "",
+      "seed_question": "最近学んだ概念を、あなた自身の具体的な体験と結びつけられていますか？",
+      "daily_practice": "",
+      "rubric": [
+        "本や研修で得た言葉を、自分の体験と結びつけずにそのまま使っている",
+        "「体験と結びつけると理解が深まる」と知ってはいるが、実際にはやっていない",
+        "抽象概念を自分のエピソードで語り直し、他者にも通じる形に翻訳できる",
+        "誤解・浅い理解を体験の設計で修正させることができる（記号接地の場を作れる）"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:tamakatsu"
+      ]
+    },
+    {
+      "id": "tamakatsu.expertise_resolution",
+      "type": "theme",
+      "app_slug": "tamakatsu",
+      "theme_id": "expertise_resolution",
+      "title": "熟達 — 解像度を上げて世界を見る",
+      "layer": 2,
+      "content_type": "",
+      "seed_question": "あなたが本気で熟達を目指したいスキルは何で、今どこまで「解像度」が上がっていますか？",
+      "daily_practice": "",
+      "rubric": [
+        "スキルを「できる／できない」の2値でしか見ておらず、内部の解像度差を意識していない",
+        "熟達には心的表象（心象）が鍵だと理解しているが、自分の像を描き出せない",
+        "自分のスキルの心的イメージを言語化し、次に磨くべき粒度を特定できる",
+        "他者の熟達段階を観察して、その人の像に応じた練習課題を設計できる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:tamakatsu"
+      ]
+    },
+    {
+      "id": "tamakatsu.bottleneck_concentration",
+      "type": "theme",
+      "app_slug": "tamakatsu",
+      "theme_id": "bottleneck_concentration",
+      "title": "ボトルネックに練習を集中させる",
+      "layer": 2,
+      "content_type": "",
+      "seed_question": "あなたの成長を邪魔している「たった1つのボトルネック」を、今この瞬間に言葉にできますか？",
+      "daily_practice": "",
+      "rubric": [
+        "「もっと頑張る」で全部同時に改善しようとして、成果が動かない",
+        "ボトルネック理論を知っているが、自分の中の1点を選び切れず総花的に取り組む",
+        "たった1つのボトルネックを特定し、そこに練習・時間・資源を集中できる",
+        "チームや場のボトルネックを見抜き、他者の練習の焦点を導ける"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:tamakatsu"
+      ]
+    },
+    {
+      "id": "tamakatsu.group_coaching",
+      "type": "theme",
+      "app_slug": "tamakatsu",
+      "theme_id": "group_coaching",
+      "title": "グループコーチング — 集合天才で学習する場をつくる",
+      "layer": 2,
+      "content_type": "",
+      "seed_question": "あなたのチームやグループに「集合天才」として学び合える場はありますか？",
+      "daily_practice": "",
+      "rubric": [
+        "教える／教えられるの関係でしか学べず、対等な学び合いの場を持っていない",
+        "グループコーチングの4ステップは知っているが、自分の場では実装できていない",
+        "定例のGCを回し、話し手が自分で答えを見つける「聞く」の質を保てる",
+        "GCの設計を場に合わせて調整し、参加者の記号接地と熟達に効くGCを設計できる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:tamakatsu",
+        "#場のデザイン",
+        "#学び方"
+      ]
+    },
+    {
+      "id": "tamakatsu.three_layer_team",
+      "type": "theme",
+      "app_slug": "tamakatsu",
+      "theme_id": "three_layer_team",
+      "title": "三層構造で対等の友人関係を築く",
+      "layer": 2,
+      "content_type": "",
+      "seed_question": "あなたの現在のチームに「対等の友人関係」は存在していますか？なぜそう言えますか？",
+      "daily_practice": "",
+      "rubric": [
+        "役割を「肩書き」でしか見ておらず、思考レベルの分担ができていない",
+        "オーナー／ファシリ／メンバーの三層構造は理解しているが、自分がどの層で話しているか自覚できない",
+        "自分がいる層を自覚し、対等・率直・肯定の3原則で他層とやり取りできる",
+        "場の停滞を見て「今、どの層が空席か」を診断し、必要な層の思考を立ち上げられる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:tamakatsu",
+        "#関係性"
+      ]
+    },
+    {
+      "id": "tamakatsu.tamakatsu_calling",
+      "type": "theme",
+      "app_slug": "tamakatsu",
+      "theme_id": "tamakatsu_calling",
+      "title": "たまかつを生きる — 自分軸と相手軸の交差点に立つ",
+      "layer": 3,
+      "content_type": "",
+      "seed_question": "あなたの「誰のために・何のために」ははっきりしていますか？それを口に出せますか？",
+      "daily_practice": "",
+      "rubric": [
+        "「やらねば」で動いていて、自分軸／相手軸を分けて捉えていない",
+        "たまかつという概念は知っているが、自分の「誰・何」を一言で言えない",
+        "自分軸と相手軸の交差点を言語化でき、そこに時間を集中投下できる",
+        "他者のたまかつを引き出す問いを持ち、場のたまかつを設計できる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": true,
+      "tags": [
+        "#app:tamakatsu",
+        "#関係性"
+      ]
+    },
+    {
+      "id": "tamakatsu.collective_space",
+      "type": "theme",
+      "app_slug": "tamakatsu",
+      "theme_id": "collective_space",
+      "title": "みんなでつくる場 — 1人の決意が波紋を起こす",
+      "layer": 3,
+      "content_type": "",
+      "seed_question": "あなたが今「ここは自分のためのエネルギーチャージステーションだ」と感じられる場所はありますか？",
+      "daily_practice": "",
+      "rubric": [
+        "場は誰かが与えてくれるものだと思い、自分は受け手の位置にいる",
+        "場は共創だと理解しているが、自分から波紋を起こす一歩を出せていない",
+        "小さな決意を場に投げ入れ、フィードバックループを回し始められる",
+        "場の消耗のパターンを見抜き、失敗をチャージに変える設計を提案できる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:tamakatsu",
+        "#場のデザイン"
+      ]
+    },
+    {
+      "id": "tamakatsu.experience_to_product",
+      "type": "theme",
+      "app_slug": "tamakatsu",
+      "theme_id": "experience_to_product",
+      "title": "経験をプロダクトにする — 強みを他者に届く形に",
+      "layer": 3,
+      "content_type": "",
+      "seed_question": "あなたの中に眠っている「経験の原石」は何ですか？誰のどんな困りごとを解ける可能性がありますか？",
+      "daily_practice": "",
+      "rubric": [
+        "自分の経験は「当たり前すぎる」と思って外に出していない",
+        "経験を商品化する必要性は分かるが、コンセプトを言語化する段階で止まっている",
+        "経験を「誰の痛みに効くか」で切り取り、再現可能な手順として書ける",
+        "プロダクトを場に投げ、他者のフィードバックで進化させ続けられる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:tamakatsu"
+      ]
+    },
+    {
+      "id": "tamakatsu.recruitment_vision",
+      "type": "theme",
+      "app_slug": "tamakatsu",
+      "theme_id": "recruitment_vision",
+      "title": "リクルーティング — ビジョンで仲間を引き寄せる",
+      "layer": 3,
+      "content_type": "",
+      "seed_question": "本当に「この人たちと一緒に叶えたい」というビジョンを、あなたは一言で語れますか？",
+      "daily_practice": "",
+      "rubric": [
+        "「人が集まらない」ことを外部要因のせいにしている",
+        "ビジョンの重要性は分かるが、自分の言葉で語り切れていない",
+        "「誰・何」が明快なビジョンを言語化し、繰り返し場に投げ入れられる",
+        "集まった仲間の熱狂を触媒に、次のリクルーティングを設計できる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:tamakatsu",
+        "#ミッション",
+        "#価値観"
+      ]
+    },
+    {
+      "id": "tamakatsu.declaration_system",
+      "type": "theme",
+      "app_slug": "tamakatsu",
+      "theme_id": "declaration_system",
+      "title": "宣言システム — 言葉でできた自分を鍛える",
+      "layer": 3,
+      "content_type": "",
+      "seed_question": "あなたが自分自身に守れていない小さな約束は何ですか？その約束を守る1週間を、今この瞬間に描けますか？",
+      "daily_practice": "",
+      "rubric": [
+        "自信は生まれつきの才能や環境で決まると思っている",
+        "宣言→行動→報告のサイクルは理解しているが、自分でも他者とも回していない",
+        "毎日の宣言と完了報告を仲間と共有し、小さな約束の積み重ねで自信を作れる",
+        "他者の宣言システムを場に組み込み、集合的な自信構築の仕組みを運営できる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:tamakatsu"
+      ]
+    },
+    {
+      "id": "kpi.kpi_definition",
+      "type": "theme",
+      "app_slug": "kpi",
+      "theme_id": "kpi_definition",
+      "title": "KPIの本質的な定義：K（Key）・P（Performance）・I（Indicator）の3要素で見る",
+      "layer": 1,
+      "content_type": "concept",
+      "seed_question": "あなたのチームが今追いかけている数字は、K（Key＝鍵）となるP（Performance＝成果）のI（Indicator＝指標）ですか？それとも単に測れるから測っているだけの数字ですか？",
+      "daily_practice": "",
+      "rubric": [
+        "KPIを『とにかく数字で管理すること』だと思っている",
+        "K・P・Iの3要素を説明できるが、自チームのKPIを分解するとどこかがブレる",
+        "自チームのKPIをK・P・Iに分解し、『これは本当に『鍵』か？』を対話で問い直せる",
+        "文脈（新規／既存／スタッフ部門など）に応じて『鍵』の見つけ方を切り替えられる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:kpi",
+        "#原理",
+        "#数値"
+      ]
+    },
+    {
+      "id": "kpi.kgi_csf_kpi_triangle",
+      "type": "theme",
+      "app_slug": "kpi",
+      "theme_id": "kgi_csf_kpi_triangle",
+      "title": "KGI・CSF・KPIの三角形：ゴール／最重要プロセス／指標を切り分ける",
+      "layer": 1,
+      "content_type": "concept",
+      "seed_question": "あなたのチームの『KGI（期末に到達したいゴール）』と『CSF（そこに至る最重要プロセス）』を、5人のメンバーに聞いたら、5人とも同じ答えを返してくれますか？",
+      "daily_practice": "",
+      "rubric": [
+        "KGI・CSF・KPIの区別がついておらず、全部『目標』と呼んでいる",
+        "3つの違いは説明できるが、自チームでの整合を検証したことがない",
+        "3つを整合させ、メンバー間のズレを対話で埋められる",
+        "事業モデル・成熟度に応じて三角形の組み方を変えられる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:kpi",
+        "#数値"
+      ]
+    },
+    {
+      "id": "kpi.kpi_as_single_signal",
+      "type": "theme",
+      "app_slug": "kpi",
+      "theme_id": "kpi_as_single_signal",
+      "title": "🎯 KPIは『信号』だから『1つ』：複数指標管理からの脱却",
+      "layer": 1,
+      "content_type": "concept",
+      "seed_question": "あなたのチームは、今週の会議で『どの1つのKPIを見て、青か赤かを判断するか』を全員で合意できていますか？それとも5つのダッシュボードを見て、それぞれが違うところを見ていますか？",
+      "daily_practice": "",
+      "rubric": [
+        "KPIは多いほど管理が行き届くと思っている",
+        "『1つに絞るべき』は理解しているが、実際は複数を追いかけている",
+        "1つに絞り、チーム全員が同じ信号を見て青／赤を判断できる",
+        "フェーズ（立ち上げ／成長／改善）に応じて信号を切り替えられる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": true,
+      "tags": [
+        "#app:kpi",
+        "#数値"
+      ]
+    },
+    {
+      "id": "kpi.csf_selection",
+      "type": "theme",
+      "app_slug": "kpi",
+      "theme_id": "csf_selection",
+      "title": "CSFの絞り込み：ビジネスモデルを数式化して『定数と変数』に分ける",
+      "layer": 2,
+      "content_type": "model",
+      "seed_question": "『売上 ＝ 顧客数 × 転換率 × 単価』のとき、あなたのチームでは今期どの要素が『変数（変えられる／変える価値がある）』ですか？対話で全員の意見が揃いますか？",
+      "daily_practice": "",
+      "rubric": [
+        "ビジネスモデルを数式で表現したことがない",
+        "数式化はできるが、定数と変数の切り分けが感覚に頼っている",
+        "定数と変数を対話で仕分け、CSFを構造的に選べる",
+        "事業ライフサイクル・競合状況に応じて数式そのものを組み直せる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:kpi",
+        "#数値"
+      ]
+    },
+    {
+      "id": "kpi.kpi_target_setting",
+      "type": "theme",
+      "app_slug": "kpi",
+      "theme_id": "kpi_target_setting",
+      "title": "KPI目標値の設定と運用性チェック：整合性・安定性・単純性",
+      "layer": 2,
+      "content_type": "model",
+      "seed_question": "『計算上は9974が目標だが、覚えやすさで10000に丸めるか？』── この判断を、あなたのチームは対話で決められますか？",
+      "daily_practice": "",
+      "rubric": [
+        "目標値はロジック計算だけで決めており、現場が覚えているかを確認していない",
+        "3視点のチェックリストは知っているが、実際に運用できるか検証していない",
+        "3視点でチェックし、対話で目標値を『追える形』に調整できる",
+        "運用場面（週次／月次／リアルタイム）に応じて目標値の粒度を変えられる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:kpi",
+        "#数値"
+      ]
+    },
+    {
+      "id": "kpi.wall_of_anxiety_and_stupidity",
+      "type": "theme",
+      "app_slug": "kpi",
+      "theme_id": "wall_of_anxiety_and_stupidity",
+      "title": "『不安の壁』と『バカの壁』を越える：KPI悪化時の対策を事前に約束する",
+      "layer": 2,
+      "content_type": "model",
+      "seed_question": "あなたのチームは、KPIが赤信号になった瞬間、『次の一手』を対話し始められますか？それとも赤信号を見なかったことにする空気が流れますか？",
+      "daily_practice": "",
+      "rubric": [
+        "KPI悪化時の対策を事前に決めておく発想がない",
+        "4パターンは知っているが、事前合意ワークをやったことがない",
+        "事前合意を対話で行い、赤信号時に即座に打ち手を打てる",
+        "打ち手のパターンをTTPで他チームから吸収し進化させ続けられる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:kpi",
+        "#数値"
+      ]
+    },
+    {
+      "id": "kpi.pdds_high_speed_cycle",
+      "type": "theme",
+      "app_slug": "kpi",
+      "theme_id": "pdds_high_speed_cycle",
+      "title": "PDDSサイクルの高速化：振り返り（S）→計画（P）の環を対話で回す",
+      "layer": 2,
+      "content_type": "model",
+      "seed_question": "あなたのチームの振り返り（Study）は、次の計画（Plan）に本当に流れ込んでいますか？それとも振り返りは振り返り、計画は計画で、切れていますか？",
+      "daily_practice": "",
+      "rubric": [
+        "PDDSサイクルを意識していない／年1〜2回しか回っていない",
+        "月次でPDDSを回しているが、S→Pのつながりが弱い",
+        "週次・月次でPDDSを回し、対話の場で次のPを決められる",
+        "TTPSで他チームのPDDS運用を移植し、自チーム流に進化させられる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:kpi",
+        "#問い直し",
+        "#対話"
+      ]
+    },
+    {
+      "id": "kpi.ttp_and_ttps",
+      "type": "theme",
+      "app_slug": "kpi",
+      "theme_id": "ttp_and_ttps",
+      "title": "TTP × TTPS：徹底的にパクって進化させる — 他チームの成功を高速移植する",
+      "layer": 3,
+      "content_type": "story",
+      "seed_question": "あなたのチームは、他チームの成功を『すごいね』で終わらせていませんか？『それをうちで来週どうパクるか』まで対話が進みますか？",
+      "daily_practice": "",
+      "rubric": [
+        "他チームの成功を『すごいね』で終わらせている",
+        "TTPの概念は知っているが、実際にパクったことはない",
+        "他チームの成功を毎週1つパクり、進化させて自チームに実装できる",
+        "自チームがTTP元にもTTP先にもなり、事例共有会の中心を担える"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:kpi"
+      ]
+    },
+    {
+      "id": "kpi.eleven_business_patterns",
+      "type": "theme",
+      "app_slug": "kpi",
+      "theme_id": "eleven_business_patterns",
+      "title": "11業種11のKPI設計事例：営業強化・エリア展開・顧客セグメント・新商品・採用",
+      "layer": 3,
+      "content_type": "story",
+      "seed_question": "あなたの事業モデル（従量課金／一括契約／新規／既存／スタッフ部門など）に最も近い事例はどれですか？その事例のCSFはそのままパクれますか、翻訳が要りますか？",
+      "daily_practice": "",
+      "rubric": [
+        "自社の事業モデルの分類ができていない／他事例と比較できない",
+        "類似事例は特定できるが、CSFの翻訳ができていない",
+        "類似事例のCSFを自チームに翻訳し、対話で実装できる",
+        "複数事例を組み合わせて自チーム独自のCSFを設計できる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:kpi",
+        "#数値"
+      ]
+    },
+    {
+      "id": "kpi.kpi_beyond_sales",
+      "type": "theme",
+      "app_slug": "kpi",
+      "theme_id": "kpi_beyond_sales",
+      "title": "KPI化されていない領域への応用：スタッフ部門・採用・広報・キャリア開発・健康",
+      "layer": 3,
+      "content_type": "story",
+      "seed_question": "あなたのチーム／部門で、これまで『KPIになりえない』と思っていた領域はどこですか？そこにKPIを設計するとしたら、どんな『鍵』が候補になりますか？",
+      "daily_practice": "",
+      "rubric": [
+        "KPIは営業／事業部門のものと思っている",
+        "スタッフ部門にもKPIが設計できると知っているが、やったことがない",
+        "自部門のKPIを設計し、対話で運用できる",
+        "全社横断で領域ごとのKPI設計を支援し、事業部門とスタッフ部門をつなげる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:kpi",
+        "#価値観",
+        "#数値"
+      ]
+    },
+    {
+      "id": "kpi.ultimate_kpi_organization",
+      "type": "theme",
+      "app_slug": "kpi",
+      "theme_id": "ultimate_kpi_organization",
+      "title": "🎬 究極のKPI化：全判断をKPIに紐づけ、リアルタイム振り返りで組織を進化させる",
+      "layer": 3,
+      "content_type": "story",
+      "seed_question": "あなたのチームは、全員がKPIに興味を持ち、KPIが悪化した瞬間に現場で打ち手を打ち始めていますか？それとも、KPIは管理職だけが気にする数字ですか？",
+      "daily_practice": "",
+      "rubric": [
+        "KPIは管理職だけが気にすればいいと思っている",
+        "全員がKPIに関心を持つ状態が理想と分かるが、道筋が見えない",
+        "90日単位のロードマップを設計し、対話の場でチームを引き上げられる",
+        "組織全体でリアルタイム振り返り × TTPS を回し、他組織にも波及させられる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:kpi",
+        "#問い直し",
+        "#数値"
+      ]
+    },
+    {
+      "id": "nvc.life_alienating_communication",
+      "type": "theme",
+      "app_slug": "nvc",
+      "theme_id": "life_alienating_communication",
+      "title": "『いのちを疎外するコミュニケーション』を見抜くスキル",
+      "layer": 1,
+      "content_type": "concept",
+      "seed_question": "今週、自分が誰かを『悪い』『怠けている』『自己中心的だ』と決めつけた瞬間はいつですか？その言葉の奥に、どんな満たされないニーズが隠れていましたか？",
+      "daily_practice": "1日1回、自分が『〜すべき』『あいつは〜だから』と言い切った瞬間を思い出し、その奥のニーズ（承認／理解／安心など）を紙に書き出す。3日続ける。",
+      "rubric": [
+        "『暴力的コミュニケーション』という概念を知らない。相手を評価・比較・強制する言葉を当たり前と思っている",
+        "相手を批判・判断する言い方があることに気づき、それが『暴力的』かもしれないと思うようになった",
+        "日常の会話で相手にレッテル貼りをしている時に、一瞬ストップできる。『あ、いま評価してる』と気づく",
+        "リアルタイムで自分の批判的思考をキャッチし、その奥のニーズ（何を必要としているのか）を別の形で表現できる"
+      ],
+      "daily_practice_steps": {
+        "variation": "inner_state",
+        "variation_label": "❤️ 人の内側：感情 → 思考 → 行動",
+        "step1": "STEP 1 · 感情：『〜すべき』『あいつは〜だから』と言い切った瞬間の、身体の違和感（胸の詰まり／首の緊張／喉のつかえなど）をキャッチする",
+        "step2": "STEP 2 · 思考：その言葉の奥に隠れているニーズ（承認／理解／安心／貢献など）を1語で名づける",
+        "step3": "STEP 3 · 行動：責める言葉ではなく『私は〜を必要としていた』と紙に1行書き出す"
+      },
+      "milestone": false,
+      "tags": [
+        "#app:nvc"
+      ]
+    },
+    {
+      "id": "nvc.self_compassion_foundation",
+      "type": "theme",
+      "app_slug": "nvc",
+      "theme_id": "self_compassion_foundation",
+      "title": "自分への思いやりの基盤 — 完璧でない自分を評価する",
+      "layer": 1,
+      "content_type": "story",
+      "seed_question": "今週、何か失敗した時に『なんてバカなことを』と自分を責めずに、『あ、これは私が〜を必要としていたんだ』と自分に共感できた瞬間はありましたか？",
+      "daily_practice": "今週、1つ失敗したことを思い出し、『その時、私は〜を大切にしていたから、そうしたのだ』と自分の内面のニーズを書き出す。責めない。",
+      "rubric": [
+        "失敗すると『自分は愚か』『自分は無責任』と自分を厳しく非難する。恥や罪悪感に苛まれる",
+        "『自分への批判は自分のニーズの訴え』という理論を知ったが、実際には自分を責めてしまう",
+        "失敗した後、落ち着いてから『その時、私は何を大切にしようとしていたか』を問い直せる",
+        "失敗の直後、リアルタイムで自分のニーズと価値観に気づき、『あ、そういうわけか』と自分を許せる。自分への暴力性がない"
+      ],
+      "daily_practice_steps": {
+        "variation": "inner_state",
+        "variation_label": "❤️ 人の内側：感情 → 思考 → 行動",
+        "step1": "STEP 1 · 感情：自分を責めた瞬間の恥・罪悪感・自己嫌悪の感覚を、そのまま観る（消そうとしない）",
+        "step2": "STEP 2 · 思考：『その時、私は何を大切にしようとしていたのか』を1つ問い直す（例：責任感／人を傷つけたくない／期待に応えたい）",
+        "step3": "STEP 3 · 行動：責める言葉を消して『私は〜を大切にしていたから、そうしたのだ』と1文で書き直す"
+      },
+      "milestone": false,
+      "tags": [
+        "#app:nvc",
+        "#事実と評価"
+      ]
+    },
+    {
+      "id": "nvc.observation_without_judgment",
+      "type": "theme",
+      "app_slug": "nvc",
+      "theme_id": "observation_without_judgment",
+      "title": "🧩 4要素①：評価を混ぜず『観察』する型",
+      "layer": 2,
+      "content_type": "model",
+      "seed_question": "今週、『あの人は〜だ』と評価で言い切らずに『あの人は昨日20分話し続けた』と具体的な観察で言えた瞬間はいつですか？",
+      "daily_practice": "今日、1つのできごとを『〜だ』という評価ではなく『〜した／〜が起きた』と具体的に書き表す。家族・同僚・ニュースなど何でもOK。",
+      "rubric": [
+        "『観察』と『評価』の区別を理解していない。『あの人は怠け者』が『観察』だと思っている",
+        "『怠け者』は評価で、『毎日5時間寝ている』が観察だと理解した",
+        "日常で相手のふるまいを述べる時に、意識すれば評価を避けて具体的な時間・回数・行動で言い換えられる",
+        "無意識に評価を避け、つねに具体的な時間・場面・行動で事実を述べるのが習慣になっている"
+      ],
+      "daily_practice_steps": {
+        "variation": "base",
+        "variation_label": "🔵 ベース（認知）：入力 → 精緻化 → 出力",
+        "step1": "STEP 1 · 入力：出来事や相手のふるまいを、まず時間・回数・具体行動でメモする（例：『昨日20:30、妻が「またそれ？」と言った』）",
+        "step2": "STEP 2 · 精緻化：そのメモに『怠け者／わがまま／自己中心的』などの評価語が混ざっていないかチェックし、抜き出す",
+        "step3": "STEP 3 · 出力：評価を除いた具体的な観察文で言い直す（例：『妻が「またそれ？」と言った。私は胸が締めつけられた』）"
+      },
+      "milestone": false,
+      "tags": [
+        "#app:nvc",
+        "#モデル",
+        "#事実と評価"
+      ]
+    },
+    {
+      "id": "nvc.feeling_vs_judgment",
+      "type": "theme",
+      "app_slug": "nvc",
+      "theme_id": "feeling_vs_judgment",
+      "title": "🧩 4要素②：『感情』と『思考』を区別して表現するスキル",
+      "layer": 2,
+      "content_type": "model",
+      "seed_question": "『私は大事にされていないと感じる』と言った時、それは本当の感情ですか？それとも相手への思考・評価ですか？実際の感情は『傷ついた』『孤独だ』『寂しい』ではないですか？",
+      "daily_practice": "今日、『〜と感じる』と言いそうになったら、その文を分析する。『不公平だと感じる』＝思考。本当は『悔しい』『不安だ』などの感情か確認する。",
+      "rubric": [
+        "『私は軽視されていると感じる』『バカにされたと感じる』などの言い方が『感情表現』だと思っている",
+        "『〜されたと感じる』は相手の行為への解釈で、実際の感情ではないと理解した",
+        "『軽視されている』という思考の奥に『悲しい』『不安だ』という感情があることに気づけるが、いつも言葉で分けられるわけではない",
+        "つねに『傷つき』『怒り』『喜び』など基本感情をリアルタイムで区別し、思考を混ぜずに純粋に感情を述べられる"
+      ],
+      "daily_practice_steps": {
+        "variation": "base",
+        "variation_label": "🔵 ベース（認知）：入力 → 精緻化 → 出力",
+        "step1": "STEP 1 · 入力：『〜と感じる』と言った／言いそうになった文をそのままキャッチする（例：『軽視されていると感じる』）",
+        "step2": "STEP 2 · 精緻化：それが『相手への解釈・評価』か『純粋な感情』かを分析する（『〜されたと感じる』は解釈側）",
+        "step3": "STEP 3 · 出力：純粋な基本感情（悲しい・怒り・恐れ・寂しい・喜び・驚きなど）に言い直す（例：『寂しい』『悔しい』）"
+      },
+      "milestone": false,
+      "tags": [
+        "#app:nvc",
+        "#事実と評価",
+        "#感情"
+      ]
+    },
+    {
+      "id": "nvc.emotional_responsibility",
+      "type": "theme",
+      "app_slug": "nvc",
+      "theme_id": "emotional_responsibility",
+      "title": "🧩 4要素③準備：自分の感情に『責任』を持つ型",
+      "layer": 2,
+      "content_type": "story",
+      "seed_question": "相手から否定的なことを言われた時、『あなたが傷つけたから、私は傷ついた』ではなく『私は〜を必要としていたから、傷ついた』と言い切れますか？",
+      "daily_practice": "今日、誰かの言動に反応した時、『あいつのせいで〜』を『私は〜を必要としていたから、〜と感じた』に1回言い換えてみる。",
+      "rubric": [
+        "『あの人が遅刻したから、私は傷ついた』と言う。相手の行動が自分の感情の直接原因だと思っている",
+        "『刺激と原因は違う』という概念を学んだが、実際の言い換えは難しい",
+        "ある程度の時間をかければ『あなたを必要としていたから、待つ間、不安だった』と言い換えられる",
+        "リアルタイムで相手の行動を『刺激』と見なし、自分のニーズを述べられる。相手を責める言葉が出ない"
+      ],
+      "daily_practice_steps": {
+        "variation": "inner_state",
+        "variation_label": "❤️ 人の内側：感情 → 思考 → 行動",
+        "step1": "STEP 1 · 感情：相手の言動に反応した瞬間の感情（傷ついた／腹が立った／悲しい）を、そのまま観る",
+        "step2": "STEP 2 · 思考：『あいつのせい』の思考パターンをキャッチし、『私は何を必要としていたのか』に問いを切り替える",
+        "step3": "STEP 3 · 行動：『私は〜を必要としていたから、〜と感じた』と1文で言い直す／書き出す"
+      },
+      "milestone": false,
+      "tags": [
+        "#app:nvc",
+        "#モデル",
+        "#感情"
+      ]
+    },
+    {
+      "id": "nvc.universal_needs",
+      "type": "theme",
+      "app_slug": "nvc",
+      "theme_id": "universal_needs",
+      "title": "🧩 4要素③：普遍的な『ニーズ』を見極める型",
+      "layer": 2,
+      "content_type": "model",
+      "seed_question": "今週、何かしてほしいと思った時、それは『お金』『認められたい』『時間』ではなく、その奥のどんな『普遍的ニーズ』だったのか、言葉にできましたか？",
+      "daily_practice": "今日、『これが欲しい／こうしてほしい』と思ったことを1つ、普遍的ニーズ（自律性／承認／親密さ／理解／貢献 など）に当てはめて書く。",
+      "rubric": [
+        "ニーズという概念を知らない。『あの人に怒られた』『お金が欲しい』などの表層的な欲望を言う",
+        "ニーズが『自律性』『承認』『親密さ』などの普遍的カテゴリーがあることを学んだ",
+        "自分のニーズをある程度言語化できるが、漠然としている。『理解される』と言い切るのに時間がかかる",
+        "つねに自分や相手が何を必要としているかを瞬時に見極め、Rosenbergのニーズ一覧なしに名づけられる"
+      ],
+      "daily_practice_steps": {
+        "variation": "base",
+        "variation_label": "🔵 ベース（認知）：入力 → 精緻化 → 出力",
+        "step1": "STEP 1 · 入力：『これが欲しい／こうしてほしい』と思った表層の欲望をそのまま書き出す（例：『お金が欲しい』『褒めてほしい』）",
+        "step2": "STEP 2 · 精緻化：Rosenbergの普遍的ニーズ一覧（自律性／承認／親密さ／理解／貢献／身体的養い／遊び／意味）のどれに当てはまるか照合する",
+        "step3": "STEP 3 · 出力：具体的なニーズ名で表現し直す（例：『お金が欲しい』→『安心を必要としている』）"
+      },
+      "milestone": false,
+      "tags": [
+        "#app:nvc",
+        "#ニーズ",
+        "#モデル"
+      ]
+    },
+    {
+      "id": "nvc.concrete_positive_request",
+      "type": "theme",
+      "app_slug": "nvc",
+      "theme_id": "concrete_positive_request",
+      "title": "🧩 4要素④：肯定的で具体的な『リクエスト』の型",
+      "layer": 2,
+      "content_type": "model",
+      "seed_question": "今週、相手に何かしてほしい時、『〜しないで』ではなく『〜してほしい』と、肯定的・具体的に言えた瞬間はいつですか？",
+      "daily_practice": "今日、『〜してほしい』と思ったことを1つ、『〜しないで』ではなく『〜してください』／『もっと』ではなく『毎週月曜7時に』など具体的に言い直す。",
+      "rubric": [
+        "『もっと気を配ってほしい』『優しくしてほしい』など曖昧な要求をする。相手は何をしたらいいか分からない",
+        "『〜してほしい』と肯定的に言うことの大切さを知ったが、具体化は難しい",
+        "『テーブルをセットしてほしい』など、相手が実行しやすい形に言い換えられる。時間・頻度指定はまだ未熟",
+        "リアルタイムで相手が確実に行動できる具体的リクエストに変換。強要ではなく純粋な要求として届く"
+      ],
+      "daily_practice_steps": {
+        "variation": "base",
+        "variation_label": "🔵 ベース（認知）：入力 → 精緻化 → 出力",
+        "step1": "STEP 1 · 入力：相手にしてほしいことをそのまま書き出す（例：『もっと気を配ってほしい』『邪魔しないで』）",
+        "step2": "STEP 2 · 精緻化：『〜しないで』の否定形、『もっと／ちゃんと』の曖昧語が混ざっていないかチェック",
+        "step3": "STEP 3 · 出力：肯定形＋具体形（時間・頻度・場所・回数）で言い直す（例：『毎朝おはようと声をかけてほしい』）"
+      },
+      "milestone": false,
+      "tags": [
+        "#app:nvc",
+        "#モデル"
+      ]
+    },
+    {
+      "id": "nvc.empathic_listening",
+      "type": "theme",
+      "app_slug": "nvc",
+      "theme_id": "empathic_listening",
+      "title": "🎬 応用①：共感をもって『聞く』 — 感情とニーズを聞き取る力",
+      "layer": 3,
+      "content_type": "story",
+      "seed_question": "相手が何か言ってきた時、すぐに返事や励ましをするのではなく、相手が『何を感じているのか／何を必要としているのか』を聞き取ろうと集中できた瞬間はいつですか？",
+      "daily_practice": "今日、誰かが何か言ってきた時、すぐに返事をせず『あなたは〜なのね。〜が欲しいのね』と相手の感情とニーズを言葉にして返す。1回やる。",
+      "rubric": [
+        "相手の話を聞きながら、アドバイスや励まし、自分の意見を言いたくなる。『ただ聞く』ができない",
+        "『ただそこにいる／相手の感情を聞き取る』という概念を知ったが、実践で迷う",
+        "相手の話を聞いて感情やニーズを推測し『〜ってことね』と言い返せる。時々『その解釈は違う』と修正される",
+        "相手の言葉から感情とニーズを瞬時に聞き取り、相手が『完全に理解された』と感じるほどの精度で返せる。沈黙からも感じ取れる"
+      ],
+      "daily_practice_steps": {
+        "variation": "field_design",
+        "variation_label": "🩵 場のデザイン：状況把握 → 解釈 → 介入",
+        "step1": "STEP 1 · 状況把握：相手の話を、アドバイス・励まし・自分の意見を挟まずに最後まで聞く",
+        "step2": "STEP 2 · 解釈：相手の言葉の奥にある『感情』と『ニーズ』を推測する（『この人は寂しくて、理解を求めているのでは』）",
+        "step3": "STEP 3 · 介入：『あなたは〜なのね。〜が欲しいのね』と言葉にして返し、相手の応答で解釈を検証する"
+      },
+      "milestone": false,
+      "tags": [
+        "#app:nvc",
+        "#ニーズ",
+        "#共感",
+        "#感情"
+      ]
+    },
+    {
+      "id": "nvc.rage_complete_expression",
+      "type": "theme",
+      "app_slug": "nvc",
+      "theme_id": "rage_complete_expression",
+      "title": "🎬 応用②：『怒り』を完全に表現する — 本当のニーズを暴露する",
+      "layer": 3,
+      "content_type": "story",
+      "seed_question": "今週、腹が立った瞬間に『あいつが悪い』と非難するのではなく、『私は〜を必要としていて、それが満たされていない』と怒りの核をえぐり出せた瞬間はありますか？",
+      "daily_practice": "今日、何か腹が立ったら、その怒りの奥にある『実は私は〜を必要としていたんだ』を書き出す。相手を責めない。",
+      "rubric": [
+        "腹が立つと『あの人が悪い』と相手のせいにする。怒りを相手への批判で表現する",
+        "『怒りの奥にはニーズがある』という理論を知ったが、激怒時に思い出せない",
+        "落ち着いた後に、怒りの奥のニーズを振り返ることはできるが、リアルタイムでは難しい",
+        "怒りが湧いた瞬間または少し落ち着いた直後に『私は何を必要としていたか』を即座に見つめ、非難せずに言語化できる"
+      ],
+      "daily_practice_steps": {
+        "variation": "inner_state",
+        "variation_label": "❤️ 人の内側：感情 → 思考 → 行動",
+        "step1": "STEP 1 · 感情：怒りの身体感覚（胃が煮える／顔が熱い／拳が握られる）を、そのまま観る（発散も抑圧もしない）",
+        "step2": "STEP 2 · 思考：『あいつが悪い』の思考をキャッチし、『私は何を必要としていて、それが満たされなかったのか』に問いを切り替える",
+        "step3": "STEP 3 · 行動：満たされないニーズを、相手を責めずに書き出す or 話す（例：『私は尊重を必要としていて、それが満たされなかったから怒っている』）"
+      },
+      "milestone": false,
+      "tags": [
+        "#app:nvc",
+        "#ニーズ",
+        "#感情"
+      ]
+    },
+    {
+      "id": "nvc.choice_translation",
+      "type": "theme",
+      "app_slug": "nvc",
+      "theme_id": "choice_translation",
+      "title": "🎬 応用③：『〜しなければ』を『〜を選ぶ』に翻訳する力",
+      "layer": 3,
+      "content_type": "model",
+      "seed_question": "今週、『やらなければならない』と思っていることを『実は私はこれを選んでいる、なぜなら〜を望むから』と言い直せた瞬間はありますか？",
+      "daily_practice": "今日、『〜しなければ』と言いそうになったら、『私は〜を望むから、これを選んでいる』に1回言い換える。1タスクでいい。",
+      "rubric": [
+        "やることを『やらなければ』『義務だから』の形でしか思考していない。選択肢の存在を認識していない",
+        "『実は選んでいる』という理論を知ったが、感覚的に『これは選択ではなく義務』と言い張る",
+        "『本当は何を望んでいるのか』と問い直し、『子どもの教育に貢献したいから送り迎えを選んでいる』などと言い直せるが、不安定",
+        "つねに『〜しなければ』と思う行動を『私は〜という価値観からこれを選ぶ』の確信に転換。行動が喜びに満ちている"
+      ],
+      "daily_practice_steps": {
+        "variation": "base",
+        "variation_label": "🔵 ベース（認知）：入力 → 精緻化 → 出力",
+        "step1": "STEP 1 · 入力：『〜しなければ』と思っているタスクを1つそのまま書き出す（例：『子どもの送り迎えをしなければ』）",
+        "step2": "STEP 2 · 精緻化：『私はなぜこれを望むのか／何の価値観を大切にしたいのか』を掘り下げる（例：『子どもの安全を守りたい／親としての貢献を大切にしたい』）",
+        "step3": "STEP 3 · 出力：『私は〜を望むから、これを選んでいる』の文で言い直す（例：『私は子どもの安全を望むから、送り迎えを選んでいる』）"
+      },
+      "milestone": false,
+      "tags": [
+        "#app:nvc",
+        "#意思決定"
+      ]
+    },
+    {
+      "id": "nvc.authentic_connection_creation",
+      "type": "theme",
+      "app_slug": "nvc",
+      "theme_id": "authentic_connection_creation",
+      "title": "🌱 統合実践：誠実さと共感に基づいた『絆』づくり — NVCの4要素を1つの対話に統合する",
+      "layer": 3,
+      "content_type": "story",
+      "seed_question": "今週、誰かとの対話で『私は〜を感じ、〜を必要としている。あなたは？』と自分を率直に表現しながら、同時に相手の感情とニーズを共感をもって聞き、双方のニーズが見える対話ができた瞬間はありますか？",
+      "daily_practice": "今日、信頼できる1人に対して『実は、私は〜について〜を感じていて、〜を必要としている』と率直に話し、相手の応答を共感をもって聞き取る。1回。",
+      "rubric": [
+        "対話では相手に合わせるか説得するかどちらかになる。両者の感情とニーズが同時に見える状態を経験したことがない",
+        "NVCの4要素の流れを理論として理解したが、実践では『相手の感情を聞く』『自分のニーズを言う』どちらかに偏る",
+        "1対1で、相手に率直に自分を表現し、相手の感情も聞き取ろうとしている。時々どちらかが途切れる",
+        "継続的に相手と対話し、自分のニーズを率直に表現しながら相手を共感的に聞き、双方の感情とニーズが見えて『本当に通じ合った』関係が複数ある"
+      ],
+      "daily_practice_steps": {
+        "variation": "field_design",
+        "variation_label": "🩵 場のデザイン：状況把握 → 解釈 → 介入",
+        "step1": "STEP 1 · 状況把握：対話の場で、自分の観察・感情・ニーズと、相手のふるまい・表情・声のトーンを両方観る",
+        "step2": "STEP 2 · 解釈：自分の4要素（観察／感情／ニーズ／リクエスト）と、相手の4要素を同時に組み立てる（推測でよい）",
+        "step3": "STEP 3 · 介入：『実は、私は〜を感じていて、〜を必要としている』と率直に表現しつつ、相手の応答を共感的に受け取り、双方のニーズが見える対話にする"
+      },
+      "milestone": true,
+      "tags": [
+        "#app:nvc",
+        "#価値観",
+        "#共感",
+        "#学び方",
+        "#対話",
+        "#関係性"
+      ]
+    },
+    {
+      "id": "ecosystem.blueprint_of_ecosystem",
+      "type": "theme",
+      "app_slug": "ecosystem",
+      "theme_id": "blueprint_of_ecosystem",
+      "title": "価値共創コミュニティの青写真",
+      "layer": 1,
+      "content_type": "concept",
+      "seed_question": "あなたが今つくろうとしている場は、『インプット → 場 → アウトプット』の循環がまわる青写真になっていますか？どこが詰まっていますか？",
+      "daily_practice": "",
+      "rubric": [
+        "組織を役割・機能の集合として捉え、循環という発想を持っていない",
+        "インプット・場・アウトプットの3要素は知っているが、実際に自分の場のどこに配置するかは言えない",
+        "自分の場の3要素を絵にして、循環が詰まっている箇所を特定し、補強策を打てる",
+        "文脈（規模・目的・成熟度）に応じて、循環のデザインを組み替えられる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:ecosystem",
+        "#価値観",
+        "#共創",
+        "#場のデザイン"
+      ]
+    },
+    {
+      "id": "ecosystem.collective_intelligence",
+      "type": "theme",
+      "app_slug": "ecosystem",
+      "theme_id": "collective_intelligence",
+      "title": "集合天才：凡人の集まりが非凡を生む",
+      "layer": 1,
+      "content_type": "concept",
+      "seed_question": "あなたのチームは『一人のスーパースター』に依存していますか？それとも『凡人の集合が集合天才として動く』設計になっていますか？",
+      "daily_practice": "",
+      "rubric": [
+        "優れたチームは優れた個人の集まりだと考えている",
+        "集合天才の概念は知っているが、自分の場をどう設計変更すれば実現するかは言えない",
+        "個人依存点を特定し、集合天才として機能する場の仕掛けを設計・実装できる",
+        "場の成熟度に応じて、個人才能を活かすフェーズと集合天才に切り替えるフェーズを選び分けられる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:ecosystem"
+      ]
+    },
+    {
+      "id": "ecosystem.facilitator_stance",
+      "type": "theme",
+      "app_slug": "ecosystem",
+      "theme_id": "facilitator_stance",
+      "title": "ファシリテーターの立ち位置：教えるのではなく導く",
+      "layer": 1,
+      "content_type": "concept",
+      "seed_question": "あなたは今、参加者に『答え』を教えていませんか？彼らの中にすでにある答えを、どう引き出せますか？",
+      "daily_practice": "",
+      "rubric": [
+        "参加者が困っていると、つい答えを渡してしまう",
+        "『ガイド』の立ち位置は理解しているが、実際の場では専門家モードに戻ってしまう",
+        "答えを持たずに問いだけを投げ、参加者が自ら道を見つけるのを待てる",
+        "場面（初学者・熟達者・危機・平時）に応じて、教える／導く／黙るを選び分けられる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:ecosystem",
+        "#主催"
+      ]
+    },
+    {
+      "id": "ecosystem.three_layer_structure",
+      "type": "theme",
+      "app_slug": "ecosystem",
+      "theme_id": "three_layer_structure",
+      "title": "三層構造：Why / What / How を分けて考える",
+      "layer": 2,
+      "content_type": "model",
+      "seed_question": "あなたの場は、Why・What・How の三層が分かれていますか？1人ですべてを背負っていませんか？",
+      "daily_practice": "",
+      "rubric": [
+        "自分が1人でWhy・What・Howすべてを背負っている",
+        "三層構造の概念は理解しているが、実際の場で誰がどの層を担うかを設計できていない",
+        "場のメンバーを三層に配置し、それぞれが自分の層で思考する仕掛けを回せる",
+        "場の成熟度・規模に応じて三層の分担を柔軟に組み替えられる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:ecosystem",
+        "#価値観"
+      ]
+    },
+    {
+      "id": "ecosystem.rakuyu_three_principles",
+      "type": "theme",
+      "app_slug": "ecosystem",
+      "theme_id": "rakuyu_three_principles",
+      "title": "楽友の3原則：対等・率直・肯定",
+      "layer": 2,
+      "content_type": "model",
+      "seed_question": "あなたの場では『相手のほうが正しいかもしれない』という謙虚さが、暗黙の前提になっていますか？",
+      "daily_practice": "",
+      "rubric": [
+        "場の関係性は所与のものとして、意識的にデザインしていない",
+        "3原則は理解しているが、実際の場では役職・上下関係が優先されている",
+        "3原則を場のグランドルールとして明示し、参加者の行動に定着させられる",
+        "参加者の熟達段階・場の目的に応じて、3原則を微調整して埋め込める"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:ecosystem",
+        "#原理",
+        "#関係性"
+      ]
+    },
+    {
+      "id": "ecosystem.collective_space",
+      "type": "theme",
+      "app_slug": "ecosystem",
+      "theme_id": "collective_space",
+      "title": "みんなでつくる場：1人の決意から始まるエコシステム",
+      "layer": 2,
+      "content_type": "model",
+      "seed_question": "あなたが起こした最初の『波紋』は何ですか？そこから広がる場のデザインを、いま何フェーズで描けますか？",
+      "daily_practice": "",
+      "rubric": [
+        "自分が『場をつくる主体』だという自覚がない",
+        "波紋の広がりは概念として理解しているが、自分の場をフェーズで描けていない",
+        "自分の場のフェーズを描き、次のフェーズへの一手を打てる",
+        "フェーズの遷移が停滞したとき、複数の打ち手から状況に応じて選べる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": true,
+      "tags": [
+        "#app:ecosystem",
+        "#場のデザイン"
+      ]
+    },
+    {
+      "id": "ecosystem.group_coaching_engine",
+      "type": "theme",
+      "app_slug": "ecosystem",
+      "theme_id": "group_coaching_engine",
+      "title": "グループコーチング4ステップ：エコシステムのエンジン",
+      "layer": 2,
+      "content_type": "model",
+      "seed_question": "あなたの場に『毎週回るGCエンジン』はありますか？なければ、最初の1回をどう回しますか？",
+      "daily_practice": "",
+      "rubric": [
+        "GCは特殊なスキルが必要だと思い込んでいる",
+        "4ステップは知っているが、自分の場で実装できていない",
+        "GC4ステップを場で回し、集合天才が発動する場面を作れる",
+        "参加者のレベル・場の目的に応じて、4ステップの間合いや問いをカスタマイズできる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:ecosystem",
+        "#場のデザイン"
+      ]
+    },
+    {
+      "id": "ecosystem.product_from_experience",
+      "type": "theme",
+      "app_slug": "ecosystem",
+      "theme_id": "product_from_experience",
+      "title": "プロダクトをつくる：あなたの『ありえない』を『ありえる』に",
+      "layer": 3,
+      "content_type": "model",
+      "seed_question": "あなたの場から生まれた実践・気づきは、外の世界に届く『プロダクト』の形になっていますか？誰の『ありえない』を『ありえる』に変えていますか？",
+      "daily_practice": "",
+      "rubric": [
+        "場の実践は場の中だけに留まっていて、プロダクトという発想がない",
+        "プロダクト化の重要性は理解しているが、自分の場の実践から具体的なプロダクトを描けない",
+        "場の実践から30点でもプロダクトを世に出し、フィードバックを得る循環を回せる",
+        "プロダクトの成熟度・受け取り手の変化に応じて、次のプロダクトを設計し直せる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:ecosystem"
+      ]
+    },
+    {
+      "id": "ecosystem.recruiting_by_vision",
+      "type": "theme",
+      "app_slug": "ecosystem",
+      "theme_id": "recruiting_by_vision",
+      "title": "ビジョンでリクルーティング：お願いから招待状へ",
+      "layer": 3,
+      "content_type": "story",
+      "seed_question": "あなたは今、仲間集めを『お願い』でやっていませんか？それを『一緒に未来をつくる招待状』に書き換えるとしたら、どう変わりますか？",
+      "daily_practice": "",
+      "rubric": [
+        "仲間集めは自分の『お願い』でしかできないと思っている",
+        "招待状の発想は理解しているが、自分のビジョンを言葉にできていない",
+        "ビジョンを招待状として語れ、実際に人が集まる状態を作れる",
+        "招待状の解像度・呼びかけ相手を変えることで、フェーズごとに違うタイプの仲間を集められる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:ecosystem",
+        "#ミッション",
+        "#価値観"
+      ]
+    },
+    {
+      "id": "ecosystem.team_dissolution",
+      "type": "theme",
+      "app_slug": "ecosystem",
+      "theme_id": "team_dissolution",
+      "title": "チーム解散の力：クラス替えでコンフォートゾーンを出る",
+      "layer": 3,
+      "content_type": "model",
+      "seed_question": "あなたの場に『うまく回りすぎているチーム』はありませんか？あえて解散させることで、どんな眠っている可能性が引き出せそうですか？",
+      "daily_practice": "",
+      "rubric": [
+        "うまくいっているチームは維持するべきだと考えている",
+        "解散の意義は理解しているが、実際に踏み切る決断ができない",
+        "定期的なクラス替えを場に組み込み、参加者の眠っている可能性を引き出せる",
+        "解散のタイミング・組み替え方を、場の目的と参加者の熟達段階に応じて設計できる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:ecosystem"
+      ]
+    },
+    {
+      "id": "ecosystem.kindle_publication",
+      "type": "theme",
+      "app_slug": "ecosystem",
+      "theme_id": "kindle_publication",
+      "title": "Kindle出版する：30点で世に出す軽やかさ",
+      "layer": 3,
+      "content_type": "story",
+      "seed_question": "あなたの場のアウトプットは『完璧を待って』いませんか？30点で出せる場のプロダクトは何ですか？",
+      "daily_practice": "",
+      "rubric": [
+        "完璧を目指して結局出せずに終わっている",
+        "30点で出す発想は理解しているが、自分の場のアウトプットを世に出せていない",
+        "30点で世に出し、仲間のフィードバックで育てる循環を回せる",
+        "アウトプットの種類・受け取り手・目的に応じて、出し方と磨き方を選び分けられる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:ecosystem"
+      ]
+    },
+    {
+      "id": "talkable-school.adaptive_challenges",
+      "type": "theme",
+      "app_slug": "talkable-school",
+      "theme_id": "adaptive_challenges",
+      "title": "適応課題を見極める",
+      "layer": 1,
+      "content_type": "concept",
+      "seed_question": "あなたが今、GC/TTPで扱っている主題は、技術的問題ですか、それとも適応課題ですか。",
+      "daily_practice": "",
+      "rubric": [
+        "課題の性質を分けて考える発想がない",
+        "『技術的問題 / 適応課題』の区別を概念として説明できる",
+        "自分の場で直面している主題を、2つに識別できる",
+        "適応課題を扱う場面で、対話的アプローチを意図的に選択できる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:talkable-school"
+      ]
+    },
+    {
+      "id": "talkable-school.psychological_safety",
+      "type": "theme",
+      "app_slug": "talkable-school",
+      "theme_id": "psychological_safety",
+      "title": "心理的安全性を組織の土壌に",
+      "layer": 1,
+      "content_type": "concept",
+      "seed_question": "あなたの場で、参加者が『無知だと思われる不安』を最も感じている瞬間はどこですか。",
+      "daily_practice": "",
+      "rubric": [
+        "『雰囲気の良さ』と心理的安全性を混同している",
+        "心理的安全性を4つの不安（無知・無能・邪魔・ネガティブ）で言語化できる",
+        "自分の場で、どの不安がどの場面で起きているかを識別できる",
+        "参加者の役割・立場・関係性に応じて、不安を減らす仕掛けを設計できる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:talkable-school",
+        "#心理的安全性"
+      ]
+    },
+    {
+      "id": "talkable-school.suspending_assumptions",
+      "type": "theme",
+      "app_slug": "talkable-school",
+      "theme_id": "suspending_assumptions",
+      "title": "自分の想定を保留する（メタ認知）",
+      "layer": 1,
+      "content_type": "concept",
+      "seed_question": "直近の GC で、あなたが『いったん保留した意見』はありましたか。",
+      "daily_practice": "",
+      "rubric": [
+        "自分の判断が『前提付き』だと気づいていない",
+        "自分の前提を『後から』振り返って言語化できる",
+        "対話の最中に、自分の前提を『その場で』保留できる",
+        "他者の前提の存在を尊重しながら、自分の前提と重ねて対話できる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:talkable-school",
+        "#無意識の思い込み"
+      ]
+    },
+    {
+      "id": "talkable-school.nvc_core",
+      "type": "theme",
+      "app_slug": "talkable-school",
+      "theme_id": "nvc_core",
+      "title": "NVC：観察・感情・願い・要求",
+      "layer": 1,
+      "content_type": "model",
+      "seed_question": "直近1週間で『イラっとした』瞬間を1つ思い出して、NVCの4ステップに翻訳してみてください。",
+      "daily_practice": "",
+      "rubric": [
+        "感情と評価を混同している（『あなたは無責任だ』が感情だと思う）",
+        "NVCの4ステップを頭で理解している",
+        "自分の感情の奥にある『願い（ニーズ）』を1つ言語化できる",
+        "相手の言葉の奥にある『願い』を汲みながら、自分のニーズも伝えられる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:talkable-school",
+        "#事実と評価",
+        "#感情"
+      ]
+    },
+    {
+      "id": "talkable-school.dialogue_four_modes",
+      "type": "theme",
+      "app_slug": "talkable-school",
+      "theme_id": "dialogue_four_modes",
+      "title": "対話の4モード（儀礼→討論→内省→生成）",
+      "layer": 2,
+      "content_type": "model",
+      "seed_question": "直近の GC / TTP を1つ思い出して、その場の対話は最終的にどのモードで終わっていましたか。",
+      "daily_practice": "",
+      "rubric": [
+        "対話を『話し合い』と一括りにしている",
+        "4モードを概念として説明できる",
+        "自分の場で、リアルタイムに『今どのモードにいるか』を見立てられる",
+        "モード間のシフトを、問い・沈黙・言葉遣いで意図的に起こせる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": true,
+      "tags": [
+        "#app:talkable-school",
+        "#対話"
+      ]
+    },
+    {
+      "id": "talkable-school.generative_dialogue",
+      "type": "theme",
+      "app_slug": "talkable-school",
+      "theme_id": "generative_dialogue",
+      "title": "生成的な対話：立場を超えて話す",
+      "layer": 2,
+      "content_type": "model",
+      "seed_question": "あなたの GC / TTP で、参加者が『役職を外して話せた瞬間』はいつでしたか。",
+      "daily_practice": "",
+      "rubric": [
+        "『立場を外す』を綺麗事だと思っている",
+        "生成的な対話の状態を概念として理解している",
+        "自分の場で、部分的にでも生成的な対話を起こせる",
+        "参加者の組み合わせ・場の設計で、生成的な対話が生まれやすい条件を整えられる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:talkable-school",
+        "#場のデザイン",
+        "#対話"
+      ]
+    },
+    {
+      "id": "talkable-school.deep_listening",
+      "type": "theme",
+      "app_slug": "talkable-school",
+      "theme_id": "deep_listening",
+      "title": "内省的に聴く・共感的に聴く",
+      "layer": 2,
+      "content_type": "model",
+      "seed_question": "直近 GC で、あなたが『話者の言葉の奥の経験』にまで耳が届いた瞬間はありましたか。",
+      "daily_practice": "",
+      "rubric": [
+        "『聞く』と『聴く』の違いを気にしていない",
+        "内省的・共感的に聴く姿勢を概念として理解している",
+        "話の途中で、自分の思考を止めて話者の経験を想像できる",
+        "沈黙・問い返し・言い換えを組み合わせて、話者の内省を促せる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:talkable-school",
+        "#共感"
+      ]
+    },
+    {
+      "id": "talkable-school.staff_meeting_redesign",
+      "type": "theme",
+      "app_slug": "talkable-school",
+      "theme_id": "staff_meeting_redesign",
+      "title": "職員会議を『話せる』場に再設計する",
+      "layer": 2,
+      "content_type": "model",
+      "seed_question": "あなたの組織で『伝達だけになっている定例』はどれですか。そこに1つだけ問いを仕込むなら、何を仕込みますか。",
+      "daily_practice": "",
+      "rubric": [
+        "定例は『伝達の場』だと固定化して考えている",
+        "定例の中に対話・事例共有を組み込む発想がある",
+        "定例の1部分を、実際に対話の場に転換できる",
+        "定例全体の設計を、伝達／対話／事例共有／意思決定のバランスで再構築できる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:talkable-school",
+        "#場のデザイン",
+        "#対話"
+      ]
+    },
+    {
+      "id": "talkable-school.facilitative_leadership",
+      "type": "theme",
+      "app_slug": "talkable-school",
+      "theme_id": "facilitative_leadership",
+      "title": "促進的リーダーシップ",
+      "layer": 3,
+      "content_type": "model",
+      "seed_question": "あなたが最近ファシリした場で、『答えを持ってきたくなる誘惑』が一番強かった瞬間はどこでしたか。",
+      "daily_practice": "",
+      "rubric": [
+        "リーダーシップ=強い方向づけだと思っている",
+        "促進的リーダーシップの概念を理解している",
+        "自分の場で、指示を控えて問いを投げる実践ができる",
+        "文脈に応じて『指示 / 問い / 沈黙 / 委任』を選び分けられる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:talkable-school",
+        "#リーダーシップ"
+      ]
+    },
+    {
+      "id": "talkable-school.middle_leader",
+      "type": "theme",
+      "app_slug": "talkable-school",
+      "theme_id": "middle_leader",
+      "title": "ミドルリーダーの実践",
+      "layer": 3,
+      "content_type": "model",
+      "seed_question": "あなたの組織のミドル層のうち、GC/TTPを『自分の場』として動かし始めた人は誰ですか。",
+      "daily_practice": "",
+      "rubric": [
+        "ミドルの役割を『管理職の下請け』としか見ていない",
+        "ミドルの『翻訳者』としての機能を概念として理解している",
+        "自分がミドルとして、上のビジョンを現場サイズに翻訳できる",
+        "他のミドル層を支援・接続して、組織全体の対話の場を作れる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:talkable-school",
+        "#リーダーシップ",
+        "#学び方"
+      ]
+    },
+    {
+      "id": "talkable-school.stakeholder_co_creation",
+      "type": "theme",
+      "app_slug": "talkable-school",
+      "theme_id": "stakeholder_co_creation",
+      "title": "保護者・地域との共創（エコシステム）",
+      "layer": 3,
+      "content_type": "story",
+      "seed_question": "あなたの GC / TTP を『社外の1人』が同席する形にするとしたら、まず誰に声をかけますか。",
+      "daily_practice": "",
+      "rubric": [
+        "対話は『社内のみで完結する』と思っている",
+        "エコシステム型の対話を概念として理解している",
+        "小さく1回、社外の1人を GC / TTP に招く実践ができる",
+        "半年〜数年のスパンで、社外・顧客・パートナーを含む価値共創の場を設計できる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:talkable-school",
+        "#共創",
+        "#場のデザイン"
+      ]
+    },
+    {
+      "id": "context-leadership.action_illusion",
+      "type": "theme",
+      "app_slug": "context-leadership",
+      "theme_id": "action_illusion",
+      "title": "行為論の限界",
+      "layer": 1,
+      "content_type": "",
+      "seed_question": "あなたが最悪の上司だと思った人の行為を、最高の上司の行為として説明できるか？",
+      "daily_practice": "",
+      "rubric": [
+        "「良い上司/悪い上司リスト」は書けるが、両者が同じ行為の裏表であることに気づいていない",
+        "「任せる」と「丸投げ」が行為だけでは区別できないことは説明できるが、自分の行為が相手にどちらとして届いているかは検証していない",
+        "自分の直近の行為について「これは任せるとして届いた／丸投げとして届いた」を事後にレビューできる",
+        "行為を出す前に「これは相手にどちらとして届く可能性が高いか」を予測でき、届き方をデザインしてから行為を出せる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:context-leadership",
+        "#限界超え"
+      ]
+    },
+    {
+      "id": "context-leadership.meaning_over_action",
+      "type": "theme",
+      "app_slug": "context-leadership",
+      "theme_id": "meaning_over_action",
+      "title": "行為ではなく意味へ",
+      "layer": 2,
+      "content_type": "",
+      "seed_question": "あなたの「傾聴」を、相手はどう意味づけていた？",
+      "daily_practice": "",
+      "rubric": [
+        "自分の行為（褒める・指示する）を、行為そのものとしてカウントしている",
+        "行為には「意味の届き方」があると理解しているが、実務では行為の数を数えている",
+        "週1回程度、「先週の自分の関わりは、どんな意味として届いたか」を振り返れる",
+        "毎日、行為の前に「この場でこれはどんな意味として届くか」を先に考えてから行為している"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:context-leadership"
+      ]
+    },
+    {
+      "id": "context-leadership.context_reading",
+      "type": "theme",
+      "app_slug": "context-leadership",
+      "theme_id": "context_reading",
+      "title": "文脈の読解",
+      "layer": 3,
+      "content_type": "",
+      "seed_question": "同じ「頑張ろう」が、会議Aで刺さり会議Bで滑った時、何が違っていたか？",
+      "daily_practice": "",
+      "rubric": [
+        "「同じ言葉が違う場で違って響く」経験を持っているが、文脈のせいと言語化していない",
+        "文脈が意味を作ることは説明できるが、変数を分けて分析できていない",
+        "事後に少なくとも2つの文脈変数で説明できる",
+        "場に入る前に「今日この場で、どの変数がドミナントか」を読み、応答を組み替えられる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:context-leadership",
+        "#リーダーシップ"
+      ]
+    },
+    {
+      "id": "context-leadership.interpreter_frame",
+      "type": "theme",
+      "app_slug": "context-leadership",
+      "theme_id": "interpreter_frame",
+      "title": "相手の解釈フレーム",
+      "layer": 3,
+      "content_type": "",
+      "seed_question": "あなたの「明確な指示」を、相手はどのフレームで受けている？",
+      "daily_practice": "",
+      "rubric": [
+        "相手が自分と同じフレームで受け取っている前提で話している",
+        "フレームが違うことは知っているが、事前想定はしていない",
+        "重要な会話の前に、相手のフレーム候補を1つは想定している",
+        "2つ以上のフレーム想定を持ち、外れた瞬間に別フレームへ切り替えられる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:context-leadership",
+        "#モデル"
+      ]
+    },
+    {
+      "id": "context-leadership.intent_transmission",
+      "type": "theme",
+      "app_slug": "context-leadership",
+      "theme_id": "intent_transmission",
+      "title": "意図と伝達の非対称",
+      "layer": 2,
+      "content_type": "",
+      "seed_question": "「明確な指示」が「マイクロマネジメント」と受け取られた瞬間、何が起きていた？",
+      "daily_practice": "",
+      "rubric": [
+        "自分の意図が正しく伝わっている前提で動いている",
+        "ギャップは起きると知っているが、事後に辿ることをしていない",
+        "事後に辿って「どこでズレたか」を言語化できる",
+        "伝える瞬間に「今この伝え方だと、意図の何%が届くか」を推定し、必要なら伝え方の設計を先にやる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:context-leadership",
+        "#ミッション"
+      ]
+    },
+    {
+      "id": "context-leadership.delegation_split",
+      "type": "theme",
+      "app_slug": "context-leadership",
+      "theme_id": "delegation_split",
+      "title": "任せると丸投げの分岐点",
+      "layer": 2,
+      "content_type": "",
+      "seed_question": "あなたが最後に「任せた」時、あなたは何を残し、何を渡していたか？",
+      "daily_practice": "",
+      "rubric": [
+        "「任せた」と「丸投げした」を自分で決めている（相手の受け取りを問うていない）",
+        "責任／情報／判断の3軸を意識できるが、実務では混ぜている",
+        "任せる時に「何を残し／何を渡すか」を明示できる",
+        "相手の熟達度と場の緊急性に応じて、3軸それぞれの渡し方を場ごとに設計できる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:context-leadership"
+      ]
+    },
+    {
+      "id": "context-leadership.feedback_semantics",
+      "type": "theme",
+      "app_slug": "context-leadership",
+      "theme_id": "feedback_semantics",
+      "title": "フィードバックの意味論",
+      "layer": 2,
+      "content_type": "",
+      "seed_question": "あなたの厳しいFBは、いつ「気づき」になり、いつ「攻撃」になっているか？",
+      "daily_practice": "",
+      "rubric": [
+        "「厳しくFBした」と「ディスった」の違いを自分の意図で判別している",
+        "相手の受け取りで意味が決まると知っているが、事前予測はしていない",
+        "FBの前に「これは気づきになるか／攻撃になるか」の予測ができる",
+        "予測が外れた時、その場で意味の再設計ができる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:context-leadership"
+      ]
+    },
+    {
+      "id": "context-leadership.vision_flex",
+      "type": "theme",
+      "app_slug": "context-leadership",
+      "theme_id": "vision_flex",
+      "title": "ビジョンと柔軟性の両立",
+      "layer": 2,
+      "content_type": "",
+      "seed_question": "あなたの意思決定は、外から見て「ブレない」か「頑固」か？誰がジャッジしている？",
+      "daily_practice": "",
+      "rubric": [
+        "「ブレない」と「柔軟」を状況の運任せにしている",
+        "軸と枝葉の違いは説明できるが、実務では区別が曖昧",
+        "自分の意思決定について「これは軸／これは枝葉」を宣言してから決められる",
+        "チームメンバーが「今どちらが変わり、どちらが変わらないか」を常に読める状態を維持している"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:context-leadership",
+        "#ミッション",
+        "#価値観"
+      ]
+    },
+    {
+      "id": "context-leadership.dialogic_leadership",
+      "type": "theme",
+      "app_slug": "context-leadership",
+      "theme_id": "dialogic_leadership",
+      "title": "対話としてのリーダーシップ",
+      "layer": 3,
+      "content_type": "",
+      "seed_question": "あなたの意思決定は、相手に「聞かれた」と感じさせているか？",
+      "daily_practice": "",
+      "rubric": [
+        "決定した後に「共有」している",
+        "「聞く」を行為として組み込んでいる（会議前のアンケート等）",
+        "決定プロセスに関与者が「聞かれた」体験を残せている",
+        "決定のスピードと対話の深さを場ごとにトレードオフでき、その判断理由を関与者と共有できる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:context-leadership",
+        "#リーダーシップ",
+        "#対話"
+      ]
+    },
+    {
+      "id": "context-leadership.field_design",
+      "type": "theme",
+      "app_slug": "context-leadership",
+      "theme_id": "field_design",
+      "title": "場のデザインとしてのリーダーシップ",
+      "layer": 3,
+      "content_type": "",
+      "seed_question": "この状況で、あなたが行為を我慢して、代わりに場を動かすとしたら？",
+      "daily_practice": "",
+      "rubric": [
+        "問題が起きたら「自分の行為」で解こうとする",
+        "「場を変える」オプションは知っているが、緊急時は行為に戻る",
+        "中期の課題については、行為より場の設計を優先している",
+        "短期・中期・長期のどの時間軸でも「場を動かす／行為を出す」の使い分けができる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:context-leadership",
+        "#リーダーシップ",
+        "#場のデザイン"
+      ]
+    },
+    {
+      "id": "genkai.limit_illusion",
+      "type": "theme",
+      "app_slug": "genkai",
+      "theme_id": "limit_illusion",
+      "title": "限界の正体",
+      "layer": 1,
+      "content_type": "",
+      "seed_question": "あなたが「できない」と思い込んでいることの中で、本当に不可能なものはいくつありますか？",
+      "daily_practice": "",
+      "rubric": [
+        "限界は自分の現状や学歴・資格によるものだと考えている",
+        "限界が心理的なものであること、マインドセットで変わることを概念として理解している",
+        "自分の人生で「これはできない」と思い込んでいることを認識し、実際に試してみている",
+        "状況や自分の成長段階に応じて、制限を動的に再評価できる判断軸を持っている"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:genkai",
+        "#限界超え"
+      ]
+    },
+    {
+      "id": "genkai.philosophy_vs_tactic",
+      "type": "theme",
+      "app_slug": "genkai",
+      "theme_id": "philosophy_vs_tactic",
+      "title": "理念と手段の違い",
+      "layer": 1,
+      "content_type": "",
+      "seed_question": "マーケティング手法が優れていても、理念が間違っていたら、なぜビジネスは衰退するのでしょう？",
+      "daily_practice": "",
+      "rubric": [
+        "仕事の目的は給与や成果数字であり、理念との区別がない",
+        "理念（why）と手段（how）の区別、理念の重要性を理解している",
+        "自分の仕事の理念を明確に言語化し、それに基づいて判断している",
+        "状況が変わった時、理念は変わらないまま手段を柔軟に変更できる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:genkai"
+      ]
+    },
+    {
+      "id": "genkai.failure_resilience",
+      "type": "theme",
+      "app_slug": "genkai",
+      "theme_id": "failure_resilience",
+      "title": "失敗と逆境からの復活",
+      "layer": 1,
+      "content_type": "",
+      "seed_question": "一文無しになったり離婚したりという失敗から、なぜ人は成功者になれるのでしょう？",
+      "daily_practice": "",
+      "rubric": [
+        "失敗は終わりであり、そこから先は無い。人のせいにする",
+        "失敗からの学習、逆境に対する主体的な対処の重要性を理解している",
+        "実際の失敗・逆境の中で、「何を学ぶか」に意識的に向き合っている",
+        "新しい失敗に直面した時、過去の失敗から得た「生きる力」を柔軟に応用できる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:genkai"
+      ]
+    },
+    {
+      "id": "genkai.value_creation_contribution",
+      "type": "theme",
+      "app_slug": "genkai",
+      "theme_id": "value_creation_contribution",
+      "title": "価値創造と貢献志向",
+      "layer": 1,
+      "content_type": "",
+      "seed_question": "なぜお金を得ることを目的にすると、逆にお金が逃げていくのでしょう？",
+      "daily_practice": "",
+      "rubric": [
+        "仕事や人間関係は損得勘定であり、他者への貢献と自分の利益は相反する",
+        "「他者への価値提供が、自分の成功をもたらす」という理念を理解している",
+        "実務で「相手にとっての価値」を常に問い、そこに焦点を合わせている",
+        "自分の利益と相手の利益が違う時、相手の側に立ち、その決定の責任を引き受けられる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:genkai",
+        "#価値観"
+      ]
+    },
+    {
+      "id": "genkai.small_action_compounding",
+      "type": "theme",
+      "app_slug": "genkai",
+      "theme_id": "small_action_compounding",
+      "title": "小さなアクションの複利",
+      "layer": 2,
+      "content_type": "",
+      "seed_question": "毎日5つ新しい単語を覚えることが、どうやって営業スキルの向上に繋がるのでしょう？",
+      "daily_practice": "",
+      "rubric": [
+        "大きな目標を掲げ、短期間で達成しようとしている、または一度の失敗で止める",
+        "小さな継続の価値、複利効果について理解している",
+        "実際に小さな毎日のアクションを設計し、実行し、その成果を記録している",
+        "文脈に応じて「小さすぎる」と「十分か」のバランスを判断でき、軌道修正できる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:genkai"
+      ]
+    },
+    {
+      "id": "genkai.extracting_from_experience",
+      "type": "theme",
+      "app_slug": "genkai",
+      "theme_id": "extracting_from_experience",
+      "title": "経験を糧にする自問法",
+      "layer": 2,
+      "content_type": "",
+      "seed_question": "就職面接は「合否を決める場」ですか、それとも「自分を発見する場」ですか？",
+      "daily_practice": "",
+      "rubric": [
+        "経験は単に「こなすべき日常」であり、終わったら忘れる",
+        "すべての経験に学びの可能性があること、自問の重要性を理解している",
+        "日常の経験の直後に自問し、記録し、学びを抽出する習慣がある",
+        "経験から引き出した学びが、次の文脈でどう応用すべきか判断できる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:genkai"
+      ]
+    },
+    {
+      "id": "genkai.socratic_dialogue",
+      "type": "theme",
+      "app_slug": "genkai",
+      "theme_id": "socratic_dialogue",
+      "title": "相手の本質を引き出す質問力",
+      "layer": 2,
+      "content_type": "",
+      "seed_question": "「あなたは何をしていますか？」という質問の後、何を聞くべきですか？",
+      "daily_practice": "",
+      "rubric": [
+        "会話は情報交換や説得の手段であり、相手を理解する道具ではない",
+        "ソクラテス式問答の効力と「傾聴」の重要性を理解している",
+        "実際の対話で、相手の背景や隠れたニーズを引き出す質問ができる",
+        "その人の人生段階や文脈を読み、その瞬間に最適な質問が何かを判断できる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:genkai",
+        "#原理",
+        "#対話"
+      ]
+    },
+    {
+      "id": "genkai.mentor_learning_uniqueness",
+      "type": "theme",
+      "app_slug": "genkai",
+      "theme_id": "mentor_learning_uniqueness",
+      "title": "メンターから独自性を発見する",
+      "layer": 2,
+      "content_type": "",
+      "seed_question": "なぜ分野が異なるメンターを複数持つことが、自分の独自性を明確にするのでしょう？",
+      "daily_practice": "",
+      "rubric": [
+        "メンターは「正解を教えてくれる人」であり、自分で判断することはしない",
+        "メンターの役割が、判断軸を磨くこと、隠れた才能を引き出すことだと理解している",
+        "複数のメンター（異なる分野）を見つけ、そこから自分の独自性を抽出している",
+        "メンターの教えを相対化し、自分の文脈で何が使えるか、何を修正すべきか判断できる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:genkai",
+        "#学び方"
+      ]
+    },
+    {
+      "id": "genkai.critical_thinking_leverage",
+      "type": "theme",
+      "app_slug": "genkai",
+      "theme_id": "critical_thinking_leverage",
+      "title": "点と点を結ぶクリティカル思考",
+      "layer": 2,
+      "content_type": "",
+      "seed_question": "トム・ソーヤーはなぜ友達に塀を塗らせることができたのでしょう？",
+      "daily_practice": "",
+      "rubric": [
+        "問題を表面的に捉え、「これが原因」と単一の理由で説明する",
+        "複数の要因が相互に影響すること、因果関係を広く見ることの重要性を理解している",
+        "実際の問題について、表面的でない深い問い（「なぜなぜなぜ」）をできる",
+        "限られた情報から、複数のシナリオを想定し、最適な介入点を判断できる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:genkai",
+        "#感情"
+      ]
+    },
+    {
+      "id": "genkai.customer_psychology_ethics",
+      "type": "theme",
+      "app_slug": "genkai",
+      "theme_id": "customer_psychology_ethics",
+      "title": "相手の心に寄り添う倫理的販売",
+      "layer": 2,
+      "content_type": "",
+      "seed_question": "「消費者心理を知る」ことと「消費者を操作する」ことの違いは何ですか？",
+      "daily_practice": "",
+      "rubric": [
+        "人は自分の商品・サービスを買っていると考える。相手の感情や背景を軽視する",
+        "顧客は「結果」を買っており、その人の人生と悩みを理解する重要性を知っている",
+        "実際の営業や対話で相手の人生背景を理解し、それに基づいて提案できる",
+        "相手の本当の利益と自社の利益が一致しない時、正直に相手の立場に立った判断ができる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:genkai"
+      ]
+    },
+    {
+      "id": "genkai.character_elegance",
+      "type": "theme",
+      "app_slug": "genkai",
+      "theme_id": "character_elegance",
+      "title": "品格 — エレガンスへの道",
+      "layer": 3,
+      "content_type": "",
+      "seed_question": "なぜビジネスの成功は、その人の人間的成熟度と比例するのでしょう？",
+      "daily_practice": "",
+      "rubric": [
+        "ビジネス成功と人格は無関係。小手先のテクニックで十分",
+        "品格（誠実さ、倫理感、他者への敬意）が長期的な成功を生むことを理解している",
+        "自分の行動、言動、判断を「この人は品格があるか」という軸で自問している",
+        "状況が難しいほど、相手が試してくるほど、自分の品格で対応できる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:genkai"
+      ]
+    }
+  ],
+  "videos": [
+    {
+      "id": "tamakatsu.unconscious_assumption.video",
+      "type": "video",
+      "app_slug": "tamakatsu",
+      "theme_id": "unconscious_assumption",
+      "title": "🎬 第１章 無意識の思い込みを見つけ修正する — 認知強化と理論",
+      "embed_url": "https://www.youtube.com/embed/uSHUnS7zTjs",
+      "tags": [
+        "#app:tamakatsu",
+        "#無意識の思い込み"
+      ]
+    },
+    {
+      "id": "tamakatsu.four_cognitive_strategies.video",
+      "type": "video",
+      "app_slug": "tamakatsu",
+      "theme_id": "four_cognitive_strategies",
+      "title": "🎬 6 ４つの認知方略 — 思考をマスターする4つの戦略",
+      "embed_url": "https://www.youtube.com/embed/hOIQKrta_l8",
+      "tags": [
+        "#app:tamakatsu"
+      ]
+    },
+    {
+      "id": "tamakatsu.symbol_grounding.video",
+      "type": "video",
+      "app_slug": "tamakatsu",
+      "theme_id": "symbol_grounding",
+      "title": "🎬 7 わかると記号接地 — 学習のスーパーパワー",
+      "embed_url": "https://www.youtube.com/embed/tLoDDjm1Qjk",
+      "tags": [
+        "#app:tamakatsu"
+      ]
+    },
+    {
+      "id": "tamakatsu.expertise_resolution.video",
+      "type": "video",
+      "app_slug": "tamakatsu",
+      "theme_id": "expertise_resolution",
+      "title": "🎬 9 心象（心的イメージ） — エキスパートは世界をどう見ているのか",
+      "embed_url": "https://www.youtube.com/embed/eKW1CjI6O5g",
+      "tags": [
+        "#app:tamakatsu"
+      ]
+    },
+    {
+      "id": "tamakatsu.bottleneck_concentration.video",
+      "type": "video",
+      "app_slug": "tamakatsu",
+      "theme_id": "bottleneck_concentration",
+      "title": "🎬 10 評価表で熟達を測る",
+      "embed_url": "https://www.youtube.com/embed/xYHoyXJsOnM",
+      "tags": [
+        "#app:tamakatsu"
+      ]
+    },
+    {
+      "id": "tamakatsu.group_coaching.video",
+      "type": "video",
+      "app_slug": "tamakatsu",
+      "theme_id": "group_coaching",
+      "title": "🎬 12 グループコーチングで学習する組織をつくる",
+      "embed_url": "https://www.youtube.com/embed/wVE41GPGu8c",
+      "tags": [
+        "#app:tamakatsu",
+        "#場のデザイン",
+        "#学び方"
+      ]
+    },
+    {
+      "id": "tamakatsu.three_layer_team.video",
+      "type": "video",
+      "app_slug": "tamakatsu",
+      "theme_id": "three_layer_team",
+      "title": "🎬 13 三層構造で記号接地チームの天才性を解き放つ",
+      "embed_url": "https://www.youtube.com/embed/piaMgTKUo_I",
+      "tags": [
+        "#app:tamakatsu",
+        "#関係性"
+      ]
+    },
+    {
+      "id": "tamakatsu.tamakatsu_calling.video",
+      "type": "video",
+      "app_slug": "tamakatsu",
+      "theme_id": "tamakatsu_calling",
+      "title": "🎬 2「たまかつ」を生きる",
+      "embed_url": "https://www.youtube.com/embed/W-sUnlBXog4",
+      "tags": [
+        "#app:tamakatsu",
+        "#関係性"
+      ]
+    },
+    {
+      "id": "tamakatsu.collective_space.video",
+      "type": "video",
+      "app_slug": "tamakatsu",
+      "theme_id": "collective_space",
+      "title": "🎬 14 みんなでつくる場 — 私たちが輝く「場」のつくりかた",
+      "embed_url": "https://www.youtube.com/embed/572OUAcg_UU",
+      "tags": [
+        "#app:tamakatsu",
+        "#場のデザイン"
+      ]
+    },
+    {
+      "id": "tamakatsu.experience_to_product.video",
+      "type": "video",
+      "app_slug": "tamakatsu",
+      "theme_id": "experience_to_product",
+      "title": "🎬 15 プロダクトをつくる — 「忙しさ」から「価値」へ",
+      "embed_url": "https://www.youtube.com/embed/j6bjBDHBY2U",
+      "tags": [
+        "#app:tamakatsu"
+      ]
+    },
+    {
+      "id": "tamakatsu.recruitment_vision.video",
+      "type": "video",
+      "app_slug": "tamakatsu",
+      "theme_id": "recruitment_vision",
+      "title": "🎬 16 リクルーティング — 「不可能」から「可能」へ",
+      "embed_url": "https://www.youtube.com/embed/JfOjD6L_3nc",
+      "tags": [
+        "#app:tamakatsu",
+        "#ミッション",
+        "#価値観"
+      ]
+    },
+    {
+      "id": "tamakatsu.declaration_system.video",
+      "type": "video",
+      "app_slug": "tamakatsu",
+      "theme_id": "declaration_system",
+      "title": "🎬 19 あなこと（あなたはあなたの言葉でできている）— 宣言システム",
+      "embed_url": "https://www.youtube.com/embed/MOex-YrtnCY",
+      "tags": [
+        "#app:tamakatsu"
+      ]
+    },
+    {
+      "id": "kpi.book_video",
+      "type": "video",
+      "app_slug": "kpi",
+      "title": "📖 最高の結果を出すKPIマネジメント 解説動画",
+      "url": "https://youtu.be/liDoRiWWlbQ",
+      "embed_url": "https://www.youtube.com/embed/liDoRiWWlbQ",
+      "tags": [
+        "#数値"
+      ]
+    },
+    {
+      "id": "nvc.book_video",
+      "type": "video",
+      "app_slug": "nvc",
+      "title": "📖 NVC — 人と人との関係にいのちを吹き込む法 新版 解説動画",
+      "url": "https://youtu.be/uGdiku3s4kQ",
+      "embed_url": "https://www.youtube.com/embed/uGdiku3s4kQ",
+      "tags": [
+        "#関係性"
+      ]
+    },
+    {
+      "id": "ecosystem.blueprint_of_ecosystem.video",
+      "type": "video",
+      "app_slug": "ecosystem",
+      "theme_id": "blueprint_of_ecosystem",
+      "title": "🎬 第3章 価値共創コミュニティ：学習する組織のための青写真",
+      "embed_url": "https://www.youtube.com/embed/PILF9RsuIIE",
+      "tags": [
+        "#app:ecosystem",
+        "#価値観",
+        "#共創",
+        "#場のデザイン"
+      ]
+    },
+    {
+      "id": "ecosystem.collective_intelligence.video",
+      "type": "video",
+      "app_slug": "ecosystem",
+      "theme_id": "collective_intelligence",
+      "title": "🎬 第8話 超一流になる：熟達の鍵",
+      "embed_url": "https://www.youtube.com/embed/SaPDDT37dKM",
+      "tags": [
+        "#app:ecosystem"
+      ]
+    },
+    {
+      "id": "ecosystem.facilitator_stance.video",
+      "type": "video",
+      "app_slug": "ecosystem",
+      "theme_id": "facilitator_stance",
+      "title": "🎬 終章 ファシリをする：コミュニティを築き、ビジョンを実現する方法",
+      "embed_url": "https://www.youtube.com/embed/nFVoNtORdok",
+      "tags": [
+        "#app:ecosystem",
+        "#主催"
+      ]
+    },
+    {
+      "id": "ecosystem.three_layer_structure.video",
+      "type": "video",
+      "app_slug": "ecosystem",
+      "theme_id": "three_layer_structure",
+      "title": "🎬 第13話 三層構造で記号接地：チームの天才性を解き放つ",
+      "embed_url": "https://www.youtube.com/embed/piaMgTKUo_I",
+      "tags": [
+        "#app:ecosystem",
+        "#価値観"
+      ]
+    },
+    {
+      "id": "ecosystem.rakuyu_three_principles.video",
+      "type": "video",
+      "app_slug": "ecosystem",
+      "theme_id": "rakuyu_three_principles",
+      "title": "🎬 第2話 「たまかつ」を生きる",
+      "embed_url": "https://www.youtube.com/embed/W-sUnlBXog4",
+      "tags": [
+        "#app:ecosystem",
+        "#原理",
+        "#関係性"
+      ]
+    },
+    {
+      "id": "ecosystem.collective_space.video",
+      "type": "video",
+      "app_slug": "ecosystem",
+      "theme_id": "collective_space",
+      "title": "🎬 第14話 みんなでつくる場：私たちが輝く「場」のつくりかた（中心マイルストーン）",
+      "embed_url": "https://www.youtube.com/embed/572OUAcg_UU",
+      "tags": [
+        "#app:ecosystem",
+        "#場のデザイン"
+      ]
+    },
+    {
+      "id": "ecosystem.group_coaching_engine.video",
+      "type": "video",
+      "app_slug": "ecosystem",
+      "theme_id": "group_coaching_engine",
+      "title": "🎬 第12話 グループコーチングで学習する組織をつくる",
+      "embed_url": "https://www.youtube.com/embed/wVE41GPGu8c",
+      "tags": [
+        "#app:ecosystem",
+        "#場のデザイン"
+      ]
+    },
+    {
+      "id": "ecosystem.product_from_experience.video",
+      "type": "video",
+      "app_slug": "ecosystem",
+      "theme_id": "product_from_experience",
+      "title": "🎬 第15話 プロダクトをつくる：『忙しさ』から『価値』へ",
+      "embed_url": "https://www.youtube.com/embed/j6bjBDHBY2U",
+      "tags": [
+        "#app:ecosystem"
+      ]
+    },
+    {
+      "id": "ecosystem.recruiting_by_vision.video",
+      "type": "video",
+      "app_slug": "ecosystem",
+      "theme_id": "recruiting_by_vision",
+      "title": "🎬 第16話 リクルーティング：『不可能』から『可能』へ",
+      "embed_url": "https://www.youtube.com/embed/JfOjD6L_3nc",
+      "tags": [
+        "#app:ecosystem",
+        "#ミッション",
+        "#価値観"
+      ]
+    },
+    {
+      "id": "ecosystem.team_dissolution.video",
+      "type": "video",
+      "app_slug": "ecosystem",
+      "theme_id": "team_dissolution",
+      "title": "🎬 第17話 人事異動：チームを解散させる意外な力",
+      "embed_url": "https://www.youtube.com/embed/6uDeMnENYNQ",
+      "tags": [
+        "#app:ecosystem"
+      ]
+    },
+    {
+      "id": "ecosystem.kindle_publication.video",
+      "type": "video",
+      "app_slug": "ecosystem",
+      "theme_id": "kindle_publication",
+      "title": "🎬 第18話 Kindle出版する",
+      "embed_url": "https://www.youtube.com/embed/wboTBwZbBYs",
+      "tags": [
+        "#app:ecosystem"
+      ]
+    },
+    {
+      "id": "context-leadership.action_illusion.video",
+      "type": "video",
+      "app_slug": "context-leadership",
+      "theme_id": "action_illusion",
+      "title": "🎬 動画② 第1層 #action_illusion — 行為論の限界",
+      "embed_url": "https://www.youtube.com/embed/h8avmywSgJU",
+      "tags": [
+        "#app:context-leadership",
+        "#限界超え"
+      ]
+    },
+    {
+      "id": "context-leadership.meaning_over_action.video",
+      "type": "video",
+      "app_slug": "context-leadership",
+      "theme_id": "meaning_over_action",
+      "title": "🎬 動画③ 第2層 #meaning_over_action — 行為ではなく意味へ",
+      "embed_url": "https://www.youtube.com/embed/LqdK9UIWiWY",
+      "tags": [
+        "#app:context-leadership"
+      ]
+    },
+    {
+      "id": "context-leadership.context_reading.video",
+      "type": "video",
+      "app_slug": "context-leadership",
+      "theme_id": "context_reading",
+      "title": "🎬 動画④ 第3層 #context_reading — 文脈の読解",
+      "embed_url": "https://www.youtube.com/embed/PyNAB7_fRZI",
+      "tags": [
+        "#app:context-leadership",
+        "#リーダーシップ"
+      ]
+    },
+    {
+      "id": "context-leadership.interpreter_frame.video",
+      "type": "video",
+      "app_slug": "context-leadership",
+      "theme_id": "interpreter_frame",
+      "title": "🎬 動画⑤ 第3層 #interpreter_frame — 相手の解釈フレーム",
+      "embed_url": "https://www.youtube.com/embed/Lx-0n-sST6Q",
+      "tags": [
+        "#app:context-leadership",
+        "#モデル"
+      ]
+    },
+    {
+      "id": "context-leadership.intent_transmission.video",
+      "type": "video",
+      "app_slug": "context-leadership",
+      "theme_id": "intent_transmission",
+      "title": "🎬 動画⑥ 第2層 #intent_transmission — 意図と伝達の非対称",
+      "embed_url": "https://www.youtube.com/embed/d3RJPfBPP8E",
+      "tags": [
+        "#app:context-leadership",
+        "#ミッション"
+      ]
+    },
+    {
+      "id": "context-leadership.delegation_split.video",
+      "type": "video",
+      "app_slug": "context-leadership",
+      "theme_id": "delegation_split",
+      "title": "🎬 動画⑦ 第2層 #delegation_split — 任せると丸投げの分岐点",
+      "embed_url": "https://www.youtube.com/embed/HBR0X0Q0i-M",
+      "tags": [
+        "#app:context-leadership"
+      ]
+    },
+    {
+      "id": "context-leadership.feedback_semantics.video",
+      "type": "video",
+      "app_slug": "context-leadership",
+      "theme_id": "feedback_semantics",
+      "title": "🎬 動画⑧ 第2層 #feedback_semantics — フィードバックの意味論",
+      "embed_url": "https://www.youtube.com/embed/M9-1xstOIx8",
+      "tags": [
+        "#app:context-leadership"
+      ]
+    },
+    {
+      "id": "context-leadership.vision_flex.video",
+      "type": "video",
+      "app_slug": "context-leadership",
+      "theme_id": "vision_flex",
+      "title": "🎬 動画⑨ 第2層 #vision_flex — ビジョンと柔軟性の両立",
+      "embed_url": "https://www.youtube.com/embed/s8cfQnMlAPU",
+      "tags": [
+        "#app:context-leadership",
+        "#ミッション",
+        "#価値観"
+      ]
+    },
+    {
+      "id": "context-leadership.dialogic_leadership.video",
+      "type": "video",
+      "app_slug": "context-leadership",
+      "theme_id": "dialogic_leadership",
+      "title": "🎬 動画⑩ 第3層 #dialogic_leadership — 対話としてのリーダーシップ",
+      "embed_url": "https://www.youtube.com/embed/Pc3KKYnVrjw",
+      "tags": [
+        "#app:context-leadership",
+        "#リーダーシップ",
+        "#対話"
+      ]
+    },
+    {
+      "id": "context-leadership.field_design.video",
+      "type": "video",
+      "app_slug": "context-leadership",
+      "theme_id": "field_design",
+      "title": "🎬 動画⑪ 第3層 #field_design — 場のデザインとしてのリーダーシップ",
+      "embed_url": "https://www.youtube.com/embed/CX0nGm4-3gU",
+      "tags": [
+        "#app:context-leadership",
+        "#リーダーシップ",
+        "#場のデザイン"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>掛け書棚 v0.2.1 — 3つを掛けて新しい問いを</title>
+<style>
+:root {
+  --bg: #0f1220;
+  --card: #1a1e33;
+  --card-2: #232840;
+  --border: #2e3457;
+  --text: #e8ecff;
+  --sub: #a4acd4;
+  --accent: #ffd166;
+  --why: #ff6b9d;
+  --what: #4ecdc4;
+  --how: #ffbc42;
+  --slot-empty: #2a2f52;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  padding: 24px 20px 80px;
+  line-height: 1.6;
+}
+.container { max-width: 1100px; margin: 0 auto; }
+h1 { font-size: 24px; margin: 0 0 4px; }
+.subtitle { color: var(--sub); font-size: 14px; margin-bottom: 20px; }
+.section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; margin-bottom: 18px; }
+.section h2 { font-size: 16px; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+
+/* モヤモヤ */
+.moyamoya-input { width: 100%; padding: 12px 14px; background: var(--card-2); color: var(--text); border: 1px solid var(--border); border-radius: 8px; font-size: 15px; font-family: inherit; }
+.moyamoya-input:focus { outline: none; border-color: var(--accent); }
+
+/* 資産棚 */
+.tabs { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+.tab { padding: 6px 14px; background: var(--card-2); border: 1px solid var(--border); border-radius: 20px; color: var(--sub); cursor: pointer; font-size: 13px; }
+.tab.active { background: var(--accent); color: #0f1220; border-color: var(--accent); font-weight: 600; }
+.filters { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; align-items: center; }
+.search { flex: 1; min-width: 200px; padding: 8px 12px; background: var(--card-2); color: var(--text); border: 1px solid var(--border); border-radius: 6px; font-size: 13px; font-family: inherit; }
+.tag-select { padding: 8px 12px; background: var(--card-2); color: var(--text); border: 1px solid var(--border); border-radius: 6px; font-size: 13px; font-family: inherit; }
+.random-btn { padding: 8px 14px; background: var(--accent); color: #0f1220; border: none; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; }
+.random-btn:hover { opacity: 0.85; }
+.count { color: var(--sub); font-size: 12px; margin-bottom: 8px; }
+.shelf { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; max-height: 340px; overflow-y: auto; padding: 4px; }
+.card { background: var(--card-2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; cursor: pointer; transition: 0.15s; font-size: 13px; }
+.card:hover { border-color: var(--accent); transform: translateY(-1px); }
+.card.selected { border-color: var(--accent); background: #302a1e; }
+.card .type-badge { display: inline-block; padding: 1px 6px; font-size: 10px; background: var(--border); border-radius: 4px; margin-right: 6px; color: var(--sub); }
+.card .title { font-weight: 600; margin-bottom: 4px; }
+.card .meta { color: var(--sub); font-size: 11px; }
+.card .tags { margin-top: 4px; font-size: 10px; color: var(--sub); }
+
+/* 3スロット */
+.slots { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.slot { background: var(--card-2); border: 2px dashed var(--border); border-radius: 10px; padding: 14px; min-height: 90px; position: relative; }
+.slot.filled { border-style: solid; border-color: var(--accent); }
+.slot-num { position: absolute; top: 6px; left: 10px; font-size: 11px; color: var(--sub); }
+.slot-content { font-size: 13px; margin-top: 12px; }
+.slot-title { font-weight: 600; }
+.slot-meta { font-size: 11px; color: var(--sub); margin-top: 3px; }
+.slot-remove { position: absolute; top: 6px; right: 8px; background: none; border: none; color: var(--sub); cursor: pointer; font-size: 14px; }
+.slot-empty-msg { color: var(--sub); font-size: 12px; text-align: center; margin-top: 20px; }
+.slot-dice { position: absolute; bottom: 6px; right: 8px; background: none; border: 1px solid var(--border); color: var(--sub); cursor: pointer; padding: 2px 8px; border-radius: 12px; font-size: 11px; }
+.slot-dice:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Mode */
+.mode-toggle { display: flex; gap: 6px; margin-bottom: 14px; }
+.mode-btn { flex: 1; padding: 10px; background: var(--card-2); border: 1px solid var(--border); color: var(--sub); cursor: pointer; border-radius: 8px; font-size: 14px; font-weight: 600; }
+.mode-btn.active[data-mode="why"] { background: var(--why); color: white; border-color: var(--why); }
+.mode-btn.active[data-mode="what"] { background: var(--what); color: white; border-color: var(--what); }
+.mode-btn.active[data-mode="how"] { background: var(--how); color: #0f1220; border-color: var(--how); }
+.mode-hint { color: var(--sub); font-size: 13px; margin-bottom: 10px; padding: 10px; background: var(--card-2); border-radius: 6px; }
+
+/* 交点 */
+.intersection { background: var(--card-2); border-radius: 10px; padding: 16px; min-height: 120px; }
+.intersection .prompt { color: var(--sub); font-size: 13px; margin-bottom: 10px; }
+.intersection textarea { width: 100%; background: var(--card); color: var(--text); border: 1px solid var(--border); border-radius: 6px; padding: 10px; font-size: 14px; font-family: inherit; min-height: 100px; resize: vertical; }
+.intersection textarea:focus { outline: none; border-color: var(--accent); }
+
+/* Actions */
+.actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn { padding: 10px 18px; background: var(--accent); color: #0f1220; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; }
+.btn.secondary { background: var(--card-2); color: var(--text); border: 1px solid var(--border); }
+.btn:hover { opacity: 0.85; }
+
+/* Timer */
+.timer { display: inline-block; margin-left: 12px; padding: 4px 10px; background: var(--card-2); border-radius: 20px; font-size: 12px; color: var(--sub); font-variant-numeric: tabular-nums; }
+.timer.running { color: var(--accent); }
+
+/* Modal / toast */
+.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #0f1220; padding: 10px 20px; border-radius: 24px; font-weight: 600; opacity: 0; transition: 0.3s; pointer-events: none; }
+.toast.show { opacity: 1; }
+
+/* Utility */
+.footer-note { color: var(--sub); font-size: 12px; margin-top: 30px; text-align: center; }
+.footer-note a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>掛け書棚 <span style="font-size: 12px; color: var(--sub);">v0.2.1</span></h1>
+  <div class="subtitle">3つを掛けて、1本の新しい問いを作る。連結／偏見脱／視座切替の3筋トレ。</div>
+
+  <!-- モヤモヤ -->
+  <div class="section">
+    <h2>🌀 今日のモヤモヤ<span class="timer" id="timer">--:--</span></h2>
+    <input type="text" class="moyamoya-input" id="moyamoya" placeholder="今、頭にひっかかっている問い・課題・気づきを1行で（未入力でもOK）">
+  </div>
+
+  <!-- 資産棚 -->
+  <div class="section">
+    <h2>📚 資産棚 <span id="asset-count" class="count" style="margin-left:8px;"></span></h2>
+    <div class="tabs" id="tabs">
+      <div class="tab active" data-type="all">すべて</div>
+      <div class="tab" data-type="book">📖 本</div>
+      <div class="tab" data-type="app">🎮 アプリ</div>
+      <div class="tab" data-type="theme">🧩 テーマ</div>
+      <div class="tab" data-type="video">🎬 動画</div>
+    </div>
+    <div class="filters">
+      <input type="text" class="search" id="search" placeholder="🔍 キーワード検索（タイトル・タグ）">
+      <select class="tag-select" id="tag-filter">
+        <option value="">全タグ</option>
+      </select>
+      <button class="random-btn" id="fill-random">🎲 3つランダム</button>
+      <button class="random-btn" id="clear-slots" style="background: var(--card-2); color: var(--sub); border: 1px solid var(--border);">クリア</button>
+    </div>
+    <div class="shelf" id="shelf"></div>
+  </div>
+
+  <!-- 3スロット -->
+  <div class="section">
+    <h2>🎯 3つを選ぶ</h2>
+    <div class="slots" id="slots">
+      <div class="slot" data-slot="0"><span class="slot-num">#1</span><div class="slot-empty-msg">クリックして選ぶ</div><button class="slot-dice" data-dice="0">🎲</button></div>
+      <div class="slot" data-slot="1"><span class="slot-num">#2</span><div class="slot-empty-msg">クリックして選ぶ</div><button class="slot-dice" data-dice="1">🎲</button></div>
+      <div class="slot" data-slot="2"><span class="slot-num">#3</span><div class="slot-empty-msg">クリックして選ぶ</div><button class="slot-dice" data-dice="2">🎲</button></div>
+    </div>
+  </div>
+
+  <!-- Mode切替 -->
+  <div class="section">
+    <h2>🔀 掛け方を選ぶ</h2>
+    <div class="mode-toggle">
+      <button class="mode-btn active" data-mode="why">🌟 Why掛け</button>
+      <button class="mode-btn" data-mode="what">🧩 What掛け</button>
+      <button class="mode-btn" data-mode="how">🎬 How掛け</button>
+    </div>
+    <div class="mode-hint" id="mode-hint">3つの共通する目的・あり方・カテゴリー思考を1本抽出する</div>
+    <div class="intersection">
+      <div class="prompt" id="mode-prompt">3つを見比べて、共通する「目的」「あり方」を書き出す：</div>
+      <textarea id="idea-text" placeholder="書いてみる…"></textarea>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="section">
+    <div class="actions">
+      <button class="btn" id="copy-md">📋 発想ログを .md でコピー</button>
+      <button class="btn secondary" id="start-timer">⏱️ 60秒タイマー開始</button>
+      <button class="btn secondary" id="reset-all">🔄 リセット</button>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    データ: 本 <span id="cnt-books">0</span> ／ アプリ <span id="cnt-apps">0</span> ／ テーマ <span id="cnt-themes">0</span> ／ 動画 <span id="cnt-videos">0</span>
+    ｜ <a href="registry.json">registry.json</a> ｜ 手動で追記OK
+  </div>
+</div>
+
+<div class="toast" id="toast">コピーしました！</div>
+
+<script>
+let REGISTRY = null;
+let CURRENT_TYPE = "all";
+let CURRENT_TAG = "";
+let CURRENT_SEARCH = "";
+let CURRENT_MODE = "why";
+let SLOTS = [null, null, null];
+let TIMER_ID = null;
+let TIMER_REMAIN = 0;
+
+const MODE_HINTS = {
+  why: { hint: "3つの共通する目的・あり方・カテゴリー思考を1本抽出する", prompt: "3つを見比べて、共通する「目的」「あり方」を書き出す：" },
+  what: { hint: "3つのギャップと補完を三角形で見る", prompt: "3つが埋めるギャップ・お互いの補完関係を書き出す：" },
+  how: { hint: "3つの3ステップを1本のプログレッションに繋げる", prompt: "3つの入口→中間→出口を1本のプログレッションとして書く：" }
+};
+
+function getAllAssets() {
+  if (!REGISTRY) return [];
+  return [
+    ...REGISTRY.books,
+    ...REGISTRY.apps,
+    ...REGISTRY.themes,
+    ...REGISTRY.videos
+  ];
+}
+
+function assetKey(a) { return `${a.type}::${a.id}`; }
+
+function filterAssets() {
+  const all = getAllAssets();
+  return all.filter(a => {
+    if (CURRENT_TYPE !== "all" && a.type !== CURRENT_TYPE) return false;
+    if (CURRENT_TAG && !(a.tags || []).includes(CURRENT_TAG)) return false;
+    if (CURRENT_SEARCH) {
+      const q = CURRENT_SEARCH.toLowerCase();
+      const hay = `${a.title || ''} ${(a.tags || []).join(' ')} ${a.id || ''}`.toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+}
+
+function renderShelf() {
+  const shelf = document.getElementById("shelf");
+  const items = filterAssets();
+  document.getElementById("asset-count").textContent = `(${items.length}件)`;
+  shelf.innerHTML = items.map(a => {
+    const selected = SLOTS.some(s => s && assetKey(s) === assetKey(a)) ? "selected" : "";
+    const typeIcon = { book: "📖", app: "🎮", theme: "🧩", video: "🎬" }[a.type] || "";
+    const meta = a.type === "theme" ? `${a.app_slug}` : (a.type === "video" ? `${a.app_slug || ""}` : (a.type === "app" ? `${a.themes_count}テーマ` : ""));
+    const tagStr = (a.tags || []).slice(0, 3).join(" ");
+    return `<div class="card ${selected}" data-key="${assetKey(a)}">
+      <div class="type-badge">${typeIcon} ${a.type}</div>
+      <div class="title">${escapeHtml(a.title || a.id)}</div>
+      ${meta ? `<div class="meta">${escapeHtml(meta)}</div>` : ""}
+      ${tagStr ? `<div class="tags">${escapeHtml(tagStr)}</div>` : ""}
+    </div>`;
+  }).join("");
+  shelf.querySelectorAll(".card").forEach(el => {
+    el.addEventListener("click", () => {
+      const key = el.dataset.key;
+      const asset = getAllAssets().find(a => assetKey(a) === key);
+      addToNextSlot(asset);
+    });
+  });
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+}
+
+function addToNextSlot(asset) {
+  // if already selected, remove
+  const existing = SLOTS.findIndex(s => s && assetKey(s) === assetKey(asset));
+  if (existing >= 0) {
+    SLOTS[existing] = null;
+    renderSlots();
+    renderShelf();
+    return;
+  }
+  const empty = SLOTS.findIndex(s => s === null);
+  if (empty === -1) return;
+  SLOTS[empty] = asset;
+  renderSlots();
+  renderShelf();
+}
+
+function renderSlots() {
+  document.querySelectorAll(".slot").forEach((el, i) => {
+    const asset = SLOTS[i];
+    const num = i + 1;
+    if (asset) {
+      const typeIcon = { book: "📖", app: "🎮", theme: "🧩", video: "🎬" }[asset.type] || "";
+      const tags = (asset.tags || []).slice(0, 3).join(" ");
+      el.classList.add("filled");
+      el.innerHTML = `<span class="slot-num">#${num}</span>
+        <button class="slot-remove" data-slot="${i}">✕</button>
+        <div class="slot-content">
+          <div class="slot-title">${typeIcon} ${escapeHtml(asset.title || asset.id)}</div>
+          <div class="slot-meta">${escapeHtml(tags)}</div>
+        </div>
+        <button class="slot-dice" data-dice="${i}">🎲</button>`;
+    } else {
+      el.classList.remove("filled");
+      el.innerHTML = `<span class="slot-num">#${num}</span><div class="slot-empty-msg">クリックして選ぶ</div><button class="slot-dice" data-dice="${i}">🎲</button>`;
+    }
+  });
+  document.querySelectorAll(".slot-remove").forEach(b => {
+    b.addEventListener("click", (e) => {
+      e.stopPropagation();
+      SLOTS[parseInt(b.dataset.slot)] = null;
+      renderSlots();
+      renderShelf();
+    });
+  });
+  document.querySelectorAll(".slot-dice").forEach(b => {
+    b.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const i = parseInt(b.dataset.dice);
+      const pool = filterAssets().filter(a => !SLOTS.some((s, idx) => idx !== i && s && assetKey(s) === assetKey(a)));
+      if (pool.length === 0) return;
+      SLOTS[i] = pool[Math.floor(Math.random() * pool.length)];
+      renderSlots();
+      renderShelf();
+    });
+  });
+}
+
+function setMode(mode) {
+  CURRENT_MODE = mode;
+  document.querySelectorAll(".mode-btn").forEach(b => b.classList.toggle("active", b.dataset.mode === mode));
+  document.getElementById("mode-hint").textContent = MODE_HINTS[mode].hint;
+  document.getElementById("mode-prompt").textContent = MODE_HINTS[mode].prompt;
+}
+
+function populateTagFilter() {
+  const tags = new Set();
+  getAllAssets().forEach(a => (a.tags || []).forEach(t => tags.add(t)));
+  const sel = document.getElementById("tag-filter");
+  Array.from(tags).sort().forEach(t => {
+    const opt = document.createElement("option");
+    opt.value = t;
+    opt.textContent = t;
+    sel.appendChild(opt);
+  });
+}
+
+function buildMarkdown() {
+  const modeLabel = { why: "🌟 Why掛け", what: "🧩 What掛け", how: "🎬 How掛け" }[CURRENT_MODE];
+  const moyamoya = document.getElementById("moyamoya").value.trim();
+  const idea = document.getElementById("idea-text").value.trim();
+  const date = new Date();
+  const yyyy = date.getFullYear();
+  const mm = String(date.getMonth() + 1).padStart(2, "0");
+  const dd = String(date.getDate()).padStart(2, "0");
+  const hh = String(date.getHours()).padStart(2, "0");
+  const mi = String(date.getMinutes()).padStart(2, "0");
+  const stamp = `${yyyy}-${mm}-${dd} ${hh}:${mi}`;
+
+  let md = `## 💡 掛け書棚ログ ｜ ${stamp}\n\n`;
+  md += `**モード**: ${modeLabel}\n`;
+  if (moyamoya) md += `**モヤモヤ**: ${moyamoya}\n`;
+  md += `\n**3つ組**:\n`;
+  SLOTS.forEach((s, i) => {
+    if (s) {
+      const note = s.note || `[[${s.title || s.id}]]`;
+      const tags = (s.tags || []).join(" ");
+      md += `- #${i + 1} ${s.type}｜${note} ${tags}\n`;
+    }
+  });
+  md += `\n**発想**:\n${idea || "(未記入)"}\n\n`;
+  md += `**タグ**: #掛け書棚 #発想ログ #${CURRENT_MODE}掛け\n`;
+  return md;
+}
+
+function copyMarkdown() {
+  const md = buildMarkdown();
+  navigator.clipboard.writeText(md).then(() => showToast("📋 コピーしました！Obsidianに貼り付けてください"));
+}
+
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 2500);
+}
+
+function startTimer() {
+  if (TIMER_ID) { clearInterval(TIMER_ID); TIMER_ID = null; }
+  TIMER_REMAIN = 60;
+  const el = document.getElementById("timer");
+  el.classList.add("running");
+  const tick = () => {
+    const m = Math.floor(TIMER_REMAIN / 60);
+    const s = TIMER_REMAIN % 60;
+    el.textContent = `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+    if (TIMER_REMAIN <= 0) {
+      clearInterval(TIMER_ID);
+      TIMER_ID = null;
+      el.classList.remove("running");
+      showToast("⏰ 60秒経過！書き出してみましょう");
+      return;
+    }
+    TIMER_REMAIN--;
+  };
+  tick();
+  TIMER_ID = setInterval(tick, 1000);
+}
+
+function fillRandom() {
+  const pool = filterAssets();
+  if (pool.length < 3) return;
+  const picks = [];
+  while (picks.length < 3) {
+    const cand = pool[Math.floor(Math.random() * pool.length)];
+    if (!picks.some(p => assetKey(p) === assetKey(cand))) picks.push(cand);
+  }
+  SLOTS = picks;
+  renderSlots();
+  renderShelf();
+}
+
+function resetAll() {
+  SLOTS = [null, null, null];
+  document.getElementById("moyamoya").value = "";
+  document.getElementById("idea-text").value = "";
+  renderSlots();
+  renderShelf();
+}
+
+async function init() {
+  const res = await fetch("registry.json");
+  REGISTRY = await res.json();
+  document.getElementById("cnt-books").textContent = REGISTRY.counts.books;
+  document.getElementById("cnt-apps").textContent = REGISTRY.counts.apps;
+  document.getElementById("cnt-themes").textContent = REGISTRY.counts.themes;
+  document.getElementById("cnt-videos").textContent = REGISTRY.counts.videos;
+  populateTagFilter();
+  renderShelf();
+  renderSlots();
+  setMode("why");
+
+  document.querySelectorAll(".tab").forEach(t => {
+    t.addEventListener("click", () => {
+      document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
+      t.classList.add("active");
+      CURRENT_TYPE = t.dataset.type;
+      renderShelf();
+    });
+  });
+  document.getElementById("search").addEventListener("input", e => { CURRENT_SEARCH = e.target.value; renderShelf(); });
+  document.getElementById("tag-filter").addEventListener("change", e => { CURRENT_TAG = e.target.value; renderShelf(); });
+  document.querySelectorAll(".mode-btn").forEach(b => b.addEventListener("click", () => setMode(b.dataset.mode)));
+  document.getElementById("copy-md").addEventListener("click", copyMarkdown);
+  document.getElementById("start-timer").addEventListener("click", startTimer);
+  document.getElementById("reset-all").addEventListener("click", resetAll);
+  document.getElementById("fill-random").addEventListener("click", fillRandom);
+  document.getElementById("clear-slots").addEventListener("click", () => { SLOTS = [null, null, null]; renderSlots(); renderShelf(); });
+}
+
+init();
+</script>
+</body>
+</html>
