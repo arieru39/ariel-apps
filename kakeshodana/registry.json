@@ -23,8 +23,8 @@
   ],
   "counts": {
     "books": 28,
-    "apps": 7,
-    "themes": 77,
+    "apps": 8,
+    "themes": 89,
     "videos": 35
   },
   "books": [
@@ -392,6 +392,20 @@
       "url": "https://arieru39.github.io/ariel-apps/genkai/",
       "tags": [
         "#限界超え"
+      ]
+    },
+    {
+      "id": "integrity",
+      "type": "app",
+      "slug": "integrity",
+      "title": "Integrity: A Positive Model",
+      "author": "Werner H. Erhard, Michael C. Jensen, Steve Zaffron",
+      "book_url": "https://center-for-leadership.org/wp-content/uploads/2016/09/1_IntegrityModel.pdf",
+      "book_video_url": "",
+      "themes_count": 12,
+      "url": "https://arieru39.github.io/ariel-apps/integrity/",
+      "tags": [
+        "#モデル"
       ]
     }
   ],
@@ -2239,6 +2253,274 @@
       "milestone": false,
       "tags": [
         "#app:genkai"
+      ]
+    },
+    {
+      "id": "integrity.positive_vs_normative",
+      "type": "theme",
+      "app_slug": "integrity",
+      "theme_id": "positive_vs_normative",
+      "title": "Positive領域とNormative領域を分ける",
+      "layer": 3,
+      "content_type": "",
+      "seed_question": "あなたが今、道徳（べき論）で誰かを評価している場面はどこか？",
+      "daily_practice": "",
+      "rubric": [
+        "Positive/Normative の区別を意識したことがない",
+        "違いは分かるが、日常判断ではまだ混ざる",
+        "『これは Normative だな』と気づき、Positive に置き直せる",
+        "議論の中で両者を分けて相手に提示できる（相手の視座を変えられる）"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:integrity"
+      ]
+    },
+    {
+      "id": "integrity.integrity_as_state",
+      "type": "theme",
+      "app_slug": "integrity",
+      "theme_id": "integrity_as_state",
+      "title": "Integrityを『状態』として定義し直す",
+      "layer": 3,
+      "content_type": "",
+      "seed_question": "『Integrityがある人』を、道徳語彙を使わずに定義できるか？",
+      "daily_practice": "",
+      "rubric": [
+        "『Integrityある』を道徳語でしか説明できない",
+        "『whole and complete』の意味は分かる（自分の言葉ではまだ言えない）",
+        "自分の言葉で『状態としてのIntegrity』を説明できる",
+        "他者にこの区別を伝え、道徳フレームから状態フレームへ移行させられる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:integrity"
+      ]
+    },
+    {
+      "id": "integrity.integrity_workability_performance",
+      "type": "theme",
+      "app_slug": "integrity",
+      "theme_id": "integrity_workability_performance",
+      "title": "Integrity → Workability → Performance の因果連鎖",
+      "layer": 3,
+      "content_type": "",
+      "seed_question": "あなたの現場のパフォーマンスの opportunity set は、いま何によって狭められているか？",
+      "daily_practice": "",
+      "rubric": [
+        "パフォーマンス低下を『気合／能力／運』で説明する",
+        "『Integrity が土台』という命題は理解している（介入には落ちない）",
+        "Workability の欠損点を特定し、その手前の Word の欠損を指摘できる",
+        "Integrity 回復の介入設計を、複数の場面に応用できる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:integrity"
+      ]
+    },
+    {
+      "id": "integrity.self_is_word",
+      "type": "theme",
+      "app_slug": "integrity",
+      "theme_id": "self_is_word",
+      "title": "自分自身は『自分に向けた言葉』である",
+      "layer": 2,
+      "content_type": "",
+      "seed_question": "今、あなたが自分に向けて発している言葉は、あなたを whole にしているか？",
+      "daily_practice": "",
+      "rubric": [
+        "『自分＝身体・感情・思考』の等式から出ていない",
+        "『自分＝言葉』という命題は理解している（実感はまだ）",
+        "自分に向ける言葉を意識的に選び直せる",
+        "他者にこの区別を伝え、その人の自己認識を再構成できる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:integrity"
+      ]
+    },
+    {
+      "id": "integrity.word_1_said",
+      "type": "theme",
+      "app_slug": "integrity",
+      "theme_id": "word_1_said",
+      "title": "Word-1: 言ったこと（沈黙もWordになる）",
+      "layer": 2,
+      "content_type": "",
+      "seed_question": "この24時間、あなたが返事しなかった依頼はいくつあるか？",
+      "daily_practice": "",
+      "rubric": [
+        "沈黙が Word だと思っていない",
+        "沈黙も Word だと理解している（実践はまだ）",
+        "24時間以内に4択のいずれかで応答する習慣がある",
+        "その場で『いつまでに返事します』を即答できる（未処理を溜めない）"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:integrity"
+      ]
+    },
+    {
+      "id": "integrity.word_2_3_known_expected",
+      "type": "theme",
+      "app_slug": "integrity",
+      "theme_id": "word_2_3_known_expected",
+      "title": "Word-2 / Word-3: 知っていること／期待されていること",
+      "layer": 2,
+      "content_type": "",
+      "seed_question": "あなたが『知りながら』やっていない、やっているべきことは何か？",
+      "daily_practice": "",
+      "rubric": [
+        "Word-2/Word-3 が Word だと思っていない",
+        "違いは分かるが、日常では気づけていない",
+        "定期的に Word-2/Word-3 を棚卸しし、Word-1 に変換する",
+        "他者に対する Word-3 の逆側も、明示することを習慣にしている"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:integrity"
+      ]
+    },
+    {
+      "id": "integrity.word_4_stated",
+      "type": "theme",
+      "app_slug": "integrity",
+      "theme_id": "word_4_stated",
+      "title": "Word-4: 事実として主張したこと",
+      "layer": 2,
+      "content_type": "",
+      "seed_question": "この1週間、あなたが『これは事実だ』と主張したことのうち、確認せずに言ったものはどれか？",
+      "daily_practice": "",
+      "rubric": [
+        "『事実として言う』と『聞いた話をする』の区別を意識していない",
+        "違いは分かる（実際の会話では混ざりがち）",
+        "話す前に『これは Word-4 として言えるか？』と確認する",
+        "他者の Word-4 の混同にも気づき、丁寧に指摘できる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:integrity",
+        "#事実と評価"
+      ]
+    },
+    {
+      "id": "integrity.word_5_stand_for",
+      "type": "theme",
+      "app_slug": "integrity",
+      "theme_id": "word_5_stand_for",
+      "title": "Word-5: 何のために立っているか（≒たまかつ）",
+      "layer": 2,
+      "content_type": "",
+      "seed_question": "あなたが『どんな人として頼ってよい』と他者に表現しているのは何か？",
+      "daily_practice": "",
+      "rubric": [
+        "Word-5 を持つという発想がない（肩書きが自分だと思っている）",
+        "Word-5 が大事なのは分かる（言葉にはできない）",
+        "1文で言い切れる。周囲もそれを認識している",
+        "Word-5 と日々の Word-1〜4 が一貫している（証人がいる）"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:integrity",
+        "#関係性"
+      ]
+    },
+    {
+      "id": "integrity.honoring_your_word",
+      "type": "theme",
+      "app_slug": "integrity",
+      "theme_id": "honoring_your_word",
+      "title": "Honoring Your Word ── 守る＋守れない時の対処",
+      "layer": 1,
+      "content_type": "",
+      "seed_question": "今、あなたが『守れない』と分かっているのに、まだ告げていない約束はどれか？",
+      "daily_practice": "",
+      "rubric": [
+        "『Integrity＝常に守ること』だと思っている",
+        "『守れない時の対処』が Integrity の一部だと理解している",
+        "実際に『守れない』を告げて、片付けまで運用している",
+        "告げるのが早くなり、混乱の量が少なくなっている（熟達している）"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:integrity"
+      ]
+    },
+    {
+      "id": "integrity.not_being_able_to_keep",
+      "type": "theme",
+      "app_slug": "integrity",
+      "theme_id": "not_being_able_to_keep",
+      "title": "守れないと分かった瞬間の対処 ── clean up the mess",
+      "layer": 1,
+      "content_type": "",
+      "seed_question": "この1週間、あなたが『言い忘れた・遅らせた・ぼやかした』守れない Word はどれか？",
+      "daily_practice": "",
+      "rubric": [
+        "『告げれば済む』と思っている（片付けていない）",
+        "『告げる＋片付ける』のセットは理解している",
+        "実際に片付けまで運用している（相手からの信頼が減らない）",
+        "告げる→片付けるのサイクルが速い（out-of-integrityの蓄積がない）"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:integrity",
+        "#価値観"
+      ]
+    },
+    {
+      "id": "integrity.cost_benefit_trap",
+      "type": "theme",
+      "app_slug": "integrity",
+      "theme_id": "cost_benefit_trap",
+      "title": "コスト・ベネフィット分析の罠",
+      "layer": 1,
+      "content_type": "",
+      "seed_question": "あなたが最近『損得』を理由に約束を軽視した瞬間は、どこか？",
+      "daily_practice": "",
+      "rubric": [
+        "損得判断を『賢い判断』と思っている",
+        "この罠の存在は理解している（実際は使ってしまう）",
+        "損得計算を始めた瞬間に自分で検知できる",
+        "損得を排して Word を運用するのが自然になっている"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:integrity",
+        "#価値観"
+      ]
+    },
+    {
+      "id": "integrity.veil_of_invisibility",
+      "type": "theme",
+      "app_slug": "integrity",
+      "theme_id": "veil_of_invisibility",
+      "title": "Veil of Invisibility ── out-of-integrityに気づけない11の要因",
+      "layer": 1,
+      "content_type": "",
+      "seed_question": "あなたが最も転びやすい Veil の1つを、名指しできるか？",
+      "daily_practice": "",
+      "rubric": [
+        "Veil が『ある』こと自体を知らない",
+        "11要因は理解している（自分の主要な穴は特定できない）",
+        "自分の主要な3つを名指しでき、日常で検知できる",
+        "他者の Veil にも気づき、丁寧に開ける手助けができる"
+      ],
+      "daily_practice_steps": null,
+      "milestone": false,
+      "tags": [
+        "#app:integrity"
       ]
     }
   ],
