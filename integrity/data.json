@@ -1,0 +1,1142 @@
+{
+  "book": {
+    "title": "Integrity: A Positive Model",
+    "author": "Werner H. Erhard, Michael C. Jensen, Steve Zaffron",
+    "publisher": "Harvard Business School NOM Working Paper No. 10-061（2009／2016改訂）",
+    "product_line": "バイブコーディング・ギルド 第8プロダクト",
+    "slug": "integrity",
+    "hashtag": "#integrity",
+    "source_note": "50ワーナー・エアハード/オントロジカルコーチング/論文/Integrity　A Positive Model that Incorporates theNormative Phenomena of Morality, Ethics and Legality (2009).md",
+    "amazon_url": "https://center-for-leadership.org/wp-content/uploads/2016/09/1_IntegrityModel.pdf",
+    "playlist_url": "",
+    "playlist_embed_url": "",
+    "video_title": "🎬 論文解説プレイリスト（準備中）",
+    "tagline": "Integrityは道徳ではない。『whole and complete』という客観的な状態で、パフォーマンスの必要条件だ。"
+  },
+
+  "layers": [
+    { "level": 3, "label": "第3層 · 世界の見方の転換 — Positive領域を発見する" },
+    { "level": 2, "label": "第2層 · 自分と言葉の関係 — 6つのWordを扱う" },
+    { "level": 1, "label": "第1層 · 実践の入口 — Honoring Your Word を回す" }
+  ],
+
+  "rubric_labels": [
+    { "level": 1, "label": "気づいていない", "color": "#e0e0e0", "fast_slow": "Fast が自動で誤作動（Slow が起動していない）" },
+    { "level": 2, "label": "概念として理解している", "color": "#fff3b0", "fast_slow": "Slow で意識すれば使える（Fast にはまだ沈殿していない）" },
+    { "level": 3, "label": "実践できる", "color": "#a3d977", "fast_slow": "Slow の反復で Fast に沈殿し始めた" },
+    { "level": 4, "label": "文脈に応じて選び分けられる", "color": "#4a90e2", "fast_slow": "Fast が高解像度（educated guess）／熟達直観の域" }
+  ],
+
+  "getting_started": {
+    "enabled": true,
+    "banner_title": "🌱 初めての方へ — 第1層から始めましょう",
+    "banner_body": "12テーマは <strong>3層構造</strong> です。第2層・第3層は第1層の実践を土台にしているので、まずは <strong>第1層（実践の入口）</strong> の4テーマから。特に <strong>「Honoring Your Word（自分の言葉を尊ぶ）」</strong> が最初の扉です。<br>いきなり書くのが重かったら、まず <strong>4択の関係性クイズ（8問）</strong> で12テーマ全体の関係を掴んでください。",
+    "first_theme_id": "honoring_your_word",
+    "quiz_cta_label": "🎯 関係性クイズで全体を掴む（4択・8問・書かなくてOK）",
+    "write_cta_label": "✍️ 第1層から直接書く"
+  },
+
+  "engine_note": {
+    "sources": "原理レベル思考トレーニング（Ericsson『超一流になるのは才能か努力か?』最終章／Kahneman『Fast & Slow』／Gladwell『第1感』／Klein × Kahneman 2009 熟達直観）",
+    "sub": "この論文の12テーマは、Slow で意識化 → 反復で Fast に沈殿 → 文脈で選び分け、という熟達曲線を辿ります。ルーブリックL1→L4はこの Fast/Slow の位相を表しています。",
+    "unified_principle": "Slow で意図的に検証・失敗・修正した経験が、Fast に沈殿する"
+  },
+
+  "relationship_quiz_meta": {
+    "framing": "この4択は正解探しではありません。あなたのIntegrityとの現在地を映す鏡です。選んだ選択肢に応じて、あなたの視点／論文の視座／立ち止まりの問い、の3つが返ってきます。",
+    "deliberate_practice_note": "Comprehensible Input × 即時フィードバック × 明確な目標 × 完全な集中 × コンフォートゾーンの一段外 × 専門家の設計 ── の6要件で組んでいます。",
+    "score_label": "触れた視点"
+  },
+
+  "relationship_quiz": [
+    {
+      "focus_theme": "integrity_as_state",
+      "learning_objective": "Integrity を「道徳」ではなく「客観的な状態」として扱えるか",
+      "q": "同僚が締切を破った。あなたは彼を『Integrityのない人』と評価する時、何を根拠にしているか？",
+      "insight": "🌱 Integrityは『whole and complete』という状態であって、道徳的評価ではない",
+      "choices": [
+        {
+          "text": "彼は約束を破ったから、道徳的に問題がある人だ",
+          "correct": false,
+          "stance": "🔍 道徳ジャッジ ── 善悪の物差しで人を測る",
+          "phase": "⚡ Fast の反射",
+          "phase_note": "『約束破り＝悪い人』という無意識の推論が瞬時に走っている",
+          "author_view": "📖 論文はこう語る：Integrity を Morality（道徳）と混同することが、Veil of Invisibility の第3要因。道徳の話にすると、無限に正当化と言い訳が可能になる。Integrity は客観的な状態として扱えば、言い逃れができない。",
+          "slow_question": "🌱 あなたが『悪い人』と呼びたくなった時、その裁きは何を隠しているか？"
+        },
+        {
+          "text": "彼の『言葉』が whole でなくなったから、彼の Workability が落ちている状態にある",
+          "correct": true,
+          "stance": "🔍 状態観察 ── 現象として何が起きているかを見る",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "『善悪』から『状態』への切り替えは、自動反応ではなく意識的な視座変更を要する",
+          "author_view": "📖 論文はこう語る：Integrityは Positive領域（あるがまま）の概念であり、Normative領域（善悪）ではない。スポークが抜けた車輪と同じで、『whole でなくなった』という事実がそこにあるだけ。",
+          "slow_question": "🌱 状態として見た時、彼の Workability を上げるために自分は何ができるか？"
+        },
+        {
+          "text": "自分がイラッとしているから、それが評価の理由になっている",
+          "correct": false,
+          "stance": "🔍 感情起点 ── 身体の反応を根拠と混同する",
+          "phase": "🌊 身体の感覚",
+          "phase_note": "自分の感情が『事実の証拠』のように感じられる ── これも Fast の副産物",
+          "author_view": "📖 論文はこう語る：我々が『自分の感情』と思っているものは、感情そのものではなく、『感情についての自分の解釈』である。イラつきは事実ではなく、あなたが自分に語っている物語の反映。",
+          "slow_question": "🌱 感情から評価を引き離したら、事実として何が残るか？"
+        },
+        {
+          "text": "組織のルールに違反したから、規範的に out だ",
+          "correct": false,
+          "stance": "🔍 規範適用 ── ルールで人を測る",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "規範に照らす作業は Slow だが、それは Word-6（法・倫理）だけを見ている",
+          "author_view": "📖 論文はこう語る：規範（Morality/Ethics/Legality）は Word-6 の話。それは Integrity の一要素だが、Integrity 全体ではない。Integrity は6つの Word 全体の whole and complete さ。",
+          "slow_question": "🌱 ルール違反していない時でも、out-of-integrity になる場面はどこか？"
+        }
+      ]
+    },
+    {
+      "focus_theme": "integrity_workability_performance",
+      "learning_objective": "Integrity→Workability→Performance の因果連鎖を自分の現場に持ち込めるか",
+      "q": "チームのパフォーマンスが落ちている。どの介入が Integrity 起点として最も『必要条件』を満たすか？",
+      "insight": "🌱 Integrityは Performance を『生む』のではなく、その必要条件を満たす",
+      "choices": [
+        {
+          "text": "業績目標を上方修正して、危機感を作る",
+          "correct": false,
+          "stance": "🔍 圧力生成 ── 外部からの力で動かす",
+          "phase": "⚡ Fast の反射",
+          "phase_note": "『パフォーマンスは目標で駆動する』という Fast の反射。土台の状態を見ていない",
+          "author_view": "📖 論文はこう語る：Workability の低い状態のまま Performance を要求しても、opportunity set が狭くなっている。まずスポーク（言葉）が whole であることを回復させる必要がある。",
+          "slow_question": "🌱 圧力で動いた組織の、その後の Workability はどうなっているか？"
+        },
+        {
+          "text": "チーム内で『守れなくなった約束』を全部棚卸しし、片付ける会を持つ",
+          "correct": true,
+          "stance": "🔍 Word 回復 ── whole でなくなった箇所を可視化して片付ける",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "見えなくなっていた out-of-integrity を全員で言語化する ── これは Slow の作業",
+          "author_view": "📖 論文はこう語る：out-of-integrity は蓄積する。片付け（clean up the mess）をしない限り、次の Word への信頼も回復しない。Workability は言葉の whole さから戻る。",
+          "slow_question": "🌱 棚卸ししたら、あなた自身の名前が挙がる項目はいくつあるか？"
+        },
+        {
+          "text": "全員でリフレッシュ休暇を取り、エネルギーを回復させる",
+          "correct": false,
+          "stance": "🔍 リセット待望 ── 身体状態の回復に賭ける",
+          "phase": "🌊 身体の感覚",
+          "phase_note": "疲労は感じる。だが疲労と out-of-integrity は別のレイヤーの問題",
+          "author_view": "📖 論文はこう語る：Integrity は身体でも感情でもなく『言葉』のレイヤーで作動する。休暇で回復するのは身体で、Word の whole さは戻らない。",
+          "slow_question": "🌱 休み明けに戻ってきた時、置き去りの Word はまだそこにあるか？"
+        },
+        {
+          "text": "できていないメンバーを別のチームに配置替えする",
+          "correct": false,
+          "stance": "🔍 他責処理 ── 問題を人に紐付けて分離する",
+          "phase": "⚡ Fast の反射",
+          "phase_note": "『誰か』を除けば解決する、という Fast の因果推論",
+          "author_view": "📖 論文はこう語る：我々は困難を『他者のせい』『環境のせい』にしがち。しかし本論文は、困難の大部分は自分自身の out-of-integrity が原因だと論じる。",
+          "slow_question": "🌱 その人を外した時、その人の抱えていた Word-3（期待）は誰の元に残るか？"
+        }
+      ]
+    },
+    {
+      "focus_theme": "self_is_word",
+      "learning_objective": "『自分＝身体・感情・思考』ではなく『自分に向けた言葉』であるという転換",
+      "q": "『自分自身』を最もよく捉えているのはどれか？",
+      "insight": "🌱 自分は身体でも感情でも思考でもなく、自分に向けた言葉である",
+      "choices": [
+        {
+          "text": "自分とは、この身体と経歴を持った存在だ",
+          "correct": false,
+          "stance": "🔍 実体化 ── 見えるものを自分だと信じる",
+          "phase": "⚡ Fast の反射",
+          "phase_note": "『触れるもの＝自分』は原初的な Fast の推論",
+          "author_view": "📖 論文はこう語る：両足を失った2人がいて、一人は『人として劣った』と自殺を考え、もう一人は『足を失ったが、人として劣ったわけではない』と充実した人生を生きる。違いは『身体について自分に何と言っているか』にある。",
+          "slow_question": "🌱 身体を失っても残る『あなた』は、どこにあるか？"
+        },
+        {
+          "text": "自分とは、自分が自分に向けて発している言葉だ",
+          "correct": true,
+          "stance": "🔍 言語的自己 ── 自分は言語の中で構成される",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "自分を『言葉』として捉え直すのは、生涯かかる Slow の作業",
+          "author_view": "📖 論文はこう語る：身体でも感情でも思考でもなく、『自分が自分に向けて発する言葉（word to oneself）』こそが自分自身である。だから言葉が whole でなくなれば、自分自身が whole でなくなる。",
+          "slow_question": "🌱 今、あなたが自分に向けて発している言葉は、あなたを whole にしているか？"
+        },
+        {
+          "text": "自分とは、今この瞬間に感じている感情の集合体だ",
+          "correct": false,
+          "stance": "🔍 感情同一化 ── 感情と自分を貼り合わせる",
+          "phase": "🌊 身体の感覚",
+          "phase_note": "感情は強く『自分そのもの』のように感じられる",
+          "author_view": "📖 論文はこう語る：我々が『自分の感情』と思っているものは、感情そのものではなく、感情についての自分の解釈である。感情も『言葉』を通してしか自分に届かない。",
+          "slow_question": "🌱 感情が去った後にも残っている『あなた』は、何でできているか？"
+        },
+        {
+          "text": "自分とは、これまで考えてきたことの積み重ねだ",
+          "correct": false,
+          "stance": "🔍 思考同一化 ── 考えを自分の輪郭にする",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "思考の総和を自分とみなす ── 一歩踏み込んだ Slow だが、まだ言葉のレイヤーに届いていない",
+          "author_view": "📖 論文はこう語る：我々が『自分の考え』と思っているのは、『思考についての自分の言葉』である。思考そのものではなく、思考を言語化した瞬間の言葉こそが自分を構成する。",
+          "slow_question": "🌱 言葉になる前の思考は、あなたか、それとも通過していく風景か？"
+        }
+      ]
+    },
+    {
+      "focus_theme": "word_1_said",
+      "learning_objective": "Word-1: 明示的な返事をしないことも『受けた』ことになる、と気づけるか",
+      "q": "同僚から『明日までに資料を送ってほしい』とメッセージが来た。あなたは返信しないまま1日が過ぎた。この時のあなたの Word-1 の状態は？",
+      "insight": "🌱 適切な時間内に返事しないことは、依頼を受けたことになる",
+      "choices": [
+        {
+          "text": "返事していないのだから、まだ約束は成立していない",
+          "correct": false,
+          "stance": "🔍 明示主義 ── 言葉に出さなければ関与していないと思う",
+          "phase": "⚡ Fast の反射",
+          "phase_note": "『黙秘＝中立』という原初的な錯覚",
+          "author_view": "📖 論文はこう語る：他者からの依頼に対して適切な時間内に『受ける／断る／逆提案する／いつまでに返事するか伝える』のいずれもしなければ、その依頼を受けたことになる（あなたの Word-1 になる）。",
+          "slow_question": "🌱 沈黙のうちに、いくつの Word-1 を溜め込んでいるか？"
+        },
+        {
+          "text": "返信しないうちに、私はもう『やる』と言ったことになっている",
+          "correct": true,
+          "stance": "🔍 沈黙＝承諾 ── 応答しないこと自体が Word になると理解する",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "沈黙を『Word の一形態』として捉え直すのは Slow の跳躍",
+          "author_view": "📖 論文はこう語る：受ける・断る・逆提案する・返事期限を伝える ── この4つのいずれもしないという選択は、事実上『受ける』を選んだことになる。だから多くの人は無意識に out-of-integrity を量産している。",
+          "slow_question": "🌱 今すぐ返事すべき依頼を、あなたはいくつ抱えているか？"
+        },
+        {
+          "text": "気が重い依頼だから、まだ返事したくない",
+          "correct": false,
+          "stance": "🔍 感情回避 ── 決めることの重さから逃げる",
+          "phase": "🌊 身体の感覚",
+          "phase_note": "『重い』という体感が判断を後ろに押す",
+          "author_view": "📖 論文はこう語る：『守らない』と告げることへの恐怖が Veil of Invisibility の第6要因。言わずに済ませようとすることで out-of-integrity が蓄積する。",
+          "slow_question": "🌱 その重さは、返事を先延ばしにすることで軽くなっているか？"
+        },
+        {
+          "text": "こちらから期限を切って『いつまでに返事します』と告げるべきだった",
+          "correct": true,
+          "stance": "🔍 期限逆提案 ── 沈黙を切り、新しい Word を差し込む",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "『返事の返事』を作るのは、Word-1 を扱う洗練された Slow の技",
+          "author_view": "📖 論文はこう語る：『いつまでに返事するかを伝える』は、返事そのものではないが、Word-1 を明示的に管理する行為。これができる人は out-of-integrity を減らせる。",
+          "slow_question": "🌱 今日中に返事期限を伝えるべきメッセージは、どれか？"
+        }
+      ]
+    },
+    {
+      "focus_theme": "word_5_stand_for",
+      "learning_objective": "Word-5『何のために立っているか』を、たまかつと接続できるか",
+      "q": "『あなたはどんな人ですか』と問われた時、Word-5 として答えられるのはどれか？",
+      "insight": "🌱 Word-5 は肩書きでも実績でもなく、自分が自他に宣言した『在り方』",
+      "choices": [
+        {
+          "text": "私はこの会社で〇〇部長をしています",
+          "correct": false,
+          "stance": "🔍 肩書き自認 ── 立場を自分だと表明する",
+          "phase": "⚡ Fast の反射",
+          "phase_note": "『どんな人？』を『何をしている人？』にすり替える自動応答",
+          "author_view": "📖 論文はこう語る：Word-5 は肩書きの話ではない。『何のために立っているか』『自分は他者に、どんな人として頼ってよいと表現しているか』。肩書きは容れ物であって、Stand For ではない。",
+          "slow_question": "🌱 肩書きを外した時、あなたは誰か？"
+        },
+        {
+          "text": "私は、対話の場で人が本音を取り戻すことに立っている人だ",
+          "correct": true,
+          "stance": "🔍 Stand For 明示 ── 何のために立っているかを言語化する",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "Word-5 を1文で言い切るのは、深く自分に向き合う Slow の作業",
+          "author_view": "📖 論文はこう語る：Word-5 は『自分が自分自身に向けて「自分はこういう人間だ」と置いていること、および他者に向けて「自分はこういう人間として頼ってよい」と表現していること』。宣言と一貫性で作動する。",
+          "slow_question": "🌱 その Stand For を、明日どこで honor するか？"
+        },
+        {
+          "text": "私は誠実な人だと思われたいと思っている",
+          "correct": false,
+          "stance": "🔍 印象管理 ── 他者からの見え方に軸足がある",
+          "phase": "🌊 身体の感覚",
+          "phase_note": "『思われたい』は他者の視線を土台にした反射",
+          "author_view": "📖 論文はこう語る：Word-5 は他者の評価ではなく、自分が何のために立っているかの宣言。『思われたい』にとどまるとき、あなたはまだ Word-5 を持っていない。",
+          "slow_question": "🌱 誰も見ていない時に、あなたは何のために立っているか？"
+        },
+        {
+          "text": "私は、たまかつ ── 自分の役割・責任・成長のサイクルを回す人として立っている",
+          "correct": true,
+          "stance": "🔍 コミュニティ言語で Stand For を語る ── 自分の Stand For を場の言語と接続する",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "自分の言葉を、共有の言語圏の中で明確にする ── 高度な Slow",
+          "author_view": "📖 論文はこう語る：Word-5 は自分の言葉のうち最も強力な種類の一つ。他者との関係性の中で honor されることで、その人の Integrity の核になる。（＊たまかつはありえる楽考ネイティブ語彙で、この Stand For の内実を扱う）",
+          "slow_question": "🌱 たまかつと自分の Stand For は、どこで一致しているか？"
+        }
+      ]
+    },
+    {
+      "focus_theme": "honoring_your_word",
+      "learning_objective": "『言葉を守る』と『言葉を honor する』の違いを掴めるか",
+      "q": "『Integrityある人』を最もよく定義するのはどれか？",
+      "insight": "🌱 常に言葉を守ることは不可能。だが、常に honor することは可能",
+      "choices": [
+        {
+          "text": "自分の言葉を、常に、例外なく守り抜く人",
+          "correct": false,
+          "stance": "🔍 完璧主義 ── 守るか／破るかの二分法で捉える",
+          "phase": "⚡ Fast の反射",
+          "phase_note": "『Integrity＝完璧に守る』という強い Fast の誤解",
+          "author_view": "📖 論文はこう語る：常に自分の言葉を守る人は、ほぼ確実に、自分の人生をあまりにも小さく生きている。人生が小さいゲームに留まっていない限り、あなたは必ず守れない場面に出会う。",
+          "slow_question": "🌱 『破るなら約束しない』を貫くと、あなたの人生はどのくらい小さくなるか？"
+        },
+        {
+          "text": "守れる時は守り、守れないとわかった瞬間に告げて片付ける人",
+          "correct": true,
+          "stance": "🔍 二段構え ── Honoring を『守る＋対処』の複合として運用する",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "『守れない』が来ても慌てず、即座に切り替える型を持っている",
+          "author_view": "📖 論文はこう語る：Honoring One's Word とは、(1)言葉を守る、(2)守らないと分かった瞬間に、当てにしている人々に即座に告げ、引き起こす混乱を片付ける。この二段構えで、Integrity を常に保つことができる。",
+          "slow_question": "🌱 今、告げるべき『守れない』を、あなたはいくつ抱えているか？"
+        },
+        {
+          "text": "守れなかった時に、罪悪感を強く感じる人",
+          "correct": false,
+          "stance": "🔍 感情負荷 ── 反省の感情を Integrity の代替とする",
+          "phase": "🌊 身体の感覚",
+          "phase_note": "罪悪感は感情のレイヤー。言葉のレイヤーには届いていない",
+          "author_view": "📖 論文はこう語る：Integrity は感情ではなく行為。罪悪感を感じることは片付けにならない。当事者への通告と混乱の後始末という具体的な行為が Honoring。",
+          "slow_question": "🌱 罪悪感で終わらせている out-of-integrity は、どこにあるか？"
+        },
+        {
+          "text": "守れそうにない約束は最初からしないよう慎重になる人",
+          "correct": false,
+          "stance": "🔍 事前回避 ── 守れないリスクを負わないよう Word を絞る",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "確実だけを引き受けるのは Slow の一形態だが、Word-3（期待）を沈黙で抱えることになる",
+          "author_view": "📖 論文はこう語る：慎重すぎる人は Word-1 を減らせるが、Word-3（期待されていること）は減らせない。しかも人生が小さくなる。Honoring の型を持つ人は、大胆な Word を引き受けられる。",
+          "slow_question": "🌱 慎重さの裏に、どんな Word-3 を沈黙させているか？"
+        }
+      ]
+    },
+    {
+      "focus_theme": "cost_benefit_trap",
+      "learning_objective": "言葉を守るかどうかを損得で決める癖の危険性を実感できるか",
+      "q": "『損して得取れ』的な発想で約束を判断するとき、著者は何と警告するか？",
+      "insight": "🌱 言葉を守るかどうかにコスト・ベネフィット分析をした瞬間、あなたは保証付きで信頼を失う",
+      "choices": [
+        {
+          "text": "状況に応じて柔軟に判断できる、賢い態度だ",
+          "correct": false,
+          "stance": "🔍 柔軟性錯覚 ── 損得判断を賢さと取り違える",
+          "phase": "⚡ Fast の反射",
+          "phase_note": "『合理的判断＝正しい判断』の Fast の推論",
+          "author_view": "📖 論文はこう語る：自分の言葉を守るかどうかを損得計算で決める人は、ほぼ自動的に out-of-integrity になり、信頼を失う。唯一の例外は『私は損得で言葉を守るかどうか決めます』と事前に公言している場合だけ ── ただしその場合、あなたは『機会主義者』を公言したことになる。",
+          "slow_question": "🌱 あなたの『柔軟性』は、相手から見て何に見えているか？"
+        },
+        {
+          "text": "その計算を始めた瞬間、私は out-of-integrity になっている",
+          "correct": true,
+          "stance": "🔍 罠の自覚 ── 損得判断そのものが違反であると気づく",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "判断のプロセス自体を疑う ── 深い Slow の自己観察",
+          "author_view": "📖 論文はこう語る：これが Veil of Invisibility の第9要因、最大の落とし穴。損得で守るかどうか決める人は、周囲から見れば『信頼できない人』として保証付きで映る。しかも本人はそれに気づいていない。",
+          "slow_question": "🌱 今、あなたが損得で見直そうとしている約束はどれか？"
+        },
+        {
+          "text": "無理して守れば体を壊すかもしれない。だから損得は正当な考慮だ",
+          "correct": false,
+          "stance": "🔍 身体防衛 ── 自分の体を根拠に判断を正当化する",
+          "phase": "🌊 身体の感覚",
+          "phase_note": "身体の警告は正当だが、Word の扱いを損得に落とすのは別の話",
+          "author_view": "📖 論文はこう語る：体調悪化は『守れない』とわかった瞬間の一つ。だがその時に必要なのは Honoring（即座の通告と片付け）であって、コスト・ベネフィット計算ではない。",
+          "slow_question": "🌱 体を守るために、いま告げるべき『守れません』はどれか？"
+        },
+        {
+          "text": "言葉を『与える』段階で慎重にコストを見ていれば問題ない",
+          "correct": false,
+          "stance": "🔍 前段階分離 ── 与える段階と守る段階を分けようとする",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "与える段階の慎重さは正しい。だが与えた後の損得判断は別問題",
+          "author_view": "📖 論文はこう語る：言葉を与える時にコスト・ベネフィットを見ないのが Veil の第8要因。だが、いったん与えた後にコスト・ベネフィットを持ち込むのが第9要因、最大の罠。両者は別の失敗。",
+          "slow_question": "🌱 与える段階と守る段階、あなたはどちらで失敗しやすいか？"
+        }
+      ]
+    },
+    {
+      "focus_theme": "veil_of_invisibility",
+      "learning_objective": "自分の Veil of Invisibility の主要な穴を特定できるか",
+      "q": "あなたが最も『Integrityある人間だ』と思っているのに実は out-of-integrity になっている可能性の高い盲点はどれか？",
+      "insight": "🌱 Veilは11の要因の合成。自分がどれで転んでいるかを可視化することから始まる",
+      "choices": [
+        {
+          "text": "『言ってないのだから責任はない』と思っている（Word-1 だけを Word と思っている）",
+          "correct": true,
+          "stance": "🔍 Word-1 限定認識 ── 6つの Word のうち1つしか自分の言葉と認識していない",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "残り5つの Word の存在に気づくこと自体が、大きな視座変更",
+          "author_view": "📖 論文はこう語る：Veil の第2要因は『Word-1 と Word-4 しか自分の言葉と思っていない』こと。Word-2（知っていること）／Word-3（期待）／Word-5（Stand For）／Word-6（規範）が自分の言葉であるという認識が抜け落ちている。",
+          "slow_question": "🌱 今、Word-2〜Word-6 のうち、あなたが最も無視しているのはどれか？"
+        },
+        {
+          "text": "『完璧にはなれないから、始めない』と思っている",
+          "correct": true,
+          "stance": "🔍 完璧主義 ── Integrityを頂上のない山とみなして最初の一歩を踏まない",
+          "phase": "⚡ Fast の反射",
+          "phase_note": "『完全でないなら意味がない』は Fast の全か無か思考",
+          "author_view": "📖 論文はこう語る：Veil の第10要因は『Integrity は頂上のない山だ』と思うこと。完璧にはなれないという理由で、最初の一歩を踏み出さない。",
+          "slow_question": "🌱 完璧を諦めた瞬間に踏み出せる一歩は、何か？"
+        },
+        {
+          "text": "約束した時、その約束を『守る瞬間に思い出せる形』で保持していない",
+          "correct": true,
+          "stance": "🔍 保持機構欠落 ── 言葉が Word として実装されていない",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "『思い出す仕組みまでが Word の一部』という認識は、深い Slow",
+          "author_view": "📖 論文はこう語る：Veil の第11要因は『言葉を守る時点で、その言葉が自分の中に存在していない』こと。『Talk is cheap』と呼ばれる原因はこれ。約束した時、それを守る瞬間に思い出せる形で保持する仕組みを持たなければ、Integrity ある人間にはなれない。",
+          "slow_question": "🌱 あなたの Word を『守る瞬間に思い出す仕組み』は何か？（カレンダー／宣言／証人／システム）"
+        },
+        {
+          "text": "自分が out-of-integrity になっている感覚がなんとなくある",
+          "correct": false,
+          "stance": "🔍 体感の警報 ── 気配は感じているが可視化していない",
+          "phase": "🌊 身体の感覚",
+          "phase_note": "違和感は正しい信号だが、Slow で言語化しないと Veil は外れない",
+          "author_view": "📖 論文はこう語る：Veil は『気づけない』構造そのもの。感じている違和感を言語化し、11要因のどれで転んでいるかを名付けない限り、盲点は盲点のままである。",
+          "slow_question": "🌱 その違和感を、11要因のどれで転んでいるかで名付けるとしたら？"
+        }
+      ]
+    }
+  ],
+
+  "themes": [
+    {
+      "id": "positive_vs_normative",
+      "layer": 3,
+      "title": "Positive領域とNormative領域を分ける",
+      "lo_tag": "#positive_vs_normative",
+      "seed_question": "あなたが今、道徳（べき論）で誰かを評価している場面はどこか？",
+      "excerpt": "**Positive** ＝ 「what is」（あるがままを記述する）。**Normative** ＝ 「what ought to be」（あるべきを規範する）。IntegrityはPositive領域、Morality・Ethics・LegalityはNormative領域に属する。両者を混同することが、out-of-integrityが見えなくなる最大の原因。",
+      "prompt": "今日、あなたが Normative（べき論）で見ていた事象を1つ選び、Positive（現に起きている状態）として言い直してみる。",
+      "rubric": [
+        "Positive/Normative の区別を意識したことがない",
+        "違いは分かるが、日常判断ではまだ混ざる",
+        "『これは Normative だな』と気づき、Positive に置き直せる",
+        "議論の中で両者を分けて相手に提示できる（相手の視座を変えられる）"
+      ],
+      "implemented": true,
+      "video_embed_url": "",
+      "video_title": "",
+      "perspective_quiz": [
+        {
+          "q": "『あの人は Integrity がない』と言う時、あなたはどちらの領域で語っているか？",
+          "learning_objective": "自分の言葉が Positive/Normative のどちらで作動しているかを聞き分ける",
+          "choices": [
+            {
+              "text": "Normative ── 『そうあるべきなのに、そうなっていない』という規範判断",
+              "stance": "🔍 規範判断 ── 善悪の物差し",
+              "phase": "⚡ Fast の反射",
+              "phase_note": "日常語の『Integrity』はほぼこの意味で使われている",
+              "author_view": "📖 論文はこう語る：辞書の3番目の定義（sound moral principle）はこれ。我々の新モデルではこの定義を採用しない。",
+              "slow_question": "🌱 規範判断を外したら、あなたは何を見るか？"
+            },
+            {
+              "text": "Positive ── 『言葉が whole でなくなっている状態』の記述",
+              "stance": "🔍 状態記述 ── あるがままを見る",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "評価から状態記述への転換は Slow の仕事",
+              "author_view": "📖 論文はこう語る：これが本論文の中心的提案。スポークが抜けた車輪と同じで、良い/悪いではなく、whole/broken の観察。",
+              "slow_question": "🌱 その人の『言葉が抜けている箇所』を、あなたはいくつ数えられるか？"
+            },
+            {
+              "text": "感情 ── 『あの人にイラつく』という体感",
+              "stance": "🔍 感情呼称 ── 感情を判断言語にすり替える",
+              "phase": "🌊 身体の感覚",
+              "phase_note": "『Integrityがない』が実は『イラつく』の翻訳になっていることは多い",
+              "author_view": "📖 論文はこう語る：感情そのものは Word ではない。感情の言語化を Integrity 判断と混ぜないこと。",
+              "slow_question": "🌱 イラつきを外した時、あなたはその人の何を見ているか？"
+            },
+            {
+              "text": "混ざっている ── 全部が同時に走っている",
+              "stance": "🔍 混合状態 ── 分けられていない現在地",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "混ざっていると認めるところが Slow の出発点",
+              "author_view": "📖 論文はこう語る：混同こそが Veil of Invisibility の元凶。分けることが最初のステップ。",
+              "slow_question": "🌱 混ざっている3つを、まず言葉で分けてみるとしたら？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "integrity_as_state",
+      "layer": 3,
+      "title": "Integrityを『状態』として定義し直す",
+      "lo_tag": "#integrity_as_state",
+      "seed_question": "『Integrityがある人』を、道徳語彙を使わずに定義できるか？",
+      "excerpt": "Integrity ＝ **whole, complete, unbroken, unimpaired, sound, perfect condition であるという状態または条件**。略して「whole and complete」。道徳的な健全さ（sound moral principle）としてのIntegrityは、新モデルでは**採用しない**。",
+      "prompt": "自分の身の回りの『Integrityある人』を、道徳語（誠実／真面目／立派）を一切使わずに描写する。",
+      "rubric": [
+        "『Integrityある』を道徳語でしか説明できない",
+        "『whole and complete』の意味は分かる（自分の言葉ではまだ言えない）",
+        "自分の言葉で『状態としてのIntegrity』を説明できる",
+        "他者にこの区別を伝え、道徳フレームから状態フレームへ移行させられる"
+      ],
+      "implemented": true,
+      "video_embed_url": "",
+      "video_title": "",
+      "perspective_quiz": [
+        {
+          "q": "自転車の車輪からスポークが1本抜けた。この時、車輪の Integrity は？",
+          "learning_objective": "『whole and complete』を物理オブジェクトの直感で掴む",
+          "choices": [
+            {
+              "text": "Integrity は下がった（whole でなくなった）",
+              "stance": "🔍 状態観察 ── 目に見える whole/broken を扱う",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "物のレベルで正確に見えるが、これを人に適用するには跳躍が要る",
+              "author_view": "📖 論文はこう語る：自転車の車輪はスポークが揃って初めて whole and complete である。1本抜くたびに Integrity が下がり、それに従って Workability も下がる。",
+              "slow_question": "🌱 あなたの『言葉』からスポークが抜けている箇所は、いくつあるか？"
+            },
+            {
+              "text": "見た目は変わらないから、Integrity は変わらない",
+              "stance": "🔍 表面判断 ── 見えない変化を無視する",
+              "phase": "⚡ Fast の反射",
+              "phase_note": "『動いているように見える』が Integrity の錯覚を生む",
+              "author_view": "📖 論文はこう語る：目に見えない Integrity の低下も、Workability の opportunity set を確実に狭めている。",
+              "slow_question": "🌱 見えないが下がっている自分の Integrity は、どこに現れているか？"
+            },
+            {
+              "text": "抜いた人の意図が悪ければ Integrity は下がる",
+              "stance": "🔍 意図依存 ── 状態評価に意図を混ぜる",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "意図の話をした瞬間、Positive から Normative に戻ってしまう",
+              "author_view": "📖 論文はこう語る：Integrity は客観的状態であり、意図とは独立に作動する。誰がなぜ抜いたかは、車輪の whole さには影響しない。",
+              "slow_question": "🌱 『意図』を切り離した時、状態として何が残るか？"
+            },
+            {
+              "text": "抜けたスポークを補うために別のパーツで支えれば維持できる",
+              "stance": "🔍 補償設計 ── 全体としての Workability を保つ",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "個別のスポークではなく、システム全体の whole を見る視座",
+              "author_view": "📖 論文はこう語る：Honoring Your Word の第2条項（守れない時の即時通告と片付け）は、まさにこの補償設計。Integrity をシステムとして保つ技術。",
+              "slow_question": "🌱 あなたが抜けた Word の代わりに走らせている補償は、何か？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "integrity_workability_performance",
+      "layer": 3,
+      "title": "Integrity → Workability → Performance の因果連鎖",
+      "lo_tag": "#integrity_workability_performance",
+      "seed_question": "あなたの現場のパフォーマンスの opportunity set は、いま何によって狭められているか？",
+      "excerpt": "**Integrity が下がれば、Workability が下がる。Workability が下がれば、達成可能な Performance の opportunity set が下がる。** Integrity は Performance の十分条件ではなく必要条件。重力のような自然法則として、人が好むかどうかに関係なく作動する。",
+      "prompt": "自分の組織で、Workability が下がっている一箇所を選び、その手前にある Integrity の欠損を1つ言語化する。",
+      "rubric": [
+        "パフォーマンス低下を『気合／能力／運』で説明する",
+        "『Integrity が土台』という命題は理解している（介入には落ちない）",
+        "Workability の欠損点を特定し、その手前の Word の欠損を指摘できる",
+        "Integrity 回復の介入設計を、複数の場面に応用できる"
+      ],
+      "implemented": true,
+      "video_embed_url": "",
+      "video_title": "",
+      "perspective_quiz": [
+        {
+          "q": "組織のパフォーマンスを上げるために、最も『必要条件』を満たすアプローチは？",
+          "learning_objective": "『必要条件』と『十分条件』を区別できる",
+          "choices": [
+            {
+              "text": "強いビジョンとカリスマ的リーダーを立てる",
+              "stance": "🔍 上振れ狙い ── 天井を上げる仕掛け",
+              "phase": "⚡ Fast の反射",
+              "phase_note": "『パフォーマンス＝勢い』の Fast の連想",
+              "author_view": "📖 論文はこう語る：ビジョンは十分条件側の話。土台の Integrity が欠けていれば、opportunity set 自体が狭いままなので、ビジョンでも突破できない。",
+              "slow_question": "🌱 ビジョンを立てる前に、埋めるべき Word の穴はどこか？"
+            },
+            {
+              "text": "組織内の Word の欠損を1つ1つ片付ける",
+              "stance": "🔍 土台整地 ── 必要条件を満たしにいく",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "地味だが、opportunity set を広げる唯一のレバー",
+              "author_view": "📖 論文はこう語る：Integrity は Performance の必要条件。片付けなしに Performance の天井は上がらない。逆に、片付けができれば、その組織の可能な最大パフォーマンスが跳ね上がる。",
+              "slow_question": "🌱 今週、あなたが1つ片付けるとしたら、どれか？"
+            },
+            {
+              "text": "メンバーのモチベーションを高める研修を導入する",
+              "stance": "🔍 動機刺激 ── 心のエネルギーで補う",
+              "phase": "🌊 身体の感覚",
+              "phase_note": "感情に働きかけるアプローチだが、Word の欠損は残る",
+              "author_view": "📖 論文はこう語る：モチベーションは Fast のエネルギーだが、それは Word の whole さの上でしか持続しない。土台なしの動機付けは短命。",
+              "slow_question": "🌱 モチベーションが切れた後にも残るものは、どこにあるか？"
+            },
+            {
+              "text": "KPIを整備し、パフォーマンスを可視化する",
+              "stance": "🔍 測定強化 ── 数字で締める",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "測定は Slow の作業だが、これは Performance の見え方を整えるだけ",
+              "author_view": "📖 論文はこう語る：KPIは Performance を見えやすくするが、opportunity set 自体を広げるものではない。土台の Integrity なしでは、KPIは out-of-integrity を隠す道具にもなる。",
+              "slow_question": "🌱 あなたのKPIは、Word の欠損を照らしているか、隠しているか？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "self_is_word",
+      "layer": 2,
+      "title": "自分自身は『自分に向けた言葉』である",
+      "lo_tag": "#self_is_word",
+      "seed_question": "今、あなたが自分に向けて発している言葉は、あなたを whole にしているか？",
+      "excerpt": "身体でも、感情でも、思考でもなく、**『自分が自分に向けて発する言葉（word to oneself）』こそが、自分自身である**。人は言語の中で構成される存在。言葉が whole and complete でなければ、その人自身が whole and complete でなくなる。",
+      "prompt": "今日、自分自身に向けて何度も繰り返している言葉を3つ書き出し、それが自分を whole にしているか／欠かせているかを問う。",
+      "rubric": [
+        "『自分＝身体・感情・思考』の等式から出ていない",
+        "『自分＝言葉』という命題は理解している（実感はまだ）",
+        "自分に向ける言葉を意識的に選び直せる",
+        "他者にこの区別を伝え、その人の自己認識を再構成できる"
+      ],
+      "implemented": true,
+      "video_embed_url": "",
+      "video_title": "",
+      "perspective_quiz": [
+        {
+          "q": "『Integrityある人間である』ためのまず最初の行為はどれか？",
+          "learning_objective": "自己統合の起点が『自分への言葉』にあることを理解する",
+          "choices": [
+            {
+              "text": "他者に対して立派に振る舞う練習をする",
+              "stance": "🔍 他者向け訓練 ── 外の目に向かって整える",
+              "phase": "⚡ Fast の反射",
+              "phase_note": "『Integrity＝外への振る舞い』の錯覚",
+              "author_view": "📖 論文はこう語る：他者への Integrity は、自分への言葉が honor されていることの上にしか成立しない。自分への言葉を軽く扱う人は、他者への言葉も honor できない。",
+              "slow_question": "🌱 自分への言葉を honor した最後の場面は、いつか？"
+            },
+            {
+              "text": "『私は Integrity ある人間である』と自分に言うところから始める",
+              "stance": "🔍 自己宣言 ── 自分への Word-5 を置く",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "自分に言うのが起点、という反直感を Slow で受け止める",
+              "author_view": "📖 論文はこう語る：Integrityある人間であることは、まず『私は Integrity ある人間である』と自分に言うことから始まる。この自分への言葉なしに、他者に対して Integrity ある振る舞いをすることは、ほぼ不可能。",
+              "slow_question": "🌱 今、自分にその言葉を発してみて、何が起きているか？"
+            },
+            {
+              "text": "強い意志と自制心を鍛える",
+              "stance": "🔍 意志訓練 ── 内側の力で押し切る",
+              "phase": "🌊 身体の感覚",
+              "phase_note": "意志は身体的エネルギー。言葉のレイヤーではない",
+              "author_view": "📖 論文はこう語る：Integrity は意志の強さではなく、言葉と存在の一致。意志で押し切ろうとする発想は、逆に自分への言葉を honor しない癖を強化する。",
+              "slow_question": "🌱 意志で押し切ってきた場面で、置き去りにした自分への言葉は？"
+            },
+            {
+              "text": "自分の行動と自己認識のズレを Chris Argyris 的に観察する",
+              "stance": "🔍 認知観察 ── ズレを冷静に見つめる",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "ズレを直視するのは Slow だが、直しに動く前段階",
+              "author_view": "📖 論文はこう語る：Chris Argyris が40年の研究で示したのは『人は自分の自己認識と一貫しない行動を取り続け、その矛盾に気づいていない』ということ。まず気づくこと、そして自分に言い直すこと。",
+              "slow_question": "🌱 気づいたズレのうち、今日1つを言い直すとしたら？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "word_1_said",
+      "layer": 2,
+      "title": "Word-1: 言ったこと（沈黙もWordになる）",
+      "lo_tag": "#word_1_said",
+      "seed_question": "この24時間、あなたが返事しなかった依頼はいくつあるか？",
+      "excerpt": "**Word-1 ＝ あなたが『やる／やらない』と言ったこと**（やると言ったなら期限まで含む）。重要な補記：**他者からの依頼に対して、適切な時間内に『受ける／断る／逆提案する／いつまでに返事するか伝える』のいずれもしなければ、その依頼を受けたことになる**。",
+      "prompt": "受信箱／DM／未読メッセージから、まだ返事していない依頼を全部洗い出し、各々に4択（受ける／断る／逆提案／返事期限を伝える）を割り振る。",
+      "rubric": [
+        "沈黙が Word だと思っていない",
+        "沈黙も Word だと理解している（実践はまだ）",
+        "24時間以内に4択のいずれかで応答する習慣がある",
+        "その場で『いつまでに返事します』を即答できる（未処理を溜めない）"
+      ],
+      "implemented": true,
+      "video_embed_url": "",
+      "video_title": "",
+      "perspective_quiz": [
+        {
+          "q": "友人から『来月の旅行に行かない？』と誘われて2週間返事していない。これは Word-1 として何と扱われるか？",
+          "learning_objective": "沈黙が『受けた』ことになる、という認識を体感する",
+          "choices": [
+            {
+              "text": "返事していないから、まだ未決定",
+              "stance": "🔍 未決定錯覚 ── 沈黙を保留と誤認する",
+              "phase": "⚡ Fast の反射",
+              "phase_note": "『沈黙＝ノーコミット』の直感的な誤り",
+              "author_view": "📖 論文はこう語る：適切な時間内に4択のいずれもしなければ、事実上『受ける』を選んだことになる。相手の期待（Word-3）が生成され続けている。",
+              "slow_question": "🌱 相手の期待は、今どれくらい膨らんでいるか？"
+            },
+            {
+              "text": "『受けた』ことになっている（Word-1が成立している）",
+              "stance": "🔍 沈黙＝承諾 ── 沈黙も Word の一形態",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "沈黙を Word の一形態として名指しできると、扱いが変わる",
+              "author_view": "📖 論文はこう語る：これが Word-1 の隠れた副作用。多くの人はここで無意識に out-of-integrity を蓄積している。",
+              "slow_question": "🌱 今すぐ4択のどれで応答するか？"
+            },
+            {
+              "text": "気まずいから、そっとフェードアウトしたい",
+              "stance": "🔍 回避欲求 ── 対処の重さから逃げる",
+              "phase": "🌊 身体の感覚",
+              "phase_note": "気まずさは正当な感覚だが、Word-1 の欠損は消えない",
+              "author_view": "📖 論文はこう語る：Veil の第6要因『言わないで済ませようとする恐怖』。言わないことで out-of-integrity は片付かず、蓄積する。",
+              "slow_question": "🌱 気まずさを1度乗り越えて言い切ったら、何が起きるか？"
+            },
+            {
+              "text": "『今週末までに返事します』とだけ伝える",
+              "stance": "🔍 期限逆提案 ── 返事の返事を Word にする",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "洗練された Word-1 の運用。決めきれない時の最善手",
+              "author_view": "📖 論文はこう語る：『いつまでに返事するかを伝える』は Word-1 の4番目の選択肢。決定を遅らせても、Integrity は保てる。",
+              "slow_question": "🌱 今、期限逆提案を送るべきメッセージは、どれか？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "word_2_3_known_expected",
+      "layer": 2,
+      "title": "Word-2 / Word-3: 知っていること／期待されていること",
+      "lo_tag": "#word_2_3_known_expected",
+      "seed_question": "あなたが『知りながら』やっていない、やっているべきことは何か？",
+      "excerpt": "**Word-2 ＝ やるべき／やらないべきと知っていること**。**Word-3 ＝ 期待されていること**（明示されていなくても）。ただし逆に、**あなたが他人に期待していることを明示していない限り、それは相手の Word にはならない**。多くの人はこれを無視して勝手に out-of-integrity を溜め込む。",
+      "prompt": "①自分が知りながらまだ手をつけていないこと（Word-2）を1つ。②あなたが誰かに期待していて、その人に明示していないこと（Word-3の逆側）を1つ書き出す。",
+      "rubric": [
+        "Word-2/Word-3 が Word だと思っていない",
+        "違いは分かるが、日常では気づけていない",
+        "定期的に Word-2/Word-3 を棚卸しし、Word-1 に変換する",
+        "他者に対する Word-3 の逆側も、明示することを習慣にしている"
+      ],
+      "implemented": true,
+      "video_embed_url": "",
+      "video_title": "",
+      "perspective_quiz": [
+        {
+          "q": "部下がある業務でミスを繰り返している。あなたは『指導すべき』と分かっていながらしていない。この Word-2 の状態は？",
+          "learning_objective": "『知りながら動いていない』ことが Word の欠損だと気づく",
+          "choices": [
+            {
+              "text": "まだ約束していないから、Integrity は損なわれていない",
+              "stance": "🔍 明示主義 ── 声に出していなければセーフ",
+              "phase": "⚡ Fast の反射",
+              "phase_note": "『明示していない＝Word ではない』の誤解",
+              "author_view": "📖 論文はこう語る：Word-2『やるべきと知っていること』は、それ自体が Word。誰にも約束していなくても、自分自身への Word として作動する。",
+              "slow_question": "🌱 あなた自身への Word-2 を、あと何個保留しているか？"
+            },
+            {
+              "text": "自分に対する Word-2 として、既に out-of-integrity になっている",
+              "stance": "🔍 自己観察 ── 内なる Word の欠損を認める",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "自分の中にすでに Word があると認めるのは深い Slow",
+              "author_view": "📖 論文はこう語る：Word-2 の out-of-integrity は、自分への信頼の欠損として蓄積し、他の Word にも波及する。まず自分の中で Word として認めることが必要。",
+              "slow_question": "🌱 いつ、その部下に話しに行くか（Word-1 に変換する）？"
+            },
+            {
+              "text": "指導するのは気が重い ── だからしない",
+              "stance": "🔍 感情優先 ── 気分で意思決定する",
+              "phase": "🌊 身体の感覚",
+              "phase_note": "『気が重い』は正当な感覚だが、Word-2 の欠損は消えない",
+              "author_view": "📖 論文はこう語る：Word-2 を無視する言い訳の多くは感情の言語で語られる。感情を Word の代替として使ってはいけない。",
+              "slow_question": "🌱 気が重い理由を1つ言語化してみると、何が出てくるか？"
+            },
+            {
+              "text": "部下の側の Word-3（期待）が明示されていないから、まず期待を明示する",
+              "stance": "🔍 期待の明示化 ── 相手側の Word 環境を整える",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "Word-2 を単に自分で片付けず、Word-3 環境を整える二段構え",
+              "author_view": "📖 論文はこう語る：あなたが相手に期待していることを明示していない限り、それは相手の Word にはならない。指導の前段として、期待の明示が Integrity 上必要。",
+              "slow_question": "🌱 相手にまだ明示していない期待は、何か？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "word_4_stated",
+      "layer": 2,
+      "title": "Word-4: 事実として主張したこと",
+      "lo_tag": "#word_4_stated",
+      "seed_question": "この1週間、あなたが『これは事実だ』と主張したことのうち、確認せずに言ったものはどれか？",
+      "excerpt": "**Word-4 ＝ あなたが『これは事実だ』と他者に主張したこと**。事実だと言ったなら、それが本当に事実であることに対して、あなたは責任を負う。噂話・伝聞・思い込みを『事実として』伝える癖は、Word-4 の欠損として Integrity を削る。",
+      "prompt": "最近『〜だそうだ／〜らしい／〜と聞いた』を『〜だ』にすり替えて話した場面を1つ思い出し、正確な言い方に直す。",
+      "rubric": [
+        "『事実として言う』と『聞いた話をする』の区別を意識していない",
+        "違いは分かる（実際の会話では混ざりがち）",
+        "話す前に『これは Word-4 として言えるか？』と確認する",
+        "他者の Word-4 の混同にも気づき、丁寧に指摘できる"
+      ],
+      "implemented": true,
+      "video_embed_url": "",
+      "video_title": "",
+      "perspective_quiz": [
+        {
+          "q": "会議で『A社はこの方針を取っている』と自信を持って発言した。実は同僚から聞いただけの伝聞だった。この時の Word-4 状態は？",
+          "learning_objective": "伝聞と Word-4 の混同を検知する",
+          "choices": [
+            {
+              "text": "同僚から聞いた話だから、自分の責任ではない",
+              "stance": "🔍 伝達者論理 ── 情報の起点に責任を転嫁する",
+              "phase": "⚡ Fast の反射",
+              "phase_note": "『引用だから免責』の直感的誤り",
+              "author_view": "📖 論文はこう語る：Word-4 は『これは事実だ』と自分の口で言った瞬間に成立する。誰から聞いたかは関係ない。自分がそれを事実として主張したことに、責任を負う。",
+              "slow_question": "🌱 その発言を『同僚が言っていた』と言い直したら、何が起きるか？"
+            },
+            {
+              "text": "Word-4 が out-of-integrity になっている",
+              "stance": "🔍 主張責任 ── 自分の口から出た事実主張に責任を負う",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "自分の言葉として言い直せると、Word-4 の運用が変わる",
+              "author_view": "📖 論文はこう語る：出典の曖昧な情報を『事実』として伝えることは、微細だが確実な out-of-integrity。次の会議で訂正することが Honoring。",
+              "slow_question": "🌱 今、訂正しに戻るべき Word-4 は、どれか？"
+            },
+            {
+              "text": "会議の勢いだから、細かい引用元は気にしなくてよい",
+              "stance": "🔍 場の流れ優先 ── 場の勢いを Integrity より上に置く",
+              "phase": "🌊 身体の感覚",
+              "phase_note": "『勢い』は感覚。Word-4 の重みを消してしまう",
+              "author_view": "📖 論文はこう語る：勢いで発した Word-4 こそ、後から Workability を下げる。会議の意思決定が誤情報の上に組み立てられれば、組織全体の opportunity set が縮む。",
+              "slow_question": "🌱 その会議の決定は、誤情報の上に立っているかもしれないか？"
+            },
+            {
+              "text": "『と聞いています』と言えばよかった、と気づく",
+              "stance": "🔍 言い方の精査 ── Word-4 の形式に気を配る",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "Word-4 の言い方の細部を選ぶ ── 熟練の Slow",
+              "author_view": "📖 論文はこう語る：『と聞いています／と理解しています／確認が必要ですが』などの言い回しは Word-4 の責任を正確に配置する道具。",
+              "slow_question": "🌱 今週、この言い回しを1回試すとしたら、どこで？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "word_5_stand_for",
+      "layer": 2,
+      "title": "Word-5: 何のために立っているか（≒たまかつ）",
+      "lo_tag": "#word_5_stand_for",
+      "seed_question": "あなたが『どんな人として頼ってよい』と他者に表現しているのは何か？",
+      "excerpt": "**Word-5 ＝ あなたが何のために立っているか**。自分自身に向けて『自分はこういう人間だ』と置いていること、および他者に向けて『自分はこういう人間として頼ってよい』と表現していること。これは肩書きでも実績でもなく、宣言と一貫性で作動する。ありえる楽考の『たまかつ』と通底する。",
+      "prompt": "『私は〇〇のために立っている人だ』を1文で書く（肩書き・所属を使わずに）。",
+      "rubric": [
+        "Word-5 を持つという発想がない（肩書きが自分だと思っている）",
+        "Word-5 が大事なのは分かる（言葉にはできない）",
+        "1文で言い切れる。周囲もそれを認識している",
+        "Word-5 と日々の Word-1〜4 が一貫している（証人がいる）"
+      ],
+      "implemented": true,
+      "video_embed_url": "",
+      "video_title": "",
+      "perspective_quiz": [
+        {
+          "q": "『あなたはどんな人ですか？』と初対面で聞かれた。Word-5 として答えられるのはどれか？",
+          "learning_objective": "肩書きでも実績でもない Word-5 の言い方を掴む",
+          "choices": [
+            {
+              "text": "こんな会社で、こんな役職をしています",
+              "stance": "🔍 肩書き自認 ── 容れ物を自分にする",
+              "phase": "⚡ Fast の反射",
+              "phase_note": "『何をしているか＝どんな人か』の自動的すり替え",
+              "author_view": "📖 論文はこう語る：肩書きは容れ物であって Word-5 ではない。Word-5 は『何のために立っているか』。",
+              "slow_question": "🌱 その肩書きを外した時、何が残るか？"
+            },
+            {
+              "text": "私は、対話の場で人が本音を取り戻すことのために立っている",
+              "stance": "🔍 Stand For 宣言 ── 何のために立っているかを1文にする",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "1文にする作業は、深い Slow の自己精査",
+              "author_view": "📖 論文はこう語る：Word-5 は宣言と一貫性で作動する。1文の形にすることで、他の Word がその上に整列できる。",
+              "slow_question": "🌱 その1文と、あなたの直近1週間の Word-1 は整合しているか？"
+            },
+            {
+              "text": "私は誠実な人でありたいと思っています",
+              "stance": "🔍 願望表明 ── ありたい姿を語る",
+              "phase": "🌊 身体の感覚",
+              "phase_note": "『ありたい』は Word-5 の手前で止まっている",
+              "author_view": "📖 論文はこう語る：Word-5 は『ありたい』ではなく『立っている』。宣言として置ききることで初めて Word として作動する。",
+              "slow_question": "🌱 『ありたい』を『立っている』に変えたら、何が変わるか？"
+            },
+            {
+              "text": "私は、たまかつを回す価値共創コミュニティのファシリテーターとして立っている",
+              "stance": "🔍 場の言語で語る Word-5 ── 共有の言語圏の中に自分を置く",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "自分の Word-5 を、コミュニティの言語と接続する洗練された Slow",
+              "author_view": "📖 論文はこう語る：Word-5 が他者と共有の言語圏で honor されるとき、その Integrity は組織・社会レベルに拡張する。ありえる楽考の『たまかつ』は、この共有の言語圏の一例。",
+              "slow_question": "🌱 あなたの Word-5 は、どんなコミュニティの言語と接続しているか？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "honoring_your_word",
+      "layer": 1,
+      "title": "Honoring Your Word ── 守る＋守れない時の対処",
+      "lo_tag": "#honoring_your_word",
+      "seed_question": "今、あなたが『守れない』と分かっているのに、まだ告げていない約束はどれか？",
+      "excerpt": "Integrity を保つ唯一の方法は **Honoring One's Word**。これは2つの行為からなる：**(1)言葉を守る**、**(2)守らないと分かった瞬間に、それを当てにしている人々に即座に告げ、引き起こす混乱を片付ける**。『常に守る』は不可能。しかし『常に honor する』は可能。",
+      "prompt": "今抱えている『守れないかもしれない』約束を1つ選び、今日中に相手に『守れない可能性がある』と伝える一文を書く。",
+      "rubric": [
+        "『Integrity＝常に守ること』だと思っている",
+        "『守れない時の対処』が Integrity の一部だと理解している",
+        "実際に『守れない』を告げて、片付けまで運用している",
+        "告げるのが早くなり、混乱の量が少なくなっている（熟達している）"
+      ],
+      "implemented": true,
+      "video_embed_url": "",
+      "video_title": "",
+      "perspective_quiz": [
+        {
+          "q": "1週間後に納品予定の資料がある。5日前の時点で『これは間に合わない』と分かった。Honoring Your Word として最善の一手は？",
+          "learning_objective": "『守れない』の即時通告のタイミングと粒度を掴む",
+          "choices": [
+            {
+              "text": "残り5日で全力を尽くす。まだ諦めるのは早い",
+              "stance": "🔍 気合完遂 ── 意志で押し切ろうとする",
+              "phase": "⚡ Fast の反射",
+              "phase_note": "『まだいける』の直感が Integrity の判断を遅らせる",
+              "author_view": "📖 論文はこう語る：『間に合わない』と分かった瞬間に告げることが Honoring の核。遅らせる時間分だけ、相手が対応できる時間が奪われる。",
+              "slow_question": "🌱 告げるのが1日遅れるごとに、相手から何が奪われるか？"
+            },
+            {
+              "text": "『間に合わない可能性がある。新しい期日と代替案を提案したい』と即日連絡する",
+              "stance": "🔍 早期通告 ── Honoring の (2) を即実行する",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "『告げる＋代替案』はセット。Slowで運用する型",
+              "author_view": "📖 論文はこう語る：Honoring の (2) は『告げる』だけでなく『引き起こす混乱を片付ける』まで含む。代替案・新しい期日・引き継ぎは片付けの一部。",
+              "slow_question": "🌱 告げる時、あなたはどの代替案をセットで持って行くか？"
+            },
+            {
+              "text": "申し訳なくて言い出せない。もう少し様子を見る",
+              "stance": "🔍 罪悪回避 ── 感情を Integrity の代わりに置く",
+              "phase": "🌊 身体の感覚",
+              "phase_note": "『言い出しにくい』は正当な感覚だが、告げないことでコストは相手に転嫁される",
+              "author_view": "📖 論文はこう語る：Veil の第6要因『告げることへの恐怖』。言わないことで out-of-integrity は片付かず、蓄積する。",
+              "slow_question": "🌱 相手の視点から見たら、いつ告げてほしいか？"
+            },
+            {
+              "text": "納品当日に『できませんでした』と告げる",
+              "stance": "🔍 期日待機 ── 期日到来まで沈黙する",
+              "phase": "⚡ Fast の反射",
+              "phase_note": "『まだ確定していない』という自己欺瞞的な保留",
+              "author_view": "📖 論文はこう語る：Honoring の (2) の要諦は『分かった瞬間』であって『期日』ではない。期日を待つ時点で、片付けの機会を全て捨てている。",
+              "slow_question": "🌱 期日を待たずに今日告げると、何が可能になるか？"
+            }
+          ]
+        },
+        {
+          "q": "J&J のタイレノール事件（1982）で、J&J は法的にも論理的にもリコールの義務がなかった。それでも即座に全製品を回収した。これは何を honor した行為か？",
+          "learning_objective": "Word-5（Stand For）を honor することの経営インパクトを理解する",
+          "choices": [
+            {
+              "text": "Word-1（過去に契約書で約束したこと）",
+              "stance": "🔍 契約読解 ── 明示的な約束の履行と読む",
+              "phase": "⚡ Fast の反射",
+              "phase_note": "契約主義的な発想。明示された約束の枠内で理解する",
+              "author_view": "📖 論文はこう語る：J&J は明示的な約束（Word-1）としてはリコール義務を負っていなかった。だからこそ、彼らの行動は Word-1 の履行では説明できない。",
+              "slow_question": "🌱 明示の Word 以外に、あなたの組織が守っているのは何か？"
+            },
+            {
+              "text": "Word-5（顧客の安全のために立っているという自分たちの Stand For）",
+              "stance": "🔍 Stand For 履行 ── 宣言した『何のために』を honor する",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "『Word-5 を honor すると経営インパクトが跳ね返る』の実例",
+              "author_view": "📖 論文はこう語る：J&J は Word-5（自分たちが何のために立っているか：顧客の安全）を honor した。その結果、専門家が『不可能』と予測した状況下で、タイレノールは驚くべき短期間でトップシェアに復帰した。",
+              "slow_question": "🌱 あなたの組織の Word-5 を honor する場面を、今週作るとしたら？"
+            },
+            {
+              "text": "Word-6（法・倫理の規範）",
+              "stance": "🔍 規範遵守 ── 外部規範への服従と読む",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "規範遵守だと読むと、J&J は義務がなかったのに動いた理由が説明できない",
+              "author_view": "📖 論文はこう語る：J&J は Word-6 の規範を超えて動いた。Word-5 が規範を超える強度を持つことを示す事例。",
+              "slow_question": "🌱 規範を超えて動く時、その原動力は Word のどれか？"
+            },
+            {
+              "text": "顧客への感情的な共感",
+              "stance": "🔍 感情起点 ── 心が動いたから、と読む",
+              "phase": "🌊 身体の感覚",
+              "phase_note": "感情ではなく、Stand For の宣言が組織を動かした",
+              "author_view": "📖 論文はこう語る：Word-5 は感情ではなく宣言。感情のみで動く組織は、感情が薄まれば動きが止まる。宣言と一貫性で動く組織は、感情の有無に関係なく Honoring を続けられる。",
+              "slow_question": "🌱 感情がない時にも honor できる Word-5 を、どう持つか？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "not_being_able_to_keep",
+      "layer": 1,
+      "title": "守れないと分かった瞬間の対処 ── clean up the mess",
+      "lo_tag": "#not_being_able_to_keep",
+      "seed_question": "この1週間、あなたが『言い忘れた・遅らせた・ぼやかした』守れない Word はどれか？",
+      "excerpt": "Honoring の第2条項：**守れないと分かった瞬間に、当てにしている人々に即座に告げ、引き起こす混乱を片付ける（clean up the mess）**。『告げる』は謝罪ではなく、事実の共有と代替案の提示。『片付ける』は影響を最小化する具体的行動。この2つで初めて Integrity が保たれる。",
+      "prompt": "今溜まっている『守れない』を1つ選び、①いつ告げるか、②何を代替案として持って行くか、③どうやって片付けるか、を書き出す。",
+      "rubric": [
+        "『告げれば済む』と思っている（片付けていない）",
+        "『告げる＋片付ける』のセットは理解している",
+        "実際に片付けまで運用している（相手からの信頼が減らない）",
+        "告げる→片付けるのサイクルが速い（out-of-integrityの蓄積がない）"
+      ],
+      "implemented": true,
+      "video_embed_url": "",
+      "video_title": "",
+      "perspective_quiz": [
+        {
+          "q": "『告げる』と『片付ける』の違いは何か？",
+          "learning_objective": "Honoringの(2)の2つの構成要素を区別する",
+          "choices": [
+            {
+              "text": "『告げる』は口頭・書面での通知、『片付ける』は物理的な整理",
+              "stance": "🔍 形式区分 ── 表面的な違いで読む",
+              "phase": "⚡ Fast の反射",
+              "phase_note": "表層の違いに引っ張られる Fast の理解",
+              "author_view": "📖 論文はこう語る：片付けは物理的な意味ではなく、『引き起こした影響（mess）を最小化する』こと。相手のスケジュール変更、代替リソースの手配、失われた機会の補填などが含まれる。",
+              "slow_question": "🌱 あなたが直近で告げた時、片付けまで運んだか？"
+            },
+            {
+              "text": "『告げる』は事実の共有、『片付ける』は影響の最小化とその責任の履行",
+              "stance": "🔍 機能区分 ── それぞれの役割で読む",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "『告げる』で完結せず、片付けまで運ぶ意識",
+              "author_view": "📖 論文はこう語る：告げるだけで片付けないのは、責任を相手に押し付けたのと同じ。Honoring は片付けまでで初めて成立する。",
+              "slow_question": "🌱 告げた後に、あなたが担うべき片付けは何か？"
+            },
+            {
+              "text": "告げれば謝罪の気持ちが伝わるから、それだけで十分",
+              "stance": "🔍 感情伝達 ── 気持ちの伝達を Integrity の代わりにする",
+              "phase": "🌊 身体の感覚",
+              "phase_note": "謝罪の感情は片付けの代わりにならない",
+              "author_view": "📖 論文はこう語る：感情表明で Integrity は回復しない。相手の失われた時間・機会・信頼を、具体的な行動で埋めることが片付け。",
+              "slow_question": "🌱 感情ではなく行為として何を提供するか？"
+            },
+            {
+              "text": "『告げる』で新しい約束を作り、『片付ける』でそれを果たす",
+              "stance": "🔍 新Word生成 ── 告げるを起点に新しい約束サイクルを回す",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "告げるが新しい Word-1 になり、片付けがその履行になる二段構え",
+              "author_view": "📖 論文はこう語る：告げる時に代替案を提示することは、新しい Word-1 を生成すること。片付けはその Word-1 の履行と一体で動く。",
+              "slow_question": "🌱 次に告げる時、あなたは何の代替 Word-1 を作るか？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cost_benefit_trap",
+      "layer": 1,
+      "title": "コスト・ベネフィット分析の罠",
+      "lo_tag": "#cost_benefit_trap",
+      "seed_question": "あなたが最近『損得』を理由に約束を軽視した瞬間は、どこか？",
+      "excerpt": "**言葉を守るかどうかにコスト・ベネフィット分析を適用した瞬間、あなたは保証付きで信頼を失う**。唯一の例外は、『私は損得で言葉を守るかどうか決めます』と事前に公言している場合のみ ── その場合、あなたは『機会主義者』を公言したことになる。この自動的な損得計算の癖こそが、現代生活の out-of-integrity の核心にある。",
+      "prompt": "この1週間で、損得を理由に約束を後回し・軽視した場面を1つ思い出し、その時に自分に語った『正当化の言葉』を書き出す。",
+      "rubric": [
+        "損得判断を『賢い判断』と思っている",
+        "この罠の存在は理解している（実際は使ってしまう）",
+        "損得計算を始めた瞬間に自分で検知できる",
+        "損得を排して Word を運用するのが自然になっている"
+      ],
+      "implemented": true,
+      "video_embed_url": "",
+      "video_title": "",
+      "perspective_quiz": [
+        {
+          "q": "同僚に『この資料、金曜までに送るね』と言った翌日、より重要な案件が入った。あなたは金曜の約束を『優先度で判断して』後回しにしようとしている。この判断の何が問題か？",
+          "learning_objective": "『優先度判断』と『損得判断』の見分け方を掴む",
+          "choices": [
+            {
+              "text": "何も問題ない。優先度で動くのはビジネスの基本",
+              "stance": "🔍 優先度合理主義 ── 合理性を Integrity より上に置く",
+              "phase": "⚡ Fast の反射",
+              "phase_note": "『合理的＝正しい』の Fast の反射",
+              "author_view": "📖 論文はこう語る：優先度で動くこと自体は問題ない。問題は『金曜までに送る』という Word-1 を、告げずに後回しにしていること。優先度変更は、Word-1 の Honoring とセットで運用しないと out-of-integrity になる。",
+              "slow_question": "🌱 同僚に何と告げれば Integrity が保たれるか？"
+            },
+            {
+              "text": "同僚に『金曜に間に合わない可能性がある』と即日告げれば、優先度の再配分は Integrity の中で運用できる",
+              "stance": "🔍 Honoring セット ── 優先度判断と Honoring を並行させる",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "『判断＋通告＋片付け』の3点セット",
+              "author_view": "📖 論文はこう語る：Honoring の (2) を運用すれば、Word の変更は自由に行える。損得判断が out-of-integrity になるのは、告げずに変更した瞬間。",
+              "slow_question": "🌱 いま告げずに変更しようとしている Word は、どれか？"
+            },
+            {
+              "text": "重要な案件を優先するのは当然。同僚も理解してくれる",
+              "stance": "🔍 相手の理解に賭ける ── 明示しないで済まそうとする",
+              "phase": "🌊 身体の感覚",
+              "phase_note": "『きっと分かってくれる』は自己都合の楽観",
+              "author_view": "📖 論文はこう語る：『理解してくれる』を前提に告げないことは、相手の Word-3（期待）を裏切ることになる。しかも本人は out-of-integrity に気づいていない。",
+              "slow_question": "🌱 相手の理解に賭ける前に、あなたが担うべき Word は何か？"
+            },
+            {
+              "text": "『金曜に送るから優先度を落とせない』と気合で完遂する",
+              "stance": "🔍 気合完遂 ── 変更を認めず全部やる",
+              "phase": "⚡ Fast の反射",
+              "phase_note": "『動かせないなら全部やる』の反射的な完璧主義",
+              "author_view": "📖 論文はこう語る：『常に守る』を貫くと、人生が小さくなる。Honoring は『告げて片付ける』の運用で柔軟性を持つ。気合で全部完遂は持続しない。",
+              "slow_question": "🌱 気合で押し切ってきた後、あなたのエネルギーはどうなっているか？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "veil_of_invisibility",
+      "layer": 1,
+      "title": "Veil of Invisibility ── out-of-integrityに気づけない11の要因",
+      "lo_tag": "#veil_of_invisibility",
+      "seed_question": "あなたが最も転びやすい Veil の1つを、名指しできるか？",
+      "excerpt": "**Veil of Invisibility ＝ なぜ人は out-of-integrity な行動を取りながら、自分を『Integrityある人間』と思い続けられるのか、その盲点を生む11の要因**。①自分が言葉そのものだと気づかない ②Word-1/4しか自分の言葉と思わない ③Integrityを徳と誤認 ④自己欺瞞 ⑤『Integrity＝守ること』と誤認 ⑥告げることへの恐怖 ⑦生産要素として見ていない ⑧言葉を与える時に損得計算しない ⑨言葉を守る時に損得計算する ⑩『Integrityは頂上のない山』と思う ⑪言葉を守る瞬間に、その言葉が自分の中に存在していない。",
+      "prompt": "11の要因を読み返し、自分が最も転びやすい3つを選び、それぞれ具体的な場面を1つずつ書く。",
+      "rubric": [
+        "Veil が『ある』こと自体を知らない",
+        "11要因は理解している（自分の主要な穴は特定できない）",
+        "自分の主要な3つを名指しでき、日常で検知できる",
+        "他者の Veil にも気づき、丁寧に開ける手助けができる"
+      ],
+      "implemented": true,
+      "video_embed_url": "",
+      "video_title": "",
+      "perspective_quiz": [
+        {
+          "q": "11の要因のうち、著者が『最大の落とし穴』と呼ぶのはどれか？",
+          "learning_objective": "Veil の中心にある要因を掴む",
+          "choices": [
+            {
+              "text": "④『自分は Integrity ある人間だ』という自己像を守る自己欺瞞",
+              "stance": "🔍 自己欺瞞主犯説 ── 自己像の維持を主犯と読む",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "自己欺瞞は重要だが、著者が『最大』と呼ぶのは別の要因",
+              "author_view": "📖 論文はこう語る：自己欺瞞は Veil の第4要因で、確かに強力。だが著者が最大と呼ぶのは第9要因『言葉を守るかどうかにコスト・ベネフィット分析をする』。",
+              "slow_question": "🌱 自己欺瞞と損得計算は、あなたの中でどう繋がっているか？"
+            },
+            {
+              "text": "⑨言葉を守るかどうかにコスト・ベネフィット分析をする",
+              "stance": "🔍 損得計算主犯説 ── 判断のプロセスを主犯と読む",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "著者が明示的に『最大の落とし穴』と呼ぶ要因",
+              "author_view": "📖 論文はこう語る：これが Veil の第9要因、最大の落とし穴。損得で守るかどうかを決めた瞬間、あなたは保証付きで信頼を失う。しかも本人はそれに気づけない。",
+              "slow_question": "🌱 今日、あなたが損得計算しかけている Word は、どれか？"
+            },
+            {
+              "text": "⑤『Integrity＝常に言葉を守ること』と誤認",
+              "stance": "🔍 定義誤認主犯説 ── 定義の間違いを主犯と読む",
+              "phase": "⚡ Fast の反射",
+              "phase_note": "重要な要因だが、著者は『最大』ではなくスタート地点と位置付ける",
+              "author_view": "📖 論文はこう語る：第5要因は Honoring への入口を塞ぐ盲点。だが最大の落とし穴は、そこを乗り越えた人でも掛かる第9要因。",
+              "slow_question": "🌱 第5要因を乗り越えた先に、あなたが直面する第9要因は？"
+            },
+            {
+              "text": "⑪言葉を守る時点で、その言葉が自分の中に存在していない",
+              "stance": "🔍 保持機構主犯説 ── 記憶・システムの欠落を主犯と読む",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "見落としやすいが極めて実践的な要因",
+              "author_view": "📖 論文はこう語る：第11要因は『Talk is cheap』の根源。守る瞬間に思い出せる形で保持していなければ、Integrityは実装不可能。ただし著者が『最大』と呼ぶのは第9要因。",
+              "slow_question": "🌱 あなたの Word を守る瞬間に思い出す仕組みは、何か？"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
