@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>🍎 3年生の さんすう ─ わり算マスター</title>
+<style>
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0;min-height:100%;font-family:-apple-system,"Hiragino Maru Gothic ProN","ヒラギノ丸ゴ ProN W4",sans-serif;background:linear-gradient(135deg,#fff4e0 0%,#e0f4ff 50%,#f0ffe0 100%);color:#333}
+  #app{max-width:720px;margin:0 auto;padding:12px}
+  .header{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;margin-bottom:12px}
+  .title{font-size:22px;font-weight:900;color:#4a2f8a}
+  .stars{font-size:20px;font-weight:900;color:#c46a00;background:#fff;padding:6px 14px;border-radius:999px;box-shadow:0 3px 0 #ffcc00}
+  .card{background:#fff;border-radius:20px;padding:20px;margin-bottom:16px;box-shadow:0 4px 14px rgba(80,40,120,.08)}
+  .menu{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:520px){.menu{grid-template-columns:1fr}}
+  .menuBtn{border:none;border-radius:20px;padding:22px 16px;font-size:17px;font-weight:900;color:#fff;box-shadow:0 5px 0 rgba(0,0,0,.15);cursor:pointer;display:flex;flex-direction:column;gap:8px;align-items:flex-start;text-align:left;transition:transform .08s}
+  .menuBtn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.15)}
+  .menuBtn .emoji{font-size:36px}
+  .menuBtn .sub{font-size:12px;font-weight:500;opacity:.92}
+  .m1{background:linear-gradient(135deg,#ff7eb9,#e04a88)}
+  .m2{background:linear-gradient(135deg,#65d6ff,#3d8fd8)}
+  .m3{background:linear-gradient(135deg,#ffb84d,#e07500)}
+  .m4{background:linear-gradient(135deg,#7bee8a,#3ba055)}
+  .m5{background:linear-gradient(135deg,#a76bff,#7a3ad0)}
+  .backBtn{background:#fff;border:2px solid #7a5abf;padding:8px 16px;border-radius:999px;font-weight:900;color:#5544aa;font-size:14px;cursor:pointer}
+  .backBtn:active{background:#f0e8ff}
+  .status{font-size:20px;font-weight:900;color:#333;margin:12px 0;text-align:center}
+  .q{font-size:22px;line-height:1.7;color:#222;background:#fff8ee;padding:16px 18px;border-radius:16px;border-left:6px solid #ffb84d;margin-bottom:14px}
+  .visual{background:#fff;padding:16px;border-radius:16px;margin-bottom:14px;text-align:center;min-height:80px}
+  .plate{display:inline-block;background:#f8ecd0;border:3px dashed #c99a4a;border-radius:16px;padding:12px 10px 8px;margin:6px;min-width:80px;min-height:60px;vertical-align:top}
+  .plate .label{font-size:12px;color:#7a5b1a;display:block;margin-bottom:4px;font-weight:900}
+  .item{display:inline-block;font-size:26px;margin:2px;animation:drop .4s ease-out}
+  @keyframes drop{0%{transform:translateY(-30px);opacity:0}100%{transform:translateY(0);opacity:1}}
+  .bagPile{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;padding:10px}
+  .bag{background:#e8f4ff;border:3px solid #4a90cf;border-radius:12px;padding:10px 8px;min-width:70px;text-align:center}
+  .bag .lbl{font-size:11px;color:#2a5a8f;font-weight:900;display:block;margin-bottom:4px}
+  .remainderBox{background:#ffefef;border:3px dashed #d04040;border-radius:12px;padding:10px 8px;min-width:70px;text-align:center;color:#a03030}
+  .choices{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
+  @media(max-width:520px){.choices{grid-template-columns:repeat(2,1fr)}}
+  .choice{background:#fff;border:3px solid #b4a2e0;border-radius:16px;padding:16px 8px;font-size:26px;font-weight:900;color:#5544aa;cursor:pointer;box-shadow:0 4px 0 #cbb8ff;transition:transform .06s}
+  .choice:active{transform:translateY(2px);box-shadow:0 2px 0 #cbb8ff}
+  .choice.ok{background:#c9f5d0;border-color:#3ba055;color:#2a6a35;animation:pulse .4s}
+  .choice.ng{background:#ffd6d6;border-color:#d04040;color:#a03030}
+  @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
+  .primaryBtn{background:linear-gradient(135deg,#ff7e3d,#e04a20);border:none;color:#fff;font-size:18px;font-weight:900;padding:14px 30px;border-radius:999px;box-shadow:0 5px 0 #a02510;cursor:pointer;letter-spacing:.05em}
+  .primaryBtn:active{transform:translateY(3px);box-shadow:0 2px 0 #a02510}
+  .subBtn{background:#fff;border:2px solid #5544aa;padding:8px 18px;border-radius:999px;font-weight:900;color:#5544aa;font-size:14px;cursor:pointer;margin:0 4px}
+  .hint{background:#fef8dc;padding:12px 16px;border-radius:12px;color:#8f6a10;font-size:15px;margin-top:10px;line-height:1.6;border-left:4px solid #ffcc44}
+  .formula{font-size:32px;font-weight:900;color:#3a5a8f;text-align:center;padding:14px;background:#eef4ff;border-radius:16px;margin:12px 0}
+  .overlay{position:fixed;inset:0;display:flex;justify-content:center;align-items:center;pointer-events:none;z-index:99}
+  .pop{font-size:110px;animation:pop .8s ease-out forwards;opacity:0}
+  @keyframes pop{0%{transform:scale(.3);opacity:0}40%{transform:scale(1.3);opacity:1}100%{transform:scale(1.6);opacity:0}}
+  .sparkle{position:absolute;font-size:28px;animation:spark 1s ease-out forwards;pointer-events:none}
+  @keyframes spark{0%{transform:translate(0,0) scale(0);opacity:1}100%{transform:translate(var(--dx),var(--dy)) scale(1.3);opacity:0}}
+  .level{font-weight:900;color:#8866cc;font-size:15px}
+  .parents{background:#f0e8ff;padding:14px 16px;border-radius:12px;margin-top:14px;font-size:13px;color:#5544aa;line-height:1.7}
+  .parents strong{color:#3a2570}
+  .topBar{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+  .prog{color:#666;font-size:13px}
+  .kuku{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+  .kukuBtn{background:#fef4dc;border:2px solid #d0a840;border-radius:12px;padding:10px 6px;font-size:14px;font-weight:900;color:#7a5a10;cursor:pointer}
+  .kukuBtn:active{background:#f8e4a8}
+  .story{font-size:19px;line-height:1.8;color:#222;padding:16px;background:#fff8ee;border-radius:16px;border-left:6px solid #ff8c00;margin-bottom:14px}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="header">
+    <div class="title" id="title">🍎 3年生の さんすう ─ わり算マスター</div>
+    <div class="stars" id="stars">⭐ 0</div>
+  </div>
+  <div id="screen"></div>
+</div>
+<div class="overlay" id="overlay"></div>
+
+<script>
+// ============ 共通 ============
+const $ = id => document.getElementById(id);
+let stars = parseInt(localStorage.getItem('g3math_stars')||'0');
+let audioCtx = null;
+
+function ensureAudio(){ if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)(); }
+function beep(freq=440, dur=180, type='sine', gain=0.15){
+  try{
+    ensureAudio();
+    const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+    o.type = type; o.frequency.value = freq; g.gain.value = gain;
+    o.connect(g); g.connect(audioCtx.destination);
+    o.start();
+    g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur/1000);
+    o.stop(audioCtx.currentTime + dur/1000);
+  }catch(e){}
+}
+function jingleOK(){ beep(660,120,'triangle'); setTimeout(()=>beep(880,120,'triangle'),120); setTimeout(()=>beep(1320,220,'triangle'),240); }
+function jingleNG(){ beep(240,180,'sawtooth',0.1); setTimeout(()=>beep(200,240,'sawtooth',0.1),180); }
+function updateStars(){ $('stars').textContent = '⭐ ' + stars; localStorage.setItem('g3math_stars', stars); }
+updateStars();
+function addStar(n=1){
+  stars += n; updateStars();
+  const rect = $('stars').getBoundingClientRect();
+  for(let i=0;i<6;i++){
+    const s = document.createElement('div');
+    s.className = 'sparkle';
+    s.textContent = ['⭐','✨','🌟'][i%3];
+    s.style.left = (rect.left + rect.width/2) + 'px';
+    s.style.top  = (rect.top + rect.height/2) + 'px';
+    s.style.setProperty('--dx', (Math.random()*140-70)+'px');
+    s.style.setProperty('--dy', (Math.random()*100+30)+'px');
+    $('overlay').appendChild(s);
+    setTimeout(()=>s.remove(), 1000);
+  }
+}
+function popEmoji(e){ const p=document.createElement('div'); p.className='pop'; p.textContent=e; $('overlay').appendChild(p); setTimeout(()=>p.remove(),800); }
+function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
+function rnd(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
+function shuffle(a){ const b=[...a]; for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; } return b; }
+
+// ============ ホーム ============
+function goHome(){
+  $('title').textContent = '🍎 3年生の さんすう ─ わり算マスター';
+  const s = $('screen');
+  s.innerHTML = '';
+  const menu = document.createElement('div');
+  menu.className = 'card';
+  menu.innerHTML = '<div style="text-align:center;font-size:15px;color:#666;margin-bottom:14px">3年生でいちばん大事な <b style="color:#e04a20">わり算</b> を、絵と数で 5つの角度から マスターしよう!</div>';
+  const grid = document.createElement('div');
+  grid.className = 'menu';
+  const games = [
+    {id:'wake', label:'① わけっこ（等分除）', sub:'12こを 3人で分ける と 1人ぶんは？', emoji:'🍬', cls:'m1'},
+    {id:'ikutsu', label:'② いくつずつ（包含除）', sub:'12こを 3こずつ 分ける と 何ふくろ？', emoji:'📦', cls:'m2'},
+    {id:'kuku', label:'③ 九九から わり算', sub:'24÷4=? をスピードで答える', emoji:'⚡', cls:'m3'},
+    {id:'amari', label:'④ あまりの あるわり算', sub:'15÷4=3あまり3 を絵で見つける', emoji:'🍩', cls:'m4'},
+    {id:'story', label:'⑤ おはなしの もんだい', sub:'生活の中の わり算 を式にする', emoji:'📖', cls:'m5'},
+  ];
+  games.forEach(g=>{
+    const b = document.createElement('button');
+    b.className = 'menuBtn '+g.cls;
+    b.innerHTML = `<div class="emoji">${g.emoji}</div><div>${g.label}</div><div class="sub">${g.sub}</div>`;
+    b.onclick = ()=>{ ensureAudio(); beep(660,80,'triangle'); startGame(g.id); };
+    grid.appendChild(b);
+  });
+  menu.appendChild(grid);
+
+  const parents = document.createElement('div');
+  parents.className = 'parents';
+  parents.innerHTML = `<strong>👨‍👩‍👧 保護者・先生の方へ</strong><br>
+    3年生の算数で最も重要なのは <b>「わり算の意味理解」</b> です。分数・小数・比・割合・比例など、4年生以降のほぼすべての基礎になります。<br>
+    このアプリは特に、教科書でつまずきやすい <b>「等分除（分ける）と包含除（いくつ分か）は同じ式でも意味が違う」</b> ことと、<b>「わり算はかけ算（九九）の逆」</b> であることを、絵と操作で体感できるよう設計しています。<br>
+    ⑤の文章題は、①〜④ができるようになってから取り組むのがおすすめです。`;
+  menu.appendChild(parents);
+  s.appendChild(menu);
+}
+
+function shell(titleText){
+  $('title').textContent = titleText;
+  const s = $('screen');
+  s.innerHTML = '';
+  const card = document.createElement('div');
+  card.className = 'card';
+  const top = document.createElement('div');
+  top.className = 'topBar';
+  const back = document.createElement('button');
+  back.className = 'backBtn';
+  back.textContent = '← ホーム';
+  back.onclick = goHome;
+  const lvl = document.createElement('div');
+  lvl.className = 'level';
+  lvl.id = 'level';
+  top.appendChild(back);
+  top.appendChild(lvl);
+  card.appendChild(top);
+  s.appendChild(card);
+  return card;
+}
+
+function startGame(id){
+  if(id==='wake') gameWake();
+  else if(id==='ikutsu') gameIkutsu();
+  else if(id==='kuku') gameKuku();
+  else if(id==='amari') gameAmari();
+  else if(id==='story') gameStory();
+}
+
+// ============ ① わけっこ（等分除） ============
+function gameWake(){
+  const items = ['🍬','🍎','🍪','🍓','🍊','🍇'];
+  let correct = 0;
+  const card = shell('① わけっこ ─ 1人ぶんは？');
+  const q = document.createElement('div'); q.className='q';
+  const vis = document.createElement('div'); vis.className='visual';
+  const status = document.createElement('div'); status.className='status';
+  const formulaDiv = document.createElement('div'); formulaDiv.className='formula'; formulaDiv.style.display='none';
+  const choicesBox = document.createElement('div'); choicesBox.className='choices';
+  card.appendChild(q); card.appendChild(vis); card.appendChild(formulaDiv); card.appendChild(status); card.appendChild(choicesBox);
+
+  function next(){
+    $('level').textContent = 'せいかい ' + correct;
+    formulaDiv.style.display='none';
+    status.textContent='';
+    const divisor = rnd(2,5);
+    const answer = rnd(2,6);
+    const total = divisor * answer;
+    const item = items[rnd(0,items.length-1)];
+    q.innerHTML = `${item} が <b>${total}こ</b> あります。<br><b>${divisor}人</b> で 同じ数ずつ 分けます。<br>1人ぶんは 何こ？`;
+
+    // 分ける絵アニメーション
+    vis.innerHTML = '';
+    const pile = document.createElement('div');
+    pile.style.marginBottom = '10px';
+    for(let i=0;i<total;i++){
+      const s = document.createElement('span'); s.className='item'; s.textContent=item;
+      pile.appendChild(s);
+    }
+    vis.appendChild(pile);
+    const platesRow = document.createElement('div');
+    for(let i=0;i<divisor;i++){
+      const p = document.createElement('div'); p.className='plate';
+      p.innerHTML = `<span class="label">${i+1}人め</span>`;
+      p.id = 'plate_'+i;
+      platesRow.appendChild(p);
+    }
+    vis.appendChild(platesRow);
+
+    // アニメ：0.35秒ごとに1個ずつ皿に分配
+    setTimeout(()=>{
+      pile.remove();
+      let put = 0;
+      const timer = setInterval(()=>{
+        if(put >= total){ clearInterval(timer); showChoices(); return; }
+        const plate = $('plate_'+(put%divisor));
+        const s = document.createElement('span'); s.className='item'; s.textContent=item;
+        plate.appendChild(s);
+        beep(500+put*20, 60, 'triangle', 0.08);
+        put++;
+      }, 200);
+    }, 400);
+
+    function showChoices(){
+      status.textContent = '👉 1人ぶんは 何こ？';
+      const opts = new Set([answer]);
+      while(opts.size<4){ const cand = Math.max(1, answer + (rnd(-3,3)||1)); opts.add(cand); }
+      const list = shuffle([...opts]);
+      choicesBox.innerHTML = '';
+      list.forEach(v=>{
+        const b = document.createElement('button'); b.className='choice'; b.textContent = v+'こ';
+        b.onclick = ()=>{
+          if(v===answer){
+            b.classList.add('ok');
+            formulaDiv.style.display='';
+            formulaDiv.innerHTML = `${total} ÷ ${divisor} = <b>${answer}</b>`;
+            status.textContent='🎉 せいかい!  ぜんぶで '+total+'こ を '+divisor+'人で 分けたから、1人ぶんは '+answer+'こ';
+            popEmoji('🎉'); addStar(1); correct++; jingleOK();
+            setTimeout(next, 2200);
+          }else{
+            b.classList.add('ng'); jingleNG();
+            status.textContent = '💦 もういちど 絵をよくみて!';
+          }
+        };
+        choicesBox.appendChild(b);
+      });
+    }
+  }
+  next();
+}
+
+// ============ ② いくつずつ（包含除） ============
+function gameIkutsu(){
+  const items = ['🍬','🍎','🍪','🍓','🍊','🍇'];
+  let correct = 0;
+  const card = shell('② いくつずつ ─ 何ふくろ できる？');
+  const q = document.createElement('div'); q.className='q';
+  const vis = document.createElement('div'); vis.className='visual';
+  const status = document.createElement('div'); status.className='status';
+  const formulaDiv = document.createElement('div'); formulaDiv.className='formula'; formulaDiv.style.display='none';
+  const choicesBox = document.createElement('div'); choicesBox.className='choices';
+  card.appendChild(q); card.appendChild(vis); card.appendChild(formulaDiv); card.appendChild(status); card.appendChild(choicesBox);
+
+  function next(){
+    $('level').textContent = 'せいかい ' + correct;
+    formulaDiv.style.display='none';
+    status.textContent='';
+    const perBag = rnd(2,5);
+    const bagCount = rnd(2,6);
+    const total = perBag * bagCount;
+    const item = items[rnd(0,items.length-1)];
+    q.innerHTML = `${item} が <b>${total}こ</b> あります。<br><b>${perBag}こ</b> ずつ ふくろに 入れます。<br>ふくろは いくつ できる？`;
+
+    vis.innerHTML = '';
+    const pile = document.createElement('div');
+    for(let i=0;i<total;i++){
+      const s = document.createElement('span'); s.className='item'; s.textContent=item;
+      pile.appendChild(s);
+    }
+    vis.appendChild(pile);
+    const bagRow = document.createElement('div'); bagRow.className='bagPile'; bagRow.id='bagRow';
+    vis.appendChild(bagRow);
+
+    setTimeout(()=>{
+      pile.remove();
+      let made = 0;
+      const timer = setInterval(()=>{
+        if(made >= bagCount){ clearInterval(timer); showChoices(); return; }
+        const bag = document.createElement('div'); bag.className='bag';
+        bag.innerHTML = `<span class="lbl">ふくろ${made+1}</span>`;
+        for(let k=0;k<perBag;k++){
+          const s = document.createElement('span'); s.className='item'; s.textContent=item;
+          bag.appendChild(s);
+        }
+        $('bagRow').appendChild(bag);
+        beep(400+made*40, 80, 'triangle', 0.1);
+        made++;
+      }, 340);
+    }, 400);
+
+    function showChoices(){
+      status.textContent = '👉 ふくろは いくつ？';
+      const opts = new Set([bagCount]);
+      while(opts.size<4){ const cand = Math.max(1, bagCount + (rnd(-3,3)||1)); opts.add(cand); }
+      const list = shuffle([...opts]);
+      choicesBox.innerHTML = '';
+      list.forEach(v=>{
+        const b = document.createElement('button'); b.className='choice'; b.textContent = v+'ふくろ';
+        b.onclick = ()=>{
+          if(v===bagCount){
+            b.classList.add('ok');
+            formulaDiv.style.display='';
+            formulaDiv.innerHTML = `${total} ÷ ${perBag} = <b>${bagCount}</b>`;
+            status.innerHTML='🎉 せいかい!<br><span style="font-size:14px;color:#666">同じ式でも、①「1人ぶんは？」と ②「いくつ分か？」の <b>2つの意味</b> があるんだね!</span>';
+            popEmoji('📦'); addStar(1); correct++; jingleOK();
+            setTimeout(next, 2600);
+          }else{
+            b.classList.add('ng'); jingleNG();
+            status.textContent='💦 もういちど 絵をよくみて!';
+          }
+        };
+        choicesBox.appendChild(b);
+      });
+    }
+  }
+  next();
+}
+
+// ============ ③ 九九から わり算 ============
+function gameKuku(){
+  let correct = 0, streak = 0;
+  const card = shell('③ 九九から わり算 ─ スピードチャレンジ');
+  const q = document.createElement('div'); q.className='q'; q.style.textAlign='center'; q.style.fontSize='36px';
+  const status = document.createElement('div'); status.className='status';
+  const hint = document.createElement('div'); hint.className='hint'; hint.style.display='none';
+  const choicesBox = document.createElement('div'); choicesBox.className='choices';
+  const hintBtn = document.createElement('button'); hintBtn.className='subBtn'; hintBtn.textContent = '💡 ヒント'; hintBtn.style.marginTop='8px';
+  card.appendChild(q); card.appendChild(choicesBox); card.appendChild(hintBtn); card.appendChild(hint); card.appendChild(status);
+
+  function next(){
+    $('level').textContent = 'せいかい ' + correct + ' ／ れんぞく ' + streak;
+    hint.style.display='none';
+    status.textContent='';
+    const divisor = rnd(2,9);
+    const answer = rnd(1,9);
+    const total = divisor * answer;
+    q.innerHTML = `<b>${total} ÷ ${divisor} = ?</b>`;
+    hintBtn.onclick = ()=>{
+      hint.style.display='';
+      hint.innerHTML = `💡 <b>${divisor}のだん</b> で、こたえが <b>${total}</b> になるのは？<br>${divisor} × ? = ${total}`;
+    };
+    const opts = new Set([answer]);
+    while(opts.size<4){ const cand = Math.max(1, Math.min(9, answer + (rnd(-3,3)||1))); opts.add(cand); }
+    const list = shuffle([...opts]);
+    choicesBox.innerHTML = '';
+    list.forEach(v=>{
+      const b = document.createElement('button'); b.className='choice'; b.textContent = v;
+      b.onclick = ()=>{
+        if(v===answer){
+          b.classList.add('ok');
+          status.innerHTML = `🎉 せいかい! ${divisor} × ${answer} = ${total} だから ${total} ÷ ${divisor} = <b>${answer}</b>`;
+          popEmoji('⚡'); addStar(1); correct++; streak++; jingleOK();
+          setTimeout(next, 1400);
+        }else{
+          b.classList.add('ng'); jingleNG();
+          streak = 0;
+          status.textContent='💦 もういちど! ヒントを つかっていいよ';
+        }
+      };
+      choicesBox.appendChild(b);
+    });
+  }
+  next();
+}
+
+// ============ ④ あまりの あるわり算 ============
+function gameAmari(){
+  const items = ['🍩','🍬','🍎','🍪','🍓'];
+  let correct = 0;
+  const card = shell('④ あまりの あるわり算');
+  const q = document.createElement('div'); q.className='q';
+  const vis = document.createElement('div'); vis.className='visual';
+  const status = document.createElement('div'); status.className='status';
+  const formulaDiv = document.createElement('div'); formulaDiv.className='formula'; formulaDiv.style.display='none';
+  const stepBox = document.createElement('div');
+  card.appendChild(q); card.appendChild(vis); card.appendChild(formulaDiv); card.appendChild(status); card.appendChild(stepBox);
+
+  function next(){
+    $('level').textContent = 'せいかい ' + correct;
+    formulaDiv.style.display='none';
+    stepBox.innerHTML = '';
+    status.textContent='';
+    const divisor = rnd(3,6);
+    const quotient = rnd(2,5);
+    const remainder = rnd(1, divisor-1);
+    const total = divisor * quotient + remainder;
+    const item = items[rnd(0,items.length-1)];
+    q.innerHTML = `${item} が <b>${total}こ</b> あります。<br><b>${divisor}こ</b> ずつ ふくろに 入れます。<br>ふくろは いくつ？ あまりは？`;
+
+    vis.innerHTML = '';
+    const pile = document.createElement('div');
+    for(let i=0;i<total;i++){
+      const s = document.createElement('span'); s.className='item'; s.textContent=item;
+      pile.appendChild(s);
+    }
+    vis.appendChild(pile);
+    const row = document.createElement('div'); row.className='bagPile'; row.id='amariRow';
+    vis.appendChild(row);
+
+    setTimeout(()=>{
+      pile.remove();
+      let placed = 0, bagsMade = 0;
+      const timer = setInterval(()=>{
+        if(placed >= total){
+          clearInterval(timer);
+          // あまりを別に表示
+          if(remainder > 0){
+            const rem = document.createElement('div'); rem.className='remainderBox';
+            rem.innerHTML = '<span class="lbl">あまり</span>' + item.repeat(remainder);
+            $('amariRow').appendChild(rem);
+            beep(300,180,'sawtooth',0.1);
+          }
+          showAsk();
+          return;
+        }
+        // ふくろに詰めていく
+        if(placed % divisor === 0 && placed + divisor <= total){
+          const bag = document.createElement('div'); bag.className='bag';
+          bag.innerHTML = `<span class="lbl">ふくろ${bagsMade+1}</span>`;
+          bag.id = 'amariBag_'+bagsMade;
+          $('amariRow').appendChild(bag);
+          bagsMade++;
+        }
+        if(placed < divisor * quotient){
+          const bag = $('amariBag_'+(bagsMade-1));
+          const s = document.createElement('span'); s.className='item'; s.textContent=item;
+          bag.appendChild(s);
+          beep(500+placed*10, 50, 'triangle', 0.08);
+        }
+        placed++;
+      }, 180);
+    }, 400);
+
+    function showAsk(){
+      status.innerHTML = '👉 ふくろの かず と あまりを えらんでね';
+      // step1: 商を選ぶ
+      const step1 = document.createElement('div');
+      step1.innerHTML = '<div style="font-weight:900;color:#3ba055;margin:12px 0 6px">ふくろは いくつ？</div>';
+      const s1c = document.createElement('div'); s1c.className='choices';
+      const s1opts = shuffle([quotient, Math.max(1,quotient-1), quotient+1, quotient+2]);
+      s1opts.forEach(v=>{
+        const b=document.createElement('button'); b.className='choice'; b.textContent=v+'ふくろ';
+        b.onclick = ()=>{
+          if(v===quotient){ b.classList.add('ok'); beep(660,120,'triangle'); askRemainder(); }
+          else{ b.classList.add('ng'); jingleNG(); status.textContent='💦 もういちど!'; }
+        };
+        s1c.appendChild(b);
+      });
+      step1.appendChild(s1c);
+      stepBox.appendChild(step1);
+
+      function askRemainder(){
+        const step2 = document.createElement('div');
+        step2.innerHTML = '<div style="font-weight:900;color:#d04040;margin:14px 0 6px">あまりは いくつ？</div>';
+        const s2c = document.createElement('div'); s2c.className='choices';
+        const s2set = new Set([remainder]);
+        while(s2set.size<4){ const cand = Math.max(0, rnd(0, divisor-1)); s2set.add(cand); }
+        const s2opts = shuffle([...s2set]);
+        s2opts.forEach(v=>{
+          const b=document.createElement('button'); b.className='choice'; b.textContent=v+'こ';
+          b.onclick = ()=>{
+            if(v===remainder){
+              b.classList.add('ok');
+              formulaDiv.style.display='';
+              formulaDiv.innerHTML = `${total} ÷ ${divisor} = <b>${quotient}</b> あまり <b>${remainder}</b>`;
+              status.innerHTML = `🎉 せいかい!<br><span style="font-size:14px;color:#666">たしかめ算: ${divisor} × ${quotient} + ${remainder} = ${total} ✅</span>`;
+              popEmoji('🎉'); addStar(2); correct++; jingleOK();
+              setTimeout(next, 2600);
+            }else{ b.classList.add('ng'); jingleNG(); status.textContent='💦 あまりを もういちど!'; }
+          };
+          s2c.appendChild(b);
+        });
+        step2.appendChild(s2c);
+        stepBox.appendChild(step2);
+      }
+    }
+  }
+  next();
+}
+
+// ============ ⑤ おはなしの もんだい ============
+const STORY_PROBLEMS = [
+  {q:'クッキーが <b>20まい</b> あります。5人で 同じ数ずつ 分けると、1人 何まい？', a:4, unit:'まい', formula:'20 ÷ 5 = 4', type:'等分除'},
+  {q:'あめが <b>18こ</b> あります。3こずつ ふくろに 入れます。ふくろは いくつ？', a:6, unit:'ふくろ', formula:'18 ÷ 3 = 6', type:'包含除'},
+  {q:'ジュースが <b>24本</b> あります。4本入りの ケースに 入れると、ケースは いくつ？', a:6, unit:'ケース', formula:'24 ÷ 4 = 6', type:'包含除'},
+  {q:'カードが <b>28まい</b> あります。7人で 同じ数ずつ 分けると、1人 何まい？', a:4, unit:'まい', formula:'28 ÷ 7 = 4', type:'等分除'},
+  {q:'1こ <b>6円</b> の あめを <b>36円</b> ぶん 買います。あめは 何こ 買える？', a:6, unit:'こ', formula:'36 ÷ 6 = 6', type:'包含除'},
+  {q:'長さ <b>32cm</b> の テープを 4cmずつ 切ります。何本 できる？', a:8, unit:'本', formula:'32 ÷ 4 = 8', type:'包含除'},
+  {q:'花が <b>15本</b> あります。3本ずつ 花たばに します。花たばは いくつ できる？', a:5, unit:'花たば', formula:'15 ÷ 3 = 5', type:'包含除'},
+  {q:'クラス <b>30人</b> を 6人ずつの グループに 分けます。グループは いくつ？', a:5, unit:'グループ', formula:'30 ÷ 6 = 5', type:'包含除'},
+  {q:'色紙が <b>42まい</b> あります。6人で 同じ数ずつ 分けると、1人 何まい？', a:7, unit:'まい', formula:'42 ÷ 6 = 7', type:'等分除'},
+  {q:'あめが <b>17こ</b> あります。3人で 同じ数ずつ 分けると、1人ぶんは 何こで、あまりは 何こ？<br><span style="font-size:14px;color:#888">(こたえは 1人ぶんの 数だけ えらんでね)</span>', a:5, unit:'こ (あまり2こ)', formula:'17 ÷ 3 = 5 あまり 2', type:'あまり'},
+  {q:'えんぴつが <b>25本</b> あります。1人に 4本ずつ 配ります。何人に 配れる？<br><span style="font-size:14px;color:#888">(配れる 人数だけ えらんでね)</span>', a:6, unit:'人 (あまり1本)', formula:'25 ÷ 4 = 6 あまり 1', type:'あまり'},
+  {q:'クッキー <b>40まい</b> を 8まい入りの ふくろに 入れます。ふくろは いくつ できる？', a:5, unit:'ふくろ', formula:'40 ÷ 8 = 5', type:'包含除'},
+];
+
+function gameStory(){
+  let correct = 0, index = 0;
+  const problems = shuffle(STORY_PROBLEMS);
+  const card = shell('⑤ おはなしの もんだい');
+  const q = document.createElement('div'); q.className='story';
+  const status = document.createElement('div'); status.className='status';
+  const formulaDiv = document.createElement('div'); formulaDiv.className='formula'; formulaDiv.style.display='none';
+  const choicesBox = document.createElement('div'); choicesBox.className='choices';
+  const nextBtn = document.createElement('div'); nextBtn.style.textAlign='center'; nextBtn.style.marginTop='12px';
+  card.appendChild(q); card.appendChild(choicesBox); card.appendChild(formulaDiv); card.appendChild(status); card.appendChild(nextBtn);
+
+  function next(){
+    if(index >= problems.length){
+      q.innerHTML = '🎊 ぜんぶ こたえたよ! すごい!<br><br>正解: <b>'+correct+' / '+problems.length+'問</b>';
+      choicesBox.innerHTML = '';
+      formulaDiv.style.display='none';
+      status.textContent='';
+      const b = document.createElement('button'); b.className='primaryBtn'; b.textContent='もういっかい やる';
+      b.onclick = gameStory;
+      nextBtn.innerHTML = ''; nextBtn.appendChild(b);
+      return;
+    }
+    const p = problems[index];
+    $('level').textContent = `もんだい ${index+1} / ${problems.length} ・ せいかい ${correct}`;
+    formulaDiv.style.display='none';
+    status.textContent = `（${p.type}）`;
+    status.style.color = '#8866cc';
+    q.innerHTML = p.q;
+    const opts = new Set([p.a]);
+    while(opts.size<4){ const cand = Math.max(1, p.a + (rnd(-3,3)||1)); opts.add(cand); }
+    const list = shuffle([...opts]);
+    choicesBox.innerHTML = '';
+    nextBtn.innerHTML = '';
+    list.forEach(v=>{
+      const b = document.createElement('button'); b.className='choice'; b.textContent = v+p.unit.split(' ')[0];
+      b.onclick = ()=>{
+        if(v===p.a){
+          b.classList.add('ok');
+          formulaDiv.style.display='';
+          formulaDiv.innerHTML = `式: <b>${p.formula}</b>`;
+          status.innerHTML = `🎉 せいかい! こたえは <b>${p.a}${p.unit}</b>`;
+          status.style.color = '#2a6a35';
+          popEmoji('📖'); addStar(2); correct++; jingleOK();
+          const nb = document.createElement('button'); nb.className='primaryBtn'; nb.textContent = index+1 < problems.length ? 'つぎの もんだいへ →' : '結果を みる →';
+          nb.onclick = ()=>{ index++; next(); };
+          nextBtn.appendChild(nb);
+        }else{
+          b.classList.add('ng'); jingleNG();
+          status.innerHTML = '💦 もういちど 考えてみよう!';
+          status.style.color = '#d04040';
+        }
+      };
+      choicesBox.appendChild(b);
+    });
+  }
+  next();
+}
+
+goHome();
+document.addEventListener('touchstart', ensureAudio, {once:true});
+document.addEventListener('click', ensureAudio, {once:true});
+</script>
+</body>
+</html>
