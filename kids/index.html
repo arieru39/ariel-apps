@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>🌈 かしこくなるあそび</title>
+<style>
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none}
+  html,body{margin:0;padding:0;height:100%;overflow:hidden;font-family:-apple-system,"Hiragino Maru Gothic ProN","ヒラギノ丸ゴ ProN W4",sans-serif;background:linear-gradient(135deg,#ffe4f1 0%,#e4f1ff 50%,#e4ffe8 100%)}
+  #app{position:fixed;inset:0;display:flex;flex-direction:column;padding:12px;gap:12px}
+  .header{display:flex;justify-content:space-between;align-items:center;padding:0 8px}
+  .title{font-size:24px;font-weight:900;color:#5544aa}
+  .stars{font-size:22px;font-weight:900;color:#ff8800;background:#fff;padding:6px 14px;border-radius:999px;box-shadow:0 3px 0 #ffcc00}
+  .screen{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:16px;overflow:hidden}
+  .menu{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;max-width:560px;padding:8px}
+  .menuBtn{aspect-ratio:1;border:none;border-radius:24px;font-size:20px;font-weight:900;color:#fff;box-shadow:0 6px 0 rgba(0,0,0,.15);cursor:pointer;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;transition:transform .08s}
+  .menuBtn:active{transform:translateY(3px);box-shadow:0 3px 0 rgba(0,0,0,.15)}
+  .menuBtn .emoji{font-size:56px}
+  .menuBtn.g1{background:linear-gradient(135deg,#ff7eb9,#ff65a3)}
+  .menuBtn.g2{background:linear-gradient(135deg,#65d6ff,#4ba3ff)}
+  .menuBtn.g3{background:linear-gradient(135deg,#7bee8a,#4ac168)}
+  .menuBtn.g4{background:linear-gradient(135deg,#ffb84d,#ff8c00)}
+  .backBtn{background:#fff;border:none;padding:10px 18px;border-radius:999px;font-weight:900;color:#5544aa;font-size:16px;box-shadow:0 3px 0 #cbb8ff;cursor:pointer}
+  .backBtn:active{transform:translateY(2px);box-shadow:0 1px 0 #cbb8ff}
+  .status{font-size:22px;font-weight:900;color:#333;text-align:center;min-height:36px}
+  .big{font-size:80px;font-weight:900;color:#444;text-align:center}
+  .grid{display:grid;gap:12px;width:100%;max-width:420px;padding:8px}
+  .cell{aspect-ratio:1;border:none;border-radius:20px;font-size:36px;font-weight:900;cursor:pointer;box-shadow:0 5px 0 rgba(0,0,0,.15);color:#fff;transition:transform .06s,filter .15s}
+  .cell:active{transform:translateY(2px);box-shadow:0 3px 0 rgba(0,0,0,.15)}
+  .cell.flash{filter:brightness(1.7) saturate(1.3)}
+  .c-red{background:#ff5a5f}.c-blue{background:#4a90ff}.c-green{background:#3fc76b}.c-yellow{background:#ffcf33;color:#7a5b00}
+  .c-purple{background:#a76bff}.c-orange{background:#ff9a3d}
+  .primaryBtn{background:linear-gradient(135deg,#ff5a5f,#ff8033);border:none;color:#fff;font-size:22px;font-weight:900;padding:16px 34px;border-radius:999px;box-shadow:0 5px 0 #d43;cursor:pointer;letter-spacing:.05em}
+  .primaryBtn:active{transform:translateY(3px);box-shadow:0 2px 0 #d43}
+  .subBtn{background:#fff;border:none;color:#5544aa;font-size:16px;font-weight:900;padding:10px 20px;border-radius:999px;box-shadow:0 3px 0 #cbb8ff;cursor:pointer}
+  .dots{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;padding:20px;background:#fff;border-radius:24px;box-shadow:0 6px 20px rgba(80,40,120,.1)}
+  .dot{width:36px;height:36px;background:#ff5a5f;border-radius:50%;box-shadow:0 3px 0 #a33}
+  .choices{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%;max-width:420px;padding:8px}
+  .numBtn{aspect-ratio:1;font-size:44px;font-weight:900;border:none;border-radius:20px;background:#fff;color:#5544aa;box-shadow:0 5px 0 #cbb8ff;cursor:pointer}
+  .numBtn:active{transform:translateY(2px);box-shadow:0 3px 0 #cbb8ff}
+  .shapes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:400px;padding:8px}
+  .shape{aspect-ratio:1;background:#fff;border:none;border-radius:20px;display:flex;justify-content:center;align-items:center;font-size:56px;box-shadow:0 5px 0 #cbb8ff;cursor:pointer}
+  .shape:active{transform:translateY(2px);box-shadow:0 3px 0 #cbb8ff}
+  .overlay{position:fixed;inset:0;display:flex;justify-content:center;align-items:center;pointer-events:none;z-index:99}
+  .pop{font-size:120px;animation:pop .8s ease-out forwards;opacity:0}
+  @keyframes pop{
+    0%{transform:scale(.3);opacity:0}
+    40%{transform:scale(1.3);opacity:1}
+    100%{transform:scale(1.6);opacity:0}
+  }
+  .sparkle{position:absolute;font-size:32px;animation:spark 1s ease-out forwards;pointer-events:none}
+  @keyframes spark{
+    0%{transform:translate(0,0) scale(0);opacity:1}
+    100%{transform:translate(var(--dx),var(--dy)) scale(1.3);opacity:0}
+  }
+  .level{font-weight:900;color:#8866cc;font-size:18px}
+  .hint{color:#666;font-size:14px;margin-top:4px}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="header">
+    <div class="title" id="title">🌈 かしこくなるあそび</div>
+    <div class="stars" id="stars">⭐ 0</div>
+  </div>
+  <div class="screen" id="screen"></div>
+</div>
+<div class="overlay" id="overlay"></div>
+
+<script>
+// ===================== 共通 =====================
+const $ = id => document.getElementById(id);
+let stars = parseInt(localStorage.getItem('kids_stars')||'0');
+let currentGame = null;
+let audioCtx = null;
+
+function ensureAudio(){ if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)(); }
+function beep(freq=440, dur=180, type='sine', gain=0.15){
+  try{
+    ensureAudio();
+    const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+    o.type = type; o.frequency.value = freq;
+    g.gain.value = gain;
+    o.connect(g); g.connect(audioCtx.destination);
+    o.start();
+    g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur/1000);
+    o.stop(audioCtx.currentTime + dur/1000);
+  }catch(e){}
+}
+function jingleOK(){ beep(660,120,'triangle'); setTimeout(()=>beep(880,120,'triangle'),120); setTimeout(()=>beep(1320,220,'triangle'),240); }
+function jingleNG(){ beep(220,180,'sawtooth',0.1); setTimeout(()=>beep(180,240,'sawtooth',0.1),180); }
+
+function updateStars(){ $('stars').textContent = '⭐ ' + stars; localStorage.setItem('kids_stars', stars); }
+updateStars();
+
+function addStar(n=1){
+  stars += n;
+  updateStars();
+  const rect = $('stars').getBoundingClientRect();
+  for(let i=0;i<8;i++){
+    const s = document.createElement('div');
+    s.className = 'sparkle';
+    s.textContent = ['⭐','✨','🌟'][i%3];
+    s.style.left = (rect.left + rect.width/2) + 'px';
+    s.style.top  = (rect.top + rect.height/2) + 'px';
+    s.style.setProperty('--dx', (Math.random()*160-80)+'px');
+    s.style.setProperty('--dy', (Math.random()*120+40)+'px');
+    $('overlay').appendChild(s);
+    setTimeout(()=>s.remove(), 1000);
+  }
+}
+
+function popEmoji(emoji){
+  const p = document.createElement('div');
+  p.className = 'pop';
+  p.textContent = emoji;
+  $('overlay').appendChild(p);
+  setTimeout(()=>p.remove(), 800);
+}
+
+function goHome(){
+  currentGame = null;
+  $('title').textContent = '🌈 かしこくなるあそび';
+  const s = $('screen');
+  s.innerHTML = '';
+  const menu = document.createElement('div');
+  menu.className = 'menu';
+  const games = [
+    {id:'color', label:'いろの きおく', emoji:'🎨', cls:'g1'},
+    {id:'count', label:'かぞえて!', emoji:'🔢', cls:'g2'},
+    {id:'diff',  label:'ちがう かたち', emoji:'🔺', cls:'g3'},
+    {id:'sound', label:'おと あわせ', emoji:'🎵', cls:'g4'},
+  ];
+  games.forEach(g=>{
+    const b = document.createElement('button');
+    b.className = 'menuBtn '+g.cls;
+    b.innerHTML = `<div class="emoji">${g.emoji}</div><div>${g.label}</div>`;
+    b.onclick = ()=>{ ensureAudio(); beep(660,80,'triangle'); startGame(g.id); };
+    menu.appendChild(b);
+  });
+  s.appendChild(menu);
+  const hint = document.createElement('div');
+  hint.className = 'hint';
+  hint.textContent = 'あそびを えらんでね';
+  s.appendChild(hint);
+}
+
+function startGame(id){
+  currentGame = id;
+  if(id==='color') colorGame();
+  else if(id==='count') countGame();
+  else if(id==='diff') diffGame();
+  else if(id==='sound') soundGame();
+}
+
+function renderShell(titleText){
+  $('title').textContent = titleText;
+  const s = $('screen');
+  s.innerHTML = '';
+  const top = document.createElement('div');
+  top.style.cssText = 'display:flex;justify-content:space-between;width:100%;max-width:420px;padding:0 8px;align-items:center';
+  const back = document.createElement('button');
+  back.className = 'backBtn';
+  back.textContent = '← もどる';
+  back.onclick = goHome;
+  const lvl = document.createElement('div');
+  lvl.className = 'level';
+  lvl.id = 'level';
+  top.appendChild(back);
+  top.appendChild(lvl);
+  s.appendChild(top);
+  return s;
+}
+
+// ===================== ゲーム1: いろの きおく (Simon) =====================
+function colorGame(){
+  const colors = ['c-red','c-blue','c-green','c-yellow','c-purple','c-orange'];
+  const tones = [523.25, 659.25, 783.99, 987.77, 440, 349.23];
+  let seq = [], input = [], level = 1;
+
+  const s = renderShell('🎨 いろの きおく');
+  const status = document.createElement('div');
+  status.className = 'status';
+  status.textContent = 'よく みててね';
+  s.appendChild(status);
+  const grid = document.createElement('div');
+  grid.className = 'grid';
+  grid.style.gridTemplateColumns = '1fr 1fr';
+  s.appendChild(grid);
+  const cells = colors.map((c,i)=>{
+    const b = document.createElement('button');
+    b.className = 'cell ' + c;
+    b.textContent = '';
+    b.dataset.idx = i;
+    b.onclick = ()=>handleTap(i);
+    grid.appendChild(b);
+    return b;
+  });
+
+  function flash(i, dur=380){
+    return new Promise(res=>{
+      cells[i].classList.add('flash');
+      beep(tones[i], dur-40, 'triangle', 0.2);
+      setTimeout(()=>{ cells[i].classList.remove('flash'); res(); }, dur);
+    });
+  }
+  async function showSeq(){
+    status.textContent = '👀 みててね…';
+    input = [];
+    disableAll(true);
+    await sleep(500);
+    for(const i of seq){ await flash(i); await sleep(120); }
+    status.textContent = '👉 おなじ じゅんに タップ';
+    disableAll(false);
+  }
+  function disableAll(d){ cells.forEach(c=>c.disabled=d); }
+  function nextLevel(){
+    level++;
+    seq.push(Math.floor(Math.random()*colors.length));
+    $('level').textContent = 'レベル ' + level;
+    showSeq();
+  }
+  function handleTap(i){
+    beep(tones[i], 180, 'triangle', 0.18);
+    cells[i].classList.add('flash');
+    setTimeout(()=>cells[i].classList.remove('flash'), 200);
+    input.push(i);
+    const idx = input.length - 1;
+    if(input[idx] !== seq[idx]){
+      status.textContent = '💦 ちがうよ もういっかい!';
+      jingleNG();
+      seq = [];
+      level = 0;
+      setTimeout(nextLevel, 900);
+      return;
+    }
+    if(input.length === seq.length){
+      status.textContent = '🎉 せいかい!';
+      popEmoji('🎉');
+      addStar(1);
+      jingleOK();
+      setTimeout(nextLevel, 900);
+    }
+  }
+  $('level').textContent = 'レベル 1';
+  seq = [Math.floor(Math.random()*colors.length)];
+  showSeq();
+}
+function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
+
+// ===================== ゲーム2: かぞえて (Subitizing) =====================
+function countGame(){
+  const s = renderShell('🔢 かぞえて!');
+  const status = document.createElement('div');
+  status.className = 'status';
+  s.appendChild(status);
+  const dotsBox = document.createElement('div');
+  dotsBox.className = 'dots';
+  dotsBox.style.minHeight = '160px';
+  s.appendChild(dotsBox);
+  const choicesBox = document.createElement('div');
+  choicesBox.className = 'choices';
+  s.appendChild(choicesBox);
+  let round = 0, correct = 0;
+
+  function nextRound(){
+    round++;
+    $('level').textContent = 'せいかい ' + correct;
+    const level = Math.min(9, 2 + Math.floor(correct/2));
+    const n = 1 + Math.floor(Math.random()*level);
+    dotsBox.innerHTML = '';
+    for(let i=0;i<n;i++){
+      const d = document.createElement('div');
+      d.className = 'dot';
+      const hue = Math.floor(Math.random()*360);
+      d.style.background = `hsl(${hue},80%,55%)`;
+      d.style.boxShadow = `0 3px 0 hsl(${hue},70%,35%)`;
+      dotsBox.appendChild(d);
+    }
+    status.textContent = '👀 いくつ ある？';
+    choicesBox.innerHTML = '';
+    const options = new Set([n]);
+    while(options.size < 3){
+      const cand = Math.max(1, n + (Math.floor(Math.random()*5)-2));
+      if(cand!==n) options.add(cand);
+    }
+    const list = [...options].sort(()=>Math.random()-0.5);
+    list.forEach(v=>{
+      const b = document.createElement('button');
+      b.className = 'numBtn';
+      b.textContent = v;
+      b.onclick = ()=>{
+        beep(v===n?660:220, 180, v===n?'triangle':'sawtooth');
+        if(v===n){
+          status.textContent = '🎉 せいかい!';
+          popEmoji(['🎉','✨','🌟','🎊'][Math.floor(Math.random()*4)]);
+          addStar(1);
+          correct++;
+          jingleOK();
+          setTimeout(nextRound, 900);
+        }else{
+          status.textContent = '💦 もう いっかい みてみよう';
+          jingleNG();
+          setTimeout(nextRound, 1200);
+        }
+      };
+      choicesBox.appendChild(b);
+    });
+  }
+  nextRound();
+}
+
+// ===================== ゲーム3: ちがう かたち (Odd one out) =====================
+function diffGame(){
+  const s = renderShell('🔺 ちがう かたち');
+  const status = document.createElement('div');
+  status.className = 'status';
+  status.textContent = '👀 ひとつだけ ちがうよ';
+  s.appendChild(status);
+  const box = document.createElement('div');
+  box.className = 'shapes';
+  s.appendChild(box);
+  let correct = 0;
+
+  const shapes = ['🍎','🍊','🍇','🍓','🍌','🍉','🥝','🍑','🍒','🥭','🍍','🥥','⭐','⚡','🌸','🌈','🐶','🐱','🐰','🐼','🐨','🦊','🦁','🐸','🚗','🚌','🚀','🚁','🎈','🎁'];
+
+  function nextRound(){
+    $('level').textContent = 'せいかい ' + correct;
+    const level = Math.min(4, 1 + Math.floor(correct/3));
+    const gridSize = level===1 ? 4 : level===2 ? 6 : level===3 ? 6 : 9;
+    const cols = gridSize===4?2:3;
+    box.style.gridTemplateColumns = `repeat(${cols},1fr)`;
+    const common = shapes[Math.floor(Math.random()*shapes.length)];
+    let odd;
+    do{ odd = shapes[Math.floor(Math.random()*shapes.length)]; } while(odd===common);
+    const oddIdx = Math.floor(Math.random()*gridSize);
+    box.innerHTML = '';
+    for(let i=0;i<gridSize;i++){
+      const b = document.createElement('button');
+      b.className = 'shape';
+      b.textContent = i===oddIdx ? odd : common;
+      b.onclick = ()=>{
+        if(i===oddIdx){
+          status.textContent = '🎉 みつけた!';
+          popEmoji('🎯');
+          beep(880,180,'triangle');
+          addStar(1);
+          correct++;
+          jingleOK();
+          setTimeout(nextRound, 900);
+        }else{
+          status.textContent = '💦 もういちど よく みてね';
+          beep(220,200,'sawtooth');
+          jingleNG();
+        }
+      };
+      box.appendChild(b);
+    }
+  }
+  nextRound();
+}
+
+// ===================== ゲーム4: おと あわせ =====================
+function soundGame(){
+  const notes = [
+    {name:'ド', freq:261.63, color:'c-red'},
+    {name:'レ', freq:293.66, color:'c-orange'},
+    {name:'ミ', freq:329.63, color:'c-yellow'},
+    {name:'ファ',freq:349.23, color:'c-green'},
+    {name:'ソ', freq:392.00, color:'c-blue'},
+    {name:'ラ', freq:440.00, color:'c-purple'},
+  ];
+  const s = renderShell('🎵 おと あわせ');
+  const status = document.createElement('div');
+  status.className = 'status';
+  s.appendChild(status);
+  const playBtn = document.createElement('button');
+  playBtn.className = 'primaryBtn';
+  playBtn.textContent = '🔁 もういちど きく';
+  s.appendChild(playBtn);
+  const grid = document.createElement('div');
+  grid.className = 'grid';
+  grid.style.gridTemplateColumns = 'repeat(3,1fr)';
+  s.appendChild(grid);
+  let seq = [], input = [], level = 1;
+  const cells = notes.map((n,i)=>{
+    const b = document.createElement('button');
+    b.className = 'cell '+n.color;
+    b.textContent = n.name;
+    b.onclick = ()=>handleTap(i);
+    grid.appendChild(b);
+    return b;
+  });
+  async function playSeq(){
+    input = [];
+    status.textContent = '🎧 きいてね';
+    for(const i of seq){
+      cells[i].classList.add('flash');
+      beep(notes[i].freq, 380, 'triangle', 0.25);
+      await sleep(420);
+      cells[i].classList.remove('flash');
+      await sleep(120);
+    }
+    status.textContent = '👉 おなじに タップ';
+  }
+  function handleTap(i){
+    beep(notes[i].freq, 260, 'triangle', 0.22);
+    cells[i].classList.add('flash');
+    setTimeout(()=>cells[i].classList.remove('flash'), 220);
+    input.push(i);
+    const idx = input.length - 1;
+    if(input[idx] !== seq[idx]){
+      status.textContent = '💦 ちがうよ もういちど!';
+      jingleNG();
+      setTimeout(()=>playSeq(), 800);
+      return;
+    }
+    if(input.length === seq.length){
+      status.textContent = '🎉 せいかい!';
+      popEmoji('🎵');
+      addStar(1);
+      jingleOK();
+      setTimeout(nextLevel, 900);
+    }
+  }
+  function nextLevel(){
+    level++;
+    seq.push(Math.floor(Math.random()*notes.length));
+    $('level').textContent = 'レベル ' + level;
+    playSeq();
+  }
+  playBtn.onclick = ()=>playSeq();
+  $('level').textContent = 'レベル 1';
+  seq = [Math.floor(Math.random()*notes.length)];
+  setTimeout(playSeq, 400);
+}
+
+// 起動
+goHome();
+
+// iOS 対策：初回タップで AudioContext を解放
+document.addEventListener('touchstart', ensureAudio, {once:true});
+document.addEventListener('click', ensureAudio, {once:true});
+</script>
+</body>
+</html>
