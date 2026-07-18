@@ -209,82 +209,35 @@
     border-left:3px solid var(--earth);
   }
 
-  /* Globe (地球一周 円環ビュー) */
-  .globe-wrap{
-    background:radial-gradient(circle at 50% 45%, #1a3f5c 0%, var(--bg-2) 65%);
-    border-radius:14px;padding:16px 10px 8px;margin:14px 0;
-    border:1px solid var(--line);
-    position:relative;overflow:hidden;
+  /* Earth Ring (地球一周リング) */
+  .ring-box{
+    position:relative;width:100%;max-width:360px;aspect-ratio:1/1;margin:6px auto 4px;
   }
-  .globe-wrap::before{
-    content:'';position:absolute;inset:-20% -20% auto auto;
-    width:60%;aspect-ratio:1;border-radius:50%;
-    background:radial-gradient(circle, rgba(255,179,71,.15), transparent 70%);
-    pointer-events:none;
+  .ring-box svg{width:100%;height:100%;display:block;overflow:visible}
+  .ring-center{
+    position:absolute;inset:0;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;pointer-events:none;
   }
-  .globe-wrap svg{
-    width:100%;height:auto;max-height:520px;display:block;
-    filter:drop-shadow(0 4px 20px rgba(0,0,0,.4));
+  .ring-center .globe{font-size:2.2rem;line-height:1}
+  .ring-center .pct{font-size:1.9rem;font-weight:800;color:var(--peace);margin-top:2px}
+  .ring-center .pctlbl{font-size:.7rem;color:var(--text-mute)}
+  .ring-center .rstatus{font-size:.76rem;color:var(--sun);margin-top:4px;text-align:center;max-width:150px}
+  .ring-seg{cursor:pointer;transition:opacity .15s}
+  .ring-seg:hover{opacity:.8}
+  .ring-hourlbl{fill:var(--text-mute);font-size:9px;text-anchor:middle}
+  .ring-tap{text-align:center;font-size:.8rem;color:var(--text-soft);margin:6px 0 4px;min-height:1.4em}
+  .ring-ctrl{display:flex;gap:8px;justify-content:center;margin-bottom:6px}
+  .ring-ctrl button{
+    background:var(--card-2);border:1px solid var(--line);color:var(--text-soft);
+    border-radius:20px;padding:6px 16px;font-size:.8rem;cursor:pointer;font-family:inherit;
   }
-  .globe-title{
-    text-align:center;font-size:.85rem;color:var(--text-soft);
-    padding:4px 0 8px;letter-spacing:.06em;
-  }
-  .globe-title strong{color:var(--peace)}
-  .globe-tick{fill:var(--text-mute);font-size:9px;
-    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;}
-  .globe-tick-major{fill:var(--text);font-size:11px;font-weight:600}
-  .globe-arc-bg{fill:none;stroke:#1e3a52;stroke-width:22}
-  .globe-arc-covered{fill:none;stroke:var(--peace);stroke-width:22;
-    filter:drop-shadow(0 0 6px rgba(122,184,92,.6));
-    transition:stroke-dasharray .5s;}
-  .globe-arc-gap{fill:none;stroke:var(--gap);stroke-width:22;opacity:.75}
-  .globe-arc-me{fill:none;stroke:var(--sun);stroke-width:22;
-    filter:drop-shadow(0 0 8px rgba(255,179,71,.7));}
-  .globe-hour-line{stroke:rgba(138,167,189,.15);stroke-width:1}
-  .globe-hour-line-major{stroke:rgba(138,167,189,.35);stroke-width:1}
-  .globe-participant{cursor:default;transition:r .15s}
-  .globe-participant:hover{r:8}
-  .globe-participant-label{
-    font-size:8.5px;fill:var(--text);pointer-events:none;
-    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;
-    font-weight:600;
-  }
-  .globe-earth-core{fill:url(#earthGradient);stroke:rgba(74,163,216,.5);stroke-width:1.5}
-  .globe-sun{fill:var(--sun);
-    filter:drop-shadow(0 0 12px rgba(255,179,71,.9));
-    animation:sunGlow 3s ease-in-out infinite;}
-  @keyframes sunGlow{
-    0%,100%{opacity:.9}
-    50%{opacity:1;transform:scale(1.05);}
-  }
-  .globe-center-text{
-    text-anchor:middle;dominant-baseline:middle;fill:var(--text);
-    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;
-  }
-  .globe-center-pct{font-size:34px;font-weight:800;fill:var(--peace)}
-  .globe-center-lbl{font-size:11px;fill:var(--text-soft)}
-  .globe-center-msg{font-size:9.5px;fill:var(--text-mute)}
-  .globe-legend{
-    display:flex;gap:14px;flex-wrap:wrap;justify-content:center;
-    font-size:.76rem;color:var(--text-soft);padding:8px 4px 4px;
-  }
-  .globe-legend span{display:flex;align-items:center;gap:5px}
-  .globe-legend span::before{
-    content:"";display:inline-block;width:12px;height:6px;border-radius:3px;
-  }
-  .globe-legend .lg-cov::before{background:var(--peace);box-shadow:0 0 4px var(--peace)}
-  .globe-legend .lg-gap-g::before{background:var(--gap)}
-  .globe-legend .lg-me-g::before{background:var(--sun);box-shadow:0 0 4px var(--sun)}
-  .globe-legend .lg-dot::before{
-    width:8px;height:8px;border-radius:50%;
-    background:var(--earth);box-shadow:0 0 4px var(--earth);
-  }
-  .globe-caption{
-    font-size:.78rem;color:var(--text-mute);text-align:center;
-    padding:6px 10px 0;line-height:1.5;
-  }
-  .globe-caption strong{color:var(--peace)}
+  .ring-ctrl button:hover{border-color:var(--peace);color:var(--peace)}
+
+  /* Demo ring on START page */
+  .demo-ring-wrap{margin:8px 0 4px}
+  .ring-box.demo-ring{max-width:280px;margin:2px auto}
+  .demo-caption{text-align:center;font-size:.86rem;color:var(--text-soft);line-height:1.7;margin-top:2px}
+  .demo-caption .you-start{color:var(--sun);font-size:.98rem}
 
   /* Japan Map */
   .japan-map-wrap{
@@ -372,6 +325,22 @@
       このアプリは、<strong>あなたのまわりにいる友人で「いま埋まっている時間」と「まだ空いている時間」を見える化</strong> して、
       無理のないペースで仲間集めをサポートします。
     </p>
+
+    <div class="demo-ring-wrap">
+      <div class="ring-box demo-ring">
+        <svg id="demoRing" viewBox="0 0 400 400"></svg>
+        <div class="ring-center">
+          <div class="globe">🌍</div>
+          <div class="pct" id="demoPct">100%</div>
+          <div class="pctlbl">地球一周カバー</div>
+        </div>
+      </div>
+      <p class="demo-caption">
+        ↑ 完成イメージ：世界中の仲間でバトンをつなぐと、<br>こうして <strong>24時間＝地球が一周</strong> します。<br>
+        <strong class="you-start">最初のひとりは、あなたから。🌱</strong>
+      </p>
+    </div>
+
     <details>
       <summary>📖 地球一周リレーの基本ルール（クリックで展開）</summary>
       <div style="padding:10px 0;color:var(--text-soft);font-size:.88rem">
@@ -542,9 +511,31 @@
 <!-- Phase 3: タイムライン可視化 -->
 <div class="phase" id="phase3">
   <div class="card">
-    <h2 class="sun" style="color:var(--sun)">③ 地球一周を、見る</h2>
-    <p>9/21（UTC基準）の24時間を、<strong>地球そのものを1周する円</strong> として見てみましょう。<br>
-      緑の光が繋がっていくほど、<strong>「地球を1周するバトン」</strong> が完成に近づきます。</p>
+    <h2 class="sun" style="color:var(--sun)">③ 24時間タイムラインで、地球を見る</h2>
+    <p>9/21（UTC基準）の24時間＝<strong>地球1回転</strong>。バトンが輪をぐるっと一周する様子で見えます。<br>
+      <strong>赤い切れ目が「空いている時間帯」</strong> ── ここをカバーする友人を次のステップで探します。</p>
+
+    <div class="ring-box">
+      <svg id="earthRing" viewBox="0 0 400 400"></svg>
+      <div class="ring-center">
+        <div class="globe">🌍</div>
+        <div class="pct" id="ringPct">0%</div>
+        <div class="pctlbl">地球一周カバー</div>
+        <div class="rstatus" id="ringStatus"></div>
+      </div>
+    </div>
+    <div class="ring-tap" id="ringTap">セグメントをタップすると、その時間の担当者が見えます</div>
+    <div class="ring-ctrl">
+      <button onclick="toggleBaton()" id="batonBtn">⏸ バトンを止める</button>
+    </div>
+    <div class="legend">
+      <span class="lg-me">あなた</span>
+      <span class="lg-filled">友人がカバー</span>
+      <span class="lg-gap">空き（切れ目）</span>
+    </div>
+
+    <details style="margin-top:10px">
+      <summary>🔳 24時間グリッドで詳しく見る（名前つき）</summary>
 
     <div class="stats">
       <div class="stat"><div class="num" id="filledCount">0</div><div class="lbl">埋まっている時間帯</div></div>
@@ -552,40 +543,19 @@
       <div class="stat"><div class="num earth" id="totalPeople">0</div><div class="lbl">登録人数</div></div>
     </div>
 
-    <div class="globe-title">
-      🌍 <strong>地球一周ビュー</strong> ── 円の外周が9/21のUTC24時間。緑が繋がるほど、リレーが1周する
+    <div class="timeline-wrap">
+      <div class="timeline" id="timeline"></div>
     </div>
 
-    <div class="globe-wrap">
-      <svg id="globeMap" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet" role="img" aria-label="地球一周24時間リレー円環ビュー"></svg>
+    <div class="legend">
+      <span class="lg-me">あなた</span>
+      <span class="lg-filled">友人がカバー</span>
+      <span class="lg-gap">空き時間帯</span>
     </div>
 
-    <div class="globe-legend">
-      <span class="lg-cov">友人がカバー</span>
-      <span class="lg-me-g">あなた</span>
-      <span class="lg-gap-g">空き時間</span>
-      <span class="lg-dot">参加者（外周）</span>
-    </div>
-
-    <div class="globe-caption">
-      💡 円の外周＝24時間 ／ 上が UTC 12:00（世界の正午）／ 下が UTC 00:00（日付変更線）<br>
-      各点は <strong>参加者が住む経度</strong> におおよそ配置されています。<br>
-      <strong>緑の弧が途切れず1周繋がったら「地球一周達成」</strong> 🎉
-    </div>
-
-    <details style="margin-top:14px">
-      <summary>📊 フラットな24時間タイムライン（詳細を見る）</summary>
-      <div class="timeline-wrap" style="margin-top:10px">
-        <div class="timeline" id="timeline"></div>
-      </div>
-      <div class="legend">
-        <span class="lg-me">あなた</span>
-        <span class="lg-filled">友人がカバー</span>
-        <span class="lg-gap">空き時間帯</span>
-      </div>
-      <p class="mute" style="margin-top:8px">
-        ※ 各マスの上段は UTC時刻、下段は そこにいる人の名前（複数いる場合は最初の1人＋"+"）。
-      </p>
+    <p class="mute" style="margin-top:8px">
+      ※ 各マスの上段は UTC時刻、下段は そこにいる人の名前（複数いる場合は最初の1人＋"+"）。
+    </p>
     </details>
   </div>
 
@@ -850,7 +820,6 @@ function init(){
   renderProgress();
   renderFriends();
   renderTimeline();
-  renderGlobe();
   renderJapanMap();
   renderGapList();
   showTemplate(state.templateLang, null);
@@ -862,6 +831,8 @@ function init(){
     sel.value = state.me.city;
   }
   if(state.me.offset !== null) document.getElementById('meOffset').value = formatOffset(state.me.offset);
+  ringTick();
+  startDemoRing();
 }
 
 function populateCityDropdowns(){
@@ -944,7 +915,7 @@ function goPhase(n){
   document.querySelectorAll('.phase').forEach(el => el.classList.remove('active'));
   document.getElementById('phase'+n).classList.add('active');
   renderProgress();
-  if(n === 3){ renderTimeline(); renderGlobe(); renderJapanMap(); }
+  if(n === 3){ renderTimeline(); renderJapanMap(); }
   if(n === 4) renderGapList();
   if(n === 5) showTemplate(state.templateLang, null);
   if(n === 6){ renderSummary(); renderDays(); }
@@ -998,7 +969,6 @@ function addFriend(){
   saveState();
   renderFriends();
   renderTimeline();
-  renderGlobe();
   renderJapanMap();
 }
 function addFriendManual(){
@@ -1013,7 +983,6 @@ function addFriendManual(){
   saveState();
   renderFriends();
   renderTimeline();
-  renderGlobe();
   renderJapanMap();
 }
 function findPref(code){ return PREFECTURES.find(p => p.code === code); }
@@ -1035,7 +1004,6 @@ function addFriendByPref(){
   saveState();
   renderFriends();
   renderTimeline();
-  renderGlobe();
   renderJapanMap();
 }
 function removeFriend(i){
@@ -1043,7 +1011,6 @@ function removeFriend(i){
   saveState();
   renderFriends();
   renderTimeline();
-  renderGlobe();
   renderJapanMap();
 }
 function renderFriends(){
@@ -1113,250 +1080,161 @@ function renderTimeline(){
   document.getElementById('filledCount').textContent = filled;
   document.getElementById('gapCount').textContent = 24 - filled;
   document.getElementById('totalPeople').textContent = state.friends.length + (state.me.offset !== null ? 1 : 0);
+  renderRing();
 }
 
-/* ===================== Globe (地球一周 円環ビュー) ===================== */
-// UTC hour → angle. 12:00 UTC を上（-90°）に置き、時計回りに増えていく（東回り）
-// 経度で言うと、上=グリニッジ正午の太陽位置。右=東経90°(≒UTC+6)、下=日付変更線、左=西経90°(≒UTC-6)
-function utcHourToAngle(h){
-  // 12時を上（-90°）、時計回り
-  return ((h - 12) / 24) * 360 - 90;
+/* ===================== 地球一周リング ===================== */
+const RING_CX = 200, RING_CY = 200, RING_ROUT = 165, RING_RIN = 120, RING_GAPDEG = 1.6;
+let ringCovered = [];       // 各UTC時刻がカバーされているか
+let ringBaton = null, ringT = 0, ringAnimOn = true, ringRaf = null;
+
+function ringPol(r, deg){
+  const a = (deg - 90) * Math.PI / 180;
+  return [RING_CX + r * Math.cos(a), RING_CY + r * Math.sin(a)];
 }
-function offsetToLongitudeAngle(offset){
-  // UTC+9 なら "そこの正午" が UTC 03:00。つまり参加者は「その人の正午がバトンを持つ時間」の位置
-  // = UTC (12 - offset) 時刻の位置に置く（=経度と一致）
-  const localNoonUTC = (12 - offset + 24) % 24;
-  return utcHourToAngle(localNoonUTC);
+function ringSegPath(hour){
+  const a0 = hour * 15 + RING_GAPDEG, a1 = (hour + 1) * 15 - RING_GAPDEG;
+  const [x0,y0] = ringPol(RING_ROUT, a0), [x1,y1] = ringPol(RING_ROUT, a1);
+  const [x2,y2] = ringPol(RING_RIN, a1),  [x3,y3] = ringPol(RING_RIN, a0);
+  return `M${x0} ${y0} A${RING_ROUT} ${RING_ROUT} 0 0 1 ${x1} ${y1} L${x2} ${y2} A${RING_RIN} ${RING_RIN} 0 0 0 ${x3} ${y3} Z`;
 }
-function polar(cx, cy, r, angleDeg){
-  const a = angleDeg * Math.PI / 180;
-  return {x: cx + r * Math.cos(a), y: cy + r * Math.sin(a)};
-}
-function arcPath(cx, cy, r, startAngle, endAngle){
-  // start / end in degrees. Draw clockwise from startAngle to endAngle.
-  let sweep = endAngle - startAngle;
-  while(sweep < 0) sweep += 360;
-  const large = sweep > 180 ? 1 : 0;
-  const s = polar(cx, cy, r, startAngle);
-  const e = polar(cx, cy, r, endAngle);
-  return `M ${s.x.toFixed(2)} ${s.y.toFixed(2)} A ${r} ${r} 0 ${large} 1 ${e.x.toFixed(2)} ${e.y.toFixed(2)}`;
-}
-function renderGlobe(){
-  const svg = document.getElementById('globeMap');
+function renderRing(){
+  const svg = document.getElementById('earthRing');
   if(!svg) return;
   const ns = 'http://www.w3.org/2000/svg';
   svg.innerHTML = '';
-
-  const cx = 200, cy = 200;
-  const rOuter = 160;   // 外周（時刻メモリ）
-  const rArc = 145;     // カバレッジ弧
-  const rDot = 128;     // 参加者ドット
-  const rEarth = 78;    // 地球コア半径
-
-  // Defs: gradients
-  const defs = document.createElementNS(ns, 'defs');
-  defs.innerHTML = `
-    <radialGradient id="earthGradient" cx="0.35" cy="0.35" r="0.85">
-      <stop offset="0%" stop-color="#5cb8e6"/>
-      <stop offset="55%" stop-color="#2a6d99"/>
-      <stop offset="100%" stop-color="#0e3050"/>
-    </radialGradient>
-    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="4" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-  `;
-  svg.appendChild(defs);
-
-  // ── 24時間グリッド線
+  ringCovered = [];
+  let fill = 0;
   for(let h = 0; h < 24; h++){
-    const a = utcHourToAngle(h);
-    const isMajor = (h % 6 === 0);
-    const p1 = polar(cx, cy, rEarth + 4, a);
-    const p2 = polar(cx, cy, rOuter + 4, a);
-    const line = document.createElementNS(ns, 'line');
-    line.setAttribute('x1', p1.x);
-    line.setAttribute('y1', p1.y);
-    line.setAttribute('x2', p2.x);
-    line.setAttribute('y2', p2.y);
-    line.setAttribute('class', isMajor ? 'globe-hour-line-major' : 'globe-hour-line');
-    svg.appendChild(line);
-  }
-
-  // ── 外周時刻ラベル（0, 3, 6, 9, 12, 15, 18, 21 の主要マーカーを表示）
-  const majorHours = [0,3,6,9,12,15,18,21];
-  for(let h = 0; h < 24; h++){
-    if(!majorHours.includes(h)) continue;
-    const a = utcHourToAngle(h);
-    const p = polar(cx, cy, rOuter + 18, a);
-    const t = document.createElementNS(ns, 'text');
-    t.setAttribute('x', p.x);
-    t.setAttribute('y', p.y);
-    t.setAttribute('text-anchor', 'middle');
-    t.setAttribute('dominant-baseline', 'middle');
-    t.setAttribute('class', (h % 6 === 0) ? 'globe-tick globe-tick-major' : 'globe-tick');
-    let label = `${pad(h)}:00`;
-    if(h === 12) label = '☀️ 12 UTC';
-    if(h === 0) label = '🌙 00 UTC';
-    t.textContent = label;
-    svg.appendChild(t);
-  }
-
-  // ── カバレッジ弧を描く：各1時間セグメントを個別の弧として描く
-  // 1時間 = 15度。各時間を [-7.5°, +7.5°] のセグメントで描く
-  const segHalf = 360 / 24 / 2;  // = 7.5
-  // まず背景の暗いリング（全周）
-  const bgRing = document.createElementNS(ns, 'circle');
-  bgRing.setAttribute('cx', cx);
-  bgRing.setAttribute('cy', cy);
-  bgRing.setAttribute('r', rArc);
-  bgRing.setAttribute('class', 'globe-arc-bg');
-  svg.appendChild(bgRing);
-
-  for(let h = 0; h < 24; h++){
-    const centerAngle = utcHourToAngle(h);
-    const startAng = centerAngle - segHalf + 0.4;   // 0.4°隙間で節目を見せる
-    const endAng = centerAngle + segHalf - 0.4;
     const ppl = whoAtUTC(h);
-    let cls;
-    if(ppl.length === 0){
-      cls = 'globe-arc-gap';
-    } else if(ppl.length === 1 && ppl[0].isMe){
-      cls = 'globe-arc-me';
-    } else {
-      cls = 'globe-arc-covered';
+    const isGap = ppl.length === 0;
+    const onlyMe = !isGap && ppl.length === 1 && ppl[0].isMe;
+    if(!isGap) fill++;
+    ringCovered.push(!isGap);
+    const p = document.createElementNS(ns, 'path');
+    p.setAttribute('d', ringSegPath(h));
+    p.setAttribute('class', 'ring-seg');
+    p.setAttribute('fill', isGap ? 'var(--gap)' : (onlyMe ? 'var(--sun)' : 'var(--peace)'));
+    p.setAttribute('fill-opacity', isGap ? '0.85' : '0.9');
+    p.addEventListener('click', () => showRingHour(h));
+    svg.appendChild(p);
+    if(h % 3 === 0){
+      const [lx, ly] = ringPol(RING_ROUT + 16, h * 15 + 7.5);
+      const t = document.createElementNS(ns, 'text');
+      t.setAttribute('x', lx); t.setAttribute('y', ly + 3);
+      t.setAttribute('class', 'ring-hourlbl');
+      t.textContent = pad(h);
+      svg.appendChild(t);
     }
-    const path = document.createElementNS(ns, 'path');
-    path.setAttribute('d', arcPath(cx, cy, rArc, startAng, endAng));
-    path.setAttribute('class', cls);
-    path.setAttribute('stroke-linecap', 'round');
-    // Tooltip
-    const ttl = document.createElementNS(ns, 'title');
-    if(ppl.length === 0){
-      ttl.textContent = `UTC ${pad(h)}:00 ── 空き時間`;
-    } else {
-      ttl.textContent = `UTC ${pad(h)}:00\n` + ppl.map(p => `${p.name} (${p.city})`).join('\n');
+  }
+  // バトン（動く光点）
+  const defs = document.createElementNS(ns, 'defs');
+  defs.innerHTML = '<filter id="ringGlow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>';
+  svg.appendChild(defs);
+  ringBaton = document.createElementNS(ns, 'circle');
+  ringBaton.setAttribute('r', '9');
+  ringBaton.setAttribute('fill', '#fff');
+  ringBaton.setAttribute('filter', 'url(#ringGlow)');
+  svg.appendChild(ringBaton);
+
+  const pct = Math.round(fill / 24 * 100);
+  const pctEl = document.getElementById('ringPct');
+  const stEl = document.getElementById('ringStatus');
+  if(pctEl) pctEl.textContent = pct + '%';
+  if(stEl){
+    const gaps = 24 - fill;
+    stEl.textContent = gaps === 0 ? '🎉 輪が閉じた！一周達成' : `あと${gaps}時間ぶんで輪が閉じる`;
+  }
+}
+function showRingHour(h){
+  const info = document.getElementById('ringTap');
+  if(!info) return;
+  const ppl = whoAtUTC(h);
+  if(ppl.length === 0){
+    info.innerHTML = `<b style="color:var(--gap)">UTC ${pad(h)}:00 — 空き</b>　ここを埋める友人を探す`;
+  }else{
+    info.innerHTML = `<b style="color:var(--peace)">UTC ${pad(h)}:00</b>　`
+      + ppl.map(p => `${escapeHtml(p.name || 'あなた')}(${escapeHtml(p.city || '')})`).join('・');
+  }
+}
+function ringTick(){
+  if(!ringBaton){ if(ringAnimOn) ringRaf = requestAnimationFrame(ringTick); return; }
+  ringT = (ringT + 0.06) % 24;
+  const [bx, by] = ringPol((RING_ROUT + RING_RIN) / 2, ringT * 15);
+  const h = Math.floor(ringT) % 24;
+  ringBaton.setAttribute('cx', bx);
+  ringBaton.setAttribute('cy', by);
+  ringBaton.setAttribute('fill', ringCovered[h] ? '#eaffea' : '#ffd9d9');
+  if(ringAnimOn) ringRaf = requestAnimationFrame(ringTick);
+}
+function toggleBaton(){
+  ringAnimOn = !ringAnimOn;
+  const btn = document.getElementById('batonBtn');
+  if(btn) btn.textContent = ringAnimOn ? '⏸ バトンを止める' : '▶ バトンを回す';
+  if(ringAnimOn) ringTick();
+}
+
+/* ===================== START画面の完成イメージ・リング ===================== */
+// データなしでも「バトンが一周しながら輪を緑に塗り込む」デモ。何度もループ。
+const DEMO_YOU_HOUR = 0;          // あなたのスタート地点（金色）
+let demoSegs = [], demoBaton = null, demoT = 0, demoPrevH = -1, demoRaf = null, demoStarted = false;
+function renderDemoRing(){
+  const svg = document.getElementById('demoRing');
+  if(!svg) return;
+  const ns = 'http://www.w3.org/2000/svg';
+  svg.innerHTML = '';
+  demoSegs = [];
+  for(let h = 0; h < 24; h++){
+    const p = document.createElementNS(ns, 'path');
+    p.setAttribute('d', ringSegPath(h));
+    p.setAttribute('class', 'ring-seg');
+    p.setAttribute('fill', '#274156');      // まだ点いていない状態
+    p.setAttribute('fill-opacity', '0.55');
+    svg.appendChild(p);
+    demoSegs.push(p);
+    if(h % 3 === 0){
+      const [lx, ly] = ringPol(RING_ROUT + 16, h * 15 + 7.5);
+      const t = document.createElementNS(ns, 'text');
+      t.setAttribute('x', lx); t.setAttribute('y', ly + 3);
+      t.setAttribute('class', 'ring-hourlbl');
+      t.textContent = pad(h);
+      svg.appendChild(t);
     }
-    path.appendChild(ttl);
-    svg.appendChild(path);
   }
-
-  // ── 地球コア（中心の青い球）
-  const earthCore = document.createElementNS(ns, 'circle');
-  earthCore.setAttribute('cx', cx);
-  earthCore.setAttribute('cy', cy);
-  earthCore.setAttribute('r', rEarth);
-  earthCore.setAttribute('class', 'globe-earth-core');
-  svg.appendChild(earthCore);
-
-  // ── 参加者ドット（住んでいる経度に配置）
-  // 重なりを避けるため、同じオフセットの人には少しずつ角度をオフセットさせる
-  const allParticipants = [];
-  if(state.me.offset !== null){
-    allParticipants.push({
-      name: state.me.name || 'あなた',
-      city: state.me.city || '?',
-      offset: state.me.offset,
-      isMe: true
-    });
+  const defs = document.createElementNS(ns, 'defs');
+  defs.innerHTML = '<filter id="demoGlow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>';
+  svg.appendChild(defs);
+  demoBaton = document.createElementNS(ns, 'circle');
+  demoBaton.setAttribute('r', '9');
+  demoBaton.setAttribute('fill', '#eaffea');
+  demoBaton.setAttribute('filter', 'url(#demoGlow)');
+  svg.appendChild(demoBaton);
+}
+function litDemo(h){
+  const isYou = (h === DEMO_YOU_HOUR);
+  demoSegs[h].setAttribute('fill', isYou ? 'var(--sun)' : 'var(--peace)');
+  demoSegs[h].setAttribute('fill-opacity', '0.92');
+}
+function demoTick(){
+  if(!demoBaton){ demoRaf = requestAnimationFrame(demoTick); return; }
+  demoT = (demoT + 0.07) % 24;
+  const h = Math.floor(demoT) % 24;
+  // 一周してゼロに戻ったら、少し余韻を置いてから消してやり直す
+  if(h < demoPrevH){
+    demoSegs.forEach(s => { s.setAttribute('fill', '#274156'); s.setAttribute('fill-opacity', '0.55'); });
   }
-  state.friends.forEach(f => allParticipants.push({
-    name: f.name, city: f.city, offset: f.offset, isMe: false
-  }));
-
-  // group by offset
-  const byOffset = {};
-  allParticipants.forEach(p => {
-    const key = String(p.offset);
-    if(!byOffset[key]) byOffset[key] = [];
-    byOffset[key].push(p);
-  });
-
-  Object.keys(byOffset).forEach(off => {
-    const group = byOffset[off];
-    const baseAngle = offsetToLongitudeAngle(parseFloat(off));
-    group.forEach((p, i) => {
-      // 同オフセットが複数いる場合は、少しずつ半径をずらす（内側に重ねる）
-      const rP = rDot - i * 12;
-      const pos = polar(cx, cy, rP, baseAngle);
-      const dot = document.createElementNS(ns, 'circle');
-      dot.setAttribute('cx', pos.x);
-      dot.setAttribute('cy', pos.y);
-      dot.setAttribute('r', p.isMe ? 6.5 : 5.5);
-      dot.setAttribute('class', 'globe-participant');
-      dot.setAttribute('fill', p.isMe ? 'var(--sun)' : 'var(--earth)');
-      dot.setAttribute('stroke', '#fff');
-      dot.setAttribute('stroke-width', '1.2');
-      dot.style.filter = p.isMe
-        ? 'drop-shadow(0 0 5px rgba(255,179,71,.8))'
-        : 'drop-shadow(0 0 4px rgba(74,163,216,.7))';
-      const ttl = document.createElementNS(ns, 'title');
-      ttl.textContent = `${p.name} @ ${p.city} (UTC${formatOffset(p.offset)})`;
-      dot.appendChild(ttl);
-      svg.appendChild(dot);
-
-      // ラベル（最初の1人だけ表示、外に向けて）
-      if(i === 0){
-        const labelPos = polar(cx, cy, rDot - 15, baseAngle);
-        const lbl = document.createElementNS(ns, 'text');
-        lbl.setAttribute('x', labelPos.x);
-        lbl.setAttribute('y', labelPos.y);
-        lbl.setAttribute('text-anchor', 'middle');
-        lbl.setAttribute('dominant-baseline', 'middle');
-        lbl.setAttribute('class', 'globe-participant-label');
-        const short = (p.name || '').slice(0, 6);
-        lbl.textContent = group.length > 1 ? `${short}(+${group.length-1})` : short;
-        svg.appendChild(lbl);
-      }
-    });
-  });
-
-  // ── センターの数値表示
-  const filled = countFilled();
-  const pct = Math.round(filled / 24 * 100);
-  const gapH = 24 - filled;
-  const pctText = document.createElementNS(ns, 'text');
-  pctText.setAttribute('x', cx);
-  pctText.setAttribute('y', cy - 8);
-  pctText.setAttribute('class', 'globe-center-text globe-center-pct');
-  pctText.textContent = `${pct}%`;
-  svg.appendChild(pctText);
-
-  const lblText = document.createElementNS(ns, 'text');
-  lblText.setAttribute('x', cx);
-  lblText.setAttribute('y', cy + 18);
-  lblText.setAttribute('class', 'globe-center-text globe-center-lbl');
-  lblText.textContent = '地球一周カバー';
-  svg.appendChild(lblText);
-
-  const msgText = document.createElementNS(ns, 'text');
-  msgText.setAttribute('x', cx);
-  msgText.setAttribute('y', cy + 38);
-  msgText.setAttribute('class', 'globe-center-text globe-center-msg');
-  if(gapH === 0){
-    msgText.textContent = '🎉 1周達成！';
-    msgText.setAttribute('fill', 'var(--peace)');
-  } else if(gapH <= 3){
-    msgText.textContent = `あと ${gapH}時間で1周`;
-  } else {
-    msgText.textContent = `空き ${gapH}時間`;
-  }
-  svg.appendChild(msgText);
-
-  // ── 太陽インジケーター（現在のUTC時刻の位置に☀️を置く）
-  const now = new Date();
-  const utcNow = now.getUTCHours() + now.getUTCMinutes() / 60;
-  const sunAngle = utcHourToAngle(utcNow);
-  const sunPos = polar(cx, cy, rOuter - 5, sunAngle);
-  const sun = document.createElementNS(ns, 'circle');
-  sun.setAttribute('cx', sunPos.x);
-  sun.setAttribute('cy', sunPos.y);
-  sun.setAttribute('r', 7);
-  sun.setAttribute('class', 'globe-sun');
-  const sunTtl = document.createElementNS(ns, 'title');
-  sunTtl.textContent = `☀️ 現在のUTC時刻：${pad(now.getUTCHours())}:${pad(now.getUTCMinutes())}`;
-  sun.appendChild(sunTtl);
-  svg.appendChild(sun);
+  demoPrevH = h;
+  litDemo(h);   // バトンが通ったマスを点灯（＝つないでいく）
+  const [bx, by] = ringPol((RING_ROUT + RING_RIN) / 2, demoT * 15);
+  demoBaton.setAttribute('cx', bx);
+  demoBaton.setAttribute('cy', by);
+  demoRaf = requestAnimationFrame(demoTick);
+}
+function startDemoRing(){
+  if(demoStarted) return;
+  demoStarted = true;
+  renderDemoRing();
+  demoTick();
 }
 
 /* ===================== Japan Map (Prefecture level) ===================== */
