@@ -1,0 +1,1124 @@
+{
+  "book": {
+    "title": "Simple Strategy",
+    "author": "Katsuhiko Ohira",
+    "publisher": "Simple Strategy — Design Your Business & Life",
+    "product_line": "バイブコーディング・ギルド 第9 プロダクト",
+    "slug": "simple-strategy",
+    "hashtag": "#simple_strategy",
+    "source_note": "参考図書/Kindle/Kindle文字起こし/simple strategy/simple strategy.md",
+    "amazon_url": "https://www.amazon.co.jp/dp/B0F2X5R7ZK",
+    "playlist_url": "",
+    "playlist_embed_url": "",
+    "video_title": "🎬 本の解説プレイリスト（準備中）",
+    "tagline": "複雑さを手放し、穏やかな確信で日々を進む——シンプルな戦略の設計図"
+  },
+
+  "layers": [
+    { "level": 3, "label": "第3層 · 統合 — 戦略が組織の呼吸になる" },
+    { "level": 2, "label": "第2層 · 実践 — 戦略を判別軸に変える" },
+    { "level": 1, "label": "第1層 · 心 — 空間・穏やかさ・自分との一致" }
+  ],
+
+  "rubric_labels": [
+    { "level": 1, "label": "気づいていない", "color": "#e0e0e0", "fast_slow": "Fast が自動で誤作動（Slow が起動していない）" },
+    { "level": 2, "label": "概念として理解している", "color": "#fff3b0", "fast_slow": "Slow で意識すれば使える（Fast にはまだ沈殿していない）" },
+    { "level": 3, "label": "実践できる", "color": "#a3d977", "fast_slow": "Slow の反復で Fast に沈殿し始めた" },
+    { "level": 4, "label": "文脈に応じて選び分けられる", "color": "#4a90e2", "fast_slow": "Fast が高解像度（educated guess）／熟達直観の域" }
+  ],
+
+  "getting_started": {
+    "enabled": true,
+    "banner_title": "🌱 初めての方へ — 第1層から始めましょう",
+    "banner_body": "11テーマは <strong>3層構造</strong> です。第2層以降は第1層の思考を土台にしているので、まずは <strong>第1層（心）</strong> の3テーマから。特に <strong>「空間をつくる（Creating Space）」</strong> が最初の扉です。<br>いきなり書くのが重かったら、まず <strong>4択の関係性クイズ（8問）</strong> で11テーマ全体の関係を掴んでください。",
+    "first_theme_id": "creating_space",
+    "quiz_cta_label": "🎯 関係性クイズで全体を掴む（4択・8問・書かなくてOK）",
+    "write_cta_label": "✍️ 第1層から直接書く"
+  },
+
+  "engine_note": {
+    "sources": "原理レベル思考トレーニング（Ericsson『超一流になるのは才能か努力か?』最終章／Kahneman『Fast & Slow』／Gladwell『第1感』／Klein × Kahneman 2009 熟達直観）",
+    "sub": "この本の11テーマは、Slow で意識化 → 反復で Fast に沈殿 → 文脈で選び分け、という熟達曲線を辿ります。ルーブリックL1→L4はこの Fast/Slow の位相を表しています。",
+    "unified_principle": "Slow で意図的に検証・失敗・修正した経験が、Fast に沈殿する"
+  },
+
+  "relationship_quiz_meta": {
+    "framing": "この4択は正解探しではありません。あなたのあり方を映す鏡です。選んだ選択肢に応じて、あなたの視点／本の視座／立ち止まりの問い、の3つが返ってきます。",
+    "deliberate_practice_note": "Comprehensible Input（あなたに届く言葉）× 即時のフィードバック × 明確で具体的な目標 × 完全な集中 × コンフォートゾーンの一段外 × 専門家の設計（書籍） ── の6要件で組んでいます。",
+    "score_label": "触れた視点"
+  },
+
+  "relationship_quiz": [
+    {
+      "focus_theme": "creating_space",
+      "learning_objective": "「まず空間をつくる」が戦略の起点であることを、自分の日常に接続する",
+      "q": "新しい戦略を立てる会議の朝。あなたが最初にするべきことは？",
+      "insight": "🌱 戦略思考の起点は、机の上でも頭の中でも「空間をつくる」こと。",
+      "choices": [
+        {
+          "text": "とにかく議題を先に埋めて、時間内に決めきる準備をする",
+          "correct": false,
+          "stance": "🔍 効率至上 ── 隙間を埋めることが仕事だという構え",
+          "phase": "⚡ Fast の反射",
+          "phase_note": "「予定を埋めれば安心」という反射で、空間を敵視している",
+          "author_view": "📖 本ではこう語られている：Create space. Clear your desk, tidy your inbox, and let go of low-priority projects. Above all, clear your mind of worries and distractions.",
+          "slow_question": "🌱 予定を埋め切った後の自分に、新しい戦略を思いつく余白は残っているか？"
+        },
+        {
+          "text": "机上と受信箱を整理し、優先度の低い案件を一度手放してから会議に入る",
+          "correct": true,
+          "stance": "🔍 空間設計 ── 思考の前に環境を整える構え",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "物理・デジタル・心の3領域を意識的にクリアにするSlowな判断",
+          "author_view": "📖 本ではこう語られている：When you create space, you will gain mental clarity, feel calm and relaxed, and have more capacity to generate ideas and think about new strategies.",
+          "slow_question": "🌱 今、机の上と頭の中のうち、どちらの雑然さがあなたの判断を鈍らせているか？"
+        },
+        {
+          "text": "10分だけ外を歩いて、体の緊張と呼吸を整えてから会議室に入る",
+          "correct": false,
+          "stance": "🔍 身体経由 ── 思考の前に身体を整える構え",
+          "phase": "🌊 身体の感覚",
+          "phase_note": "身体の緊張が思考の視野を狭めることに気づいたSomaticな受信",
+          "author_view": "📖 本ではこう語られている：Take care of your body and mind - Ensure adequate sleep, exercise, and healthy meals. Taking care of yourself supports mental clarity.",
+          "slow_question": "🌱 その10分の散歩が、机上の整理と同じ効果を持つ日と、持たない日の違いは何か？"
+        },
+        {
+          "text": "去年の戦略資料を読み返してから、そのアップデート案を持ち込む",
+          "correct": false,
+          "stance": "🔍 継承主義 ── 過去の延長線で発想する構え",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "過去に固執することで、無自覚に新しい視点を締め出している",
+          "author_view": "📖 本ではこう語られている：Let go of the rest - Remove distractions and unnecessary things. Above all, clear your mind of worries.",
+          "slow_question": "🌱 去年の資料を読むことで、あなたは「思考の余白」を得ているか、それとも失っているか？"
+        }
+      ]
+    },
+    {
+      "focus_theme": "self_alignment",
+      "learning_objective": "事業目的と人生目的の順序が逆転していないか点検する",
+      "q": "あなたの事業目標は、どこから導かれているか？",
+      "insight": "🌱 人生目的が先で、事業目的は従。逆転すると疲弊が始まる。",
+      "choices": [
+        {
+          "text": "市場規模と成長率を分析して、勝てるところを事業目標にしている",
+          "correct": false,
+          "stance": "🔍 市場先行 ── 外側の可能性から目標を逆算する構え",
+          "phase": "⚡ Fast の反射",
+          "phase_note": "MBA的な最適化に慣れた反射。人生の中心が抜け落ちている",
+          "author_view": "📖 本ではこう語られている：For most people, life is more important than business. That's why your life purpose and life goal should take priority over your business purpose and business goal.",
+          "slow_question": "🌱 その市場で勝ったとして、5年後のあなたの日々は「望んでいた日々」に近いか？"
+        },
+        {
+          "text": "自分が人生で大切にしたいことを言語化してから、そこに揃う事業を選んでいる",
+          "correct": true,
+          "stance": "🔍 内発起点 ── 人生の主人公が事業を設計する構え",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "順序を明示的に「人生 → 事業」で組み直したSlowな設計",
+          "author_view": "📖 本ではこう語られている：Start with your life purpose and goals, then align your business ones. Help you create a business and life that aligns with who you are.",
+          "slow_question": "🌱 あなたの人生目的を1文で言うと？その1文に、今の事業目標は「揃って」いるか？"
+        },
+        {
+          "text": "身体が「これはやりたい／やりたくない」と感じる感覚を目標選定の一次情報にしている",
+          "correct": false,
+          "stance": "🔍 身体センサー ── 感覚を判断軸に組み込む構え",
+          "phase": "🌊 身体の感覚",
+          "phase_note": "腹の底の反応を情報として扱うSomaticな知性",
+          "author_view": "📖 本ではこう語られている：Design a business and life that truly aligns with who you are. Reflect your values and personality.",
+          "slow_question": "🌱 身体が「NO」と言っている事業を続けるとき、その代償は誰が払っているか？"
+        },
+        {
+          "text": "投資家・上司・家族の期待を集めて、そこから逆算して事業目標を組んでいる",
+          "correct": false,
+          "stance": "🔍 期待従属 ── 他者の期待が目標を決める構え",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "熟慮しているように見えて、自分の願いが外部化されている",
+          "author_view": "📖 本ではこう語られている：Business and life should reflect your values and personality — not someone else's expectations.",
+          "slow_question": "🌱 その期待を全部満たしたとして、あなた自身は満たされているか？"
+        }
+      ]
+    },
+    {
+      "focus_theme": "dialogue_trust",
+      "learning_objective": "対話と説得を区別し、意思決定の速度が対話に依存することに気づく",
+      "q": "チームで新戦略を決める場。あなたのファシリテーションは？",
+      "insight": "🌱 対話は説得ではない。全員が納得すれば、実行の速度が加速する。",
+      "choices": [
+        {
+          "text": "自分の答えを先に提示し、反対がなければそれで進める",
+          "correct": false,
+          "stance": "🔍 説得優先 ── 意思決定は速度が命という構え",
+          "phase": "⚡ Fast の反射",
+          "phase_note": "「決めきる強さ」に依存した反射。納得のないコミットを見逃している",
+          "author_view": "📖 本ではこう語られている：Avoid leading the person toward your own answer. Ask simple questions. Listen carefully. Think together.",
+          "slow_question": "🌱 反対がなかったのは同意だからか、それとも諦めだからか？"
+        },
+        {
+          "text": "全員の答えを『すべて正解』として受け取り、同じ問いを一緒に見つめる時間を作る",
+          "correct": true,
+          "stance": "🔍 共思設計 ── 答えを共に紡ぐ場を作る構え",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "対話の6基本行動（問い・傾聴・信頼・共思・尊重・中立）を意図して選ぶSlow",
+          "author_view": "📖 本ではこう語られている：Every answer is right. Not having an answer yet is also right. Respect everyone's answers. Trust the other person and acknowledge their thoughts.",
+          "slow_question": "🌱 全員の答えを『正解』と扱った瞬間、その場に何が起きたか？"
+        },
+        {
+          "text": "会議室の空気の重さ・軽さを感じ取り、無理に決めずに翌日に持ち越すこともある",
+          "correct": false,
+          "stance": "🔍 場の察知 ── 場のエネルギーを情報として扱う構え",
+          "phase": "🌊 身体の感覚",
+          "phase_note": "空気の質感で「今日は決めない」を選べる身体的な感度",
+          "author_view": "📖 本ではこう語られている：Staying relaxed and excited about what you do matters more than forcing decisions in tension.",
+          "slow_question": "🌱 空気が重いまま決めた過去の意思決定は、その後どんな実行になったか？"
+        },
+        {
+          "text": "多数決で決めて、少数派には後で個別にフォローする",
+          "correct": false,
+          "stance": "🔍 手続き主義 ── 民主的手順で決着させる構え",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "公平に見えて、共思のプロセスを省略している",
+          "author_view": "📖 本ではこう語られている：When you engage in dialogue with your team, they feel ownership of the ideas, leading to greater engagement and motivation.",
+          "slow_question": "🌱 多数決の少数派は、翌日その戦略の実行にどれだけコミットできるか？"
+        }
+      ]
+    },
+    {
+      "focus_theme": "strategic_core_focus",
+      "learning_objective": "Who/What/How の3軸を「焦点」として持てるかどうかを確かめる",
+      "q": "『自社のターゲット顧客は誰か』と聞かれて、あなたはどう答える？",
+      "insight": "🌱 誰にでも良い商品は、誰にも響かない。焦点は削ぐことで生まれる。",
+      "choices": [
+        {
+          "text": "『幅広く、企業から個人まで』と答える。可能性は広い方がいい",
+          "correct": false,
+          "stance": "🔍 網羅志向 ── 広さで安全を確保する構え",
+          "phase": "⚡ Fast の反射",
+          "phase_note": "「絞ると機会を失う」という思い込みに支配された反射",
+          "author_view": "📖 本ではこう語られている：A product that tries to serve everyone ends up being average for all.",
+          "slow_question": "🌱 幅広く狙って、実際に『これは私のためのものだ』と感じてくれた顧客は何人いたか？"
+        },
+        {
+          "text": "『N歳・N業界・こんな課題を持つ人』と、具体的な人物像で1つに絞って答える",
+          "correct": true,
+          "stance": "🔍 焦点設計 ── 顧客を1人に絞ることで価値が立つという構え",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "『これは私のために作られた』を成立させるSlowな絞り込み",
+          "author_view": "📖 本ではこう語られている：By narrowing your focus on your target customer, you can create a product or service that makes your customer feel, 'This is made for me.'",
+          "slow_question": "🌱 その1人が満足したとき、その周りには何人の同じ悩みを持つ人がいるか？"
+        },
+        {
+          "text": "『顧客と会って話した時の反応の強さ』で判別する。数字の前に感触がある",
+          "correct": false,
+          "stance": "🔍 反応起点 ── 現場の温度で顧客像を確定する構え",
+          "phase": "🌊 身体の感覚",
+          "phase_note": "定量分析より先に、面談での身震いを情報として扱う",
+          "author_view": "📖 本ではこう語られている：Understand your customers deeply — not just as data points, but as real people with real needs.",
+          "slow_question": "🌱 一番反応が強かった顧客と、次に強かった顧客の差はどこにあったか？"
+        },
+        {
+          "text": "『複数セグメントに複数の価値を提供』と答える。柔軟性が強みだ",
+          "correct": false,
+          "stance": "🔍 万能主義 ── どこにでも合わせる能力を強みとする構え",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "熟慮しているように見えて、焦点を作れない状態を『柔軟』と呼び替えている",
+          "author_view": "📖 本ではこう語られている：Focus on 'who' — Choose a well-defined target customer.",
+          "slow_question": "🌱 その柔軟性は、顧客から見て『信頼』に見えるか、それとも『定まらなさ』に見えるか？"
+        }
+      ]
+    },
+    {
+      "focus_theme": "opportunity_mapping",
+      "learning_objective": "情熱・スキル・市場需要の3円が交差するスイートスポットを認識する",
+      "q": "新規事業の候補が3つ。あなたはどう選ぶ？",
+      "insight": "🌱 情熱と得意と需要の3つが重なる場所にだけ、続けられる事業がある。",
+      "choices": [
+        {
+          "text": "一番『情熱を持てる』案を選ぶ。熱意が全てだ",
+          "correct": false,
+          "stance": "🔍 情熱一辺倒 ── やる気で乗り切れば市場は付いてくるという構え",
+          "phase": "⚡ Fast の反射",
+          "phase_note": "「好きこそ物の上手なれ」に依存し、市場の実在を検証していない",
+          "author_view": "📖 本ではこう語られている：Don't ignore any circle — You need all three elements (want to do × good at × customer needs) for success.",
+          "slow_question": "🌱 情熱があっても顧客がゼロだった過去の事業は、なぜ止まったか？"
+        },
+        {
+          "text": "『やりたい × 得意 × 顧客が欲しい』の3円が重なる領域を、面談・観察で確かめる",
+          "correct": true,
+          "stance": "🔍 3円検証 ── スイートスポットを実地で見つける構え",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "3円の重なりを机上ではなく現場で検証するSlowな探索",
+          "author_view": "📖 本ではこう語られている：Find the sweet spot where the three elements overlap: what you want to provide, what you are good at, what your customers want.",
+          "slow_question": "🌱 3円の重なりを、あなたはどの現場で確かめる予定か？"
+        },
+        {
+          "text": "現場で顧客と話した時に、身体が『これは筋がいい』と感じる案を選ぶ",
+          "correct": false,
+          "stance": "🔍 直観選択 ── 熟達者の直観を最終判断に使う構え",
+          "phase": "🌊 身体の感覚",
+          "phase_note": "3円を無意識に統合した身体感覚（educated intuition）",
+          "author_view": "📖 本ではこう語られている：Customer needs are crucial — even passion and skill are not enough without real demand.",
+          "slow_question": "🌱 その『筋がいい』感覚は、3円のどれが特に強く反応した瞬間か？"
+        },
+        {
+          "text": "『市場規模が最大』の案を選ぶ。数字が正義だ",
+          "correct": false,
+          "stance": "🔍 市場規模神話 ── 大きい市場に賭ける方が確実という構え",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "分析しているようで、自分の情熱とスキルが空欄になっている",
+          "author_view": "📖 本ではこう語られている：Even if the market is large, if you have no passion or skill, you cannot compete for long.",
+          "slow_question": "🌱 その大市場で、あなたは競合と何で差別化できるのか？"
+        }
+      ]
+    },
+    {
+      "focus_theme": "differentiation_frame",
+      "learning_objective": "『違い』と『差別化』を区別し、便益×独自性の掛け算で捉える",
+      "q": "『あなたの独自性は？』と聞かれて、あなたは何と答えるか？",
+      "insight": "🌱 差別化 = 高い便益 × 高い独自性。便益なき独自性は無視される。",
+      "choices": [
+        {
+          "text": "『他社と違うここが特徴です』と、他社比較で答える",
+          "correct": false,
+          "stance": "🔍 相対的独自性 ── 差別化を『違い』とみなす構え",
+          "phase": "⚡ Fast の反射",
+          "phase_note": "違いは在っても、顧客の便益に接続していない反射的な答え",
+          "author_view": "📖 本ではこう語られている：Uniqueness is not just about being different; it should reflect 'your own identity!' and provide clear benefit.",
+          "slow_question": "🌱 その『違い』は、顧客の生活で何が改善するか？"
+        },
+        {
+          "text": "『顧客の生活がこう改善する（便益）× 私たちにしかできない（独自性）』の掛け算で答える",
+          "correct": true,
+          "stance": "🔍 掛け算差別化 ── 便益と独自性の交点で価値を語る構え",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "便益と独自性を分けずに一本の文で言えるSlowな統合",
+          "author_view": "📖 本ではこう語られている：Differentiation = High Benefit × High Uniqueness. Both must align with your target customers' needs and wants.",
+          "slow_question": "🌱 その掛け算のうち、便益と独自性のどちらが弱いか？"
+        },
+        {
+          "text": "『顧客に触れて、身体でしか伝わらない何か』と答える。カタログには載せない",
+          "correct": false,
+          "stance": "🔍 身体感覚差別化 ── 数値化できない価値を大事にする構え",
+          "phase": "🌊 身体の感覚",
+          "phase_note": "肌感覚での差別化。だが、他者に伝えないと市場に広がらない",
+          "author_view": "📖 本ではこう語られている：Uniqueness should reflect your own identity — but communicate it clearly to customers.",
+          "slow_question": "🌱 その身体感覚を、言葉と数字に翻訳するとどう表現できるか？"
+        },
+        {
+          "text": "『価格が安いこと』と答える。分かりやすい強みだ",
+          "correct": false,
+          "stance": "🔍 価格競争 ── 安さを差別化と勘違いする構え",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "『安さ』は誰でも真似できる独自性なき差別化",
+          "author_view": "📖 本ではこう語られている：Your uniqueness should be something your competitors cannot easily copy — not just a lower price.",
+          "slow_question": "🌱 明日、競合が同じ価格で来たら、あなたの独自性は何が残るか？"
+        }
+      ]
+    },
+    {
+      "focus_theme": "rapid_experimentation",
+      "learning_objective": "『失敗を実験と再定義する』確率的思考を持っているか確かめる",
+      "q": "新規事業10案のうち、1つが当たると想定される。あなたの動き方は？",
+      "insight": "🌱 成功数 = 試行数 × 成功率。試行の速度と数が命。",
+      "choices": [
+        {
+          "text": "10案のうち、一番当たりそうな1案を選び、そこに全力投球する",
+          "correct": false,
+          "stance": "🔍 選択と集中 ── 最初の1案に賭ける構え",
+          "phase": "⚡ Fast の反射",
+          "phase_note": "「集中の方が効率的」という反射。試行数の意義を無視している",
+          "author_view": "📖 本ではこう語られている：To win, you need to open the boxes as quickly as possible. Increasing attempts leads to better results.",
+          "slow_question": "🌱 その1案が外れた時、あなたは残りの9案を試す時間・気力・資金があるか？"
+        },
+        {
+          "text": "10案を『素早く開ける順序』で並べ、失敗を実験と定義して次々試す",
+          "correct": true,
+          "stance": "🔍 実験工房 ── 失敗を情報源として設計する構え",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "「10のうち9は外れる」を前提化するSlowな確率的思考",
+          "author_view": "📖 本ではこう語られている：Prioritize rapid iteration over perfection. Each box represents a new business. Success Formula: Successes = Attempts × Success Rate.",
+          "slow_question": "🌱 あなたが『実験』と呼び直すことで、社内の失敗恐怖はどう変わるか？"
+        },
+        {
+          "text": "手を動かし、身体で『これは筋がある／ない』を感じ取りながら次の案に移る",
+          "correct": false,
+          "stance": "🔍 試行感覚 ── 実地の手応えを次の案の判断に使う構え",
+          "phase": "🌊 身体の感覚",
+          "phase_note": "試行の中で研ぎ澄まされる Fast の高解像度（educated guess）",
+          "author_view": "📖 本ではこう語られている：Learning and thinking come alive through action.",
+          "slow_question": "🌱 その身体感覚は、何回目の試行から効き始めたか？"
+        },
+        {
+          "text": "10案を全て詳細に計画し、リスクを事前に潰してから動き出す",
+          "correct": false,
+          "stance": "🔍 完璧計画 ── 動く前にリスクゼロを目指す構え",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "熟慮しているように見えて、試行機会を逃している",
+          "author_view": "📖 本ではこう語られている：No matter how much knowledge you acquire or how well you plan, nothing changes without action.",
+          "slow_question": "🌱 計画が完璧になるまで待つ時間で、あなたは何回試せたはずだったか？"
+        }
+      ]
+    },
+    {
+      "focus_theme": "daily_execution_rhythm",
+      "learning_objective": "戦略が日々の Plan-Do-Reflect ループに落ちているか点検する",
+      "q": "戦略は決まった。しかし現場は動かない。あなたの次の一手は？",
+      "insight": "🌱 戦略は日々の朝夜のリズムに翻訳された時にはじめて生きる。",
+      "choices": [
+        {
+          "text": "月次の進捗レビューで、遅れているメンバーを個別指導する",
+          "correct": false,
+          "stance": "🔍 月次管理 ── 大きい単位で締める構え",
+          "phase": "⚡ Fast の反射",
+          "phase_note": "月末に叱れば動くという反射。日次の圧力ではなく期末の圧力に依存",
+          "author_view": "📖 本ではこう語られている：Daily execution — Morning: Plan. Day: Do. End of the Day: Reflect. Repeat this cycle every day.",
+          "slow_question": "🌱 月末の叱責と、日々の小さな軌道修正、どちらがメンバーを育てるか？"
+        },
+        {
+          "text": "朝に今日の優先順位を全員で確認し、夜に『今日何を学んだか』を書く仕組みを作る",
+          "correct": true,
+          "stance": "🔍 日次リズム ── Plan-Do-Reflectを組織の呼吸にする構え",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "戦略を日次のリズムに翻訳するSlowな設計",
+          "author_view": "📖 本ではこう語られている：Not micromanagement, but rhythm and pace. This cycle establishes a steady rhythm, enabling consistent progress without unnecessary stress.",
+          "slow_question": "🌱 このリズムが2週間続いた時、メンバーは何を変えていると思うか？"
+        },
+        {
+          "text": "現場の朝夕の空気感を毎日感じ取り、リズムが乱れた日はその場で修正する",
+          "correct": false,
+          "stance": "🔍 現場感度 ── 場のリズムを身体で調律する構え",
+          "phase": "🌊 身体の感覚",
+          "phase_note": "熟達したファシリテーターに沈殿する Fast の高解像度",
+          "author_view": "📖 本ではこう語られている：Repeat this cycle every day. This cycle increases alignment, growth, and continuous improvement.",
+          "slow_question": "🌱 リズムの乱れを感じ取れる感度は、何を積み重ねると育つか？"
+        },
+        {
+          "text": "戦略資料を全員に配布し、理解度テストを実施する",
+          "correct": false,
+          "stance": "🔍 知識注入 ── 分かれば動くと信じる構え",
+          "phase": "🐢 Slow の再構築",
+          "phase_note": "計画しているようで、日々の実行に落ちていない",
+          "author_view": "📖 本ではこう語られている：Learning and thinking come alive through action. No matter how much you learn, nothing changes without daily execution.",
+          "slow_question": "🌱 理解度テスト満点のメンバーは、翌日の朝、何を始めるか？"
+        }
+      ]
+    }
+  ],
+
+  "themes": [
+    {
+      "id": "creating_space",
+      "layer": 1,
+      "title": "空間をつくる（Creating Space）",
+      "lo_tag": "#creating_space",
+      "seed_question": "今、あなたの机の上と頭の中、どちらの『雑然さ』があなたの判断を鈍らせているか？",
+      "excerpt": "**Create space.** Clear your desk, tidy your inbox, and let go of low-priority projects. Above all, **clear your mind of worries and distractions**. When you create space, you will gain mental clarity, feel calm and relaxed, have more time and energy, know what to focus on, have more capacity to generate ideas and think about new strategies.",
+      "prompt": "この1週間、あなたが『空間』を奪われていた場面を1つ書き、そこで何を手放すと空間が戻るかを1つ書いてください。",
+      "rubric": [
+        "L1｜『空間をつくる』という発想がなく、忙しさを埋めることが仕事だと思っている",
+        "L2｜『空間をつくる』ことの大切さは理解しているが、実際には日々に組み込めていない",
+        "L3｜週次で物理・デジタル・時間・心の4領域を意識的にクリアにする習慣がある",
+        "L4｜大事な意思決定の前には自動で空間をつくり、周囲にもそれを促せる"
+      ],
+      "implemented": true,
+      "video_embed_url": "",
+      "video_title": "第1章 空間をつくる — Creating Space（動画準備中）",
+      "perspective_quiz": [
+        {
+          "q": "『空間をつくる』と聞いたとき、あなたが最初に思う『それができない理由』は？",
+          "learning_objective": "空間欠乏の根本原因を、他責ではなく設計の問題として捉え直す",
+          "choices": [
+            {
+              "text": "『やることが多すぎるから、空間をつくる時間なんてない』",
+              "stance": "🔍 忙殺論 ── 空間は余裕がある人のものという構え",
+              "phase": "⚡ Fast の反射",
+              "phase_note": "「時間ができたら」と先送りする反射",
+              "author_view": "📖 本ではこう語られている：Let go of low-priority projects. Above all, clear your mind of worries.",
+              "slow_question": "🌱 『時間ができたら空間をつくる』は、いつ実現する予定か？"
+            },
+            {
+              "text": "『何を手放すか、判断軸がないから決められない』",
+              "stance": "🔍 判断軸探し ── 優先順位の軸そのものが必要という構え",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "手放す判断が空間の質を決めることに気づいたSlowな洞察",
+              "author_view": "📖 本ではこう語られている：Choose only what you truly need — Keep what is important and necessary. Let go of the rest.",
+              "slow_question": "🌱 手放す軸を1つだけ持つとしたら、それは何にする？"
+            },
+            {
+              "text": "『机や頭を空けると、不安になる』",
+              "stance": "🔍 不安センサー ── 空白が不安と直結する感覚",
+              "phase": "🌊 身体の感覚",
+              "phase_note": "「詰まっていること」で安心する身体の反応に気づいている",
+              "author_view": "📖 本ではこう語られている：Above all, clear your mind of worries and distractions.",
+              "slow_question": "🌱 その不安は、空間そのものから来ているか、空間の使い方から来ているか？"
+            },
+            {
+              "text": "『他の人が忙しくしているのに、自分だけ空けると気まずい』",
+              "stance": "🔍 同調圧力 ── 場の空気で空間を消される構え",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "組織文化が個人の空間を侵食する構造を認識",
+              "author_view": "📖 本ではこう語られている：Creating space is not a luxury — it is a strategic act to gain mental clarity.",
+              "slow_question": "🌱 あなたが空間をつくる姿を見せた時、周囲は非難するか、真似るか？"
+            }
+          ]
+        },
+        {
+          "q": "空間をつくった直後、あなたに最初に訪れるのは？",
+          "learning_objective": "空間の直後に起きる心の動きを観察し、次の一手に活かす",
+          "choices": [
+            {
+              "text": "『もっと詰め込める』という誘惑",
+              "stance": "🔍 詰め込み反射 ── 空白を埋めたくなる衝動",
+              "phase": "⚡ Fast の反射",
+              "phase_note": "空間の意味を活かせず、すぐ埋めてしまう反射",
+              "author_view": "📖 本ではこう語られている：Space is not for filling — it is for creating clarity.",
+              "slow_question": "🌱 空間を『空けたまま』にする勇気を、あなたはどれだけ持てるか？"
+            },
+            {
+              "text": "『次に何に焦点を当てるか』の問いが立ち上がる",
+              "stance": "🔍 焦点起動 ── 空間が問いを呼ぶという構え",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "空間が思考の余白として機能し始めるSlowな認識",
+              "author_view": "📖 本ではこう語られている：When you create space, you will know what to focus on.",
+              "slow_question": "🌱 その問いに、今日のあなたはどう答えるか？"
+            },
+            {
+              "text": "身体が緩み、呼吸が深くなる",
+              "stance": "🔍 身体解放 ── 空間が身体を通じて訪れる構え",
+              "phase": "🌊 身体の感覚",
+              "phase_note": "空間の効果を身体で受信するSomaticな感度",
+              "author_view": "📖 本ではこう語られている：Feel calm and relaxed. Have more time and energy.",
+              "slow_question": "🌱 呼吸が深くなった時、あなたの思考の質はどう変わるか？"
+            },
+            {
+              "text": "『これで本当にいいのか』という罪悪感",
+              "stance": "🔍 罪悪感反射 ── 空間を『怠けている』と誤解する構え",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "働き方の思い込みが空間を敵視させている",
+              "author_view": "📖 本ではこう語られている：Creating space supports strategy, not distracts from it.",
+              "slow_question": "🌱 その罪悪感は、あなた自身のものか、他者の視線からのものか？"
+            }
+          ]
+        }
+      ],
+      "related_apps": [
+        {
+          "app_slug": "tamakatsu",
+          "app_title": "たまかつ",
+          "app_href": "../tamakatsu/",
+          "theme_id": "unconscious_assumption",
+          "theme_title": "無意識の思い込み",
+          "why": "空間欠乏の根っこには『忙しくしていないと不安』という無意識の思い込みがある。"
+        }
+      ]
+    },
+    {
+      "id": "calm_mindset",
+      "layer": 1,
+      "title": "穏やかな心（Calm Mindset）",
+      "lo_tag": "#calm_mindset",
+      "seed_question": "あなたが『戦略』と聞いた瞬間、緊張と興奮のどちらが先に来るか？",
+      "excerpt": "Strategy is often associated with **winning, losing, competition, and battle**. This book takes a different view. I see strategy as **a direction and a set of actions to achieve your purpose and goal**. Strategy is about moving toward what you want to do — something that should excite you. Creating and executing strategy doesn't require you to be cold, tense, or overly afraid of failure. **What matters is staying relaxed and excited about what you do.**",
+      "prompt": "『戦略』という言葉を、あなた自身の言葉で『穏やかで興奮できる方向』として言い換えてください。",
+      "rubric": [
+        "L1｜戦略は『勝ち負け』のフレームで捉えており、常に緊張と警戒が伴う",
+        "L2｜『穏やかさと興奮の共存』が理想であることは分かるが、現場では緊張が優位",
+        "L3｜大事な意思決定の直前に、意識して穏やかな状態に自分を戻せる",
+        "L4｜組織全体の空気を『穏やかな興奮』にファシリテートできる"
+      ],
+      "implemented": true,
+      "video_embed_url": "",
+      "video_title": "第2章 穏やかな心 — Calm Mindset（動画準備中）",
+      "perspective_quiz": [
+        {
+          "q": "『穏やかな心で戦略を進める』と聞いたとき、あなたが最初に感じる違和感は？",
+          "learning_objective": "穏やかさと成果の両立を疑う自分の前提を可視化する",
+          "choices": [
+            {
+              "text": "『穏やかにしていたら、競合に負ける』",
+              "stance": "🔍 競争前提 ── 戦略は戦いだという構え",
+              "phase": "⚡ Fast の反射",
+              "phase_note": "戦略=戦いのメタファーに支配された反射",
+              "author_view": "📖 本ではこう語られている：Strategy is a direction and a set of actions to achieve your purpose and goal — not a battle.",
+              "slow_question": "🌱 その競合との『勝ち負け』は、あなたの人生目的にどう寄与するか？"
+            },
+            {
+              "text": "『穏やかさと成果の両立は、理屈では分かるが、現場では続かない』",
+              "stance": "🔍 現場現実 ── 理論と現場のギャップを認識",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "現場の圧力と穏やかさの矛盾を認識するSlowな観察",
+              "author_view": "📖 本ではこう語られている：Staying relaxed and excited about what you do matters.",
+              "slow_question": "🌱 穏やかさが続かない一番の要因は、外にあるか、内にあるか？"
+            },
+            {
+              "text": "『穏やかにすると、身体が眠くなる。緊張が集中力の源だ』",
+              "stance": "🔍 緊張依存 ── 緊張が能力の源という構え",
+              "phase": "🌊 身体の感覚",
+              "phase_note": "緊張と集中を混同する身体の癖",
+              "author_view": "📖 本ではこう語られている：Balance calm and excitement — both are needed for sustainable execution.",
+              "slow_question": "🌱 緊張なしに集中できた瞬間を、あなたは思い出せるか？"
+            },
+            {
+              "text": "『穏やかにしていると、上司に危機感がないと思われる』",
+              "stance": "🔍 演技負荷 ── 緊張を『演じる』ことを求められる構え",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "組織文化が穏やかさを許さない構造の認識",
+              "author_view": "📖 本ではこう語られている：Cold, tense, and fear-driven leadership is not strategy — it is stress management.",
+              "slow_question": "🌱 その『緊張の演技』は、あなたと組織にどんな消耗をもたらしているか？"
+            }
+          ]
+        }
+      ],
+      "related_apps": [
+        {
+          "app_slug": "tamakatsu",
+          "app_title": "たまかつ",
+          "app_href": "../tamakatsu/",
+          "theme_id": "psychological_safety",
+          "theme_title": "心理的安全性",
+          "why": "穏やかな心は個人の心理的安全性の内部化であり、場に伝播していく。"
+        }
+      ]
+    },
+    {
+      "id": "self_alignment",
+      "layer": 1,
+      "title": "自分らしさとの一致（Self-Alignment）",
+      "lo_tag": "#self_alignment",
+      "seed_question": "あなたの事業目標は、人生目的から導かれているか、それとも人生を事業に合わせているか？",
+      "excerpt": "For most people, **life is more important than business**. That's why your life purpose and life goal should take priority over your business purpose and business goal. **Start with your life purpose and goals, then align your business ones.** By applying the concepts in this book, I hope you can create a business and life that reflect your **values and personality**.",
+      "prompt": "あなたの人生目的を1文で書き、その1文と今の事業目標の『ズレ』を1つ挙げてください。",
+      "rubric": [
+        "L1｜事業目標が先で、人生はそれに合わせるものと思っている",
+        "L2｜人生目的が先だと理解しているが、実際の意思決定では事業が優先される",
+        "L3｜大きな意思決定の前に、人生目的との整合を必ず確認する",
+        "L4｜組織や顧客との対話で、この順序を伝え、他者の順序を整える手助けができる"
+      ],
+      "implemented": true,
+      "video_embed_url": "",
+      "video_title": "第3章 自分らしさとの一致 — Self-Alignment（動画準備中）",
+      "perspective_quiz": [
+        {
+          "q": "『人生目的が先、事業目的は後』と聞いたとき、あなたの反応は？",
+          "learning_objective": "順序の逆転がどこから来ているかを可視化する",
+          "choices": [
+            {
+              "text": "『理想論だ。事業で成功しないと人生も成り立たない』",
+              "stance": "🔍 事業先行 ── 事業成功が人生の前提という構え",
+              "phase": "⚡ Fast の反射",
+              "phase_note": "順序を疑わない反射",
+              "author_view": "📖 本ではこう語られている：Life is more important than business — start with your life purpose.",
+              "slow_question": "🌱 事業が『成り立った』後、あなたは人生目的をどう定義するのか？"
+            },
+            {
+              "text": "『人生目的を先に立てるのは、実は難しい。事業の方が具体的で立てやすい』",
+              "stance": "🔍 具体性回避 ── 抽象より具体に逃げる構え",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "人生目的を言語化する難しさを認識するSlowな洞察",
+              "author_view": "📖 本ではこう語られている：Create a business and life that reflect your values and personality.",
+              "slow_question": "🌱 人生目的を1文で書けない今、あなたの事業目標は誰のものか？"
+            },
+            {
+              "text": "『身体が反応する仕事と、しない仕事がある。それが手がかりだ』",
+              "stance": "🔍 身体センサー ── 感覚を目的発見の手がかりにする",
+              "phase": "🌊 身体の感覚",
+              "phase_note": "身体の反応を人生目的の断片として扱う感度",
+              "author_view": "📖 本ではこう語られている：Design a business and life that truly aligns with who you are.",
+              "slow_question": "🌱 身体が反応する仕事の共通点を言語化すると、何が浮かぶか？"
+            },
+            {
+              "text": "『順序は分かっているが、家族・投資家の期待が優先されてしまう』",
+              "stance": "🔍 期待従属 ── 他者の期待に流される構え",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "期待の重さを認識しているが、そこから抜けられていない",
+              "author_view": "📖 本ではこう語られている：Business and life should reflect your values — not someone else's expectations.",
+              "slow_question": "🌱 その期待を1つ手放したら、何が変わるか？"
+            }
+          ]
+        }
+      ],
+      "related_apps": [
+        {
+          "app_slug": "source",
+          "app_title": "ソース",
+          "app_href": "../source/",
+          "theme_id": "life_source",
+          "theme_title": "人生のソース",
+          "why": "『自分らしさとの一致』は、ソース原理でいう『人生のソース』からの逆算と重なる。"
+        }
+      ]
+    },
+    {
+      "id": "strategic_core_focus",
+      "layer": 2,
+      "title": "戦略的焦点（Who/What/How）",
+      "lo_tag": "#strategic_core_focus",
+      "seed_question": "あなたのビジネスの Who / What / How を、それぞれ1行で書けるか？",
+      "excerpt": "**Who**: Who are your target customers? — Market Selection/Creation. **What**: What value will you provide to them? — Value Proposition. **How**: How will you deliver and communicate that value? — Key Actions. **Focus on 'who'** — Choose a well-defined target customer. By narrowing your focus on your target customer, you can create a product or service that makes your customer feel, '**This is made for me.**' On the other hand, a product that tries to serve everyone ends up being average for all.",
+      "prompt": "あなたのビジネスの Who を、名前が浮かぶくらい具体的な1人の顧客像で書いてください。",
+      "rubric": [
+        "L1｜『幅広く狙う』ことが正義だと思っており、焦点を絞れない",
+        "L2｜Who/What/Howの重要性は理解しているが、実際は複数セグメントに分散している",
+        "L3｜Whoを1人に絞り、What/Howがそこに整合している",
+        "L4｜Who/What/Howの整合を、事業の成長段階に応じて選び直せる"
+      ],
+      "implemented": true,
+      "video_embed_url": "",
+      "video_title": "第4章 戦略的焦点 — Who/What/How（動画準備中）",
+      "perspective_quiz": [
+        {
+          "q": "あなたのビジネスで、Who/What/Howのうち最も曖昧なのは？",
+          "learning_objective": "3軸のうちどこに焦点が抜けているかを診断する",
+          "choices": [
+            {
+              "text": "Who（誰に）── ターゲット顧客が複数セグメントに広がっている",
+              "stance": "🔍 顧客曖昧 ── 顧客像の焦点が定まらない構え",
+              "phase": "⚡ Fast の反射",
+              "phase_note": "「広く狙えば安全」という反射に依存",
+              "author_view": "📖 本ではこう語られている：Focus on 'who' — Choose a well-defined target customer.",
+              "slow_question": "🌱 Whoを1人に絞ったら、What/Howはどう変わるか？"
+            },
+            {
+              "text": "What（何を）── 価値命題が競合と似ていて、差別化が言語化できない",
+              "stance": "🔍 価値未定 ── 差別化が言葉になっていない構え",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "差別化の欠落を認識するSlowな観察",
+              "author_view": "📖 本ではこう語られている：Provide clear value to your target customer — what improvement do they gain?",
+              "slow_question": "🌱 その価値を、顧客の口で言ってもらえる言葉にしてみると？"
+            },
+            {
+              "text": "How（どう届けるか）── 現場のオペレーションが戦略と乖離している",
+              "stance": "🔍 実行乖離 ── 戦略が現場で翻訳されない構え",
+              "phase": "🌊 身体の感覚",
+              "phase_note": "現場感覚で戦略が空回りしていることを察知",
+              "author_view": "📖 本ではこう語られている：How you deliver and communicate value is as important as what you offer.",
+              "slow_question": "🌱 現場のオペレーションが戦略を『裏切っている』瞬間は、いつ起きるか？"
+            },
+            {
+              "text": "3つとも、経営陣で合意できていない",
+              "stance": "🔍 合意欠落 ── 経営の一致が取れていない構え",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "個々の曖昧さの手前に、合意の欠如がある",
+              "author_view": "📖 本ではこう語られている：Strategic Core must be clear and shared — Who, What, How.",
+              "slow_question": "🌱 経営陣3人にWho/What/Howを尋ねたら、答えは揃うか？"
+            }
+          ]
+        }
+      ],
+      "related_apps": [
+        {
+          "app_slug": "genkai",
+          "app_title": "限界",
+          "app_href": "../genkai/",
+          "theme_id": "usp_focus",
+          "theme_title": "USP（独自の売り）",
+          "why": "『Who/What/How』の焦点は、ジェイ・エイブラハム的なUSPの言語化と直接繋がる。"
+        }
+      ]
+    },
+    {
+      "id": "opportunity_mapping",
+      "layer": 2,
+      "title": "機会と適性の交差点（Three Circles）",
+      "lo_tag": "#opportunity_mapping",
+      "seed_question": "あなたの『やりたい × 得意 × 顧客が欲しい』の重なりは、どこにあるか？",
+      "excerpt": "To find real business opportunities, you need to understand yourself and understand the market. For this purpose, it's important to find the **sweet spot** where the following three elements overlap (the 'Three Circles'): **What you want to provide** (your interests/passion), **What you are good at** (your skills/abilities), **What your customers want** (market needs/wants). Key Points: **Don't ignore any circle** — You need all three elements for success. Customer needs are crucial — even if you're passionate and skilled, there must be real demand.",
+      "prompt": "3つの円のうち、あなたが今、最も検証が甘い円はどれか？そこで何を確かめる必要があるか？",
+      "rubric": [
+        "L1｜『情熱』だけで事業を始めており、市場需要の検証をしていない",
+        "L2｜3つの円は理解しているが、実際の検証は1〜2円に偏っている",
+        "L3｜3つの円を現場で検証する習慣がある",
+        "L4｜3つの円の重なりの動きを察知し、機会を逃さず選び直せる"
+      ],
+      "implemented": true,
+      "video_embed_url": "",
+      "video_title": "第5章 機会と適性の交差点 — Three Circles（動画準備中）",
+      "perspective_quiz": [
+        {
+          "q": "3つの円のうち、あなたが最も検証を怠りやすいのは？",
+          "learning_objective": "3円の中で自分の盲点を特定する",
+          "choices": [
+            {
+              "text": "顧客が欲しいこと（市場需要）── 情熱とスキルで押し切ろうとする",
+              "stance": "🔍 需要軽視 ── 市場が後からついてくるという構え",
+              "phase": "⚡ Fast の反射",
+              "phase_note": "「作れば売れる」信仰に近い反射",
+              "author_view": "📖 本ではこう語られている：Customer needs are crucial — even passion and skill are not enough without real demand.",
+              "slow_question": "🌱 顧客の口から『それ、私も欲しかった』と聞いた瞬間は、いつだったか？"
+            },
+            {
+              "text": "自分がやりたいこと（情熱）── 需要と得意に流されて情熱が薄れている",
+              "stance": "🔍 情熱磨耗 ── 情熱が事業に消耗される構え",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "情熱の劣化を認識するSlowな自己観察",
+              "author_view": "📖 本ではこう語られている：Don't ignore any circle — passion is one of the three.",
+              "slow_question": "🌱 情熱が戻る瞬間は、どんな仕事の時か？"
+            },
+            {
+              "text": "自分が得意なこと（スキル）── 情熱と需要で押し切って、実は再現できていない",
+              "stance": "🔍 スキル空洞 ── 属人化した技術が組織化されていない構え",
+              "phase": "🌊 身体の感覚",
+              "phase_note": "『自分にはできる』が『組織にはできない』の乖離を身体で感じている",
+              "author_view": "📖 本ではこう語られている：What you are good at — this must be replicable and reliable.",
+              "slow_question": "🌱 あなたの得意を、明日、別の人にも渡せる形にできるか？"
+            },
+            {
+              "text": "3円の重なりそのもの ── 個別には検証しているが、統合が言葉になっていない",
+              "stance": "🔍 統合未達 ── パーツはあるが全体像が組み立たない構え",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "3円が組み合わさった時の絵を描けていない",
+              "author_view": "📖 本ではこう語られている：Find the sweet spot where the three overlap.",
+              "slow_question": "🌱 3円の重なりを1文で表現するとしたら？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "differentiation_frame",
+      "layer": 2,
+      "title": "差別化軸（便益 × 独自性）",
+      "lo_tag": "#differentiation_frame",
+      "seed_question": "あなたの独自性は、顧客にどんな『便益』として届いているか？",
+      "excerpt": "**Differentiation = High Benefit × High Uniqueness.** To achieve differentiation, you need to provide both benefit and uniqueness to your customers. **Benefit** — The tangible improvement your product or service provides to customers' lives. **Uniqueness** — The value, function, technology, or brand image only you can provide or the value you are the best at providing. Four Rules: 1. Differentiation = High Benefit × High Uniqueness. 2. The benefit and uniqueness must align with your target customers' needs and wants. 3. Your uniqueness should be something your competitors cannot easily copy. 4. Uniqueness is not just about being different; **it should reflect 'your own identity!'**",
+      "prompt": "あなたのビジネスの『便益』と『独自性』を、それぞれ1行で書いてください。掛け算になっていますか？",
+      "rubric": [
+        "L1｜差別化を『他社との違い』とだけ捉え、便益との掛け算になっていない",
+        "L2｜便益 × 独自性の公式は理解しているが、独自性が模倣されやすい",
+        "L3｜アイデンティティに根ざした独自性を、顧客の便益に接続できる",
+        "L4｜市場の変化に応じて、独自性と便益の掛け算を選び直せる"
+      ],
+      "implemented": true,
+      "video_embed_url": "",
+      "video_title": "第6章 差別化軸 — 便益 × 独自性（動画準備中）",
+      "perspective_quiz": [
+        {
+          "q": "『あなたの独自性を1つだけ挙げてください』と言われたら？",
+          "learning_objective": "独自性が便益と結びついているかを検証する",
+          "choices": [
+            {
+              "text": "『他社にないユニークな機能があります』",
+              "stance": "🔍 機能独自 ── 機能の違いを独自性と呼ぶ構え",
+              "phase": "⚡ Fast の反射",
+              "phase_note": "便益との接続を確認せず、機能の話に留まる反射",
+              "author_view": "📖 本ではこう語られている：Uniqueness is not just about being different — it should provide clear benefit.",
+              "slow_question": "🌱 その機能で、顧客の生活は具体的に何が改善するか？"
+            },
+            {
+              "text": "『私たちのアイデンティティから生まれた、他社に真似できない世界観です』",
+              "stance": "🔍 アイデンティティ独自 ── 存在の在り方から独自性を語る構え",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "アイデンティティと独自性を接続するSlowな統合",
+              "author_view": "📖 本ではこう語られている：Uniqueness should reflect 'your own identity!'",
+              "slow_question": "🌱 そのアイデンティティを、顧客はどう感じ取ってくれるか？"
+            },
+            {
+              "text": "『顧客が触れた時に感じる、体験の温度感です』",
+              "stance": "🔍 体験温度 ── 独自性を身体感覚で語る構え",
+              "phase": "🌊 身体の感覚",
+              "phase_note": "肌感覚での独自性を認識",
+              "author_view": "📖 本ではこう語られている：Uniqueness may be tangible or intangible — but it must be felt by customers.",
+              "slow_question": "🌱 その温度感を、他者に説明する言葉を持っているか？"
+            },
+            {
+              "text": "『価格が競合より安いことです』",
+              "stance": "🔍 価格独自 ── 安さを独自性と勘違いする構え",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "価格は独自性ではなく、模倣可能な条件",
+              "author_view": "📖 本ではこう語られている：Uniqueness should be something competitors cannot easily copy.",
+              "slow_question": "🌱 明日、競合が同価格になったら、あなたの独自性は何が残るか？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "business_cycle_rhythm",
+      "layer": 2,
+      "title": "事業サイクル（Create / Make / Sell）",
+      "lo_tag": "#business_cycle_rhythm",
+      "seed_question": "あなたのビジネスの Create / Make / Sell のうち、最も遅い、または詰まっているのはどこか？",
+      "excerpt": "One foundational approach is to run the **Basic Business Cycle**. This cycle consists of 3 steps, which are Create, Make, and Sell. **Create**: This is the step of generating ideas and developing new products or services. **Make**: This is the step of producing and providing the developed products or services. **Sell**: This is the step of marketing and selling products or services to customers and generating revenue. Once you sell, you reach customers. Then their response and requests come back as **feedback or customer insights**. These insights help improve Create, Make, and Sell, enabling your products, services, and sales methods to evolve. **The faster and smoother this cycle spins, the stronger your business becomes.**",
+      "prompt": "顧客からのフィードバックが、Create のどこに戻ってきているか？それとも戻ってきていないか？",
+      "rubric": [
+        "L1｜Create/Make/Sellのどれかが機能不全でも、それが分断的にしか見えない",
+        "L2｜3ステップの循環は理解しているが、フィードバックがCreateに戻っていない",
+        "L3｜3ステップを高速に回し、フィードバックを次のCreateに翻訳できる",
+        "L4｜組織の呼吸として3ステップが循環し、事業の進化速度を体感できる"
+      ],
+      "implemented": true,
+      "video_embed_url": "",
+      "video_title": "第7章 事業サイクル — Create/Make/Sell（動画準備中）",
+      "perspective_quiz": [
+        {
+          "q": "顧客からのフィードバックは、あなたの Create にどう戻っているか？",
+          "learning_objective": "フィードバックの循環が機能しているかを診断する",
+          "choices": [
+            {
+              "text": "『褒め言葉として受け取り、社内で共有する』",
+              "stance": "🔍 消費型 ── フィードバックを気分材料にする構え",
+              "phase": "⚡ Fast の反射",
+              "phase_note": "フィードバックを『次』に翻訳しない反射",
+              "author_view": "📖 本ではこう語られている：Customer insights help improve Create, Make, and Sell — feedback must feed the next iteration.",
+              "slow_question": "🌱 今週の褒め言葉は、次の Create の何を変えるか？"
+            },
+            {
+              "text": "『不満・要望を分類し、次のCreateの入力にしている』",
+              "stance": "🔍 循環設計 ── フィードバックを設計の材料にする構え",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "循環を意図的に組むSlowな設計",
+              "author_view": "📖 本ではこう語られている：The faster and smoother this cycle spins, the stronger your business becomes.",
+              "slow_question": "🌱 今週の不満は、来週のCreateにどう反映されるか？"
+            },
+            {
+              "text": "『現場スタッフの表情や声のトーンから、次の兆しを感じ取る』",
+              "stance": "🔍 兆し受信 ── 数値化前の兆しを情報として扱う構え",
+              "phase": "🌊 身体の感覚",
+              "phase_note": "Somaticなフィードバック受信",
+              "author_view": "📖 本ではこう語られている：Customer response comes back not only as words, but as tone, expression, and rhythm.",
+              "slow_question": "🌱 現場の兆しを言語化する場を、あなたは持っているか？"
+            },
+            {
+              "text": "『特に戻っていない。売って終わり、というリズムになっている』",
+              "stance": "🔍 分断構造 ── サイクルが分断された構え",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "循環が止まっていることを認識",
+              "author_view": "📖 本ではこう語られている：Once you sell, feedback should come back — otherwise, the cycle stops evolving.",
+              "slow_question": "🌱 循環を復活させるために、あなたが今週始められる小さな一手は？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "action_plan_elements",
+      "layer": 2,
+      "title": "行動計画の6要素",
+      "lo_tag": "#action_plan_elements",
+      "seed_question": "あなたのタスクは、目的・優先度・所有者・期限・成果まで書かれているか？",
+      "excerpt": "**Six Elements for Action Planning**: 1. **Task** — Identify all tasks. 2. **Purpose** — Clarify the purpose of each task. Avoid losing sight of the goal. 3. **Priority** — Assign priorities based on urgency, dependencies, and impact. 4. **Owner** — Assign responsibility for each task. 5. **Deadline** — Set clear deadlines. 6. **Output** — Define the expected output. **Break It Down to Speed It Up**: To minimize delays, break tasks into smaller, manageable pieces with shorter deadlines. **Decide Together**: These decisions should not be made solely by the manager and assigned to the team. Instead, actions should be determined through dialogue.",
+      "prompt": "あなたの今のタスクリストから1つ選び、6要素すべてを書き出せるか試してください。",
+      "rubric": [
+        "L1｜『やることリスト』止まりで、目的・所有者・期限が抜けている",
+        "L2｜6要素の必要性は理解しているが、実際は3〜4要素で運用している",
+        "L3｜6要素を対話で決めて、責任と進捗が可視化されている",
+        "L4｜6要素を組織文化として定着させ、他者のタスク設計を整えられる"
+      ],
+      "implemented": true,
+      "video_embed_url": "",
+      "video_title": "第8章 行動計画の6要素（動画準備中）",
+      "perspective_quiz": [
+        {
+          "q": "あなたのタスクリストで、最も抜け落ちやすい要素は？",
+          "learning_objective": "6要素のうち自分の盲点を特定する",
+          "choices": [
+            {
+              "text": "『目的（Purpose）』── なぜやるかが書かれていない",
+              "stance": "🔍 目的欠落 ── タスクが手段のまま浮遊する構え",
+              "phase": "⚡ Fast の反射",
+              "phase_note": "「やる」ことに集中して「なぜ」を落とす反射",
+              "author_view": "📖 本ではこう語られている：Clarify the purpose — avoid losing sight of the goal.",
+              "slow_question": "🌱 目的なしのタスクは、途中で軌道修正できるか？"
+            },
+            {
+              "text": "『所有者（Owner）』── 誰がやるのかが曖昧",
+              "stance": "🔍 責任分散 ── みんなの仕事は誰の仕事でもないという構え",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "責任の所在を明示的に決めるSlowな判断",
+              "author_view": "📖 本ではこう語られている：Assign responsibility for each task.",
+              "slow_question": "🌱 所有者を1人に決めた時、そのタスクは動き始めるか？"
+            },
+            {
+              "text": "『成果（Output）』── 完了の姿が身体的に描けていない",
+              "stance": "🔍 完了像不在 ── 終わりの絵が描けない構え",
+              "phase": "🌊 身体の感覚",
+              "phase_note": "『できた状態』を身体で感じ取れないと動けない",
+              "author_view": "📖 本ではこう語られている：Define the expected output.",
+              "slow_question": "🌱 そのタスクが完了した時、あなたは何を見ているか？"
+            },
+            {
+              "text": "『期限（Deadline）』── 締切が『いつかやる』のまま",
+              "stance": "🔍 期限緩衝 ── 締切を持たないことで動きを止める構え",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "期限の欠如を認識するSlowな観察",
+              "author_view": "📖 本ではこう語られている：Set clear deadlines. Break tasks into smaller pieces with shorter deadlines.",
+              "slow_question": "🌱 期限を明日に置いたら、そのタスクはどう変質するか？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "six_step_process_mastery",
+      "layer": 3,
+      "title": "6段階プロセスの習得（Simple Strategy Process）",
+      "lo_tag": "#six_step_process_mastery",
+      "seed_question": "あなたの戦略プロセスは『一度立てたら終わり』か、それとも『繰り返し回すループ』か？",
+      "excerpt": "**Simple Strategy Process** — A Step-by-Step Framework for Designing and Executing Your Strategy. This process consists of **six essential steps**: 1. **Purpose and Goal** — Clarify purpose and set clear, specific goals. 2. **Opportunity Finding** — Identify business opportunities through analysis, dialogue, observation, and testing. 3. **Strategic Core** — Decide who, what, and how. 4. **Action Plan** — Determine what to do, in what order. 5. **Execution and Results** — Execute and achieve results. 6. **Review and Refinement** — Review, refine, and repeat.",
+      "prompt": "この6段階のうち、あなたの組織で最も『飛ばされている』段階はどれか？",
+      "rubric": [
+        "L1｜『戦略を立てる』とは1度のイベントだと思っており、ループ思考がない",
+        "L2｜6段階の重要性は理解しているが、実際は1〜2段階を飛ばして進めている",
+        "L3｜6段階を回し、Review & Refinementから次のPurposeに戻る循環がある",
+        "L4｜6段階を組織の呼吸にし、成長段階ごとにループの速度を選び直せる"
+      ],
+      "implemented": true,
+      "video_embed_url": "",
+      "video_title": "第9章 6段階プロセスの習得（動画準備中）",
+      "perspective_quiz": [
+        {
+          "q": "6段階のうち、あなたの組織で最も飛ばされているのは？",
+          "learning_objective": "6段階の中で自分たちが省略している段階を特定する",
+          "choices": [
+            {
+              "text": "『Review & Refinement』── 実行後の振り返りが甘い",
+              "stance": "🔍 振り返り欠落 ── 実行しっぱなしになる構え",
+              "phase": "⚡ Fast の反射",
+              "phase_note": "「次へ次へ」の反射で振り返りが後回し",
+              "author_view": "📖 本ではこう語られている：Review, refine, and repeat — this loop makes strategy evolve.",
+              "slow_question": "🌱 前回の実行から、あなたは何を学び直したか？"
+            },
+            {
+              "text": "『Opportunity Finding』── 機会を検証せず、思いつきで進めている",
+              "stance": "🔍 機会仮定 ── 機会の実在を検証せずに突入する構え",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "機会検証の欠落を認識するSlowな観察",
+              "author_view": "📖 本ではこう語られている：Identify opportunities through analysis, dialogue, observation, and testing.",
+              "slow_question": "🌱 その機会は、いつ・誰と・どう検証したか？"
+            },
+            {
+              "text": "『Purpose and Goal』── 目的の言語化が浅く、みんなの解釈がバラバラ",
+              "stance": "🔍 目的曖昧 ── 目的の一致が組織内で取れていない構え",
+              "phase": "🌊 身体の感覚",
+              "phase_note": "現場の温度差から目的の曖昧さを察知",
+              "author_view": "📖 本ではこう語られている：Clarify the purpose and set clear, specific goals.",
+              "slow_question": "🌱 メンバー3人に目的を尋ねたら、答えは揃うか？"
+            },
+            {
+              "text": "『Action Plan』── 戦略が現場のタスクに翻訳されていない",
+              "stance": "🔍 翻訳断絶 ── 戦略と行動の間に橋がない構え",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "戦略と行動の乖離を認識",
+              "author_view": "📖 本ではこう語られている：Determine what to do, in what order — action plan bridges strategy and execution.",
+              "slow_question": "🌱 戦略を明日のタスクに翻訳する会議を、あなたは持っているか？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "daily_execution_rhythm",
+      "layer": 3,
+      "title": "日々の実行リズム（Plan-Do-Reflect）",
+      "lo_tag": "#daily_execution_rhythm",
+      "seed_question": "あなたの組織の朝と夜には、Plan と Reflect のリズムがあるか？",
+      "excerpt": "**Daily Execution Cycle**: **Morning: Plan** — Make a To-Do list and set priorities. **Day: Do** — Focus on priorities and take action. **End of the Day: Reflect** — Reflect at the end of the day and identify what worked well and what to improve tomorrow. Repeat this cycle every day. This cycle increases **alignment, growth, and continuous improvement**. **Not Micromanagement, But Rhythm and Pace**: This cycle is not about micromanagement. It helps establish a steady rhythm and pace, enabling consistent progress without unnecessary stress.",
+      "prompt": "あなたの明日の朝と夜、Plan と Reflect の時間を10分ずつ確保できるか？",
+      "rubric": [
+        "L1｜『日々の振り返り』の発想がなく、月次・四半期でしか見ていない",
+        "L2｜Plan-Do-Reflectの意義は理解しているが、実際は続かない",
+        "L3｜朝夜のリズムが習慣化し、日々の軌道修正ができている",
+        "L4｜組織全体のリズムを設計・維持し、メンバーの成長速度を上げられる"
+      ],
+      "implemented": true,
+      "video_embed_url": "",
+      "video_title": "第10章 日々の実行リズム — Plan-Do-Reflect（動画準備中）",
+      "perspective_quiz": [
+        {
+          "q": "『毎日 Plan-Do-Reflect を回そう』と聞いたときの、あなたの最初の反応は？",
+          "learning_objective": "日次リズムの導入障壁を可視化する",
+          "choices": [
+            {
+              "text": "『マイクロマネジメントに見えて、メンバーが嫌がる』",
+              "stance": "🔍 管理誤解 ── リズムを管理と混同する構え",
+              "phase": "⚡ Fast の反射",
+              "phase_note": "管理と自律の区別ができない反射",
+              "author_view": "📖 本ではこう語られている：Not micromanagement, but rhythm and pace — this enables consistent progress without unnecessary stress.",
+              "slow_question": "🌱 リズムと管理の違いを、メンバーにどう伝えるか？"
+            },
+            {
+              "text": "『続けるのが一番難しい。仕組みが必要だ』",
+              "stance": "🔍 仕組み志向 ── 意志ではなく設計に頼る構え",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "継続を仕組みで支えるSlowな設計",
+              "author_view": "📖 本ではこう語られている：Establish a steady rhythm and pace, enabling consistent progress.",
+              "slow_question": "🌱 明日から始めるリズムを、どんな仕組みで守るか？"
+            },
+            {
+              "text": "『やってみると、朝の10分で1日の呼吸が整うのを身体で感じる』",
+              "stance": "🔍 リズム受信 ── 日次の呼吸を身体で味わう構え",
+              "phase": "🌊 身体の感覚",
+              "phase_note": "リズムの効果を身体で受信するSomaticな感度",
+              "author_view": "📖 本ではこう語られている：This cycle increases alignment, growth, and continuous improvement.",
+              "slow_question": "🌱 朝の10分がある日と、ない日で、あなたの1日はどう違うか？"
+            },
+            {
+              "text": "『理想論だ。現場はそんな余裕がない』",
+              "stance": "🔍 現場忙殺 ── 忙しさが日次リズムを排除する構え",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "忙しさの正体を分析していない",
+              "author_view": "📖 本ではこう語られている：Rhythm reduces stress, not increases it — daily plan-reflect saves time in the long run.",
+              "slow_question": "🌱 その忙しさは、リズムの欠如によって生まれていないか？"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rapid_experimentation",
+      "layer": 3,
+      "title": "素早い試行（10個のボックス）",
+      "lo_tag": "#rapid_experimentation",
+      "seed_question": "あなたは今、10個のうち何個の『ボックス』を開けたか？",
+      "excerpt": "**Trying New Business** — How to Increase Success While Managing Uncertainty. **The Theory of Ten Boxes**: 1. There are ten boxes in front of you. 2. Only one box contains treasure. 3. You cannot see inside from outside. 4. You must open boxes one by one. 5. You can choose the order and speed. **What will you do to win? To win, you need to open the boxes as quickly as possible.** Each box represents a new business. **Success Formula: Successes = Attempts × Success Rate.** Assuming constant success rate, increasing attempts leads to better results. **Prioritize rapid iteration over perfection.**",
+      "prompt": "『失敗』を『実験』と呼び直したら、あなたはこの1ヶ月で何回試せたか？",
+      "rubric": [
+        "L1｜失敗を恥と考えており、試行数を増やす発想がない",
+        "L2｜『素早い試行』の意義は理解しているが、実際は完璧を求めて動きが遅い",
+        "L3｜失敗を実験と再定義し、試行の速度を上げている",
+        "L4｜組織文化として『実験の速度』が定着し、確率的思考で経営できる"
+      ],
+      "implemented": true,
+      "video_embed_url": "",
+      "video_title": "第11章 素早い試行 — 10個のボックス（動画準備中）",
+      "perspective_quiz": [
+        {
+          "q": "『失敗は実験である』と聞いたときの、あなたの組織の反応は？",
+          "learning_objective": "失敗観がどう組織に沈殿しているかを診断する",
+          "choices": [
+            {
+              "text": "『理屈は分かるが、失敗した人は評価が下がる文化がある』",
+              "stance": "🔍 減点文化 ── 失敗を実験と呼べない構え",
+              "phase": "⚡ Fast の反射",
+              "phase_note": "評価制度と実験文化の矛盾を放置している反射",
+              "author_view": "📖 本ではこう語られている：Prioritize rapid iteration over perfection — failure is data, not defeat.",
+              "slow_question": "🌱 失敗を評価に含める仕組みを、あなたは持てるか？"
+            },
+            {
+              "text": "『実験と呼ぶことで、社内の失敗恐怖が薄れる。仕組みで支えたい』",
+              "stance": "🔍 実験文化 ── 失敗の呼び直しで文化を変える構え",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "言語が文化を変える力を認識するSlowな設計",
+              "author_view": "📖 本ではこう語られている：Each box represents a new business. Success = Attempts × Success Rate.",
+              "slow_question": "🌱 『実験』という言葉を組織で使い始めたら、何が起きるか？"
+            },
+            {
+              "text": "『試行を重ねると、次に開けるべきボックスの手応えが身体で分かってくる』",
+              "stance": "🔍 試行直観 ── 試行の中で研ぎ澄まされる直観の構え",
+              "phase": "🌊 身体の感覚",
+              "phase_note": "熟達者に沈殿する Fast の高解像度（educated guess）",
+              "author_view": "📖 本ではこう語られている：Learning and thinking come alive through action.",
+              "slow_question": "🌱 その身体の手応えは、何回目の試行から効き始めたか？"
+            },
+            {
+              "text": "『試行を増やすと、コストが積み上がる。1つに絞りたい』",
+              "stance": "🔍 集中神話 ── 選択と集中で外れリスクを甘く見る構え",
+              "phase": "🐢 Slow の再構築",
+              "phase_note": "選択と集中の陰にある試行数不足を認識できていない",
+              "author_view": "📖 本ではこう語られている：Increasing attempts leads to better results.",
+              "slow_question": "🌱 1つに絞って外れた時、あなたはどう戻れるか？"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
