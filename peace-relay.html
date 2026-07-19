@@ -302,6 +302,127 @@
     color:var(--text-mute);font-size:.78rem;border-top:1px solid var(--line);
   }
   footer a{color:var(--earth);text-decoration:none}
+
+  /* ===== みんなで200人（共有ヘッダー） ===== */
+  .hero{
+    background:linear-gradient(135deg, #1a3a52 0%, #244a23 100%);
+    border-radius:16px;padding:18px 20px;margin:14px 0;
+    box-shadow:0 4px 18px rgba(0,0,0,.25);
+    position:relative;overflow:hidden;
+  }
+  .hero::before{
+    content:'';position:absolute;inset:-40% -40% auto auto;width:70%;aspect-ratio:1;
+    border-radius:50%;background:radial-gradient(circle, rgba(255,179,71,.18), transparent 70%);
+    pointer-events:none;
+  }
+  .hero-title{
+    font-size:.82rem;color:var(--text-soft);letter-spacing:.08em;
+    text-align:center;margin-bottom:8px;
+  }
+  .hero-count{
+    display:flex;align-items:baseline;justify-content:center;gap:8px;
+    margin-bottom:6px;
+  }
+  .hero-count .now{font-size:2.6rem;font-weight:800;color:var(--peace);line-height:1;
+    filter:drop-shadow(0 0 8px rgba(122,184,92,.4));}
+  .hero-count .slash{font-size:1.2rem;color:var(--text-mute)}
+  .hero-count .goal{font-size:1.2rem;color:var(--text-soft);font-weight:600}
+  .hero-count .unit{font-size:.85rem;color:var(--text-mute);margin-left:2px}
+  .hero-remain{
+    text-align:center;font-size:.86rem;color:var(--sun);margin-top:2px;
+  }
+  .hero-remain strong{font-size:1.1rem;color:var(--sun)}
+  .hero-bar{
+    height:8px;background:rgba(255,255,255,.08);border-radius:4px;
+    overflow:hidden;margin:10px 0 4px;
+  }
+  .hero-bar-fill{
+    height:100%;background:linear-gradient(90deg, var(--peace), var(--sun));
+    border-radius:4px;transition:width .8s ease;
+  }
+  .hero-countdown{
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    padding:8px 14px;background:rgba(0,0,0,.2);border-radius:20px;
+    margin-top:10px;font-size:.85rem;color:var(--text-soft);
+  }
+  .hero-countdown .days{
+    font-size:1.3rem;font-weight:800;color:var(--sun);
+    filter:drop-shadow(0 0 6px rgba(255,179,71,.5));
+  }
+  .hero-sync{
+    text-align:center;font-size:.72rem;color:var(--text-mute);margin-top:6px;
+  }
+  .hero-sync .dot{
+    display:inline-block;width:7px;height:7px;border-radius:50%;
+    background:var(--peace);margin-right:5px;vertical-align:middle;
+    animation:pulseDot 2s ease-in-out infinite;
+  }
+  @keyframes pulseDot{
+    0%,100%{opacity:.4;transform:scale(.9);}
+    50%{opacity:1;transform:scale(1.15);}
+  }
+  .hero-sync .dot.offline{background:var(--gap);animation:none}
+
+  /* ===== 各時間帯 10人目標リスト ===== */
+  .hour-target-wrap{margin:14px 0}
+  .hour-target-title{
+    font-size:.88rem;color:var(--text-soft);margin-bottom:8px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .hour-target-title .chip{
+    background:var(--sun-soft);color:var(--sun);
+    padding:2px 8px;border-radius:10px;font-size:.72rem;
+  }
+  .hour-target-grid{
+    display:grid;grid-template-columns:repeat(auto-fill, minmax(80px, 1fr));gap:6px;
+  }
+  .ht-cell{
+    background:var(--card-2);padding:8px 6px;border-radius:8px;
+    border:1px solid var(--line);text-align:center;font-size:.72rem;
+    display:flex;flex-direction:column;align-items:center;gap:2px;
+    transition:background .2s, border-color .2s;
+  }
+  .ht-cell.done{background:var(--peace-soft);border-color:var(--peace)}
+  .ht-cell.done .ht-cur{color:var(--peace)}
+  .ht-cell.short{background:var(--sun-soft);border-color:var(--sun)}
+  .ht-cell.empty{background:var(--gap-soft);border-color:var(--gap)}
+  .ht-cell.empty .ht-cur{color:var(--gap)}
+  .ht-cell .ht-hr{font-size:.66rem;color:var(--text-mute);letter-spacing:.05em}
+  .ht-cell .ht-cur{font-size:1.1rem;font-weight:700;color:var(--sun);line-height:1}
+  .ht-cell .ht-goal{font-size:.62rem;color:var(--text-mute)}
+  .ht-cell .ht-remain{
+    font-size:.64rem;color:var(--sun);margin-top:1px;
+  }
+  .ht-cell.done .ht-remain{color:var(--peace)}
+  .ht-cell.empty .ht-remain{color:var(--gap)}
+
+  /* ===== 大きなカウントダウン (Phase 0 の目玉) ===== */
+  .big-countdown{
+    background:linear-gradient(135deg, var(--sun-soft) 0%, var(--earth-soft) 100%);
+    border-radius:14px;padding:18px 16px;text-align:center;margin:14px 0;
+    border:1px solid rgba(255,179,71,.3);
+  }
+  .big-countdown .lbl{font-size:.8rem;color:var(--text-soft);letter-spacing:.05em}
+  .big-countdown .n{
+    display:block;font-size:3.4rem;font-weight:800;
+    color:var(--sun);line-height:1;margin:6px 0 2px;
+    filter:drop-shadow(0 0 12px rgba(255,179,71,.5));
+  }
+  .big-countdown .unit{font-size:1rem;color:var(--sun);margin-left:4px}
+  .big-countdown .sub{font-size:.82rem;color:var(--text-soft);margin-top:4px}
+
+  /* ===== 自己登録バッジ ===== */
+  .self-badge{
+    display:inline-block;padding:3px 10px;
+    background:var(--peace-soft);color:var(--peace);
+    border-radius:12px;font-size:.7rem;margin-left:6px;
+  }
+  .self-register-card{
+    background:var(--earth-soft);border-left:3px solid var(--sun);
+    padding:12px 14px;border-radius:8px;margin:10px 0;
+  }
+  .self-register-card .lbl{font-size:.85rem;color:var(--text-soft);margin-bottom:6px}
+  .self-register-card.registered{border-left-color:var(--peace)}
 </style>
 </head>
 <body>
@@ -309,9 +430,26 @@
 
 <header>
   <h1>🌍 ピースデー地球一周リレー</h1>
-  <p>9/21・24時間で世界を一周。空いた時間帯にいる友人を、無理なく探す</p>
-  <span class="badge">仲間集めアプリ ・ 7ステップ ・ 約15分</span>
+  <p>9/21・24時間で世界を一周。みんなで200人集めて、地球1周のバトンを繋ぐ</p>
+  <span class="badge">共有名簿 ・ みんなで作る ・ リアルタイム同期</span>
 </header>
+
+<!-- 全フェーズ共通のリアルタイムヒーローカード -->
+<div class="hero" id="hero">
+  <div class="hero-title">🌍 みんなで作る、地球一周リレー</div>
+  <div class="hero-count">
+    <span class="now" id="heroNow">0</span>
+    <span class="slash">/</span>
+    <span class="goal">200</span>
+    <span class="unit">人</span>
+  </div>
+  <div class="hero-remain" id="heroRemain">200人まで あと <strong>200人</strong></div>
+  <div class="hero-bar"><div class="hero-bar-fill" id="heroBar" style="width:0%"></div></div>
+  <div class="hero-countdown">
+    🌍 ピースデー（9/21）まで <span class="days" id="heroDays">?</span> 日
+  </div>
+  <div class="hero-sync"><span class="dot" id="syncDot"></span><span id="syncLabel">同期中…</span></div>
+</div>
 
 <div class="progress" id="progress"></div>
 
@@ -319,11 +457,19 @@
 <div class="phase active" id="phase0">
   <div class="card">
     <h2>🌍 9月21日は世界平和の日（ピースデー）</h2>
+
+    <div class="big-countdown">
+      <div class="lbl">🌍 ピースデーまで</div>
+      <span class="n" id="bigDays">?</span><span class="unit">日</span>
+      <div class="sub">目標：200人でバトンを繋ぐ／各時間帯に10人ずつ</div>
+    </div>
+
     <p class="lead">
       この日に、世界中の仲間で <strong>24時間リレー</strong> を回したい ──
-      でも、24時間ぶんの友人を急にぜんぶ集めるのは大変。<br>
-      このアプリは、<strong>あなたのまわりにいる友人で「いま埋まっている時間」と「まだ空いている時間」を見える化</strong> して、
-      無理のないペースで仲間集めをサポートします。
+      でも、24時間ぶんの友人をひとりで集めるのは大変。<br>
+      このアプリは、<strong>みんなで集めた仲間を１つの名簿に合流させて、「あと何時間帯／あと何人」を見える化</strong> し、
+      無理のないペースで <strong>合計200人</strong> を集めるためのアプリです。<br>
+      <span style="color:var(--sun);font-size:.95rem">💡 あなたが登録した友人は、他の仲間集めをしている人にもリアルタイムで見えます。</span>
     </p>
 
     <div class="demo-ring-wrap">
@@ -354,12 +500,16 @@
     <h2 style="margin-top:20px" class="peace">🧭 このアプリの使い方</h2>
     <p>
       ① あなたの場所を登録 →
-      ② 知ってる友人を登録 →
-      ③ 24時間タイムラインで空き時間を確認 →
-      ④ 空き時間にいる人を思い出す →
+      ② 知ってる友人を登録（みんなで200人まで） →
+      ③ 地球一周リングで進捗を確認 →
+      ④ 空いている時間帯にいる人を思い出す →
       ⑤ 招待文を送る、までを伴走します。
     </p>
-    <p class="mute">※ データはあなたのブラウザの中だけに保存されます。送信なし。</p>
+    <p class="mute">
+      ※ 登録した「名前・都市・UTCオフセット」は仲間集めをしている全員で共有されます（クラウド同期）。<br>
+      ※ 削除できるのは、あなた自身が登録した人だけです。<br>
+      ※ メールアドレスや電話番号など、それ以外の個人情報は登録しません。
+    </p>
     <div class="nav">
       <span></span>
       <button class="btn" onclick="goPhase(1)">はじめる →</button>
@@ -528,6 +678,16 @@
     <div class="ring-ctrl">
       <button onclick="toggleBaton()" id="batonBtn">⏸ バトンを止める</button>
     </div>
+
+    <div class="hour-target-wrap">
+      <div class="hour-target-title">
+        🎯 各時間帯の集まり具合 <span class="chip">目標 各10人</span>
+      </div>
+      <div class="hour-target-grid" id="hourTargetGrid"></div>
+      <p class="mute" style="margin-top:8px;font-size:12px">
+        ※ 各マスは UTC時間帯。緑=10人達成 ／ 黄=あと少し ／ 赤=まだ足りない ／ 灰=0人。
+      </p>
+    </div>
     <div class="legend">
       <span class="lg-me">あなた</span>
       <span class="lg-filled">友人がカバー</span>
@@ -673,7 +833,77 @@
 
 </div>
 
-<script>
+<script type="module">
+/* ===================== Firebase ===================== */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import {
+  getFirestore, collection, addDoc, deleteDoc, doc,
+  onSnapshot, serverTimestamp, query, orderBy
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBnwVDBTaOVBWS6eSYMc6MR-KtJap0I3RY",
+  authDomain: "peace-relay-2026.firebaseapp.com",
+  projectId: "peace-relay-2026",
+  storageBucket: "peace-relay-2026.firebasestorage.app",
+  messagingSenderId: "305403390718",
+  appId: "1:305403390718:web:037031e070c3d34aa6d3af",
+  measurementId: "G-QGK5K0Q3LP"
+};
+const fbApp = initializeApp(firebaseConfig);
+const fbDb = getFirestore(fbApp);
+const participantsRef = collection(fbDb, 'participants');
+
+/* ===================== Session Identity ===================== */
+const SESSION_KEY = 'peace-relay-session-id';
+let sessionId = localStorage.getItem(SESSION_KEY);
+if(!sessionId){
+  sessionId = (self.crypto && crypto.randomUUID)
+    ? crypto.randomUUID()
+    : 'sid-' + Date.now() + '-' + Math.random().toString(36).slice(2, 10);
+  localStorage.setItem(SESSION_KEY, sessionId);
+}
+const ME_DOC_KEY = 'peace-relay-my-doc-id';
+
+/* ===================== Firestore Helpers ===================== */
+async function addParticipant(entry){
+  try{
+    const ref = await addDoc(participantsRef, {
+      ...entry,
+      sessionId,
+      addedAt: serverTimestamp()
+    });
+    return ref.id;
+  }catch(e){
+    console.error('addParticipant error', e);
+    alert('保存に失敗しました：\n' + e.message);
+    return null;
+  }
+}
+async function deleteParticipant(docId){
+  try{
+    await deleteDoc(doc(fbDb, 'participants', docId));
+  }catch(e){
+    console.error('deleteParticipant error', e);
+    alert('削除に失敗しました：\n' + e.message);
+  }
+}
+
+/* ===================== Peace Day Countdown ===================== */
+function daysUntilPeaceDay(){
+  const now = new Date();
+  const year = now.getFullYear();
+  let peace = new Date(year, 8, 21); // 9/21 (month is 0-indexed)
+  peace.setHours(0, 0, 0, 0);
+  const today = new Date(year, now.getMonth(), now.getDate());
+  if(today > peace){
+    peace = new Date(year + 1, 8, 21);
+    peace.setHours(0, 0, 0, 0);
+  }
+  const diff = Math.round((peace - today) / (1000 * 60 * 60 * 24));
+  return diff;
+}
+
 /* ===================== Cities Database ===================== */
 const CITIES = [
   // East Asia
@@ -805,11 +1035,15 @@ const PREF_REGIONS = ['北海道','東北','関東','中部','近畿','中国','
 
 /* ===================== State ===================== */
 const STORAGE_KEY = 'peace-relay-v1';
+const HOUR_TARGET = 10;       // 各UTC時間帯の目標人数
+const TOTAL_GOAL = 200;       // 全体目標
 const state = {
   phase: 0,
   me: {name:'', city:'', offset:null},
-  friends: [],     // [{name, city, offset, region}]
+  friends: [],     // Firestoreから流れてくる全参加者（自分含む）: [{id, name, city, offset, region, sessionId, ...}]
   templateLang: 'ja',
+  myDocId: localStorage.getItem(ME_DOC_KEY) || null,
+  synced: false,
 };
 
 /* ===================== Init ===================== */
@@ -822,6 +1056,8 @@ function init(){
   renderTimeline();
   renderJapanMap();
   renderGapList();
+  renderHero();
+  renderPerHourTargets();
   showTemplate(state.templateLang, null);
   renderSummary();
   renderDays();
@@ -833,6 +1069,46 @@ function init(){
   if(state.me.offset !== null) document.getElementById('meOffset').value = formatOffset(state.me.offset);
   ringTick();
   startDemoRing();
+  subscribeParticipants();
+  // Countdown を1時間ごとに再描画（日付跨ぎ対策）
+  setInterval(() => { renderHero(); renderDays(); }, 60 * 60 * 1000);
+}
+
+/* ===================== Firestore Subscription ===================== */
+function subscribeParticipants(){
+  const q = query(participantsRef, orderBy('addedAt', 'asc'));
+  onSnapshot(q, (snap) => {
+    const items = [];
+    snap.forEach(docSnap => {
+      const d = docSnap.data();
+      items.push({ id: docSnap.id, ...d });
+    });
+    state.friends = items;
+    state.synced = true;
+    // 自分のドキュメントIDが localStorage から失われていた場合の復元（同じsessionIdを持つドキュメント）
+    if(!state.myDocId){
+      const mine = items.find(x => x.sessionId === sessionId && x.isMe);
+      if(mine){ state.myDocId = mine.id; localStorage.setItem(ME_DOC_KEY, mine.id); }
+    }
+    renderFriends();
+    renderTimeline();
+    renderJapanMap();
+    renderHero();
+    renderPerHourTargets();
+    updateSyncBadge(items.length);
+  }, (err) => {
+    console.error('onSnapshot error', err);
+    const dot = document.getElementById('syncDot');
+    const label = document.getElementById('syncLabel');
+    if(dot){ dot.style.background = '#ff6b6b'; }
+    if(label){ label.textContent = '同期エラー：' + err.code; }
+  });
+}
+function updateSyncBadge(n){
+  const dot = document.getElementById('syncDot');
+  const label = document.getElementById('syncLabel');
+  if(dot){ dot.style.background = '#7ee7c7'; }
+  if(label){ label.textContent = `同期済み ・ ${n}人が参加中`; }
 }
 
 function populateCityDropdowns(){
@@ -942,7 +1218,7 @@ function useManualMe(){
   state.me.offset = off;
   saveState();
 }
-function saveMeAndNext(){
+async function saveMeAndNext(){
   const name = document.getElementById('meName').value.trim();
   if(!name){ alert('名前を入れてください'); return; }
   state.me.name = name;
@@ -951,47 +1227,54 @@ function saveMeAndNext(){
     const c = findCity(citySel);
     state.me.city = c.city;
     state.me.offset = c.offset;
+    if(!state.me.region) state.me.region = c.region;
   }
   if(state.me.offset === null){ alert('都市を選ぶか、手入力で場所を反映してください'); return; }
   saveState();
+  // すでに自分のドキュメントを持っていれば skip、なければ Firestore に追加
+  if(!state.myDocId){
+    const id = await addParticipant({
+      name: state.me.name,
+      city: state.me.city,
+      offset: state.me.offset,
+      region: state.me.region || '',
+      isMe: true
+    });
+    if(id){
+      state.myDocId = id;
+      localStorage.setItem(ME_DOC_KEY, id);
+    }
+  }
   goPhase(2);
 }
 
-/* ===================== Phase 2: Friends ===================== */
-function addFriend(){
+/* ===================== Phase 2: Friends（＝共有参加者リスト） ===================== */
+async function addFriend(){
   const name = document.getElementById('frName').value.trim();
   const cityVal = document.getElementById('frCity').value;
   if(!name || !cityVal){ alert('名前と都市を入れてください'); return; }
   const c = findCity(cityVal);
-  state.friends.push({name, city:c.city, offset:c.offset, region:c.region});
+  await addParticipant({name, city:c.city, offset:c.offset, region:c.region});
   document.getElementById('frName').value = '';
   document.getElementById('frCity').value = '';
-  saveState();
-  renderFriends();
-  renderTimeline();
-  renderJapanMap();
 }
-function addFriendManual(){
+async function addFriendManual(){
   const name = document.getElementById('frNameM').value.trim();
   const city = document.getElementById('frCityM').value.trim();
   const off = parseFloat(document.getElementById('frOffsetM').value);
   if(!name || !city || isNaN(off)){ alert('全て入力してください'); return; }
-  state.friends.push({name, city, offset:off, region:'手入力'});
+  await addParticipant({name, city, offset:off, region:'手入力'});
   document.getElementById('frNameM').value = '';
   document.getElementById('frCityM').value = '';
   document.getElementById('frOffsetM').value = '';
-  saveState();
-  renderFriends();
-  renderTimeline();
-  renderJapanMap();
 }
 function findPref(code){ return PREFECTURES.find(p => p.code === code); }
-function addFriendByPref(){
+async function addFriendByPref(){
   const name = document.getElementById('frNameJp').value.trim();
   const prefCode = document.getElementById('frPref').value;
   if(!name || !prefCode){ alert('名前と都道府県を入れてください'); return; }
   const p = findPref(prefCode);
-  state.friends.push({
+  await addParticipant({
     name,
     city: p.name,
     offset: 9,
@@ -1001,32 +1284,40 @@ function addFriendByPref(){
   });
   document.getElementById('frNameJp').value = '';
   document.getElementById('frPref').value = '';
-  saveState();
-  renderFriends();
-  renderTimeline();
-  renderJapanMap();
 }
-function removeFriend(i){
-  state.friends.splice(i, 1);
-  saveState();
-  renderFriends();
-  renderTimeline();
-  renderJapanMap();
+async function removeFriend(docId){
+  const entry = state.friends.find(f => f.id === docId);
+  if(!entry){ return; }
+  if(entry.sessionId !== sessionId){
+    alert('この登録は別の人が追加したため、削除できません。');
+    return;
+  }
+  if(!confirm(`「${entry.name}」の登録を削除しますか？`)) return;
+  await deleteParticipant(docId);
+  if(entry.isMe && docId === state.myDocId){
+    state.myDocId = null;
+    localStorage.removeItem(ME_DOC_KEY);
+  }
 }
 function renderFriends(){
   const el = document.getElementById('friendList');
-  document.getElementById('friendCount').textContent = state.friends.length;
+  const countEl = document.getElementById('friendCount');
+  if(countEl) countEl.textContent = state.friends.length;
+  if(!el) return;
   el.innerHTML = '';
-  state.friends.forEach((f, i) => {
+  state.friends.forEach((f) => {
     const row = document.createElement('div');
     row.className = 'friend-row';
     const flag = f.prefecture ? '🇯🇵 ' : '';
+    const mine = f.sessionId === sessionId;
+    const meBadge = f.isMe && mine ? '<span class="self-badge">あなた</span>' : (mine ? '<span class="self-badge">自分が追加</span>' : '');
+    const delBtn = mine ? `<button class="del" onclick="removeFriend('${f.id}')">×</button>` : `<button class="del" title="他の人の登録は削除できません" style="opacity:.25;cursor:not-allowed" disabled>×</button>`;
     row.innerHTML = `
-      <span class="who"><strong>${escapeHtml(f.name)}</strong>
+      <span class="who"><strong>${escapeHtml(f.name)}</strong> ${meBadge}
         <span class="where">@ ${flag}${escapeHtml(f.city)}</span>
         <span class="tz">UTC${formatOffset(f.offset)}</span>
       </span>
-      <button class="del" onclick="removeFriend(${i})">×</button>
+      ${delBtn}
     `;
     el.appendChild(row);
   });
@@ -1041,12 +1332,10 @@ function isActiveAt(utcHour, offset){
 }
 function whoAtUTC(utcHour){
   const list = [];
-  if(state.me.offset !== null && isActiveAt(utcHour, state.me.offset)){
-    list.push({name: state.me.name || 'あなた', isMe:true, city: state.me.city});
-  }
   state.friends.forEach(f => {
     if(isActiveAt(utcHour, f.offset)){
-      list.push({name:f.name, isMe:false, city:f.city});
+      const mine = (f.sessionId === sessionId);
+      list.push({name:f.name, isMe: mine, city:f.city});
     }
   });
   return list;
@@ -1079,8 +1368,64 @@ function renderTimeline(){
   }
   document.getElementById('filledCount').textContent = filled;
   document.getElementById('gapCount').textContent = 24 - filled;
-  document.getElementById('totalPeople').textContent = state.friends.length + (state.me.offset !== null ? 1 : 0);
+  document.getElementById('totalPeople').textContent = state.friends.length;
   renderRing();
+}
+
+/* ===================== Hero / Countdown / Hour-Target ===================== */
+function renderHero(){
+  const n = state.friends.length;
+  const days = daysUntilPeaceDay();
+  const nowEl = document.getElementById('heroNow');
+  const remainEl = document.getElementById('heroRemain');
+  const barEl = document.getElementById('heroBar');
+  const daysEl = document.getElementById('heroDays');
+  const bigEl = document.getElementById('bigDays');
+  if(nowEl) nowEl.textContent = n;
+  if(remainEl){
+    const gap = Math.max(0, TOTAL_GOAL - n);
+    remainEl.innerHTML = gap === 0
+      ? `🎉 <strong>200人達成！</strong>`
+      : `200人まで あと <strong>${gap}人</strong>`;
+  }
+  if(barEl){
+    const pct = Math.min(100, Math.round(n / TOTAL_GOAL * 100));
+    barEl.style.width = pct + '%';
+  }
+  if(daysEl) daysEl.textContent = days;
+  if(bigEl) bigEl.textContent = days;
+}
+function countPerHour(){
+  // 各UTC時間帯（0-23）に「アクティブ」な人数を数える
+  const counts = new Array(24).fill(0);
+  for(let h = 0; h < 24; h++){
+    state.friends.forEach(f => {
+      if(isActiveAt(h, f.offset)) counts[h]++;
+    });
+  }
+  return counts;
+}
+function renderPerHourTargets(){
+  const grid = document.getElementById('hourTargetGrid');
+  if(!grid) return;
+  const counts = countPerHour();
+  grid.innerHTML = '';
+  for(let h = 0; h < 24; h++){
+    const c = counts[h];
+    const remain = Math.max(0, HOUR_TARGET - c);
+    const cell = document.createElement('div');
+    let cls = 'ht-cell';
+    if(c >= HOUR_TARGET) cls += ' done';
+    else if(c === 0) cls += ' empty';
+    else cls += ' short';
+    cell.className = cls;
+    cell.innerHTML = `
+      <div class="ht-hour">UTC ${pad(h)}</div>
+      <div class="ht-count">${c}<span class="of">/${HOUR_TARGET}</span></div>
+      <div class="ht-remain">${c >= HOUR_TARGET ? '✅ 達成' : 'あと ' + remain + '人'}</div>
+    `;
+    grid.appendChild(cell);
+  }
 }
 
 /* ===================== 地球一周リング ===================== */
@@ -1240,10 +1585,7 @@ function startDemoRing(){
 /* ===================== Japan Map (Prefecture level) ===================== */
 function countByPrefecture(){
   const counts = {};
-  // 「あなた」も prefecture フィールドを持てる場合に備えて（現行は未対応だが将来的に拡張可能）
-  if(state.me.prefecture){
-    counts[state.me.prefecture] = (counts[state.me.prefecture] || 0) + 1;
-  }
+  // state.friends には自分（isMe）も含めた Firestore の全参加者が入っている
   state.friends.forEach(f => {
     if(f.prefecture){
       counts[f.prefecture] = (counts[f.prefecture] || 0) + 1;
@@ -1253,9 +1595,6 @@ function countByPrefecture(){
 }
 function membersByPrefecture(){
   const map = {};
-  if(state.me.prefecture){
-    (map[state.me.prefecture] = map[state.me.prefecture] || []).push(state.me.name || 'あなた');
-  }
   state.friends.forEach(f => {
     if(f.prefecture){
       (map[f.prefecture] = map[f.prefecture] || []).push(f.name);
@@ -1692,6 +2031,15 @@ function escapeHtml(s){
     '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
   }[c]));
 }
+
+/* ===================== window.* attach（type="module" 対応: onclickから呼ぶ関数を露出） ===================== */
+Object.assign(window, {
+  goPhase,
+  addFriend, addFriendManual, addFriendByPref, removeFriend,
+  saveMeAndNext, applyCityToMe, useManualMe,
+  showTemplate, copyTemplate, exportMd, shareLink,
+  resetAll, toggleBaton
+});
 
 /* ===================== Boot ===================== */
 window.addEventListener('DOMContentLoaded', init);
