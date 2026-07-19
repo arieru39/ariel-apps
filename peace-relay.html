@@ -426,6 +426,21 @@
 </style>
 </head>
 <body>
+
+<!-- 招待承認モーダル -->
+<div id="inviteModal" style="display:none;position:fixed;inset:0;background:rgba(6,14,24,0.86);z-index:100;align-items:center;justify-content:center;padding:20px">
+  <div style="max-width:520px;width:100%;background:#0f2333;border:1px solid rgba(126,231,199,0.4);border-radius:20px;padding:28px 24px;box-shadow:0 20px 60px rgba(0,0,0,0.5)">
+    <div style="font-size:34px;text-align:center;margin-bottom:8px">✉️</div>
+    <div style="text-align:center;font-size:1.1rem;font-weight:800;color:#7ee7c7;margin-bottom:6px">招待が届いています</div>
+    <div id="inviteBody" style="color:#e6ecf5;font-size:.95rem;line-height:1.75;margin:14px 0"></div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:16px">
+      <button class="btn earth" onclick="confirmInvite()" style="width:100%">✅ この情報で参加を承認する</button>
+      <button class="btn outline" onclick="declineInvite()" style="width:100%">今回は見送る</button>
+    </div>
+    <p style="color:#8b9db3;font-size:11px;text-align:center;margin-top:14px">承認すると、あなたのブラウザがこの登録の "所有者" になります（あとから自分で削除できます）</p>
+  </div>
+</div>
+
 <div class="wrap">
 
 <header>
@@ -591,6 +606,7 @@
       <div>
         <label class="field">　</label>
         <button class="btn peace" onclick="addFriend()" style="width:100%">＋ 追加</button>
+        <button class="btn sun" onclick="inviteFriend()" style="width:100%;margin-top:6px;font-size:12px">✉️ 招待リンクを作る（本人が承認）</button>
       </div>
     </div>
 
@@ -604,14 +620,15 @@
           </div>
           <div>
             <label class="field">都市・国（手入力）</label>
-            <input type="text" id="frCityM" placeholder="例：Reykjavik">
+            <input type="text" id="frCityM" placeholder="例：Reykjavik / アイスランド" oninput="autoFillOffset()" onblur="autoFillOffset()">
           </div>
           <div>
-            <label class="field">UTCオフセット</label>
-            <input type="text" id="frOffsetM" placeholder="例：+0">
+            <label class="field">UTCオフセット <span id="offsetHint" class="mute" style="font-size:11px"></span></label>
+            <input type="text" id="frOffsetM" placeholder="例：+0（自動推定します）">
           </div>
         </div>
         <button class="btn outline" onclick="addFriendManual()" style="margin-top:8px">手入力で追加</button>
+        <button class="btn sun" onclick="inviteFriendManual()" style="margin-top:8px;margin-left:8px">✉️ 招待リンクを作る（本人が承認）</button>
       </div>
     </details>
 
@@ -636,6 +653,7 @@
           <div>
             <label class="field">　</label>
             <button class="btn peace" onclick="addFriendByPref()" style="width:100%">＋ 追加</button>
+            <button class="btn sun" onclick="inviteFriendByPref()" style="width:100%;margin-top:6px;font-size:12px">✉️ 招待リンク</button>
           </div>
         </div>
       </div>
@@ -837,7 +855,7 @@
 /* ===================== Firebase ===================== */
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import {
-  getFirestore, collection, addDoc, deleteDoc, doc,
+  getFirestore, collection, addDoc, deleteDoc, doc, getDoc, updateDoc,
   onSnapshot, serverTimestamp, query, orderBy
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
@@ -887,6 +905,171 @@ async function deleteParticipant(docId){
     console.error('deleteParticipant error', e);
     alert('削除に失敗しました：\n' + e.message);
   }
+}
+
+/* ===================== Invite Flow ===================== */
+let pendingInviteDocId = null;   // 現在確認モーダルで扱っている招待のdocId
+let pendingInviteData = null;
+
+async function createInvite(entry){
+  // pending 状態でドキュメントを作成し、共有URLを返す
+  const invitedBy = state.me.name || 'someone';
+  try{
+    const ref = await addDoc(participantsRef, {
+      ...entry,
+      sessionId,           // 招待者のsessionIdを一旦入れる（承認時に受け取り側に上書き）
+      inviterSessionId: sessionId,
+      inviterName: invitedBy,
+      status: 'pending',
+      addedAt: serverTimestamp()
+    });
+    const base = location.origin + location.pathname;
+    const url = `${base}?invite=${ref.id}`;
+    return { id: ref.id, url };
+  }catch(e){
+    console.error('createInvite error', e);
+    alert('招待作成に失敗しました：\n' + e.message);
+    return null;
+  }
+}
+function showInviteShare(name, url){
+  const msg = `【ピースデー地球一周リレー・招待】\n${name}さん、9/21のリレーに参加しませんか？\n下のリンクを開いて「承認する」を押すだけで完了です。\n${url}`;
+  try{
+    navigator.clipboard.writeText(msg);
+    alert(`📋 招待メッセージをコピーしました！\n\n${name}さん宛のURL:\n${url}\n\nDM・LINE・メール等で送ってください。\n受信者が「承認する」を押すと、正式な参加として登録されます。`);
+  }catch(e){
+    prompt('下記URLをコピーして本人に送ってください：', url);
+  }
+}
+
+async function inviteFriend(){
+  const name = document.getElementById('frName').value.trim();
+  const cityVal = document.getElementById('frCity').value;
+  if(!name){ alert('名前を入れてください（都市は本人が選べます）'); return; }
+  const c = cityVal ? findCity(cityVal) : null;
+  const entry = c
+    ? {name, city:c.city, offset:c.offset, region:c.region}
+    : {name, city:'（未指定）', offset:9, region:'（未指定）'};
+  const res = await createInvite(entry);
+  if(!res) return;
+  document.getElementById('frName').value = '';
+  document.getElementById('frCity').value = '';
+  showInviteShare(name, res.url);
+}
+async function inviteFriendManual(){
+  const name = document.getElementById('frNameM').value.trim();
+  const city = document.getElementById('frCityM').value.trim();
+  const offStr = document.getElementById('frOffsetM').value.trim();
+  if(!name){ alert('名前を入れてください'); return; }
+  let off = parseFloat(offStr);
+  if(isNaN(off)){
+    const guess = lookupOffset(city);
+    if(guess !== null) off = guess;
+    else off = 9; // 分からなければ UTC+9 の暫定値（本人が承認時に修正できる）
+  }
+  const entry = {name, city: city || '（未指定）', offset: off, region: '手入力'};
+  const res = await createInvite(entry);
+  if(!res) return;
+  document.getElementById('frNameM').value = '';
+  document.getElementById('frCityM').value = '';
+  document.getElementById('frOffsetM').value = '';
+  const hint = document.getElementById('offsetHint');
+  if(hint) hint.textContent = '';
+  showInviteShare(name, res.url);
+}
+async function inviteFriendByPref(){
+  const name = document.getElementById('frNameJp').value.trim();
+  const prefCode = document.getElementById('frPref').value;
+  if(!name){ alert('名前を入れてください（都道府県は本人が選べます）'); return; }
+  const p = prefCode ? findPref(prefCode) : null;
+  const entry = p
+    ? {name, city:p.name, offset:9, region:p.region+'（日本）', prefecture:p.code, prefName:p.name}
+    : {name, city:'（日本のどこか）', offset:9, region:'（日本）'};
+  const res = await createInvite(entry);
+  if(!res) return;
+  document.getElementById('frNameJp').value = '';
+  document.getElementById('frPref').value = '';
+  showInviteShare(name, res.url);
+}
+
+async function checkInviteParam(){
+  const params = new URLSearchParams(location.search);
+  const inviteId = params.get('invite');
+  if(!inviteId) return;
+  try{
+    const snap = await getDoc(doc(fbDb, 'participants', inviteId));
+    if(!snap.exists()){
+      alert('この招待リンクは無効になっています（削除されたか、期限切れの可能性）');
+      cleanUrl();
+      return;
+    }
+    const d = snap.data();
+    if(d.status !== 'pending'){
+      alert(`✅ この招待はすでに ${d.name}さん が承認済みです！`);
+      cleanUrl();
+      return;
+    }
+    // Show modal
+    pendingInviteDocId = inviteId;
+    pendingInviteData = d;
+    const body = document.getElementById('inviteBody');
+    body.innerHTML = `
+      <div style="text-align:center;margin-bottom:14px">
+        <div style="font-size:1.15rem;color:#f9d76e;font-weight:800">${escapeHtml(d.name)} さん</div>
+        <div style="color:#8b9db3;font-size:12px;margin-top:4px">${escapeHtml(d.inviterName || '仲間')} さんから招待</div>
+      </div>
+      <div style="background:rgba(126,231,199,0.08);border:1px solid rgba(126,231,199,0.2);border-radius:10px;padding:12px 14px;font-size:.9rem">
+        📍 場所：<strong>${escapeHtml(d.city || '未指定')}</strong> (UTC${formatOffset(d.offset)})<br>
+        🌍 この情報でピースデー地球一周リレーに参加します
+      </div>
+      <p style="color:#8b9db3;font-size:12px;margin-top:12px">
+        ※ 情報が違う場合は「見送る」→ 招待者に連絡して修正してもらってください。
+      </p>
+    `;
+    document.getElementById('inviteModal').style.display = 'flex';
+  }catch(e){
+    console.error('checkInvite error', e);
+  }
+}
+async function confirmInvite(){
+  if(!pendingInviteDocId) return;
+  try{
+    await updateDoc(doc(fbDb, 'participants', pendingInviteDocId), {
+      status: 'confirmed',
+      sessionId: sessionId,     // 承認者が所有者になる
+      confirmedAt: serverTimestamp(),
+      isMe: true
+    });
+    state.myDocId = pendingInviteDocId;
+    localStorage.setItem(ME_DOC_KEY, pendingInviteDocId);
+    // 名前・都市もローカルに反映
+    if(pendingInviteData){
+      state.me.name = pendingInviteData.name;
+      state.me.city = pendingInviteData.city;
+      state.me.offset = pendingInviteData.offset;
+      saveState();
+    }
+    document.getElementById('inviteModal').style.display = 'none';
+    pendingInviteDocId = null;
+    pendingInviteData = null;
+    cleanUrl();
+    alert(`🎉 参加を承認しました！\nピースデー地球一周リレーへようこそ。\nあなたはリング上の1マスを担当します。`);
+    // Phase 3 のリングへジャンプ
+    goPhase(3);
+  }catch(e){
+    console.error('confirmInvite error', e);
+    alert('承認に失敗しました：\n' + e.message);
+  }
+}
+function declineInvite(){
+  document.getElementById('inviteModal').style.display = 'none';
+  pendingInviteDocId = null;
+  pendingInviteData = null;
+  cleanUrl();
+}
+function cleanUrl(){
+  const clean = location.origin + location.pathname;
+  history.replaceState({}, '', clean);
 }
 
 /* ===================== Peace Day Countdown ===================== */
@@ -970,6 +1153,168 @@ const CITIES = [
   {city:'パース', offset:8, region:'オセアニア', label:'パース (UTC+8)'},
   {city:'オークランド', offset:12, region:'オセアニア', label:'オークランド (UTC+12)'},
 ];
+
+/* ===================== Country / City → UTC ヒント辞書 ===================== */
+/* CITIES に無い都市・国名（日本語・英語）を入れた時の自動推定用。substring マッチで探す。 */
+const COUNTRY_UTC = [
+  // East Asia
+  ['日本|japan|tokyo|osaka|kyoto|nagoya|fukuoka|sapporo|okinawa', 9],
+  ['韓国|korea|seoul|busan', 9],
+  ['中国|china|beijing|shanghai|shenzhen|guangzhou|chengdu|重慶', 8],
+  ['台湾|taiwan|taipei|kaohsiung', 8],
+  ['香港|hongkong|hong kong', 8],
+  ['マカオ|macau|macao', 8],
+  ['モンゴル|mongolia|ulaanbaatar', 8],
+  // SE Asia
+  ['シンガポール|singapore', 8],
+  ['マレーシア|malaysia|kuala lumpur|penang', 8],
+  ['フィリピン|philippines|manila|cebu', 8],
+  ['タイ|thailand|bangkok|chiang mai|phuket', 7],
+  ['ベトナム|vietnam|hanoi|ho chi minh|saigon|ホーチミン', 7],
+  ['インドネシア|indonesia|jakarta|bali|denpasar|surabaya', 7],
+  ['ミャンマー|myanmar|yangon|rangoon', 6.5],
+  ['カンボジア|cambodia|phnom penh|angkor', 7],
+  ['ラオス|laos|vientiane', 7],
+  // South Asia
+  ['インド|india|delhi|mumbai|bangalore|kolkata|chennai|hyderabad|デリー|ムンバイ|バンガロール', 5.5],
+  ['スリランカ|sri lanka|colombo', 5.5],
+  ['ネパール|nepal|kathmandu', 5.75],
+  ['バングラデシュ|bangladesh|dhaka|ダッカ', 6],
+  ['パキスタン|pakistan|islamabad|karachi|lahore', 5],
+  ['アフガニスタン|afghanistan|kabul', 4.5],
+  // Middle East
+  ['アラブ首長国連邦|uae|united arab|dubai|abu dhabi|ドバイ|アブダビ', 4],
+  ['カタール|qatar|doha', 3],
+  ['サウジアラビア|saudi arabia|riyadh|jeddah|mecca', 3],
+  ['イラン|iran|tehran|テヘラン', 3.5],
+  ['イラク|iraq|baghdad', 3],
+  ['トルコ|turkey|istanbul|ankara|イスタンブール|アンカラ', 3],
+  ['イスラエル|israel|tel aviv|jerusalem|エルサレム|テルアビブ', 3],
+  ['レバノン|lebanon|beirut', 3],
+  ['ヨルダン|jordan|amman', 3],
+  ['オマーン|oman|muscat', 4],
+  ['クウェート|kuwait', 3],
+  ['バーレーン|bahrain|manama', 3],
+  // Africa
+  ['エジプト|egypt|cairo|カイロ|alexandria', 2],
+  ['南アフリカ|south africa|cape town|johannesburg|ヨハネスブルグ|ケープタウン', 2],
+  ['ケニア|kenya|nairobi|ナイロビ', 3],
+  ['エチオピア|ethiopia|addis ababa', 3],
+  ['タンザニア|tanzania|dar es salaam', 3],
+  ['ウガンダ|uganda|kampala', 3],
+  ['ナイジェリア|nigeria|lagos|abuja|ラゴス', 1],
+  ['ガーナ|ghana|accra', 0],
+  ['セネガル|senegal|dakar', 0],
+  ['モロッコ|morocco|casablanca|marrakech|カサブランカ', 1],
+  ['チュニジア|tunisia|tunis', 1],
+  ['アルジェリア|algeria|algiers', 1],
+  // Europe
+  ['イギリス|英国|uk|united kingdom|britain|london|manchester|edinburgh|ロンドン|マンチェスター', 0],
+  ['アイルランド|ireland|dublin|ダブリン', 0],
+  ['ポルトガル|portugal|lisbon|porto|リスボン', 0],
+  ['アイスランド|iceland|reykjavik|レイキャビク', 0],
+  ['フランス|france|paris|lyon|marseille|nice|パリ|リヨン', 1],
+  ['ドイツ|germany|berlin|munich|hamburg|frankfurt|ベルリン|ミュンヘン|ハンブルク|フランクフルト', 1],
+  ['イタリア|italy|rome|milan|venice|florence|ローマ|ミラノ|ヴェネツィア', 1],
+  ['スペイン|spain|madrid|barcelona|マドリード|バルセロナ', 1],
+  ['オランダ|netherlands|holland|amsterdam|アムステルダム', 1],
+  ['ベルギー|belgium|brussels|ブリュッセル', 1],
+  ['スイス|switzerland|zurich|geneva|チューリッヒ|ジュネーブ', 1],
+  ['オーストリア|austria|vienna|ウィーン', 1],
+  ['ポーランド|poland|warsaw|krakow|ワルシャワ', 1],
+  ['チェコ|czech|prague|プラハ', 1],
+  ['ハンガリー|hungary|budapest|ブダペスト', 1],
+  ['スウェーデン|sweden|stockholm|ストックホルム', 1],
+  ['ノルウェー|norway|oslo|オスロ', 1],
+  ['デンマーク|denmark|copenhagen|コペンハーゲン', 1],
+  ['フィンランド|finland|helsinki|ヘルシンキ', 2],
+  ['ギリシャ|greece|athens|アテネ', 2],
+  ['ルーマニア|romania|bucharest', 2],
+  ['ブルガリア|bulgaria|sofia', 2],
+  ['ウクライナ|ukraine|kyiv|kiev|キーウ|キエフ', 2],
+  ['ロシア|russia|moscow|st petersburg|モスクワ|サンクトペテルブルク', 3],
+  ['エストニア|estonia|tallinn', 2],
+  ['ラトビア|latvia|riga', 2],
+  ['リトアニア|lithuania|vilnius', 2],
+  // North America
+  ['ハワイ|hawaii|honolulu|ホノルル|マウイ', -10],
+  ['アラスカ|alaska|anchorage', -9],
+  ['カリフォルニア|california|los angeles|san francisco|san diego|sacramento|silicon valley|LA|ロサンゼルス|サンフランシスコ|サンディエゴ|シリコンバレー|オークランド市', -8],
+  ['シアトル|seattle|portland|オレゴン|オレゴン州|oregon|ワシントン州|washington state', -8],
+  ['バンクーバー|vancouver|victoria', -8],
+  ['デンバー|denver|utah|arizona|phoenix|アリゾナ|ユタ|フェニックス', -7],
+  ['シカゴ|chicago|texas|houston|dallas|austin|new orleans|テキサス|ヒューストン|ダラス|オースティン|ニューオーリンズ', -6],
+  ['メキシコ|mexico|mexico city|guadalajara|cancun|メキシコシティ|カンクン', -6],
+  ['ニューヨーク|new york|nyc|washington dc|boston|philadelphia|atlanta|miami|orlando|ワシントン|ボストン|フィラデルフィア|アトランタ|マイアミ|オーランド', -5],
+  ['トロント|toronto|montreal|ottawa|モントリオール|オタワ', -5],
+  ['ノバスコシア|nova scotia|halifax|ハリファックス', -4],
+  ['ニューファンドランド|newfoundland|st. johns', -3.5],
+  ['カナダ|canada', -5],
+  ['アメリカ|america|usa|united states|米国', -5],
+  // Latin America
+  ['ブラジル|brazil|sao paulo|rio de janeiro|brasilia|サンパウロ|リオデジャネイロ|ブラジリア', -3],
+  ['アルゼンチン|argentina|buenos aires|ブエノスアイレス', -3],
+  ['ウルグアイ|uruguay|montevideo', -3],
+  ['チリ|chile|santiago|サンティアゴ', -4],
+  ['ペルー|peru|lima|リマ', -5],
+  ['エクアドル|ecuador|quito', -5],
+  ['コロンビア|colombia|bogota|ボゴタ', -5],
+  ['ベネズエラ|venezuela|caracas|カラカス', -4],
+  ['キューバ|cuba|havana|ハバナ', -5],
+  ['ジャマイカ|jamaica|kingston', -5],
+  ['ドミニカ|dominican|santo domingo', -4],
+  ['プエルトリコ|puerto rico|san juan', -4],
+  // Oceania
+  ['シドニー|sydney|melbourne|brisbane|canberra|メルボルン|ブリスベン|キャンベラ', 10],
+  ['パース|perth', 8],
+  ['アデレード|adelaide|darwin|ダーウィン', 9.5],
+  ['オーストラリア|australia', 10],
+  ['ニュージーランド|new zealand|auckland|wellington|christchurch|オークランド|ウェリントン|クライストチャーチ', 12],
+  ['フィジー|fiji|suva', 12],
+  ['サモア|samoa|apia', 13],
+  ['タヒチ|tahiti|papeete|パペーテ', -10],
+  ['グアム|guam', 10],
+  ['パプアニューギニア|papua new guinea|port moresby', 10],
+];
+
+function lookupOffset(text){
+  if(!text) return null;
+  const t = text.trim().toLowerCase();
+  if(!t) return null;
+  // まず CITIES データベースを走査
+  for(const c of CITIES){
+    if(t === c.city.toLowerCase()) return c.offset;
+  }
+  for(const c of CITIES){
+    if(t.includes(c.city.toLowerCase()) || c.city.toLowerCase().includes(t)) return c.offset;
+  }
+  // 続けて COUNTRY_UTC を走査
+  for(const [pattern, offset] of COUNTRY_UTC){
+    const alts = pattern.split('|');
+    for(const a of alts){
+      if(t.includes(a.toLowerCase()) || a.toLowerCase().includes(t)) return offset;
+    }
+  }
+  return null;
+}
+function autoFillOffset(){
+  const input = document.getElementById('frCityM');
+  const offsetInput = document.getElementById('frOffsetM');
+  const hint = document.getElementById('offsetHint');
+  if(!input || !offsetInput) return;
+  const cityText = input.value.trim();
+  const off = lookupOffset(cityText);
+  if(off === null){
+    if(hint) hint.textContent = cityText ? '（候補なし・手入力してください）' : '';
+    return;
+  }
+  const current = offsetInput.value.trim();
+  // ユーザーが既に手入力していない場合のみ上書き
+  if(!current || current === '±0' || /^[±+\-]?\d+(\.\d+)?$/.test(current)){
+    offsetInput.value = formatOffset(off);
+  }
+  if(hint) hint.textContent = `（自動推定：UTC${formatOffset(off)}）`;
+}
 
 /* ===================== Japan Prefectures Database ===================== */
 // SVG coord system: viewBox 0 0 400 500  (x=左右, y=上下)。全県 UTC+9。
@@ -1070,6 +1415,7 @@ function init(){
   ringTick();
   startDemoRing();
   subscribeParticipants();
+  checkInviteParam();
   // Countdown を1時間ごとに再描画（日付跨ぎ対策）
   setInterval(() => { renderHero(); renderDays(); }, 60 * 60 * 1000);
 }
@@ -1302,18 +1648,32 @@ async function removeFriend(docId){
 function renderFriends(){
   const el = document.getElementById('friendList');
   const countEl = document.getElementById('friendCount');
-  if(countEl) countEl.textContent = state.friends.length;
+  if(countEl) countEl.textContent = confirmedFriends().length;
   if(!el) return;
   el.innerHTML = '';
-  state.friends.forEach((f) => {
+  // 承認済み → 承認待ち の順に並べる
+  const sorted = [...state.friends].sort((a, b) => (a.status === 'pending' ? 1 : 0) - (b.status === 'pending' ? 1 : 0));
+  sorted.forEach((f) => {
     const row = document.createElement('div');
     row.className = 'friend-row';
     const flag = f.prefecture ? '🇯🇵 ' : '';
-    const mine = f.sessionId === sessionId;
-    const meBadge = f.isMe && mine ? '<span class="self-badge">あなた</span>' : (mine ? '<span class="self-badge">自分が追加</span>' : '');
-    const delBtn = mine ? `<button class="del" onclick="removeFriend('${f.id}')">×</button>` : `<button class="del" title="他の人の登録は削除できません" style="opacity:.25;cursor:not-allowed" disabled>×</button>`;
+    const mine = f.sessionId === sessionId || f.inviterSessionId === sessionId;
+    const pending = isPending(f);
+    let badges = '';
+    if(pending){
+      badges = `<span class="self-badge" style="background:rgba(249,215,110,0.16);border-color:rgba(249,215,110,0.4);color:#f9d76e">⏳ 承認待ち</span>`;
+    } else if(f.isMe && f.sessionId === sessionId){
+      badges = '<span class="self-badge">あなた</span>';
+    } else if(f.sessionId === sessionId){
+      badges = '<span class="self-badge">自分が追加</span>';
+    }
+    const delBtn = mine
+      ? `<button class="del" onclick="removeFriend('${f.id}')">×</button>`
+      : `<button class="del" title="他の人の登録は削除できません" style="opacity:.25;cursor:not-allowed" disabled>×</button>`;
+    const rowStyle = pending ? 'opacity:.72' : '';
+    row.setAttribute('style', rowStyle);
     row.innerHTML = `
-      <span class="who"><strong>${escapeHtml(f.name)}</strong> ${meBadge}
+      <span class="who"><strong>${escapeHtml(f.name)}</strong> ${badges}
         <span class="where">@ ${flag}${escapeHtml(f.city)}</span>
         <span class="tz">UTC${formatOffset(f.offset)}</span>
       </span>
@@ -1330,9 +1690,11 @@ function isActiveAt(utcHour, offset){
   if(local < 0) local += 24;
   return local >= 7 && local < 22;  // 7:00 〜 21:59 がアクティブ帯
 }
+function isPending(f){ return f.status === 'pending'; }
+function confirmedFriends(){ return state.friends.filter(f => !isPending(f)); }
 function whoAtUTC(utcHour){
   const list = [];
-  state.friends.forEach(f => {
+  confirmedFriends().forEach(f => {
     if(isActiveAt(utcHour, f.offset)){
       const mine = (f.sessionId === sessionId);
       list.push({name:f.name, isMe: mine, city:f.city});
@@ -1368,13 +1730,15 @@ function renderTimeline(){
   }
   document.getElementById('filledCount').textContent = filled;
   document.getElementById('gapCount').textContent = 24 - filled;
-  document.getElementById('totalPeople').textContent = state.friends.length;
+  document.getElementById('totalPeople').textContent = confirmedFriends().length;
   renderRing();
 }
 
 /* ===================== Hero / Countdown / Hour-Target ===================== */
 function renderHero(){
-  const n = state.friends.length;
+  const confirmed = confirmedFriends();
+  const n = confirmed.length;
+  const pendingN = state.friends.length - n;
   const days = daysUntilPeaceDay();
   const nowEl = document.getElementById('heroNow');
   const remainEl = document.getElementById('heroRemain');
@@ -1384,9 +1748,10 @@ function renderHero(){
   if(nowEl) nowEl.textContent = n;
   if(remainEl){
     const gap = Math.max(0, TOTAL_GOAL - n);
+    const pendingNote = pendingN > 0 ? `<span style="color:#f9d76e;font-size:12px;margin-left:8px">（承認待ち ${pendingN}人）</span>` : '';
     remainEl.innerHTML = gap === 0
-      ? `🎉 <strong>200人達成！</strong>`
-      : `200人まで あと <strong>${gap}人</strong>`;
+      ? `🎉 <strong>200人達成！</strong>${pendingNote}`
+      : `200人まで あと <strong>${gap}人</strong>${pendingNote}`;
   }
   if(barEl){
     const pct = Math.min(100, Math.round(n / TOTAL_GOAL * 100));
@@ -1396,10 +1761,11 @@ function renderHero(){
   if(bigEl) bigEl.textContent = days;
 }
 function countPerHour(){
-  // 各UTC時間帯（0-23）に「アクティブ」な人数を数える
+  // 各UTC時間帯（0-23）に「アクティブ」な人数を数える（承認済みのみ）
   const counts = new Array(24).fill(0);
+  const confirmed = confirmedFriends();
   for(let h = 0; h < 24; h++){
-    state.friends.forEach(f => {
+    confirmed.forEach(f => {
       if(isActiveAt(h, f.offset)) counts[h]++;
     });
   }
@@ -1585,8 +1951,8 @@ function startDemoRing(){
 /* ===================== Japan Map (Prefecture level) ===================== */
 function countByPrefecture(){
   const counts = {};
-  // state.friends には自分（isMe）も含めた Firestore の全参加者が入っている
-  state.friends.forEach(f => {
+  // 承認済みのみカウント（pending は含めない）
+  confirmedFriends().forEach(f => {
     if(f.prefecture){
       counts[f.prefecture] = (counts[f.prefecture] || 0) + 1;
     }
@@ -1595,7 +1961,7 @@ function countByPrefecture(){
 }
 function membersByPrefecture(){
   const map = {};
-  state.friends.forEach(f => {
+  confirmedFriends().forEach(f => {
     if(f.prefecture){
       (map[f.prefecture] = map[f.prefecture] || []).push(f.name);
     }
@@ -2038,7 +2404,10 @@ Object.assign(window, {
   addFriend, addFriendManual, addFriendByPref, removeFriend,
   saveMeAndNext, applyCityToMe, useManualMe,
   showTemplate, copyTemplate, exportMd, shareLink,
-  resetAll, toggleBaton
+  resetAll, toggleBaton,
+  autoFillOffset,
+  inviteFriend, inviteFriendManual, inviteFriendByPref,
+  confirmInvite, declineInvite
 });
 
 /* ===================== Boot ===================== */
