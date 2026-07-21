@@ -13,41 +13,66 @@
     "video_title": "🎬 本の解説プレイリスト（順次追加中）",
     "tagline": "Claude Code × Obsidian で Markdown の読み書きループが閉じた瞬間、太古の海で DNA の自己複製ループが閉じて生命が誕生したのと同じ構造で、知的生態系（MDワールド）が誕生した。"
   },
-
   "layers": [
-    { "level": 3, "label": "第3層 · 生命原理と創発 — なぜこの循環は 『生きた系』 になるのか" },
-    { "level": 2, "label": "第2層 · 三段階モデルと構造 — なぜ知的生産の次元が変わるのか" },
-    { "level": 1, "label": "第1層 · 歴史と系譜 — 二つの道具はどこから来たか" }
+    {
+      "level": 3,
+      "label": "第3層 · 生命原理と創発 — なぜこの循環は 『生きた系』 になるのか"
+    },
+    {
+      "level": 2,
+      "label": "第2層 · 三段階モデルと構造 — なぜ知的生産の次元が変わるのか"
+    },
+    {
+      "level": 1,
+      "label": "第1層 · 歴史と系譜 — 二つの道具はどこから来たか"
+    }
   ],
-
   "rubric_labels": [
-    { "level": 1, "label": "気づいていない", "color": "#e0e0e0", "fast_slow": "Fast が自動で誤作動（Slow が起動していない）" },
-    { "level": 2, "label": "概念として理解している", "color": "#fff3b0", "fast_slow": "Slow で意識すれば使える（Fast にはまだ沈殿していない）" },
-    { "level": 3, "label": "実践できる", "color": "#a3d977", "fast_slow": "Slow の反復で Fast に沈殿し始めた" },
-    { "level": 4, "label": "文脈に応じて選び分けられる", "color": "#4a90e2", "fast_slow": "Fast が高解像度（educated guess）／熟達直観の域" }
+    {
+      "level": 1,
+      "label": "気づいていない",
+      "color": "#e0e0e0",
+      "fast_slow": "Fast が自動で誤作動（Slow が起動していない）"
+    },
+    {
+      "level": 2,
+      "label": "概念として理解している",
+      "color": "#fff3b0",
+      "fast_slow": "Slow で意識すれば使える（Fast にはまだ沈殿していない）"
+    },
+    {
+      "level": 3,
+      "label": "実践できる",
+      "color": "#a3d977",
+      "fast_slow": "Slow の反復で Fast に沈殿し始めた"
+    },
+    {
+      "level": 4,
+      "label": "文脈に応じて選び分けられる",
+      "color": "#4a90e2",
+      "fast_slow": "Fast が高解像度（educated guess）／熟達直観の域"
+    }
   ],
-
   "getting_started": {
     "enabled": true,
     "banner_title": "🌱 初めての方へ — 第1層から始めましょう",
     "banner_body": "11テーマは <strong>3層構造</strong> です。第2層（三段階モデル）、第3層（生命原理と創発）は第1層（歴史と系譜）の思考を土台にしているので、まずは <strong>第1層</strong> の3テーマから。特に <strong>「二つの道具の邂逅」</strong> が最初の扉です。<br>いきなり書くのが重かったら、まず <strong>4択の関係性クイズ（8問）</strong> で11テーマ全体の関係を掴んでください。",
     "first_theme_id": "two_worlds_meet",
     "quiz_cta_label": "🎯 関係性クイズで全体を掴む（4択・8問・書かなくてOK）",
-    "write_cta_label": "✍️ 第1層から直接書く"
+    "write_cta_label": "✍️ 第1層から直接書く",
+    "video_embed_url": "https://www.youtube.com/embed/Ld70LZfyeTM",
+    "video_title": "動画0 ｜ メタ動画『全体像とルーブリック』"
   },
-
   "engine_note": {
     "sources": "田原真人『MDワールド ── 人間とAIとのあいだで創発する』（Claude Code＋Obsidian／デジタル生命体の創造的進化2）＋ 参照される背景理論：ルーマン『ツェッテルカステン』／カウフマン『自触媒集合』／ベルクソン『創造的進化（élan vital）』／ボーム『暗在秩序』／バラド『Meeting the Universe Halfway』／サイモン『複雑系の建築学』",
     "sub": "この本の11テーマは、Slow で意識化 → 反復で Fast に沈殿 → 文脈で選び分け、という熟達曲線を辿ります。ルーブリックL1→L4はこの Fast/Slow の位相を表しています。中核原理：『Markdown の読み書きループが閉じた瞬間、パイプラインは生きた循環に変わる』。人間と AI の関係は三段階を経る：①AIが脳へのインプットを変える → ②AIが考え人間がサポートする → ③循環が閉じてMDワールドが誕生する。この閉鎖が起きた瞬間、Vault は自律的に増殖し、階層的に上位モジュール（ノート→プロジェクト→組織→Skill→エージェント）を生む。",
     "unified_principle": "循環が閉じるか、閉じないか。出力が入力に還流するとき、系は蓄積し組み合わさり、次の要素を生む。閉じないとき、要素は流れて消える"
   },
-
   "relationship_quiz_meta": {
     "framing": "この8問は正解探しではありません。あなたの Vault で 『循環が閉じているか／いないか』 を映す鏡です。選んだ選択肢に応じて、あなたの視点／本の視座／立ち止まりの問い、の3つが返ってきます。",
     "deliberate_practice_note": "Comprehensible Input × 即時フィードバック × 明確な目標 × 完全な集中 × コンフォートゾーンの一段外 × 専門家の設計（田原真人 & 背景理論） ── の6要件で組んでいます。",
     "score_label": "触れた視点"
   },
-
   "relationship_quiz": [
     {
       "focus_theme": "two_worlds_meet",
@@ -402,7 +427,6 @@
       ]
     }
   ],
-
   "themes": [
     {
       "id": "ai_to_live_coding",
@@ -419,8 +443,8 @@
         "L4：文脈によって 『コードを書く／輪郭を言語化する／方向づける』 を選び分けて動ける"
       ],
       "implemented": true,
-      "video_embed_url": "",
-      "video_title": "",
+      "video_embed_url": "https://www.youtube.com/embed/WrxYioRCUz4",
+      "video_title": "動画1 ｜ LO1『AIとバイブコーディングの30年史』",
       "perspective_quiz": [
         {
           "q": "コードを書けない人がアプリを作りたいと言ったら、あなたは何と答える？",
@@ -477,8 +501,8 @@
         "L4：Vault の構造そのものを 『問いを返す相手』 として設計・改編できる"
       ],
       "implemented": true,
-      "video_embed_url": "",
-      "video_title": "",
+      "video_embed_url": "https://www.youtube.com/embed/uLF0EApfSvU",
+      "video_title": "動画2 ｜ LO2『ルーマンのツェッテルカステンから Obsidian へ』",
       "perspective_quiz": [
         {
           "q": "1週間分のノートを見返したとき、そのなかから何を掘り起こす？",
@@ -535,8 +559,8 @@
         "L4：循環が閉じていない部分を特定し、閉じるための1手を打つ判断ができる"
       ],
       "implemented": true,
-      "video_embed_url": "",
-      "video_title": "",
+      "video_embed_url": "https://www.youtube.com/embed/SW14hQ7AeUw",
+      "video_title": "動画3 ｜ LO3『二つの道具の邂逅 — 循環が閉じた瞬間』",
       "perspective_quiz": [
         {
           "q": "『循環が閉じた』 という表現に、いちばん近い感触はどれ？",
@@ -593,8 +617,8 @@
         "L4：他者の学習で 『どの壁で止まっているか』 を判別し、次の1手を選び分けられる"
       ],
       "implemented": true,
-      "video_embed_url": "",
-      "video_title": "",
+      "video_embed_url": "https://www.youtube.com/embed/YCpY9J6kiX0",
+      "video_title": "動画4 ｜ LO4『第一段階 — AIが脳へのインプットを変えた』",
       "perspective_quiz": [
         {
           "q": "『情報が着地する』 とは、あなたにとって何が起きた瞬間？",
@@ -651,8 +675,8 @@
         "L4：文脈設計そのものを繰り返し改編し、Vault を 『AIが考えられる場』 として運営できる"
       ],
       "implemented": true,
-      "video_embed_url": "",
-      "video_title": "",
+      "video_embed_url": "https://www.youtube.com/embed/hXrh8yIxzds",
+      "video_title": "動画5 ｜ LO5『第二段階 — AIが考え、人間がサポートする』",
       "perspective_quiz": [
         {
           "q": "『AI が使えない』 と言う人がいたら、あなたは何を最初に問い返す？",
@@ -709,8 +733,8 @@
         "L4：閉じるべき循環と閉じるべきでない循環を、文脈で選び分けられる"
       ],
       "implemented": true,
-      "video_embed_url": "",
-      "video_title": "",
+      "video_embed_url": "https://www.youtube.com/embed/3H10xf6mdNk",
+      "video_title": "動画6 ｜ LO6『第三段階 — 循環が閉じる（MDワールドの誕生）』",
       "perspective_quiz": [
         {
           "q": "『Vault が自律的に増殖する』 という表現に、いちばん近い実感はどれ？",
@@ -767,8 +791,8 @@
         "L4：三条件を満たすように Vault を設計・運営する判断ができる"
       ],
       "implemented": true,
-      "video_embed_url": "",
-      "video_title": "",
+      "video_embed_url": "https://www.youtube.com/embed/F97b16220gY",
+      "video_title": "動画7 ｜ LO7『MDワールドは生命である — 自触媒集合』",
       "perspective_quiz": [
         {
           "q": "『生命』 と呼ぶための条件を、あなたはどう捉えている？",
@@ -825,8 +849,8 @@
         "L4：問いの設計を通じて、AI から引き出す 『新しさ』 の方向を選び分けられる"
       ],
       "implemented": true,
-      "video_embed_url": "",
-      "video_title": "",
+      "video_embed_url": "https://www.youtube.com/embed/iQFn-1ILfzU",
+      "video_title": "動画8 ｜ LO8『量子力学と生成AIの数理的同型性』",
       "perspective_quiz": [
         {
           "q": "AI から意外な答えが返ってきたとき、その 『意外さ』 はどこから来ている？",
@@ -883,8 +907,8 @@
         "L4：新しさが生まれる場を設計・維持し、方向づけの選択圧を運用できる"
       ],
       "implemented": true,
-      "video_embed_url": "",
-      "video_title": "",
+      "video_embed_url": "https://www.youtube.com/embed/fF-5WMEiNDU",
+      "video_title": "動画9 ｜ LO9『創造的進化 — ベルクソンの élan vital』",
       "perspective_quiz": [
         {
           "q": "『新しさ』 を意図的に生みたいとき、あなたは何を仕掛ける？",
@@ -941,8 +965,8 @@
         "L4：階層をまたぐ 『翻訳の壁』 を意識的に消し、双方向の進化流を運用できる"
       ],
       "implemented": true,
-      "video_embed_url": "",
-      "video_title": "",
+      "video_embed_url": "https://www.youtube.com/embed/bMQnxjkL5og",
+      "video_title": "動画10 ｜ LO10『階層的創発 — サイモンの複雑系の建築学』",
       "perspective_quiz": [
         {
           "q": "あなたの Vault の中で、いちばん 『上位モジュールらしく』 振る舞っているものは何？",
@@ -999,8 +1023,8 @@
         "L4：現場の文脈に応じて 『どの循環を閉じるか』 の判断を選び分けられる"
       ],
       "implemented": true,
-      "video_embed_url": "",
-      "video_title": "",
+      "video_embed_url": "https://www.youtube.com/embed/R4_ww4drWwM",
+      "video_title": "動画11 ｜ LO11『MDワールドが動く現場 — 8事業ダイジェスト』",
       "perspective_quiz": [
         {
           "q": "田原真人の8事業から 『あなたの現場に移植する1手』 を選ぶとしたら？",
