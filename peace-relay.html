@@ -423,6 +423,16 @@
   }
   .self-register-card .lbl{font-size:.85rem;color:var(--text-soft);margin-bottom:6px}
   .self-register-card.registered{border-left-color:var(--peace)}
+
+  /* ===== バトン担当時間バッジ ===== */
+  .shift-badge{
+    display:inline-block;margin-left:8px;padding:2px 8px;
+    background:rgba(249,215,110,0.12);color:#f9d76e;
+    border:1px solid rgba(249,215,110,0.35);
+    border-radius:10px;font-size:.72rem;
+    vertical-align:middle;
+  }
+  .shift-badge select{outline:none}
 </style>
 </head>
 <body>
@@ -589,7 +599,8 @@
     <p>
       <strong>完璧を目指さない。</strong>
       まずは「思い出した順」に5〜10人、ざっくり登録すれば十分。<br>
-      追加すると、下の <strong>🌍 地球一周リング</strong> が即座に埋まっていきます（全体像を見ながら追加できる）。
+      🎯 <strong>1人 = UTC 1時間を担当</strong>（バトン方式）。既定は「その人の現地正午」の時刻。<br>
+      追加すると、下の <strong>🌍 地球一周リング</strong> と時間帯グリッドに1マスずつ光が灯ります。担当時間はあとから 🕐 バッジのプルダウンで変えられます。
     </p>
 
     <div class="row3">
@@ -674,8 +685,8 @@
   <!-- 全体像：24時間タイムライン＋リング（Phase 2に統合） -->
   <div class="card" style="margin-top:14px">
     <h2 class="sun" style="color:var(--sun)">🌍 いま、地球一周はこう埋まっている</h2>
-    <p>9/21（UTC基準）の24時間＝<strong>地球1回転</strong>。バトンが輪をぐるっと一周する様子で見えます。<br>
-      <strong>赤い切れ目が「空いている時間帯」</strong> ── ここをカバーする友人を上のフォームから追加してください。</p>
+    <p>9/21（UTC基準）の24時間＝<strong>地球1回転</strong>。各セグメント＝1時間分の担当者。バトンが輪をぐるっと一周する様子で見えます。<br>
+      <strong>赤い切れ目が「まだ誰も担当していない時間帯」</strong>。上のフォームから、その時間帯の現地正午にいる友人を追加してください。</p>
 
     <div class="ring-box">
       <svg id="earthRing" viewBox="0 0 400 400"></svg>
@@ -697,7 +708,7 @@
       </div>
       <div class="hour-target-grid" id="hourTargetGrid"></div>
       <p class="mute" style="margin-top:8px;font-size:12px">
-        ※ 各マスは UTC時間帯。緑=10人達成 ／ 黄=あと少し ／ 赤=まだ足りない ／ 灰=0人。
+        ※ 各マスは 1人が担当する UTC 1時間。緑=10人達成 ／ 黄=あと少し ／ 赤=まだ足りない ／ 灰=0人（誰も担当していない）。
       </p>
     </div>
     <div class="legend">
@@ -878,10 +889,29 @@ if(!sessionId){
 const ME_DOC_KEY = 'peace-relay-my-doc-id';
 
 /* ===================== Firestore Helpers ===================== */
+/* バトン方式：1人 = 担当UTC時間1つ を持つ
+   デフォルト = その人の現地正午（12:00）にあたる UTC 時刻 */
+function calcShiftHour(offset){
+  let h = 12 - Number(offset || 0);
+  h = Math.round(h);
+  h = ((h % 24) + 24) % 24;
+  return h;
+}
+function getShift(f){
+  if(typeof f.shiftHour === 'number' && f.shiftHour >= 0 && f.shiftHour < 24){
+    return f.shiftHour;
+  }
+  return calcShiftHour(f.offset);
+}
+
 async function addParticipant(entry){
   try{
+    const shift = (typeof entry.shiftHour === 'number')
+      ? entry.shiftHour
+      : calcShiftHour(entry.offset);
     const ref = await addDoc(participantsRef, {
       ...entry,
+      shiftHour: shift,
       sessionId,
       addedAt: serverTimestamp()
     });
@@ -900,6 +930,22 @@ async function deleteParticipant(docId){
     alert('削除に失敗しました：\n' + e.message);
   }
 }
+async function changeShift(docId, newHour){
+  const entry = state.friends.find(f => f.id === docId);
+  if(!entry){ return; }
+  if(entry.sessionId !== sessionId && entry.inviterSessionId !== sessionId){
+    alert('この登録は別の人が所有しているため、担当時間を変更できません。');
+    return;
+  }
+  const h = parseInt(newHour, 10);
+  if(isNaN(h) || h < 0 || h > 23) return;
+  try{
+    await updateDoc(doc(fbDb, 'participants', docId), { shiftHour: h });
+  }catch(e){
+    console.error('changeShift error', e);
+    alert('変更に失敗しました：\n' + e.message);
+  }
+}
 
 /* ===================== Invite Flow ===================== */
 let pendingInviteDocId = null;   // 現在確認モーダルで扱っている招待のdocId
@@ -908,9 +954,13 @@ let pendingInviteData = null;
 async function createInvite(entry){
   // pending 状態でドキュメントを作成し、共有URLを返す
   const invitedBy = state.me.name || 'someone';
+  const shift = (typeof entry.shiftHour === 'number')
+    ? entry.shiftHour
+    : calcShiftHour(entry.offset);
   try{
     const ref = await addDoc(participantsRef, {
       ...entry,
+      shiftHour: shift,
       sessionId,           // 招待者のsessionIdを一旦入れる（承認時に受け取り側に上書き）
       inviterSessionId: sessionId,
       inviterName: invitedBy,
@@ -1674,10 +1724,23 @@ function renderFriends(){
       : `<button class="del" title="他の人の登録は削除できません" style="opacity:.25;cursor:not-allowed" disabled>×</button>`;
     const rowStyle = pending ? 'opacity:.72' : '';
     row.setAttribute('style', rowStyle);
+    const shift = getShift(f);
+    let shiftPart;
+    if(mine && !pending){
+      // オーナーは変更可能：ドロップダウン
+      const opts = [];
+      for(let h = 0; h < 24; h++){
+        opts.push(`<option value="${h}"${h === shift ? ' selected' : ''}>UTC ${pad(h)}:00</option>`);
+      }
+      shiftPart = `<span class="shift-badge">🕐 担当 <select onchange="changeShift('${f.id}', this.value)" style="background:transparent;border:1px solid rgba(126,231,199,0.35);color:#eaf0f8;border-radius:6px;padding:2px 4px;font-size:12px;margin-left:2px">${opts.join('')}</select></span>`;
+    } else {
+      shiftPart = `<span class="shift-badge">🕐 UTC ${pad(shift)}:00 担当</span>`;
+    }
     row.innerHTML = `
       <span class="who"><strong>${escapeHtml(f.name)}</strong> ${badges}
         <span class="where">@ ${flag}${escapeHtml(f.city)}</span>
         <span class="tz">UTC${formatOffset(f.offset)}</span>
+        ${shiftPart}
       </span>
       ${delBtn}
     `;
@@ -1694,10 +1757,11 @@ function isActiveAt(utcHour, offset){
 }
 function isPending(f){ return f.status === 'pending'; }
 function confirmedFriends(){ return state.friends.filter(f => !isPending(f)); }
+/* バトン方式：担当時間（shiftHour）が utcHour と一致する人を返す */
 function whoAtUTC(utcHour){
   const list = [];
   confirmedFriends().forEach(f => {
-    if(isActiveAt(utcHour, f.offset)){
+    if(getShift(f) === utcHour){
       const mine = (f.sessionId === sessionId);
       list.push({name:f.name, isMe: mine, city:f.city});
     }
@@ -1763,14 +1827,11 @@ function renderHero(){
   if(bigEl) bigEl.textContent = days;
 }
 function countPerHour(){
-  // 各UTC時間帯（0-23）に「アクティブ」な人数を数える（承認済みのみ）
+  // バトン方式：1人=1担当時間としてカウント（承認済みのみ）
   const counts = new Array(24).fill(0);
-  const confirmed = confirmedFriends();
-  for(let h = 0; h < 24; h++){
-    confirmed.forEach(f => {
-      if(isActiveAt(h, f.offset)) counts[h]++;
-    });
-  }
+  confirmedFriends().forEach(f => {
+    counts[getShift(f)]++;
+  });
   return counts;
 }
 function renderPerHourTargets(){
@@ -2403,7 +2464,7 @@ function escapeHtml(s){
 /* ===================== window.* attach（type="module" 対応: onclickから呼ぶ関数を露出） ===================== */
 Object.assign(window, {
   goPhase, startFlow,
-  addFriend, addFriendManual, addFriendByPref, removeFriend,
+  addFriend, addFriendManual, addFriendByPref, removeFriend, changeShift,
   saveMeAndNext, applyCityToMe, useManualMe,
   showTemplate, copyTemplate, exportMd, shareLink,
   resetAll, toggleBaton,
