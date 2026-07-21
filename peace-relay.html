@@ -527,7 +527,7 @@
     </p>
     <div class="nav">
       <span></span>
-      <button class="btn" onclick="goPhase(1)">はじめる →</button>
+      <button class="btn" onclick="startFlow()">はじめる →</button>
     </div>
   </div>
 </div>
@@ -588,8 +588,8 @@
     <h2 class="peace">② 世界中の友人を、思い出しながら登録</h2>
     <p>
       <strong>完璧を目指さない。</strong>
-      まずは「思い出した順」に5〜10人、ざっくり登録すれば十分。
-      あとから「ここ空いてるな」と思ったときに追加できます。
+      まずは「思い出した順」に5〜10人、ざっくり登録すれば十分。<br>
+      追加すると、下の <strong>🌍 地球一周リング</strong> が即座に埋まっていきます（全体像を見ながら追加できる）。
     </p>
 
     <div class="row3">
@@ -669,19 +669,13 @@
       💡 直接の友人だけでなく、「友人の友人を紹介してもらえないか聞ける人」も登録してOK。
     </div>
 
-    <div class="nav">
-      <button class="btn outline" onclick="goPhase(1)">← 戻る</button>
-      <button class="btn earth" onclick="goPhase(3)" id="p2next">次へ →</button>
-    </div>
   </div>
-</div>
 
-<!-- Phase 3: タイムライン可視化 -->
-<div class="phase" id="phase3">
-  <div class="card">
-    <h2 class="sun" style="color:var(--sun)">③ 24時間タイムラインで、地球を見る</h2>
+  <!-- 全体像：24時間タイムライン＋リング（Phase 2に統合） -->
+  <div class="card" style="margin-top:14px">
+    <h2 class="sun" style="color:var(--sun)">🌍 いま、地球一周はこう埋まっている</h2>
     <p>9/21（UTC基準）の24時間＝<strong>地球1回転</strong>。バトンが輪をぐるっと一周する様子で見えます。<br>
-      <strong>赤い切れ目が「空いている時間帯」</strong> ── ここをカバーする友人を次のステップで探します。</p>
+      <strong>赤い切れ目が「空いている時間帯」</strong> ── ここをカバーする友人を上のフォームから追加してください。</p>
 
     <div class="ring-box">
       <svg id="earthRing" viewBox="0 0 400 400"></svg>
@@ -762,16 +756,16 @@
 
   <div class="card">
     <div class="nav">
-      <button class="btn outline" onclick="goPhase(2)">← 友人を追加する</button>
-      <button class="btn earth" onclick="goPhase(4)">空き時間を見る →</button>
+      <button class="btn outline" onclick="goPhase(1)">← 戻る（自分の場所）</button>
+      <button class="btn earth" onclick="goPhase(3)" id="p2next">空き時間を見る →</button>
     </div>
   </div>
 </div>
 
-<!-- Phase 4: 空き時間と誰に声をかけるか -->
-<div class="phase" id="phase4">
+<!-- Phase 3: 空き時間と誰に声をかけるか -->
+<div class="phase" id="phase3">
   <div class="card">
-    <h2 class="peace">④ 空き時間にいそうな友人を、思い出す</h2>
+    <h2 class="peace">③ 空き時間にいそうな友人を、思い出す</h2>
     <p>空き時間帯（UTC）と、その時間が <strong>朝〜夕方になる地域</strong> をヒントに、誰が思い浮かびますか？</p>
 
     <div id="gapList" class="gap-list"></div>
@@ -782,16 +776,16 @@
     </div>
 
     <div class="nav">
-      <button class="btn outline" onclick="goPhase(3)">← タイムラインに戻る</button>
-      <button class="btn earth" onclick="goPhase(5)">招待文を作る →</button>
+      <button class="btn outline" onclick="goPhase(2)">← 友人・全体像に戻る</button>
+      <button class="btn earth" onclick="goPhase(4)">招待文を作る →</button>
     </div>
   </div>
 </div>
 
-<!-- Phase 5: 招待文 -->
-<div class="phase" id="phase5">
+<!-- Phase 4: 招待文 -->
+<div class="phase" id="phase4">
   <div class="card">
-    <h2 class="sun" style="color:var(--sun)">⑤ 招待文 ── そのままコピーして送れる</h2>
+    <h2 class="sun" style="color:var(--sun)">④ 招待文 ── そのままコピーして送れる</h2>
     <p>「無理なく・押し付けがましくなく・参加が楽になる」温度で書いてあります。<br>
       宛先に応じて、日本語／英語を切り替えてください。</p>
 
@@ -811,16 +805,16 @@
     </div>
 
     <div class="nav">
-      <button class="btn outline" onclick="goPhase(4)">← 空き時間に戻る</button>
-      <button class="btn earth" onclick="goPhase(6)">まとめへ →</button>
+      <button class="btn outline" onclick="goPhase(3)">← 空き時間に戻る</button>
+      <button class="btn earth" onclick="goPhase(5)">まとめへ →</button>
     </div>
   </div>
 </div>
 
-<!-- Phase 6: サマリー -->
-<div class="phase" id="phase6">
+<!-- Phase 5: サマリー -->
+<div class="phase" id="phase5">
   <div class="card">
-    <h2 class="peace">⑥ あなたのピースデー仲間リスト</h2>
+    <h2 class="peace">⑤ あなたのピースデー仲間リスト</h2>
     <p>今日できたことを Obsidian に残して、また明日続きをやれます。</p>
 
     <div id="summaryView"></div>
@@ -1054,8 +1048,8 @@ async function confirmInvite(){
     pendingInviteData = null;
     cleanUrl();
     alert(`🎉 参加を承認しました！\nピースデー地球一周リレーへようこそ。\nあなたはリング上の1マスを担当します。`);
-    // Phase 3 のリングへジャンプ
-    goPhase(3);
+    // Phase 2（友人・全体像）へジャンプ
+    goPhase(2);
   }catch(e){
     console.error('confirmInvite error', e);
     alert('承認に失敗しました：\n' + e.message);
@@ -1521,7 +1515,7 @@ function loadState(){
 }
 
 /* ===================== Navigation ===================== */
-const PHASE_LABELS = ['START','①あなた','②友人','③タイムライン','④空き時間','⑤招待文','⑥まとめ'];
+const PHASE_LABELS = ['START','①あなた','②友人・全体像','③空き時間','④招待文','⑤まとめ'];
 function renderProgress(){
   const el = document.getElementById('progress');
   el.innerHTML = '';
@@ -1537,12 +1531,20 @@ function goPhase(n){
   document.querySelectorAll('.phase').forEach(el => el.classList.remove('active'));
   document.getElementById('phase'+n).classList.add('active');
   renderProgress();
-  if(n === 3){ renderTimeline(); renderJapanMap(); }
-  if(n === 4) renderGapList();
-  if(n === 5) showTemplate(state.templateLang, null);
-  if(n === 6){ renderSummary(); renderDays(); }
+  if(n === 2){ renderTimeline(); renderJapanMap(); renderPerHourTargets(); }
+  if(n === 3) renderGapList();
+  if(n === 4) showTemplate(state.templateLang, null);
+  if(n === 5){ renderSummary(); renderDays(); }
   saveState();
   window.scrollTo({top:0, behavior:'smooth'});
+}
+/* リピーター（すでに参加登録済み）は Phase 1（自分の登録）をスキップして Phase 2 へ */
+function startFlow(){
+  if(state.myDocId){
+    goPhase(2);
+  } else {
+    goPhase(1);
+  }
 }
 
 /* ===================== Phase 1: Me ===================== */
@@ -2400,7 +2402,7 @@ function escapeHtml(s){
 
 /* ===================== window.* attach（type="module" 対応: onclickから呼ぶ関数を露出） ===================== */
 Object.assign(window, {
-  goPhase,
+  goPhase, startFlow,
   addFriend, addFriendManual, addFriendByPref, removeFriend,
   saveMeAndNext, applyCityToMe, useManualMe,
   showTemplate, copyTemplate, exportMd, shareLink,
