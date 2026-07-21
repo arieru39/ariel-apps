@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title id="page-title">学習アプリ</title>
+<style>
+  :root {
+    --bg: #faf8f3;
+    --ink: #2b2b2b;
+    --sub: #6c6c6c;
+    --accent: #4a90e2;
+    --border: #d8d3c6;
+    --card: #ffffff;
+    --l1: #e0e0e0;
+    --l2: #fff3b0;
+    --l3: #a3d977;
+    --l4: #4a90e2;
+    --muted-l4: #b3cdec;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "Hiragino Sans", "Yu Gothic", sans-serif;
+    background: var(--bg); color: var(--ink);
+    margin: 0; padding: 0; line-height: 1.7;
+  }
+  header {
+    padding: 20px 32px; border-bottom: 1px solid var(--border);
+    background: #fff; display: flex; justify-content: space-between; align-items: center;
+  }
+  header h1 { margin: 0; font-size: 18px; font-weight: 600; }
+  header .book { font-size: 13px; color: var(--sub); }
+  main { max-width: 720px; margin: 24px auto; padding: 0 20px; }
+  .screen { display: none; animation: fade 0.25s; }
+  .screen.active { display: block; }
+  @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 24px; margin-bottom: 16px;
+  }
+  .layer-label {
+    font-size: 12px; color: var(--sub); letter-spacing: 2px;
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+  .theme-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px;
+  }
+  .theme-cell {
+    background: var(--l1); border-radius: 8px; padding: 14px 12px;
+    cursor: pointer; transition: transform 0.15s, box-shadow 0.15s;
+    position: relative; min-height: 88px;
+  }
+  .theme-cell:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+  .theme-cell.locked { opacity: 0.45; cursor: not-allowed; }
+  .theme-cell .lo-tag { font-family: ui-monospace, monospace; font-size: 10px; color: var(--sub); }
+  .theme-cell .title { font-size: 13px; font-weight: 600; margin-top: 4px; }
+  .theme-cell .lvl { position: absolute; bottom: 6px; right: 8px; font-size: 10px; color: var(--sub); }
+  h2 { font-size: 20px; margin: 4px 0 8px; }
+  .lo-tag-big { font-family: ui-monospace, monospace; color: var(--sub); font-size: 13px; }
+  blockquote.excerpt {
+    border-left: 3px solid var(--accent); margin: 12px 0;
+    padding: 8px 16px; color: #444; font-size: 15px; background: #fbfbfb;
+  }
+  .question {
+    font-size: 17px; font-weight: 600; margin: 18px 0 4px;
+  }
+  .prompt {
+    color: var(--sub); font-size: 14px; margin-bottom: 12px;
+  }
+  textarea {
+    width: 100%; min-height: 140px; padding: 12px; border: 1px solid var(--border);
+    border-radius: 8px; font-family: inherit; font-size: 15px; line-height: 1.6;
+    resize: vertical; background: #fff;
+  }
+  input[type="text"] {
+    width: 100%; padding: 10px 12px; border: 1px solid var(--border);
+    border-radius: 8px; font-family: inherit; font-size: 14px; background: #fff;
+  }
+  .char-count { text-align: right; font-size: 12px; color: var(--sub); margin-top: 4px; }
+  .rubric-list { display: flex; flex-direction: column; gap: 10px; margin: 14px 0; }
+  .rubric-item {
+    border: 2px solid var(--border); border-radius: 10px; padding: 12px 14px;
+    cursor: pointer; background: #fff; transition: border-color 0.15s;
+  }
+  .rubric-item:hover { border-color: #bfbfbf; }
+  .rubric-item.selected { border-color: var(--accent); background: #f2f7fd; }
+  .rubric-item .level {
+    font-size: 12px; color: var(--sub); letter-spacing: 1px; font-weight: 600;
+  }
+  .rubric-item .label { font-weight: 600; margin: 2px 0 4px; }
+  .rubric-item .desc { font-size: 13px; color: #555; }
+  .btn-row { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; gap: 10px; }
+  button {
+    background: var(--accent); color: #fff; border: 0; padding: 12px 22px;
+    border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer;
+    font-family: inherit;
+  }
+  button:disabled { background: #ccc; cursor: not-allowed; }
+  button.secondary { background: transparent; color: var(--sub); border: 1px solid var(--border); }
+  .field-label {
+    font-size: 13px; font-weight: 600; margin: 16px 0 6px; color: #333;
+  }
+  .complete-msg {
+    text-align: center; padding: 30px 20px;
+  }
+  .complete-msg .emoji { font-size: 40px; }
+  .complete-msg .headline { font-size: 20px; font-weight: 600; margin: 12px 0 8px; }
+  .complete-msg .sub { color: var(--sub); font-size: 14px; }
+  .share-options { display: flex; flex-direction: column; gap: 10px; margin: 20px 0; }
+  .share-options button { text-align: left; padding: 14px 18px; }
+  .share-options button.secondary { color: var(--ink); }
+  .progress {
+    font-size: 12px; color: var(--sub); margin-bottom: 12px;
+  }
+  .helper-buttons { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+  .helper-buttons button {
+    background: #f0ede4; color: var(--ink); padding: 6px 12px; font-size: 12px; font-weight: 400;
+  }
+  .tamakatsu-hint {
+    background: #fdf4d8; border-left: 3px solid #e8b800; padding: 10px 14px;
+    margin: 10px 0; font-size: 13px; color: #5a4a00; border-radius: 4px;
+  }
+  .history-item {
+    padding: 10px 12px; border-bottom: 1px solid var(--border); font-size: 13px;
+  }
+  .history-item .h-date { color: var(--sub); font-size: 11px; }
+  .footer-note {
+    text-align: center; color: var(--sub); font-size: 12px; padding: 30px 0 40px;
+  }
+  .milestone-banner {
+    background: linear-gradient(135deg, #fdf4d8, #fce8b8);
+    border: 2px solid #e8b800; border-radius: 10px;
+    padding: 12px 16px; margin: 14px 0; font-size: 13px; color: #5a4a00;
+  }
+  .milestone-banner .headline { font-weight: 700; margin-bottom: 4px; font-size: 14px; }
+  .related-apps {
+    margin-top: 18px; padding: 16px 18px;
+    background: #fbfaf5; border: 1px solid var(--border); border-radius: 10px;
+  }
+  .related-apps .r-headline { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+  .related-apps .r-sub { color: var(--sub); font-size: 13px; margin-bottom: 12px; }
+  .related-app-card {
+    display: block; padding: 12px 14px; margin-bottom: 8px;
+    background: #fff; border: 1px solid var(--border); border-radius: 8px;
+    text-decoration: none; color: inherit;
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  }
+  .related-app-card:hover {
+    transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    border-color: var(--accent);
+  }
+  .related-app-card .app-name {
+    font-size: 10px; color: var(--sub); letter-spacing: 1px; text-transform: uppercase;
+  }
+  .related-app-card .theme-name { font-weight: 600; font-size: 14px; margin: 3px 0; }
+  .related-app-card .why { color: #555; font-size: 13px; line-height: 1.5; }
+  .book-intro-panel {
+    background: linear-gradient(135deg, #e6f0e2, #dbe9d5);
+    border: 1px solid #a8c8a0; border-radius: 10px;
+    padding: 14px 18px; margin-bottom: 16px; font-size: 13px; color: #2f5030;
+    line-height: 1.7;
+  }
+  .book-intro-panel .panel-headline {
+    font-weight: 700; font-size: 14px; margin-bottom: 6px; color: #2a5030;
+  }
+  .book-links {
+    display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px;
+  }
+  .book-links a {
+    display: inline-block; padding: 6px 14px; border-radius: 6px;
+    background: #fff; color: #2f5030; border: 1px solid #a8c8a0;
+    font-size: 12px; text-decoration: none; font-weight: 600;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .book-links a:hover { background: #d8e8d0; border-color: #7ea078; }
+  .book-video {
+    margin-top: 14px; border-radius: 8px; overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .book-video .video-caption {
+    font-size: 12px; color: #2a5030; font-weight: 600;
+    padding: 10px 12px 6px; background: #e6f0e2;
+  }
+  .video-frame-wrap {
+    position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+    background: #000;
+  }
+  .video-frame-wrap iframe {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
+  }
+  .lo-video {
+    margin: 14px 0; border-radius: 8px; overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .lo-video .video-caption {
+    font-size: 12px; color: #2a5030; font-weight: 600;
+    padding: 10px 12px 6px; background: #e6f0e2;
+  }
+  /* ==== 第1層ガイドバナー ==== */
+  .getting-started-banner {
+    background: linear-gradient(135deg, #fff8e6, #fdefc7);
+    border: 2px solid #e8b800; border-radius: 12px;
+    padding: 18px 20px; margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(232, 184, 0, 0.15);
+  }
+  .getting-started-banner .gs-title {
+    font-weight: 700; font-size: 16px; margin-bottom: 8px; color: #5a4a00;
+  }
+  .getting-started-banner .gs-body {
+    font-size: 13.5px; color: #5a4a00; line-height: 1.75; margin-bottom: 12px;
+  }
+  .getting-started-banner .gs-actions {
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .getting-started-banner button {
+    background: #4a90e2; color: #fff; padding: 12px 18px;
+    border-radius: 8px; font-size: 14px; font-weight: 700;
+    text-align: left; cursor: pointer; border: 0;
+  }
+  .getting-started-banner button.secondary {
+    background: #fff; color: #5a4a00; border: 2px solid #e8b800;
+  }
+  .getting-started-banner button:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+  .getting-started-banner .gs-collapse {
+    background: transparent; color: #8a7000; border: 0; padding: 4px 8px;
+    font-size: 12px; text-align: right; margin-top: 4px; font-weight: 400;
+  }
+  /* 第1層ハイライト */
+  .theme-cell.first-layer-highlight {
+    box-shadow: 0 0 0 3px #e8b800, 0 4px 12px rgba(232,184,0,0.25);
+    animation: firstlayerpulse 2.5s ease-in-out infinite;
+  }
+  @keyframes firstlayerpulse {
+    0%, 100% { box-shadow: 0 0 0 3px #e8b800, 0 4px 12px rgba(232,184,0,0.25); }
+    50% { box-shadow: 0 0 0 5px #f4d055, 0 6px 18px rgba(232,184,0,0.4); }
+  }
+  .theme-cell .entry-badge {
+    position: absolute; top: 6px; right: 6px;
+    background: #e8b800; color: #fff; font-size: 9px; font-weight: 700;
+    padding: 2px 6px; border-radius: 4px; letter-spacing: 0.5px;
+  }
+  /* ==== 4択関係性クイズ（あり方を映す鏡・正解探しではない） ==== */
+  .quiz-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 14px;
+  }
+  .quiz-progress { font-size: 12px; color: var(--sub); }
+  .quiz-score { font-size: 12px; font-weight: 700; color: #4a90e2; }
+  .quiz-framing {
+    font-size: 12px; color: #6a6a6a; line-height: 1.7;
+    background: #f7f6f0; border-left: 3px solid #d0c8a8;
+    padding: 8px 12px; border-radius: 6px; margin-bottom: 14px;
+  }
+  .quiz-learning-objective {
+    background: linear-gradient(135deg, #fffbe8, #fff5cc);
+    border: 1px solid #f0d878; border-radius: 8px;
+    padding: 10px 14px; margin: 12px 0 16px;
+    font-size: 13px; line-height: 1.7; color: #5a4a00;
+  }
+  .quiz-learning-objective .lo-label {
+    font-weight: 700; font-size: 11px; letter-spacing: 1px;
+    color: #b89400; margin-bottom: 3px; display: block;
+  }
+  .quiz-question {
+    font-size: 16px; font-weight: 600; line-height: 1.7; margin: 8px 0 20px;
+    color: #2b2b2b;
+  }
+  .quiz-choices { display: flex; flex-direction: column; gap: 10px; }
+  .quiz-choice {
+    border: 2px solid var(--border); border-radius: 10px;
+    padding: 14px 18px; cursor: pointer; background: #fff;
+    transition: border-color 0.15s, background 0.15s;
+    font-size: 14px; line-height: 1.6;
+  }
+  .quiz-choice:hover:not(.disabled) { border-color: #4a90e2; background: #f2f7fd; }
+  .quiz-choice.disabled { cursor: default; }
+  .quiz-choice.chosen {
+    border-color: #4a90e2; background: #f2f7fd; box-shadow: 0 0 0 3px rgba(74,144,226,0.12);
+  }
+  .quiz-choice.dim { opacity: 0.62; }
+  /* あなたの視点（🔍 stance + ⚡🐢🌊 phase） */
+  .fb-stance {
+    margin-top: 16px; padding: 14px 16px; border-radius: 10px;
+    background: #eef7e6; border-left: 4px solid #7ab85c;
+    font-size: 14px; line-height: 1.7; color: #2f5030;
+  }
+  .fb-stance .fb-title { font-weight: 700; margin-bottom: 4px; font-size: 15px; }
+  .fb-stance .fb-phase {
+    display: inline-block; margin-top: 8px; padding: 3px 10px;
+    background: #ffffff88; border-radius: 12px; font-size: 12px;
+    font-weight: 600; color: #4a6a3a;
+  }
+  .fb-stance .fb-phase-note {
+    font-size: 12px; color: #4a6a3a; margin-top: 4px; font-style: italic;
+  }
+  /* 本の視座（📖 author_view） */
+  .fb-author {
+    margin-top: 10px; padding: 14px 16px; border-radius: 10px;
+    background: #fdf4d8; border-left: 4px solid #e8b800;
+    font-size: 14px; line-height: 1.7; color: #5a4a00;
+  }
+  .fb-author .fb-title { font-weight: 700; margin-bottom: 4px; font-size: 13px; letter-spacing: 0.5px; }
+  /* 立ち止まりの問い（🌱 slow_question） */
+  .fb-slow {
+    margin-top: 10px; padding: 14px 16px; border-radius: 10px;
+    background: #f0f4ff; border-left: 4px solid #6a8fd8;
+    font-size: 14px; line-height: 1.7; color: #2a3c60;
+  }
+  .fb-slow .fb-title { font-weight: 700; margin-bottom: 4px; font-size: 13px; letter-spacing: 0.5px; }
+  .quiz-insight {
+    margin-top: 12px; padding: 12px 16px;
+    background: #fbf7ea; border-left: 4px solid #d4b854;
+    border-radius: 8px; font-size: 13px; color: #5a4a00; line-height: 1.7;
+  }
+  .quiz-result {
+    text-align: center; padding: 30px 20px;
+  }
+  .quiz-result .emoji { font-size: 44px; }
+  .quiz-result .headline { font-size: 20px; font-weight: 700; margin: 12px 0 8px; }
+  .quiz-result .touched-count { font-size: 22px; font-weight: 700; color: #4a90e2; margin: 4px 0; }
+  .quiz-result .sub { color: var(--sub); font-size: 14px; margin-bottom: 20px; line-height: 1.7; }
+  .quiz-touched-themes {
+    background: #fbfaf5; border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 18px; margin-top: 16px; text-align: left;
+  }
+  .quiz-touched-themes .h { font-weight: 700; font-size: 13px; margin-bottom: 8px; color: #333; }
+  .quiz-touched-themes ul { margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.9; color: #444; }
+  .quiz-stance-trail {
+    background: #f2f7fd; border: 1px solid #b3cdec; border-radius: 10px;
+    padding: 14px 18px; margin-top: 16px; text-align: left;
+  }
+  .quiz-stance-trail .h { font-weight: 700; font-size: 13px; margin-bottom: 8px; color: #2a3c60; }
+  .quiz-stance-trail ul { margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.9; color: #2a3c60; }
+  .quiz-stance-trail .qnum { color: #4a90e2; font-weight: 700; margin-right: 4px; }
+  /* ==== 動画前の観点クイズ（perspective_quiz） ==== */
+  .perspective-quiz-block {
+    background: linear-gradient(135deg, #f7f4ea, #ede6d0);
+    border: 1px solid #d0c8a8; border-radius: 12px;
+    padding: 16px 18px; margin: 14px 0 18px;
+  }
+  .perspective-quiz-block .pq-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 8px; font-size: 12px; letter-spacing: 0.5px;
+  }
+  .perspective-quiz-block .pq-label { font-weight: 700; color: #5a4a00; }
+  .perspective-quiz-block .pq-progress { color: #7a6a30; font-family: ui-monospace, monospace; }
+  .perspective-quiz-block .pq-lo {
+    background: #fffbe8; border: 1px solid #f0d878; border-radius: 8px;
+    padding: 8px 12px; font-size: 12.5px; line-height: 1.6; color: #5a4a00; margin-bottom: 10px;
+  }
+  .perspective-quiz-block .pq-lo .pq-lo-label {
+    font-weight: 700; font-size: 10.5px; letter-spacing: 1px;
+    color: #b89400; margin-bottom: 3px; display: block;
+  }
+  .perspective-quiz-block .pq-question {
+    font-size: 15px; font-weight: 600; line-height: 1.7; margin: 4px 0 12px; color: #2b2b2b;
+  }
+  .perspective-quiz-block .pq-choices { display: flex; flex-direction: column; gap: 8px; }
+  .perspective-quiz-block .pq-choice {
+    border: 2px solid #d8d0b0; border-radius: 10px; padding: 10px 14px;
+    background: #fff; cursor: pointer; font-size: 13.5px; line-height: 1.55;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .perspective-quiz-block .pq-choice:hover:not(.disabled) {
+    border-color: #b89400; background: #fdf7e0;
+  }
+  .perspective-quiz-block .pq-choice.disabled { cursor: default; }
+  .perspective-quiz-block .pq-choice.chosen {
+    border-color: #b89400; background: #fdf4c8;
+    box-shadow: 0 0 0 3px rgba(232, 184, 0, 0.15);
+  }
+  .perspective-quiz-block .pq-choice.dim { opacity: 0.55; }
+  .perspective-quiz-block .pq-hint {
+    font-size: 11.5px; color: #7a6a30; margin-top: 8px; line-height: 1.6;
+  }
+  /* 動画を観たあとの1〜2行反応 */
+  .lo-reaction {
+    margin: 14px 0 4px;
+  }
+  .lo-reaction textarea {
+    min-height: 70px;
+  }
+  .lo-reaction-label {
+    font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #333;
+  }
+  .lo-reaction-hint {
+    font-size: 11.5px; color: var(--sub); margin-top: 4px;
+  }
+  /* ==== エンジン注釈（Fast/Slow） ==== */
+  .rubric-item .fast-slow-note {
+    font-size: 11px; color: #4a90e2; font-weight: 600; margin-top: 4px;
+    letter-spacing: 0.3px; font-family: ui-monospace, monospace;
+  }
+  .engine-principle {
+    margin-top: 16px; padding: 12px 16px;
+    background: linear-gradient(135deg, #f0f4ff, #e6ecfa);
+    border: 1px solid #b3cdec; border-radius: 8px;
+    font-size: 12.5px; color: #2a3c60; line-height: 1.7;
+  }
+  .engine-principle .ep-title {
+    font-weight: 700; margin-bottom: 4px; color: #1a2b45; font-size: 13px;
+  }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1 id="header-title">学習アプリ</h1>
+    <div class="book" id="header-meta"></div>
+  </div>
+  <div>
+    <button class="secondary" onclick="showScreen('map')">🗺 マップ</button>
+  </div>
+</header>
+
+<main>
+
+<!-- ========= [00] マップ画面 ========= -->
+<section id="screen-map" class="screen active">
+  <div class="card">
+    <div class="book-intro-panel" id="book-intro-panel" style="display:none;">
+      <div class="panel-headline" id="book-intro-headline">📚 本と一緒に学べます</div>
+      <div id="book-intro-text"></div>
+      <div class="book-links" id="book-links"></div>
+      <div id="book-video" class="book-video" style="display:none; margin-top:14px;">
+        <div class="video-caption" id="book-video-caption"></div>
+        <div class="video-frame-wrap">
+          <iframe id="book-video-iframe" src="" title="解説動画" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <!-- 第1層ガイドバナー -->
+    <div class="getting-started-banner" id="getting-started-banner" style="display:none;">
+      <div class="gs-title" id="gs-title">🌱 初めての方へ</div>
+      <div class="gs-body" id="gs-body"></div>
+      <div class="gs-actions">
+        <button onclick="showQuiz()" id="gs-quiz-btn">🎯 関係性クイズで全体を掴む（4択・8問・書かなくてOK）</button>
+        <button class="secondary" onclick="openFirstTheme()" id="gs-write-btn">✍️ 第1層から直接書く</button>
+      </div>
+      <button class="gs-collapse" onclick="dismissBanner()">今日は非表示にする →</button>
+    </div>
+
+    <div class="progress" id="progress-line">読み込み中…</div>
+    <h2>今日、触る #LO を1つ選んでください</h2>
+    <div style="color: var(--sub); font-size: 14px; margin-bottom: 8px;">
+      触っていないところが多くていい。地図はゆっくり色づいていきます。<strong>第1層</strong>（下段）から始めるのがおすすめです。
+    </div>
+
+    <div id="layers-container"></div>
+  </div>
+
+  <div class="card">
+    <div class="field-label">これまでの学び（直近5件）</div>
+    <div id="history-list">まだありません。</div>
+  </div>
+</section>
+
+<!-- ========= [0.5] 関係性クイズ（4択・8問・あり方を映す鏡） ========= -->
+<section id="screen-quiz" class="screen">
+  <div class="card">
+    <div class="quiz-header">
+      <div class="quiz-progress" id="quiz-progress">Q1 / 8</div>
+      <div class="quiz-score" id="quiz-score">触れた視点 0 / 8</div>
+    </div>
+
+    <h2 style="font-size:15px; color:var(--sub); margin:0 0 4px; letter-spacing:1px;">🎯 関係性クイズ</h2>
+    <div class="quiz-framing" id="quiz-framing"></div>
+
+    <div class="quiz-learning-objective" id="quiz-learning-objective" style="display:none;">
+      <span class="lo-label">🎯 この問いで掴みたいこと</span>
+      <div id="quiz-lo-body"></div>
+    </div>
+
+    <div class="quiz-question" id="quiz-question"></div>
+    <div class="quiz-choices" id="quiz-choices"></div>
+
+    <div id="quiz-feedback-stance" class="fb-stance" style="display:none;"></div>
+    <div id="quiz-feedback-author" class="fb-author" style="display:none;"></div>
+    <div id="quiz-feedback-slow" class="fb-slow" style="display:none;"></div>
+    <div class="quiz-insight" id="quiz-insight" style="display:none;"></div>
+
+    <div class="btn-row">
+      <button class="secondary" onclick="showScreen('map')">← マップに戻る</button>
+      <button id="quiz-next-btn" onclick="nextQuizQuestion()" style="display:none;">次の問い →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ========= [0.6] クイズ完了画面（8つの視点の軌跡） ========= -->
+<section id="screen-quiz-result" class="screen">
+  <div class="card">
+    <div class="quiz-result">
+      <div class="emoji">🌱</div>
+      <div class="headline">8つの視点に触れました</div>
+      <div class="touched-count" id="quiz-result-touched-count">0 / 8 の視点に触れました</div>
+      <div class="sub" id="quiz-result-sub">
+        正解を数える場ではありません。あなたが8つの問いで見せた「あり方」の輪郭が、これからの学びの入口になります。
+      </div>
+
+      <div class="quiz-stance-trail">
+        <div class="h">🔍 今日のあなたの視点の軌跡</div>
+        <ul id="quiz-stance-list"></ul>
+      </div>
+
+      <div class="quiz-touched-themes">
+        <div class="h">この8問で触れた主要テーマ</div>
+        <ul id="quiz-touched-list"></ul>
+      </div>
+
+      <div class="engine-principle" style="margin-top:20px; text-align:left;">
+        <div class="ep-title">⚡ 学習エンジンの統一原理</div>
+        <div id="quiz-engine-principle-body"></div>
+      </div>
+
+      <div class="btn-row" style="justify-content:center; margin-top:20px;">
+        <button onclick="openFirstTheme()">✍️ 第1層 #unconscious_assumption から書く →</button>
+      </div>
+      <div class="btn-row" style="justify-content:center; margin-top:8px;">
+        <button class="secondary" onclick="showScreen('map')">🗺 マップを見る</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========= [01] LO詳細 ========= -->
+<section id="screen-lo" class="screen">
+  <div class="card">
+    <div class="lo-tag-big" id="lo-tag"></div>
+    <h2 id="lo-title"></h2>
+
+    <div id="lo-milestone-banner" class="milestone-banner" style="display:none;">
+      <div class="headline">🌱 このテーマは学習パスの中心マイルストーン</div>
+      <div id="lo-milestone-note"></div>
+    </div>
+
+    <div class="field-label">本文より</div>
+    <blockquote class="excerpt" id="lo-excerpt"></blockquote>
+
+    <!-- 動画を観る前の観点クイズ（最大3問／あり方を映す鏡・正解探しではない） -->
+    <div id="perspective-quiz-block" class="perspective-quiz-block" style="display:none;">
+      <div class="pq-header">
+        <span class="pq-label">🎯 動画を観る前の観点づくり</span>
+        <span class="pq-progress" id="pq-progress"></span>
+      </div>
+      <div class="pq-lo" id="pq-lo" style="display:none;">
+        <span class="pq-lo-label">🎯 この問いで掴みたいこと</span>
+        <div id="pq-lo-body"></div>
+      </div>
+      <div class="pq-question" id="pq-question"></div>
+      <div class="pq-choices" id="pq-choices"></div>
+      <div id="pq-feedback-stance" class="fb-stance" style="display:none;"></div>
+      <div id="pq-feedback-author" class="fb-author" style="display:none;"></div>
+      <div id="pq-feedback-slow" class="fb-slow" style="display:none;"></div>
+      <div class="pq-hint" id="pq-hint" style="display:none;"></div>
+      <div class="btn-row" id="pq-next-row" style="display:none; margin-top:12px;">
+        <span></span>
+        <button id="pq-next-btn" onclick="nextPerspectiveQuestion()">次の観点 →</button>
+      </div>
+    </div>
+
+    <div id="lo-video" class="lo-video" style="display:none;">
+      <div class="video-caption" id="lo-video-caption"></div>
+      <div class="video-frame-wrap">
+        <iframe id="lo-video-iframe" src="" title="このLOの解説動画" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <!-- 動画を観たあとの1〜2行反応 -->
+    <div id="lo-reaction-block" class="lo-reaction" style="display:none;">
+      <div class="lo-reaction-label">🎥 動画を観て感じたこと（1〜2行）</div>
+      <textarea id="lo-reaction" placeholder="動画で心に残った言葉・違和感・引っかかりを1〜2行で。"></textarea>
+      <div class="lo-reaction-hint">正しく要約する必要はありません。あなたの中で動いたものだけ書いてください。</div>
+    </div>
+
+    <div class="question" id="lo-question"></div>
+    <div class="prompt" id="lo-prompt"></div>
+
+    <div class="btn-row">
+      <button class="secondary" onclick="showScreen('map')">← マップに戻る</button>
+      <button onclick="showScreen('write')">さらに深める →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ========= [02] 記述入力 ========= -->
+<section id="screen-write" class="screen">
+  <div class="card">
+    <div class="lo-tag-big" id="write-lo-tag"></div>
+    <div class="field-label">あなたの言葉で（100〜300字めやす）</div>
+    <textarea id="write-text" oninput="updateCharCount()" placeholder="実務での具体シーンを1つ選んで、書いてみてください。"></textarea>
+    <div class="char-count"><span id="char-count">0</span> 字</div>
+
+    <div class="helper-buttons">
+      <button onclick="showHelper('時系列で書く： 何時／誰が／何をした → 相手はどう反応した → 自分はどう感じた の順で並べてみてください。')">言葉に詰まったら：時系列</button>
+      <button onclick="showHelper('相手の反応から書く： まず相手の反応（表情・返事・態度）を描写。そこから遡って、自分の行為はどんな意味として届いていたかを推定してください。')">相手の反応から</button>
+      <button onclick="showHelper('あなたの躊躇から書く： 実は「これ言おうかどうしようか」と迷った瞬間があったはず。その躊躇そのものが、何かを教えてくれます。')">躊躇から</button>
+    </div>
+    <div id="helper-text" class="tamakatsu-hint" style="display:none;"></div>
+
+    <div class="btn-row">
+      <button class="secondary" onclick="showScreen('lo')">← 戻る</button>
+      <button onclick="showScreen('rubric')">ルーブリックへ →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ========= [03] ルーブリック自己評価 ========= -->
+<section id="screen-rubric" class="screen">
+  <div class="card">
+    <h2>自己評価：今回のあなたはどの段階？</h2>
+    <div style="color: var(--sub); font-size: 14px; margin-bottom: 10px;">
+      「決めきれない」も学びです。無理に決めないでください。
+    </div>
+    <div class="rubric-list" id="rubric-list"></div>
+
+    <div class="engine-principle" id="rubric-engine-principle" style="display:none;">
+      <div class="ep-title">⚡ ルーブリックの読み方（Fast / Slow）</div>
+      <div id="rubric-engine-principle-body"></div>
+    </div>
+
+    <div class="field-label">なぜそのLか（根拠を1行）</div>
+    <input type="text" id="rubric-evidence" placeholder="例：責任と情報は渡したが、判断基準は自分の中にあった" />
+
+    <div class="btn-row">
+      <button class="secondary" onclick="showScreen('write')">← 戻る</button>
+      <button onclick="showScreen('tamakatsu')">たまかつ接続へ →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ========= [04] たまかつ接続 ========= -->
+<section id="screen-tamakatsu" class="screen">
+  <div class="card">
+    <h2>たまかつに接続する</h2>
+    <div class="tamakatsu-hint">
+      「わからない」もOK。ただし、何か書いてから次へ進んでください。書く行為が言葉を作ります。
+    </div>
+
+    <div class="field-label">何のために、これを学んだ？</div>
+    <textarea id="why" style="min-height: 80px;" placeholder="例：任せられる幅を広げるため"></textarea>
+
+    <div class="field-label">誰のために、明日これを使う？</div>
+    <textarea id="for-whom" style="min-height: 80px;" placeholder="例：田中さんの次のプロジェクトで、責任を残して判断を渡す試みをするため"></textarea>
+
+    <div class="btn-row">
+      <button class="secondary" onclick="showScreen('rubric')">← 戻る</button>
+      <button id="btn-finish" onclick="finishSession()">保存して完了 →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ========= [05] 完了 ========= -->
+<section id="screen-done" class="screen">
+  <div class="card">
+    <div class="complete-msg">
+      <div class="emoji">🌱</div>
+      <div class="headline">今日の学びを保存しました</div>
+      <div class="sub">触った #LO は増えていきます。触っていないところが多くていい。</div>
+    </div>
+
+    <div class="field-label">場に晒す（他者評価をもらう）</div>
+    <div class="share-options">
+      <button class="secondary" onclick="exportMarkdown()">📋 Markdownでコピー（ノート／SNS／Discordに貼れます）</button>
+      <button class="secondary" onclick="shareTo('gc')">👥 次に人と話す時の候補に入れる</button>
+      <button class="secondary" onclick="shareTo('discord')">💬 ありえる楽考コミュニティに投げる（フラグのみ）</button>
+    </div>
+
+    <div id="related-apps-container" class="related-apps" style="display:none;">
+      <div class="r-headline">🌱 この学びを深めるには</div>
+      <div class="r-sub">他の書籍アプリで、同じテーマを別の視点から鍛えられます。</div>
+      <div id="related-apps-list"></div>
+    </div>
+
+    <div class="btn-row" style="justify-content: center;">
+      <button onclick="showScreen('map')">🗺 マップに戻る</button>
+    </div>
+  </div>
+</section>
+
+<div class="footer-note">
+  ありえる楽考 / たまかつアプリ / v0.1 (P0)
+</div>
+</main>
+
+<script>
+// ==================== State ====================
+let DATA = null;
+let currentTheme = null;
+let currentSession = null;
+let STORAGE_KEY = "ariel_learning_sessions_v1";
+let QUIZ_STATE_KEY = "ariel_learning_quiz_v1";
+let BANNER_KEY = "ariel_learning_banner_dismissed_v1";
+// Quiz runtime（あり方を映す鏡・正解探しではない）
+let quizIdx = 0;
+let quizAnswered = 0;
+let quizTouchedThemes = new Set();
+let quizStanceTrail = []; // {q_index, question_short, stance, phase}
+// Per-theme perspective quiz runtime（動画を観る前の観点づくり）
+let perspectiveIdx = 0;
+let perspectiveStanceTrail = []; // {q_index, stance, phase}
+
+// ==================== Init ====================
+async function init() {
+  try {
+    const res = await fetch("data.json");
+    DATA = await res.json();
+  } catch (e) {
+    alert("データの読み込みに失敗しました。ネットワーク接続を確認してページを再読み込みしてください。");
+    return;
+  }
+  applyBookMeta();
+  renderMap();
+  renderHistory();
+  renderGettingStartedBanner();
+}
+
+// ==================== Apply book-specific meta ====================
+function applyBookMeta() {
+  const b = DATA.book || {};
+  const title = (b.title || "学習アプリ") + " 学習アプリ";
+  document.title = title;
+  document.getElementById("page-title").textContent = title;
+  document.getElementById("header-title").textContent = title;
+  const metaParts = [];
+  if (b.author) metaParts.push(b.author);
+  if (b.publisher) metaParts.push(b.publisher);
+  if (b.product_line) metaParts.push(b.product_line);
+  if (b.tagline) metaParts.push(b.tagline);
+  document.getElementById("header-meta").textContent = metaParts.join(" ／ ");
+  // Also update <html lang> and STORAGE_KEY per book slug
+  if (b.slug) {
+    STORAGE_KEY = "ariel_learning_" + b.slug;
+  }
+
+  // Book-intro panel: book link + playlist embed
+  const linksContainer = document.getElementById("book-links");
+  linksContainer.innerHTML = "";
+  if (b.amazon_url) {
+    const a = document.createElement("a");
+    a.href = b.amazon_url;
+    a.target = "_blank"; a.rel = "noopener";
+    a.textContent = "📕 Amazonで本を見る";
+    linksContainer.appendChild(a);
+  }
+  if (b.playlist_url) {
+    const a = document.createElement("a");
+    a.href = b.playlist_url;
+    a.target = "_blank"; a.rel = "noopener";
+    a.textContent = "🎬 YouTubeプレイリスト全19本";
+    linksContainer.appendChild(a);
+  }
+  const introText = b.book_intro_text || "各テーマの詳細画面で <strong>そのテーマに対応する章別解説動画</strong> が視聴できます。まずは触ってみて、動画を挟みながら記述→自己評価→たまかつ接続へ。";
+  document.getElementById("book-intro-text").innerHTML = introText;
+  if (b.book_intro_headline) {
+    document.getElementById("book-intro-headline").textContent = b.book_intro_headline;
+  }
+  if (b.playlist_embed_url) {
+    document.getElementById("book-video").style.display = "";
+    document.getElementById("book-video-iframe").src = b.playlist_embed_url;
+    document.getElementById("book-video-caption").textContent =
+      b.video_title || "🎬 章別解説プレイリスト";
+  }
+  if (b.amazon_url || b.playlist_url || b.playlist_embed_url) {
+    document.getElementById("book-intro-panel").style.display = "";
+  }
+}
+
+// ==================== Screens ====================
+function showScreen(name) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  document.getElementById("screen-" + name).classList.add("active");
+  window.scrollTo({top: 0, behavior: "smooth"});
+  if (name === "map") { renderMap(); renderHistory(); renderGettingStartedBanner(); }
+  if (name === "done") { renderRelatedApps(); }
+  if (name === "rubric") { renderRubricEnginePrinciple(); }
+}
+
+// ==================== Related apps (cross-book learning) ====================
+function renderRelatedApps() {
+  const container = document.getElementById("related-apps-container");
+  const list = document.getElementById("related-apps-list");
+  const related = (currentTheme && currentTheme.related_apps) || [];
+  if (!related.length) {
+    container.style.display = "none";
+    return;
+  }
+  container.style.display = "";
+  list.innerHTML = "";
+  related.forEach(r => {
+    const a = document.createElement("a");
+    a.className = "related-app-card";
+    a.href = r.app_href;
+    a.target = "_blank";
+    a.rel = "noopener";
+    a.innerHTML = `
+      <div class="app-name">📖 ${r.app_title}</div>
+      <div class="theme-name">${r.theme_title}</div>
+      <div class="why">${r.why}</div>
+    `;
+    list.appendChild(a);
+  });
+}
+
+// ==================== Map ====================
+function renderMap() {
+  const sessions = loadSessions();
+  const bestByTheme = {};
+  sessions.forEach(s => {
+    if (!bestByTheme[s.theme_id] || s.self_rubric > bestByTheme[s.theme_id]) {
+      bestByTheme[s.theme_id] = s.self_rubric;
+    }
+  });
+
+  const container = document.getElementById("layers-container");
+  container.innerHTML = "";
+  const layers = DATA.layers || [];
+  layers.forEach(ly => {
+    const label = document.createElement("div");
+    label.className = "layer-label";
+    label.textContent = ly.label;
+    container.appendChild(label);
+    const grid = document.createElement("div");
+    grid.className = "theme-grid";
+    container.appendChild(grid);
+    DATA.themes.filter(t => t.layer === ly.level).forEach(t => {
+      const cell = document.createElement("div");
+      cell.className = "theme-cell" + (t.implemented ? "" : " locked");
+      const lvl = bestByTheme[t.id] || 0;
+      const color = lvl === 4 ? "var(--l4)" : lvl === 3 ? "var(--l3)" : lvl === 2 ? "var(--l2)" : "var(--l1)";
+      cell.style.background = color;
+      // Highlight the "first theme" (getting_started.first_theme_id) if untouched
+      const gs = DATA.getting_started;
+      const isFirstEntry = gs && gs.enabled && gs.first_theme_id === t.id && !bestByTheme[t.id];
+      if (isFirstEntry) cell.classList.add("first-layer-highlight");
+      const entryBadge = isFirstEntry ? '<div class="entry-badge">START</div>' : "";
+      cell.innerHTML = `
+        ${entryBadge}
+        <div class="lo-tag">${t.lo_tag}</div>
+        <div class="title">${t.title}</div>
+        <div class="lvl">${t.implemented ? (lvl ? "L" + lvl : "未着手") : "coming soon"}</div>
+      `;
+      if (t.implemented) cell.onclick = () => openTheme(t.id);
+      grid.appendChild(cell);
+    });
+  });
+
+  const implemented = DATA.themes.filter(t => t.implemented).length;
+  const touched = Object.keys(bestByTheme).length;
+  document.getElementById("progress-line").textContent =
+    `触った #LO: ${touched} / ${implemented}（実装済み） · セッション数: ${sessions.length}`;
+}
+
+// ==================== Open LO ====================
+function openTheme(id) {
+  currentTheme = DATA.themes.find(t => t.id === id);
+  currentSession = {
+    session_id: "s-" + Date.now(),
+    theme_id: id,
+    lo_tag: currentTheme.lo_tag,
+    text: "",
+    self_rubric: null,
+    rubric_evidence: "",
+    tamakatsu_why: "",
+    tamakatsu_for_whom: "",
+    post_video_reflection: "",
+    perspective_stance_trail: [],
+    created_at: new Date().toISOString(),
+    shared_at: null,
+    share_channels: []
+  };
+
+  document.getElementById("lo-tag").textContent = currentTheme.lo_tag;
+  document.getElementById("lo-title").textContent = currentTheme.title;
+  document.getElementById("lo-excerpt").textContent = currentTheme.excerpt;
+  document.getElementById("lo-question").textContent = currentTheme.seed_question;
+  document.getElementById("lo-prompt").textContent = currentTheme.prompt;
+
+  // Per-theme video（観点クイズが終わってから表示）
+  const loVideo = document.getElementById("lo-video");
+  const loIframe = document.getElementById("lo-video-iframe");
+  const hasVideo = !!currentTheme.video_embed_url;
+  if (hasVideo) {
+    loIframe.src = currentTheme.video_embed_url;
+    document.getElementById("lo-video-caption").textContent =
+      "🎬 " + (currentTheme.video_title || "このテーマの解説動画");
+  } else {
+    loIframe.src = "";
+  }
+
+  // Reset reaction textarea
+  const reactionBlock = document.getElementById("lo-reaction-block");
+  const reactionEl = document.getElementById("lo-reaction");
+  if (reactionEl) reactionEl.value = "";
+  if (reactionBlock) reactionBlock.style.display = "none";
+
+  // Perspective quiz initialization
+  perspectiveIdx = 0;
+  perspectiveStanceTrail = [];
+  const pqList = currentTheme.perspective_quiz || [];
+  const pqBlock = document.getElementById("perspective-quiz-block");
+  if (pqList.length && pqBlock) {
+    // まず動画を隠す。観点クイズを解き終わってから動画＋反応を表示
+    pqBlock.style.display = "";
+    if (loVideo) loVideo.style.display = "none";
+    renderPerspectiveQuestion();
+  } else {
+    // 観点クイズがなければ最初から動画＋反応を出す
+    if (pqBlock) pqBlock.style.display = "none";
+    if (loVideo) loVideo.style.display = hasVideo ? "" : "none";
+    if (hasVideo && reactionBlock) reactionBlock.style.display = "";
+  }
+
+  const milestoneBanner = document.getElementById("lo-milestone-banner");
+  if (currentTheme.milestone) {
+    milestoneBanner.style.display = "";
+    document.getElementById("lo-milestone-note").textContent = currentTheme.milestone_note || "";
+  } else {
+    milestoneBanner.style.display = "none";
+  }
+
+  document.getElementById("write-lo-tag").textContent = currentTheme.lo_tag + " · " + currentTheme.title;
+  document.getElementById("write-text").value = "";
+  document.getElementById("char-count").textContent = "0";
+  document.getElementById("helper-text").style.display = "none";
+
+  renderRubric();
+  document.getElementById("rubric-evidence").value = "";
+  document.getElementById("why").value = "";
+  document.getElementById("for-whom").value = "";
+
+  showScreen("lo");
+}
+
+// ==================== Perspective Quiz (動画前の観点づくり) ====================
+// 各LOで最大3問／正解／不正解のジャッジは出さない。選んだ選択肢に応じて
+//   🔍 あなたの視点＋位相 / 📖 本の視座 / 🌱 立ち止まりの問い を返す。
+// 全問終わったら動画＋反応欄が出現する。
+function renderPerspectiveQuestion() {
+  const pqList = (currentTheme && currentTheme.perspective_quiz) || [];
+  if (!pqList.length) { finishPerspectiveQuiz(); return; }
+  const q = pqList[perspectiveIdx];
+  if (!q) { finishPerspectiveQuiz(); return; }
+
+  document.getElementById("pq-progress").textContent = `Q${perspectiveIdx + 1} / ${pqList.length}`;
+  document.getElementById("pq-question").innerHTML = q.q || "";
+
+  const loEl = document.getElementById("pq-lo");
+  const loBody = document.getElementById("pq-lo-body");
+  if (q.learning_objective && loEl && loBody) {
+    loBody.innerHTML = q.learning_objective;
+    loEl.style.display = "";
+  } else if (loEl) {
+    loEl.style.display = "none";
+  }
+
+  const choicesEl = document.getElementById("pq-choices");
+  choicesEl.innerHTML = "";
+  (q.choices || []).forEach((c, i) => {
+    const div = document.createElement("div");
+    div.className = "pq-choice";
+    div.textContent = c.text;
+    div.onclick = () => selectPerspectiveChoice(i);
+    choicesEl.appendChild(div);
+  });
+
+  ["pq-feedback-stance","pq-feedback-author","pq-feedback-slow","pq-hint"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = "none";
+  });
+  document.getElementById("pq-next-row").style.display = "none";
+}
+function selectPerspectiveChoice(idx) {
+  const pqList = currentTheme.perspective_quiz || [];
+  const q = pqList[perspectiveIdx];
+  const chosen = q.choices[idx];
+
+  const items = document.querySelectorAll("#pq-choices .pq-choice");
+  items.forEach((el, i) => {
+    el.classList.add("disabled");
+    el.onclick = null;
+    if (i === idx) el.classList.add("chosen");
+    else el.classList.add("dim");
+  });
+
+  perspectiveStanceTrail.push({
+    q_index: perspectiveIdx,
+    stance: chosen.stance || "",
+    phase: chosen.phase || ""
+  });
+
+  const fbStance = document.getElementById("pq-feedback-stance");
+  if (fbStance) {
+    fbStance.innerHTML = `
+      <div class="fb-title">${chosen.stance || ""}</div>
+      ${chosen.phase ? `<div class="fb-phase">${chosen.phase}</div>` : ""}
+      ${chosen.phase_note ? `<div class="fb-phase-note">${chosen.phase_note}</div>` : ""}
+    `;
+    fbStance.style.display = "";
+  }
+  const fbAuthor = document.getElementById("pq-feedback-author");
+  if (fbAuthor && chosen.author_view) {
+    fbAuthor.innerHTML = `
+      <div class="fb-title">本の視座として</div>
+      <div>${chosen.author_view}</div>
+    `;
+    fbAuthor.style.display = "";
+  }
+  const fbSlow = document.getElementById("pq-feedback-slow");
+  if (fbSlow && chosen.slow_question) {
+    fbSlow.innerHTML = `
+      <div class="fb-title">立ち止まって聞いてみる</div>
+      <div>${chosen.slow_question}</div>
+    `;
+    fbSlow.style.display = "";
+  }
+
+  const nextRow = document.getElementById("pq-next-row");
+  const nextBtn = document.getElementById("pq-next-btn");
+  const isLast = (perspectiveIdx + 1 >= pqList.length);
+  const hasVideoForBtn = !!(currentTheme && currentTheme.video_embed_url);
+  nextBtn.textContent = isLast
+    ? (hasVideoForBtn ? "🎬 動画を観る →" : "🖋 感じたことを書く →")
+    : "次の観点 →";
+  nextRow.style.display = "";
+}
+function nextPerspectiveQuestion() {
+  const pqList = (currentTheme && currentTheme.perspective_quiz) || [];
+  perspectiveIdx++;
+  if (perspectiveIdx >= pqList.length) {
+    finishPerspectiveQuiz();
+  } else {
+    renderPerspectiveQuestion();
+    // Scroll perspective block into view
+    const pq = document.getElementById("perspective-quiz-block");
+    if (pq && pq.scrollIntoView) pq.scrollIntoView({behavior:"smooth", block:"start"});
+  }
+}
+function finishPerspectiveQuiz() {
+  // Save trail into session
+  if (currentSession) currentSession.perspective_stance_trail = perspectiveStanceTrail.slice();
+  // Reveal the video + reaction block
+  const loVideo = document.getElementById("lo-video");
+  const reactionBlock = document.getElementById("lo-reaction-block");
+  const reactionLabel = reactionBlock ? reactionBlock.querySelector(".lo-reaction-label") : null;
+  const reactionTa = document.getElementById("lo-reaction");
+  const hasVideo = !!(currentTheme && currentTheme.video_embed_url);
+  if (hasVideo) {
+    if (loVideo) loVideo.style.display = "";
+    if (reactionLabel) reactionLabel.textContent = "🎥 動画を観て感じたこと（1〜2行）";
+    if (reactionTa) reactionTa.setAttribute("placeholder", "動画で心に残った言葉・違和感・引っかかりを1〜2行で。");
+  } else {
+    // 動画が未整備 → 動画エリアはスキップして観点クイズの気づきを直接書く場所へ
+    if (reactionLabel) reactionLabel.textContent = "💭 いまの観点で感じたこと（1〜2行）";
+    if (reactionTa) reactionTa.setAttribute("placeholder", "4択の選び方を通じて動いたもの・気づきを1〜2行で。");
+  }
+  if (reactionBlock) reactionBlock.style.display = "";
+  // Scroll to the first visible section after quiz (video if present, else reaction)
+  setTimeout(() => {
+    const target = hasVideo ? loVideo : reactionBlock;
+    if (target && target.scrollIntoView) target.scrollIntoView({behavior:"smooth", block:"start"});
+  }, 100);
+}
+
+// ==================== Write ====================
+function updateCharCount() {
+  const v = document.getElementById("write-text").value;
+  document.getElementById("char-count").textContent = v.length;
+  if (currentSession) currentSession.text = v;
+}
+function showHelper(msg) {
+  const el = document.getElementById("helper-text");
+  el.textContent = msg;
+  el.style.display = "block";
+}
+
+// ==================== Rubric ====================
+function renderRubric() {
+  const list = document.getElementById("rubric-list");
+  list.innerHTML = "";
+  DATA.rubric_labels.forEach((r, i) => {
+    const div = document.createElement("div");
+    div.className = "rubric-item";
+    div.dataset.level = r.level;
+    const fsNote = r.fast_slow ? `<div class="fast-slow-note">⚡ ${r.fast_slow}</div>` : "";
+    div.innerHTML = `
+      <div class="level">L${r.level}</div>
+      <div class="label">${r.label}</div>
+      <div class="desc">${currentTheme.rubric[i]}</div>
+      ${fsNote}
+    `;
+    div.onclick = () => {
+      document.querySelectorAll(".rubric-item").forEach(x => x.classList.remove("selected"));
+      div.classList.add("selected");
+      currentSession.self_rubric = r.level;
+    };
+    list.appendChild(div);
+  });
+}
+function renderRubricEnginePrinciple() {
+  const en = DATA.engine_note;
+  if (!en) return;
+  const box = document.getElementById("rubric-engine-principle");
+  const body = document.getElementById("rubric-engine-principle-body");
+  if (!box || !body) return;
+  body.innerHTML = `<strong>「${en.unified_principle}」</strong><br>${en.sub || ""}`;
+  box.style.display = "";
+}
+
+// ==================== Tamakatsu / Finish ====================
+function finishSession() {
+  currentSession.text = document.getElementById("write-text").value;
+  currentSession.rubric_evidence = document.getElementById("rubric-evidence").value;
+  currentSession.tamakatsu_why = document.getElementById("why").value;
+  currentSession.tamakatsu_for_whom = document.getElementById("for-whom").value;
+  const reactionEl = document.getElementById("lo-reaction");
+  if (reactionEl) currentSession.post_video_reflection = reactionEl.value;
+
+  if (!currentSession.text.trim()) {
+    alert("[書く] の記述が空です。50字以上を目安に書いてから完了してください。");
+    return;
+  }
+  if (!currentSession.self_rubric) {
+    alert("ルーブリックの自己評価を選んでください。");
+    return;
+  }
+  if (!currentSession.tamakatsu_why.trim() || !currentSession.tamakatsu_for_whom.trim()) {
+    alert("たまかつの2問（何のために／誰のために）を、何か書いてから完了してください。");
+    return;
+  }
+
+  const sessions = loadSessions();
+  sessions.push(currentSession);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions));
+  showScreen("done");
+}
+
+// ==================== Share ====================
+function shareTo(channel) {
+  const sessions = loadSessions();
+  const s = sessions[sessions.length - 1];
+  s.share_channels = s.share_channels || [];
+  s.share_channels.push(channel);
+  s.shared_at = new Date().toISOString();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions));
+
+  if (channel === "discord") {
+    alert("✅ 「コミュニティに投げる」フラグを立てました。\n（現在はローカル保存のみ。Webhook連携は次バージョンで対応予定）\n\n手動で共有したい場合は「Markdownでコピー」から本文をコピーできます。");
+  } else if (channel === "gc") {
+    alert("✅ 「人と話す時の候補」に入れました。\n次に誰かと話す機会があったら、この学びを持ち込んでみてください。");
+  }
+}
+
+// ==================== Export Markdown ====================
+function exportMarkdown() {
+  const sessions = loadSessions();
+  const s = sessions[sessions.length - 1];
+  const dt = new Date(s.created_at);
+  const reactionBlock = (s.post_video_reflection && s.post_video_reflection.trim())
+    ? `\n### 🎥 動画を観て感じたこと\n${s.post_video_reflection}\n`
+    : "";
+  const md = `## ${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,"0")}-${String(dt.getDate()).padStart(2,"0")} ${String(dt.getHours()).padStart(2,"0")}:${String(dt.getMinutes()).padStart(2,"0")} ｜ ${currentTheme.title}
+
+**#LO**: \`${s.lo_tag}\` (${currentTheme.title})
+**自己評価**: L${s.self_rubric} — ${DATA.rubric_labels[s.self_rubric-1].label}
+**根拠**: ${s.rubric_evidence}
+${reactionBlock}
+### 記述
+${s.text}
+
+### たまかつ接続
+- **何のために**: ${s.tamakatsu_why}
+- **誰のために**: ${s.tamakatsu_for_whom}
+
+**タグ**: #ありえる楽考 ${(DATA.book && DATA.book.hashtag) ? DATA.book.hashtag + " " : ""}${s.lo_tag}
+`;
+  navigator.clipboard.writeText(md).then(() => {
+    alert("📋 Markdownをクリップボードにコピーしました。デイリーノートに貼れます。");
+  }).catch(() => {
+    prompt("以下をコピーしてください：", md);
+  });
+}
+
+// ==================== History ====================
+function renderHistory() {
+  const sessions = loadSessions().slice(-5).reverse();
+  const list = document.getElementById("history-list");
+  if (!sessions.length) { list.textContent = "まだありません。"; return; }
+  list.innerHTML = "";
+  sessions.forEach(s => {
+    const theme = DATA.themes.find(t => t.id === s.theme_id);
+    const dt = new Date(s.created_at);
+    const div = document.createElement("div");
+    div.className = "history-item";
+    div.innerHTML = `
+      <div class="h-date">${dt.getMonth()+1}/${dt.getDate()} ${String(dt.getHours()).padStart(2,"0")}:${String(dt.getMinutes()).padStart(2,"0")}</div>
+      <div><strong>L${s.self_rubric}</strong> · ${theme?.title || s.theme_id} <span class="lo-tag-big">${s.lo_tag}</span></div>
+      <div style="color: var(--sub); font-size: 12px;">${(s.text || "").slice(0, 60)}${(s.text||"").length > 60 ? "…" : ""}</div>
+    `;
+    list.appendChild(div);
+  });
+}
+
+// ==================== Storage ====================
+function loadSessions() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+  } catch (e) { return []; }
+}
+
+// ==================== Getting Started Banner ====================
+function renderGettingStartedBanner() {
+  const gs = DATA && DATA.getting_started;
+  const banner = document.getElementById("getting-started-banner");
+  if (!banner || !gs || !gs.enabled) { if (banner) banner.style.display = "none"; return; }
+
+  // Hide when: dismissed OR user already has 2+ sessions
+  const dismissed = localStorage.getItem(BANNER_KEY) === "1";
+  const sessions = loadSessions();
+  if (dismissed || sessions.length >= 2) { banner.style.display = "none"; return; }
+
+  banner.style.display = "";
+  document.getElementById("gs-title").innerHTML = gs.banner_title || "🌱 初めての方へ";
+  document.getElementById("gs-body").innerHTML = gs.banner_body || "";
+  if (gs.quiz_cta_label) document.getElementById("gs-quiz-btn").textContent = gs.quiz_cta_label;
+  if (gs.write_cta_label) document.getElementById("gs-write-btn").textContent = gs.write_cta_label;
+}
+function dismissBanner() {
+  localStorage.setItem(BANNER_KEY, "1");
+  const banner = document.getElementById("getting-started-banner");
+  if (banner) banner.style.display = "none";
+}
+function openFirstTheme() {
+  const gs = DATA && DATA.getting_started;
+  const id = (gs && gs.first_theme_id) || (DATA.themes.find(t => t.layer === 1 && t.implemented) || {}).id;
+  if (id) openTheme(id);
+}
+
+// ==================== Relationship Quiz (4択・あり方を映す鏡) ====================
+// 判定（正解／不正解）は表示しない。選んだ選択肢に応じて3層のフィードバックを返す：
+//   🔍 あなたの視点（stance）＋⚡🐢🌊 phase
+//   📖 本の視座（author_view・判定ではなく参照）
+//   🌱 立ち止まりの問い（slow_question・コンフォートゾーンの一段外）
+function showQuiz() {
+  const quiz = DATA && DATA.relationship_quiz;
+  if (!quiz || !quiz.length) { alert("クイズデータが読み込めていません。"); return; }
+  quizIdx = 0; quizAnswered = 0;
+  quizTouchedThemes = new Set();
+  quizStanceTrail = [];
+  // Framing message (relationship_quiz_meta.framing)
+  const meta = DATA.relationship_quiz_meta;
+  const framingEl = document.getElementById("quiz-framing");
+  if (framingEl && meta && meta.framing) framingEl.textContent = meta.framing;
+  showScreen("quiz");
+  renderQuizQuestion();
+}
+function renderQuizQuestion() {
+  const quiz = DATA.relationship_quiz;
+  const q = quiz[quizIdx];
+  document.getElementById("quiz-progress").textContent = `Q${quizIdx + 1} / ${quiz.length}`;
+  document.getElementById("quiz-score").textContent = `触れた視点 ${quizAnswered} / ${quiz.length}`;
+  document.getElementById("quiz-question").innerHTML = q.q;
+
+  // Learning objective（DPの「明確で具体的な目標」）
+  const loEl = document.getElementById("quiz-learning-objective");
+  const loBody = document.getElementById("quiz-lo-body");
+  if (loEl && loBody) {
+    if (q.learning_objective) {
+      loBody.innerHTML = q.learning_objective;
+      loEl.style.display = "";
+    } else {
+      loEl.style.display = "none";
+    }
+  }
+
+  const choicesEl = document.getElementById("quiz-choices");
+  choicesEl.innerHTML = "";
+  q.choices.forEach((c, i) => {
+    const div = document.createElement("div");
+    div.className = "quiz-choice";
+    div.textContent = c.text;
+    div.onclick = () => selectChoice(i);
+    choicesEl.appendChild(div);
+  });
+
+  // Hide all feedback blocks
+  ["quiz-feedback-stance","quiz-feedback-author","quiz-feedback-slow","quiz-insight"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = "none";
+  });
+  document.getElementById("quiz-next-btn").style.display = "none";
+}
+function selectChoice(idx) {
+  const quiz = DATA.relationship_quiz;
+  const q = quiz[quizIdx];
+  const chosen = q.choices[idx];
+  // 選んだ選択肢だけ soft-blue で強調、他は dim。判定色（赤／緑）は使わない
+  const items = document.querySelectorAll("#quiz-choices .quiz-choice");
+  items.forEach((el, i) => {
+    el.classList.add("disabled");
+    el.onclick = null;
+    if (i === idx) {
+      el.classList.add("chosen");
+    } else {
+      el.classList.add("dim");
+    }
+  });
+  quizAnswered++;
+  if (q.focus_theme) quizTouchedThemes.add(q.focus_theme);
+  // Record stance trail
+  quizStanceTrail.push({
+    q_index: quizIdx,
+    stance: chosen.stance || "",
+    phase: chosen.phase || ""
+  });
+
+  // 🔍 あなたの視点 + ⚡🐢🌊 phase
+  const fbStance = document.getElementById("quiz-feedback-stance");
+  if (fbStance) {
+    fbStance.innerHTML = `
+      <div class="fb-title">${chosen.stance || ""}</div>
+      ${chosen.phase ? `<div class="fb-phase">${chosen.phase}</div>` : ""}
+      ${chosen.phase_note ? `<div class="fb-phase-note">${chosen.phase_note}</div>` : ""}
+    `;
+    fbStance.style.display = "";
+  }
+
+  // 📖 本の視座（判定ではなく参照）
+  const fbAuthor = document.getElementById("quiz-feedback-author");
+  if (fbAuthor && chosen.author_view) {
+    fbAuthor.innerHTML = `
+      <div class="fb-title">本の視座として</div>
+      <div>${chosen.author_view}</div>
+    `;
+    fbAuthor.style.display = "";
+  }
+
+  // 🌱 立ち止まりの問い
+  const fbSlow = document.getElementById("quiz-feedback-slow");
+  if (fbSlow && chosen.slow_question) {
+    fbSlow.innerHTML = `
+      <div class="fb-title">立ち止まって聞いてみる</div>
+      <div>${chosen.slow_question}</div>
+    `;
+    fbSlow.style.display = "";
+  }
+
+  // Insight
+  if (q.insight) {
+    const ins = document.getElementById("quiz-insight");
+    ins.innerHTML = q.insight;
+    ins.style.display = "";
+  }
+
+  document.getElementById("quiz-score").textContent = `触れた視点 ${quizAnswered} / ${quiz.length}`;
+  const nextBtn = document.getElementById("quiz-next-btn");
+  nextBtn.style.display = "";
+  nextBtn.textContent = (quizIdx + 1 >= quiz.length) ? "8つの軌跡を見る →" : "次の問い →";
+}
+function nextQuizQuestion() {
+  const quiz = DATA.relationship_quiz;
+  quizIdx++;
+  if (quizIdx >= quiz.length) {
+    finishQuiz();
+  } else {
+    renderQuizQuestion();
+  }
+}
+function finishQuiz() {
+  const quiz = DATA.relationship_quiz;
+  const total = quiz.length;
+  showScreen("quiz-result");
+  document.getElementById("quiz-result-touched-count").textContent = `${quizAnswered} / ${total} の視点に触れました`;
+
+  // Stance trail: あなたの視点の軌跡
+  const stanceUl = document.getElementById("quiz-stance-list");
+  stanceUl.innerHTML = "";
+  quizStanceTrail.forEach(entry => {
+    const li = document.createElement("li");
+    // Extract short question label from q content
+    const rawQ = quiz[entry.q_index] && quiz[entry.q_index].q ? quiz[entry.q_index].q : "";
+    const shortQ = rawQ.replace(/<[^>]+>/g, "").replace(/[?？].*$/, "?").slice(0, 40);
+    li.innerHTML = `<span class="qnum">Q${entry.q_index + 1}</span>${entry.stance || ""}${entry.phase ? ` <span style="font-size:11px;color:#4a90e2;">${entry.phase}</span>` : ""}<div style="font-size:11px;color:#5a6a80;margin-left:22px;margin-top:2px;">${shortQ}</div>`;
+    stanceUl.appendChild(li);
+  });
+
+  // Touched themes list
+  const ul = document.getElementById("quiz-touched-list");
+  ul.innerHTML = "";
+  Array.from(quizTouchedThemes).forEach(tid => {
+    const th = DATA.themes.find(x => x.id === tid);
+    if (th) {
+      const li = document.createElement("li");
+      li.innerHTML = `<code style="font-family:ui-monospace,monospace;color:#4a90e2;">${th.lo_tag}</code> ${th.title}`;
+      ul.appendChild(li);
+    }
+  });
+
+  // Engine principle
+  const en = DATA.engine_note;
+  if (en) {
+    document.getElementById("quiz-engine-principle-body").innerHTML =
+      `<strong>「${en.unified_principle}」</strong><br>${en.sub || ""}<br><span style="font-size:11px;color:#5a6a80;">${en.sources || ""}</span>`;
+  }
+
+  // Save quiz state（正解数の概念は廃止・軌跡ベース）
+  try {
+    localStorage.setItem(QUIZ_STATE_KEY, JSON.stringify({
+      touched: Array.from(quizTouchedThemes),
+      stance_trail: quizStanceTrail,
+      total,
+      completed_at: new Date().toISOString()
+    }));
+  } catch (e) { /* ignore */ }
+}
+
+// ==================== Bootstrap ====================
+init();
+</script>
+</body>
+</html>
