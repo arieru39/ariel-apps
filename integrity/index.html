@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50' y='55' dominant-baseline='central' text-anchor='middle' font-size='90'>📄</text></svg>" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title id="page-title">学習アプリ</title>
 <style>
@@ -1018,7 +1019,10 @@ function selectPerspectiveChoice(idx) {
   const nextRow = document.getElementById("pq-next-row");
   const nextBtn = document.getElementById("pq-next-btn");
   const isLast = (perspectiveIdx + 1 >= pqList.length);
-  nextBtn.textContent = isLast ? "🎬 動画を観る →" : "次の観点 →";
+  const hasVideoForBtn = !!(currentTheme && currentTheme.video_embed_url);
+  nextBtn.textContent = isLast
+    ? (hasVideoForBtn ? "🎬 動画を観る →" : "🖋 感じたことを書く →")
+    : "次の観点 →";
   nextRow.style.display = "";
 }
 function nextPerspectiveQuestion() {
@@ -1039,13 +1043,23 @@ function finishPerspectiveQuiz() {
   // Reveal the video + reaction block
   const loVideo = document.getElementById("lo-video");
   const reactionBlock = document.getElementById("lo-reaction-block");
-  if (loVideo && currentTheme && currentTheme.video_embed_url) {
-    loVideo.style.display = "";
+  const reactionLabel = reactionBlock ? reactionBlock.querySelector(".lo-reaction-label") : null;
+  const reactionTa = document.getElementById("lo-reaction");
+  const hasVideo = !!(currentTheme && currentTheme.video_embed_url);
+  if (hasVideo) {
+    if (loVideo) loVideo.style.display = "";
+    if (reactionLabel) reactionLabel.textContent = "🎥 動画を観て感じたこと（1〜2行）";
+    if (reactionTa) reactionTa.setAttribute("placeholder", "動画で心に残った言葉・違和感・引っかかりを1〜2行で。");
+  } else {
+    // 動画が未整備 → 動画エリアはスキップして観点クイズの気づきを直接書く場所へ
+    if (reactionLabel) reactionLabel.textContent = "💭 いまの観点で感じたこと（1〜2行）";
+    if (reactionTa) reactionTa.setAttribute("placeholder", "4択の選び方を通じて動いたもの・気づきを1〜2行で。");
   }
   if (reactionBlock) reactionBlock.style.display = "";
-  // Scroll to video
+  // Scroll to the first visible section after quiz (video if present, else reaction)
   setTimeout(() => {
-    if (loVideo && loVideo.scrollIntoView) loVideo.scrollIntoView({behavior:"smooth", block:"start"});
+    const target = hasVideo ? loVideo : reactionBlock;
+    if (target && target.scrollIntoView) target.scrollIntoView({behavior:"smooth", block:"start"});
   }, 100);
 }
 

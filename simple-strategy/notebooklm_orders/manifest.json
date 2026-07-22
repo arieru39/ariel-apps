@@ -1,0 +1,228 @@
+{
+  "videos": [
+    {
+      "seq": 0,
+      "id": "meta",
+      "layer": null,
+      "title": "全体像のルーブリックと11のLO",
+      "chapter": "Introduction＋全編",
+      "file": "00_meta_全体像.md",
+      "customize_prompt": "あなたは Katsuhiko Ohira『Simple Strategy — Design Your Business & Life』の学習アプリの案内役です。\nこのアプリには 11 の Learning Outcome（LO）が 3 層構造で並んでいます。\n\n  第1層：心 ── 空間・穏やかさ・自分との一致（3 LO）\n    1) creating_space 空間をつくる\n    2) calm_mindset 穏やかな心\n    3) self_alignment 自分らしさとの一致\n\n  第2層：実践 ── 戦略を判別軸に変える（5 LO）\n    4) strategic_core_focus 戦略的焦点（Who/What/How）\n    5) opportunity_mapping 機会と適性の交差点（Three Circles）\n    6) differentiation_frame 差別化軸（便益 × 独自性）\n    7) business_cycle_rhythm 事業サイクル（Create/Make/Sell）\n    8) action_plan_elements 行動計画の6要素\n\n  第3層：統合 ── 戦略が組織の呼吸になる（3 LO）\n    9) six_step_process_mastery 6段階プロセスの習得\n    10) daily_execution_rhythm 日々の実行リズム（Plan-Do-Reflect）\n    11) rapid_experimentation 素早い試行（10個のボックス）\n\n各LOには4段階のルーブリックがあります：\n  L1 気づいていない ── Fast が自動で誤作動している\n  L2 概念として理解している ── Slow で意識すれば使える\n  L3 実践できる ── Slow の反復で Fast に沈殿し始めた\n  L4 文脈で選び分けられる ── Fast が高解像度（熟達直観の域）\n\nこの動画は【8〜10分／対話式2名】で作ってください。\n話者Aは \"初めてこのアプリを開いた聞き手\" の代弁者。\n話者Bは \"案内役\"（原典の主張を日常語に翻訳する）。\n\n【必ず入れる7ブロック】\n\n▼ ブロック1：フック（0:00-0:45）\n  Aが「戦略の本を開くたびに、フレームワークが多すぎて疲れる」と素朴に言う。\n  Bが「そう。だからこの本は \"手放すこと\" から始まる。今日はその地図だけを一緒に見る」\n\n▼ ブロック2：3層構造の見立て（0:45-2:30）\n  なぜ第1層（心）→ 第2層（実践）→ 第3層（統合）の順に登るのか。\n  Bが「先に Who/What/How を埋めても、頭が雑然としていれば選べない。\n  だから最初は \"空間をつくる\"。心が整ってはじめて、判別軸が使える」\n  Aは「順番、逆でもいいんじゃないの？」と少し疑う。\n  Bが「フレームワークだけ覚えて動けなかった経験、ありませんか」\n\n▼ ブロック3：ルーブリック L1→L4 とは何か（2:30-4:30）\n  Fast/Slow を初出で1回だけ日常語に翻訳\n  （「Fast = 反射的な自動運転／Slow = 立ち止まって考えるモード」）。\n  L1〜L4 は \"知識の量\" ではなく \"身体がどう動くか\" の段階。\n  例：「戦略的焦点」で言えば、L1は「幅広く狙うのが正義だと思っている」、\n  L4は「新規顧客と会った瞬間、Who/What/How が身体で3秒で選べる」。\n\n▼ ブロック4：11のLOを一望する（4:30-6:30）\n  Aが「11個ぜんぶ紹介して」とねだる。\n  Bが3層ごとに、\"1行の映像\" として紹介する。\n  抽象語で終わらせない：\n  「空間をつくる = 会議前、机とインボックスと頭の中を一度クリアにする」\n  「穏やかな心 = 戦略を \"戦い\" ではなく \"方向\" として捉え直す」\n  「10個のボックス = 完璧計画1つより、素早い試行10個の方が勝率が高い」\n\n▼ ブロック5：Slow を1回起こす（6:30-7:15）\n  Bが「一度、動画を止めて、あなたの手を止めてください。\n  11個のLOのうち、『これは今の自分の話だ』と体が反応した1つはどれですか？」\n  【3秒沈黙】を必ず入れる。\n\n▼ ブロック6：次の1手（7:15-8:15）\n  Bが「動画を止めたときに反応した1つのLO ── そのカードだけ開いてください。\n  他の10個は今日は見なくていい」と絞る。\n  Aが「1つだけでいいの？」と疑う。\n  Bが「11個を並列に触ろうとするのは、この本が最初に手放そうと言う \"詰め込み\" の反射。\n  1つを深く触るほうが、11個の景色が後で変わって見える」\n\n▼ ブロック7：閉じ（8:15-9:00）\n  Bが原典から引く：「Strategy is a direction and a set of actions to achieve your purpose and goal.\n  What matters is staying relaxed and excited about what you do.」\n  Aが「じゃあ、私は今夜1つだけ触ります」\n\n【禁じ手】\n- 「頑張りましょう」「意識を高めましょう」「気づきを大切に」等のセミナー語\n- 「みなさん」（1対1の \"あなた\" で書く）\n- 上から目線の断定（\"〜すべき\" \"〜しなさい\"）\n- 「シンプル・ストラテジー」を \"戦略コンサルの手法\" として紹介すること\n\n【口語ルール】\n- 1文40字以内。長文は2文に割る。\n- 「〜です」「〜ですね」。書き言葉禁止。\n- Aは \"教わる生徒\" ではなく \"聞き手の代弁者\"。毎ブロックで1回は \"少し疑う／少し反論する\"。",
+      "deep_questions": [],
+      "sources": [
+        "/Users/suzukitoshikazux/ありえるObsidian/35参考図書/Kindle/Kindle文字起こし/simple strategy/simple strategy.md",
+        "/Users/suzukitoshikazux/Workspace/ariel-apps/simple-strategy/data.json"
+      ],
+      "notebook_name": "ariel-apps/simple-strategy/meta"
+    },
+    {
+      "seq": 1,
+      "id": "creating_space",
+      "layer": 1,
+      "title": "空間をつくる",
+      "chapter": "Create Space",
+      "file": "01_creating_space.md",
+      "customize_prompt": "このLOは「戦略思考の起点は、机の上でも頭の中でも \"空間をつくる\" こと」\nという気づきに聞き手を運ぶ 8〜10分の対話式動画です。\n\n▼ ブロック1：フック（0:00-0:45）\n  Aが「今、机の上に書類が何冊積まれていますか？受信箱に未読は何通ありますか？」\n  Bが「その物量そのものが、あなたの新しい戦略を潰しています」\n\n▼ ブロック2：鏡（0:45-2:00）\n  Bが「戦略の会議の朝、あなたが最初にすることは、議題を埋めることですか？\n  それとも、机と頭を空けることですか？」\n  【3秒沈黙】\n\n▼ ブロック3：原理の解剖（2:00-4:00）\n  原典引用：「Create space. Clear your desk, tidy your inbox, and let go of low-priority projects.\n  Above all, clear your mind of worries and distractions.」\n  空間は \"物理・デジタル・時間・心\" の4領域。どれか1つでも詰まると、他の3つに漏れ出す。\n  Bが「思考の余白は、机の余白と繋がっています」\n\n▼ ブロック4：Fast の反射（4:00-5:30）\n  Aが「でも、机を空けたら仕事が進んでる感じがしなくて、不安になる」\n  Bが「その不安、まさに Fast の反射です。\"忙しくしていないと安心できない\" という\n  無意識の思い込みが動いている音。今はまだ手放さなくていい。ただ \"音がした\" と気づくだけ」\n\n▼ ブロック5：次の段の景色（5:30-7:00）\n  L1→L4：L1は「\"空間をつくる\" という発想がなく、忙しさを埋めることが仕事だと思っている」。\n  L4は「大事な意思決定の前に、自動で空間をつくり、周囲にもそれを促せる」。\n  次の段（L2）は「今週、物理・デジタル・時間・心の4領域のどれが最も詰まっているか、\n  身体で1つ指せる」。\n\n▼ ブロック6：次の1手（7:00-8:00）\n  「今から3分だけ、机の上のものを3つ、視界の外に移してください。\n  それから受信箱の未読を3通、アーカイブしてください」【動画を止めてください】\n  「変わらなくても大丈夫。それが明日の入口です」\n\n▼ ブロック7：閉じ（8:00-8:30）\n  原典引用：「When you create space, you will gain mental clarity, know what to focus on,\n  and have more capacity to generate ideas and think about new strategies.」\n  Bが「空間は贅沢ではありません。戦略の必需品です」",
+      "deep_questions": [
+        "今、物理・デジタル・時間・心の4領域のうち、最も詰まっているのはどれですか？",
+        "空間をつくった直後に訪れるのは、\"焦点の問い\" ですか、それとも \"詰め込みの誘惑\" ですか？",
+        "明日の朝、5分だけ \"空白\" を守るとしたら、それはどの5分ですか？"
+      ],
+      "sources": [
+        "/Users/suzukitoshikazux/ありえるObsidian/35参考図書/Kindle/Kindle文字起こし/simple strategy/simple strategy.md",
+        "/Users/suzukitoshikazux/Workspace/ariel-apps/simple-strategy/data.json"
+      ],
+      "notebook_name": "ariel-apps/simple-strategy/creating_space"
+    },
+    {
+      "seq": 2,
+      "id": "calm_mindset",
+      "layer": 1,
+      "title": "穏やかな心",
+      "chapter": "Strategy is a direction",
+      "file": "02_calm_mindset.md",
+      "customize_prompt": "このLOは「戦略は勝ち負けではなく、穏やかで興奮できる方向である」\nと気づかせる 8〜10分の対話式動画です。\n\n▼ ブロック1：フック（0:00-0:45）\n  Aが「\"戦略\" と聞いた瞬間、あなたの身体が最初に感じるのは何ですか？」\n  Bが「緊張ですか、興奮ですか。答えが緊張なら、\n  今日の30分は \"戦略\" の意味を書き換える時間です」\n\n▼ ブロック2：鏡（0:45-2:00）\n  Bが「戦略の本の多くが、勝ち負け・競争・戦いのメタファーで語られます。\n  でもそのメタファーで疲れているのは、あなただけではありません」\n  【3秒沈黙】「勝ち続けている経営者ほど、実は穏やかです」\n\n▼ ブロック3：原理の解剖（2:00-4:00）\n  原典引用：「Strategy is often associated with winning, losing, competition, and battle.\n  This book takes a different view. I see strategy as a direction and a set of actions\n  to achieve your purpose and goal. What matters is staying relaxed and excited about what you do.」\n  「穏やかさ」と「興奮」は矛盾ではない。緊張の反対は倦怠、穏やかさの反対は焦り。\n  この4象限を1回だけ整理して見せる。\n\n▼ ブロック4：Fast の反射（4:00-5:30）\n  Aが「でも緩んでいたら競合に負ける」\n  Bが「その反応、\"戦略 = 戦い\" の反射です。競合との勝ち負けは、あなたの人生目的の\n  何番目ですか？次の第1層LO『自分らしさとの一致』で解体します」\n\n▼ ブロック5：次の段の景色（5:30-7:00）\n  L1→L4：L1は「戦略は \"勝ち負け\" のフレームで、常に緊張と警戒が伴う」。\n  L4は「組織全体の空気を \"穏やかな興奮\" にファシリテートできる」。\n  次の段（L2）は「大事な意思決定の直前、意識して穏やかな状態に自分を戻せる」。\n\n▼ ブロック6：次の1手（7:00-8:00）\n  「明日、あなたが最も緊張する会議の前に、3分だけ深呼吸をしてください。\n  そして \"今日の目的は勝つことではなく、方向を確かめること\" と1回だけ言ってください」\n  【動画を止めてください】\n\n▼ ブロック7：閉じ（8:00-8:30）\n  原典引用：「Creating and executing strategy doesn't require you to be cold, tense,\n  or overly afraid of failure.」\n  Bが「穏やかな戦略は、遅い戦略ではありません。むしろ、続く戦略です」",
+      "deep_questions": [
+        "あなたが \"戦略\" と聞いた時に身体に走るのは、緊張／興奮／諦め／穏やかさ、どれですか？",
+        "過去、あなたが最も穏やかで最も成果が出た時期を、1つ思い出せますか？",
+        "その時期の \"穏やかさの源\" は、環境ですか、心構えですか、両方ですか？"
+      ],
+      "sources": [
+        "/Users/suzukitoshikazux/ありえるObsidian/35参考図書/Kindle/Kindle文字起こし/simple strategy/simple strategy.md",
+        "/Users/suzukitoshikazux/Workspace/ariel-apps/simple-strategy/data.json"
+      ],
+      "notebook_name": "ariel-apps/simple-strategy/calm_mindset"
+    },
+    {
+      "seq": 3,
+      "id": "self_alignment",
+      "layer": 1,
+      "title": "自分らしさとの一致",
+      "chapter": "Life is more important than business",
+      "file": "03_self_alignment.md",
+      "customize_prompt": "このLOは「人生目的が先、事業目的は後」という順序を身体に届ける\n8〜10分の対話式動画です。\n\n▼ ブロック1：フック（0:00-0:45）\n  Aが「あなたの事業目標は、どこから導かれていますか？\n  市場ですか、投資家ですか、それとも人生ですか」\n\n▼ ブロック2：鏡（0:45-2:00）\n  Bが「多くの経営者が、事業で成功してから人生を整えようとします。\n  そして事業が成功した頃には、人生のほうが壊れています」\n  【3秒沈黙】\n\n▼ ブロック3：原理の解剖（2:00-4:00）\n  原典引用：「For most people, life is more important than business.\n  That's why your life purpose and life goal should take priority over\n  your business purpose and business goal. Start with your life purpose and goals,\n  then align your business ones.」\n  順序を明示的に「人生 → 事業」で組み直すことが、実は最短距離である理由を、\n  日常語で3つに分解。\n\n▼ ブロック4：Fast の反射（4:00-5:30）\n  Aが「理想論だ。事業で稼がないと人生も成り立たない」\n  Bが「その反応、\"事業先行\" の反射です。稼いだ後に人生を修復するコストは、\n  今の30分の人生整理より高い。これは第2層 \"10個のボックス\" で解体します」\n\n▼ ブロック5：次の段の景色（5:30-7:00）\n  L1→L4：L1は「事業目標が先で、人生はそれに合わせるものと思っている」。\n  L4は「組織や顧客との対話で、この順序を伝え、他者の順序を整える手助けができる」。\n  次の段（L2）は「大きな意思決定の前に、人生目的との整合を必ず確認する」。\n\n▼ ブロック6：次の1手（7:00-8:00）\n  「今から5分、あなたの人生目的を1文で書いてみてください。\n  そしてその1文と、今週の予定の中の1つを、\"揃っているか\" 目で比べてください」\n  【動画を止めてください】\n\n▼ ブロック7：閉じ（8:00-8:30）\n  原典引用：「Design a business and life that truly aligns with who you are.\n  Reflect your values and personality.」\n  Bが「事業は道具です。あなたの人生に仕えます。逆ではありません」",
+      "deep_questions": [
+        "あなたの人生目的を1文で書けますか？書けなければ、何が邪魔していますか？",
+        "その1文と、今週の予定の中で最も時間を使うものは、揃っていますか？",
+        "ズレていたら、そのズレは \"誰の期待\" に応えるためのものですか？"
+      ],
+      "sources": [
+        "/Users/suzukitoshikazux/ありえるObsidian/35参考図書/Kindle/Kindle文字起こし/simple strategy/simple strategy.md",
+        "/Users/suzukitoshikazux/Workspace/ariel-apps/simple-strategy/data.json"
+      ],
+      "notebook_name": "ariel-apps/simple-strategy/self_alignment"
+    },
+    {
+      "seq": 4,
+      "id": "strategic_core_focus",
+      "layer": 2,
+      "title": "戦略的焦点（Who/What/How）",
+      "chapter": "Strategic Core",
+      "file": "04_strategic_core_focus.md",
+      "customize_prompt": "このLOは「幅広く狙うのが正義」というウソを解体し、\n「焦点は削ぐことで生まれる」を身体に届ける 8〜10分の対話式動画です。\n\n▼ ブロック1：フック（0:00-0:45）\n  Aが「\"あなたのターゲット顧客は誰ですか？\" と聞かれて、\n  何秒で1人の名前が浮かびますか？」\n\n▼ ブロック2：鏡（0:45-2:00）\n  Bが「\"幅広く狙う\" と答えた瞬間、あなたのビジネスは、\n  誰にも \"これは私のためのものだ\" と感じてもらえなくなります」\n  【3秒沈黙】\n\n▼ ブロック3：原理の解剖（2:00-4:00）\n  原典引用：「Focus on 'who' — Choose a well-defined target customer.\n  By narrowing your focus on your target customer, you can create a product or service\n  that makes your customer feel, 'This is made for me.'\n  A product that tries to serve everyone ends up being average for all.」\n  Who → What → How の順に、各軸を \"1文で言い切れるか\" のテスト。\n\n▼ ブロック4：Fast の反射（4:00-5:30）\n  Aが「絞ると機会を失うでしょ」\n  Bが「その反応こそが \"焦点の欠落\" を作っている根っこです。\n  幅広く狙って、これは私のためだと感じてくれた顧客は、何人いましたか？」\n\n▼ ブロック5：次の段の景色（5:30-7:00）\n  L1→L4：L1は「幅広く狙うことが正義だと思い、焦点を絞れない」。\n  L4は「Who/What/How の整合を、事業の成長段階に応じて選び直せる」。\n  次の段（L2）は「Whoを1人に絞ったら、What/Howがどう変わるか、想像できる」。\n\n▼ ブロック6：次の1手（7:00-8:00）\n  「今から3分、あなたのビジネスの Who を、名前が浮かぶくらい具体的な1人の顧客像で\n  書いてください。年齢・業界・課題まで」【動画を止めてください】\n\n▼ ブロック7：閉じ（8:00-8:30）\n  原典引用：「Make your customer feel, 'This is made for me.'」\n  Bが「1人に深く届いた瞬間、その1人の後ろには同じ悩みを持つ100人がいます」",
+      "deep_questions": [
+        "あなたの Who を、名前が浮かぶくらい具体的な1人で書いてください",
+        "その1人が満足したとき、その周りに何人の同じ悩みを持つ人がいますか？",
+        "経営陣3人に Who/What/How を尋ねたら、答えは揃いますか？"
+      ],
+      "sources": [
+        "/Users/suzukitoshikazux/ありえるObsidian/35参考図書/Kindle/Kindle文字起こし/simple strategy/simple strategy.md",
+        "/Users/suzukitoshikazux/Workspace/ariel-apps/simple-strategy/data.json"
+      ],
+      "notebook_name": "ariel-apps/simple-strategy/strategic_core_focus"
+    },
+    {
+      "seq": 5,
+      "id": "opportunity_mapping",
+      "layer": 2,
+      "title": "機会と適性の交差点（Three Circles）",
+      "chapter": "Opportunity Finding",
+      "file": "05_opportunity_mapping.md",
+      "customize_prompt": "このLOは「情熱・スキル・市場需要の3円が交差するスイートスポットにだけ、\n続けられる事業がある」を身体に届ける 8〜10分の対話式動画です。\n\n▼ ブロック1：フック（0:00-0:45）\n  Aが「あなたが情熱を持てて、得意で、市場が欲しがっている ── \n  この3つが重なった瞬間を、最後にいつ経験しましたか？」\n\n▼ ブロック2：鏡（0:45-2:00）\n  Bが「情熱だけで始めた事業は疲弊します。\n  スキルだけで始めた事業は退屈します。\n  市場だけで始めた事業は、あなたが消えます」\n  【3秒沈黙】\n\n▼ ブロック3：原理の解剖（2:00-4:00）\n  原典引用：「Find the sweet spot where the three elements overlap:\n  What you want to provide, What you are good at, What your customers want.\n  Don't ignore any circle. Customer needs are crucial — even if you're passionate\n  and skilled, there must be real demand.」\n  3円のどれか1つを空欄にすると、事業がどう歪むかを、3ケースで見せる。\n\n▼ ブロック4：Fast の反射（4:00-5:30）\n  Aが「一番情熱を持てる案を選べば、あとは何とかなる」\n  Bが「\"好きこそ物の上手なれ\" の反射です。情熱だけで顧客ゼロだった過去の事業は、\n  なぜ止まったか、思い出せますか？」\n\n▼ ブロック5：次の段の景色（5:30-7:00）\n  L1→L4：L1は「情熱だけで事業を始め、市場需要の検証をしない」。\n  L4は「3円の重なりの動きを察知し、機会を逃さず選び直せる」。\n  次の段（L2）は「3円のどれが今、最も検証が甘いか、身体で指せる」。\n\n▼ ブロック6：次の1手（7:00-8:00）\n  「今から3分、あなたの現在の事業で、3円のうち \"検証が最も甘い円\" を1つ選び、\n  今週それをどう検証するか、1行で書いてください」【動画を止めてください】\n\n▼ ブロック7：閉じ（8:00-8:30）\n  原典引用：「Customer needs are crucial — even passion and skill are not enough\n  without real demand.」\n  Bが「3円の交差点は、机の上ではなく、現場でしか見つかりません」",
+      "deep_questions": [
+        "今、あなたの事業で最も検証が甘い円は、情熱／スキル／市場需要のどれですか？",
+        "その円を今週、どの現場で確かめる予定ですか？",
+        "3円の重なりを1文で表現するとしたら？"
+      ],
+      "sources": [
+        "/Users/suzukitoshikazux/ありえるObsidian/35参考図書/Kindle/Kindle文字起こし/simple strategy/simple strategy.md",
+        "/Users/suzukitoshikazux/Workspace/ariel-apps/simple-strategy/data.json"
+      ],
+      "notebook_name": "ariel-apps/simple-strategy/opportunity_mapping"
+    },
+    {
+      "seq": 6,
+      "id": "differentiation_frame",
+      "layer": 2,
+      "title": "差別化軸（便益 × 独自性）",
+      "chapter": "Differentiation",
+      "file": "06_differentiation_frame.md",
+      "customize_prompt": "このLOは「独自性 ≠ 差別化」を解体する 8〜10分の対話式動画です。\n差別化 = 高い便益 × 高い独自性 の掛け算。\n\n▼ ブロック1：フック（0:00-0:45）\n  Aが「\"あなたの独自性を1つ挙げてください\" と聞かれて、\n  その独自性は \"顧客の生活\" と繋がっていますか？」\n\n▼ ブロック2：鏡（0:45-2:00）\n  Bが「珍しいから、というだけの独自性は、顧客の目にも社員の目にも映りません。\n  なぜなら、便益に繋がっていないから」\n  【3秒沈黙】\n\n▼ ブロック3：原理の解剖（2:00-4:00）\n  原典引用：「Differentiation = High Benefit × High Uniqueness.\n  Benefit — The tangible improvement your product provides to customers' lives.\n  Uniqueness — The value only you can provide.\n  Uniqueness is not just about being different; it should reflect 'your own identity!'」\n  掛け算の4象限（高便益・低独自性／低便益・高独自性／低便益・低独自性／高便益・高独自性）\n  を1回だけ整理して見せる。\n\n▼ ブロック4：Fast の反射（4:00-5:30）\n  Aが「価格が競合より安い、が独自性ではダメですか？」\n  Bが「\"安さ\" は誰でも真似できます。明日、競合が同じ価格になったら、\n  あなたの独自性は何が残りますか？」\n\n▼ ブロック5：次の段の景色（5:30-7:00）\n  L1→L4：L1は「差別化を \"他社との違い\" とだけ捉え、便益との掛け算になっていない」。\n  L4は「市場の変化に応じて、独自性と便益の掛け算を選び直せる」。\n  次の段（L2）は「あなたのビジネスの便益と独自性を、1文ずつ言える」。\n\n▼ ブロック6：次の1手（7:00-8:00）\n  「今から3分、あなたのビジネスの \"便益\" と \"独自性\" を、それぞれ1行で書いて、\n  その2つが掛け算になっているか、目で確かめてください」【動画を止めてください】\n\n▼ ブロック7：閉じ（8:00-8:30）\n  原典引用：「Your uniqueness should reflect 'your own identity!'\n  and provide clear benefit to your target customers.」\n  Bが「独自性は、あなたが誰であるかから湧き出るもの。真似できないのは、そこだけです」",
+      "deep_questions": [
+        "あなたのビジネスの便益と独自性を、それぞれ1行で書いてください",
+        "その2つは、掛け算になっていますか？どちらが弱いですか？",
+        "明日、競合が同価格・同機能で来たら、あなたに何が残りますか？"
+      ],
+      "sources": [
+        "/Users/suzukitoshikazux/ありえるObsidian/35参考図書/Kindle/Kindle文字起こし/simple strategy/simple strategy.md",
+        "/Users/suzukitoshikazux/Workspace/ariel-apps/simple-strategy/data.json"
+      ],
+      "notebook_name": "ariel-apps/simple-strategy/differentiation_frame"
+    },
+    {
+      "seq": 7,
+      "id": "business_cycle_rhythm",
+      "layer": 2,
+      "title": "事業サイクル（Create/Make/Sell）",
+      "chapter": "Basic Business Cycle",
+      "file": "07_business_cycle_rhythm.md",
+      "customize_prompt": "このLOは「Create → Make → Sell → Feedback → Create の循環が\n組織の呼吸である」を身体に届ける 8〜10分の対話式動画です。\n\n▼ ブロック1：フック（0:00-0:45）\n  Aが「今週、顧客からのフィードバックが、あなたの次の Create にどう戻っていますか？」\n\n▼ ブロック2：鏡（0:45-2:00）\n  Bが「多くの組織で、フィードバックは \"褒め言葉\" として消費され、\n  次の Create の入力にはなっていません。だからサイクルが止まる」\n  【3秒沈黙】\n\n▼ ブロック3：原理の解剖（2:00-4:00）\n  原典引用：「Once you sell, you reach customers. Their response and requests come back\n  as feedback or customer insights. These insights help improve Create, Make, and Sell,\n  enabling your business to evolve. The faster and smoother this cycle spins,\n  the stronger your business becomes.」\n  Create / Make / Sell のどれか1つが詰まると、全体の速度が落ちる理由を、\n  自転車のギアで例える。\n\n▼ ブロック4：Fast の反射（4:00-5:30）\n  Aが「フィードバックは大切だと分かってるけど、忙しくて拾えない」\n  Bが「その \"忙しい\" の中身が、循環が止まっている症状です。\n  拾えないのではなく、拾う仕組みがないだけ」\n\n▼ ブロック5：次の段の景色（5:30-7:00）\n  L1→L4：L1は「Create/Make/Sell が分断的にしか見えない」。\n  L4は「組織の呼吸として3ステップが循環し、事業の進化速度を体感できる」。\n  次の段（L2）は「今週のフィードバックを、次の Create に翻訳する場を持てる」。\n\n▼ ブロック6：次の1手（7:00-8:00）\n  「今週の顧客からのフィードバックを1つ思い出してください。\n  それを、次の Create のどこに反映するか、1文で書いてください」【動画を止めてください】\n\n▼ ブロック7：閉じ（8:00-8:30）\n  原典引用：「The faster and smoother this cycle spins, the stronger your business becomes.」\n  Bが「循環の速度は、才能ではなく、設計です」",
+      "deep_questions": [
+        "あなたのビジネスの Create/Make/Sell のうち、最も詰まっているのはどこですか？",
+        "顧客からのフィードバックは、\"次の Create\" にどう戻っていますか？",
+        "循環を復活させるために、あなたが今週始められる小さな一手は？"
+      ],
+      "sources": [
+        "/Users/suzukitoshikazux/ありえるObsidian/35参考図書/Kindle/Kindle文字起こし/simple strategy/simple strategy.md",
+        "/Users/suzukitoshikazux/Workspace/ariel-apps/simple-strategy/data.json"
+      ],
+      "notebook_name": "ariel-apps/simple-strategy/business_cycle_rhythm"
+    },
+    {
+      "seq": 8,
+      "id": "action_plan_elements",
+      "layer": 2,
+      "title": "行動計画の6要素",
+      "chapter": "Six Elements for Action Planning",
+      "file": "08_action_plan_elements.md",
+      "customize_prompt": "このLOは「タスク・目的・優先度・所有者・期限・成果の6要素で\n戦略が現場に翻訳される」を身体に届ける 8〜10分の対話式動画です。\n\n▼ ブロック1：フック（0:00-0:45）\n  Aが「あなたのタスクリストで、\"なぜやるのか（目的）\" が書かれているものは、\n  何％ですか？」\n\n▼ ブロック2：鏡（0:45-2:00）\n  Bが「タスクリストの多くが \"やることだけ\" のリストです。\n  目的・所有者・期限・成果が抜けていると、そのタスクは動きません」\n  【3秒沈黙】\n\n▼ ブロック3：原理の解剖（2:00-4:00）\n  原典引用：「Six Elements for Action Planning: Task, Purpose, Priority, Owner,\n  Deadline, Output. Break It Down to Speed It Up. Decide Together — actions\n  should be determined through dialogue.」\n  6要素のうち、日本の組織で最も抜けやすい \"Purpose\" と \"Owner\" を強調。\n  「みんなの仕事は誰の仕事でもない」の解体。\n\n▼ ブロック4：Fast の反射（4:00-5:30）\n  Aが「所有者を1人に決めると、責任が偏るのが心配」\n  Bが「その反応、\"責任分散\" の反射です。所有者不在は、責任の分散ではなく、\n  誰も動けない状態を作ります」\n\n▼ ブロック5：次の段の景色（5:30-7:00）\n  L1→L4：L1は「\"やることリスト\" 止まりで、目的・所有者・期限が抜けている」。\n  L4は「6要素を組織文化として定着させ、他者のタスク設計を整えられる」。\n  次の段（L2）は「今のタスクリストから1つ選び、6要素すべてを書き出せる」。\n\n▼ ブロック6：次の1手（7:00-8:00）\n  「今から3分、あなたのタスクリストから1つ選び、\n  タスク・目的・優先度・所有者・期限・成果 の6要素すべてを書き出してください」\n  【動画を止めてください】\n\n▼ ブロック7：閉じ（8:00-8:30）\n  原典引用：「Decide Together — actions should be determined through dialogue.」\n  Bが「6要素を対話で決めた瞬間、そのタスクは \"誰かの仕事\" ではなく \"私たちの仕事\" になります」",
+      "deep_questions": [
+        "今のタスクリストの中で、6要素すべてが書かれているタスクは何％ですか？",
+        "最も抜けやすい要素は、目的／所有者／成果／期限、どれですか？",
+        "所有者を1人に明示的に決めた時、そのタスクはどう変わりますか？"
+      ],
+      "sources": [
+        "/Users/suzukitoshikazux/ありえるObsidian/35参考図書/Kindle/Kindle文字起こし/simple strategy/simple strategy.md",
+        "/Users/suzukitoshikazux/Workspace/ariel-apps/simple-strategy/data.json"
+      ],
+      "notebook_name": "ariel-apps/simple-strategy/action_plan_elements"
+    },
+    {
+      "seq": 9,
+      "id": "six_step_process_mastery",
+      "layer": 3,
+      "title": "6段階プロセスの習得",
+      "chapter": "Simple Strategy Process",
+      "file": "09_six_step_process_mastery.md",
+      "customize_prompt": "このLOは第3層の入口。「戦略は一度立てたら終わりではなく、6段階のループを回すもの」\nを身体に届ける 8〜10分の対話式動画です。\n\n▼ ブロック1：フック（0:00-0:45）\n  Aが「あなたの組織の戦略は、\"一度立てて実行\" ですか、それとも \"回し続ける\" ですか？」\n\n▼ ブロック2：鏡（0:45-2:00）\n  Bが「多くの組織が、年度計画を立てて12ヶ月実行するだけ、というリズムで回っています。\n  でも本書の6段階は、\"回す\" ことでしか身につかない」\n  【3秒沈黙】\n\n▼ ブロック3：原理の解剖（2:00-4:00）\n  原典引用：「Simple Strategy Process — Six essential steps: Purpose and Goal,\n  Opportunity Finding, Strategic Core, Action Plan, Execution and Results,\n  Review and Refinement. Review, refine, and repeat.」\n  6段階を一度だけ順に紹介し、\"Review & Refinement\" から次の Purpose に戻る循環が\n  組織の学習曲線を作る、と説明。\n\n▼ ブロック4：Fast の反射（4:00-5:30）\n  Aが「6段階も回してたら、意思決定が遅くなる」\n  Bが「その反応、\"素早く決めきる = 良い\" の反射です。実は6段階を高速に回す方が、\n  1段階を長く滞留させるより速い。これは次のLO『10個のボックス』で解体します」\n\n▼ ブロック5：次の段の景色（5:30-7:00）\n  L1→L4：L1は「\"戦略を立てる\" とは1度のイベントだと思っている」。\n  L4は「6段階を組織の呼吸にし、成長段階ごとにループの速度を選び直せる」。\n  次の段（L2）は「6段階のうち、あなたの組織で最も飛ばされている段階を指せる」。\n\n▼ ブロック6：次の1手（7:00-8:00）\n  「今から3分、6段階（Purpose / Opportunity / Strategic Core / Action Plan / Execution / Review）\n  のうち、あなたの組織で最も飛ばされている段階を1つ選んでください」【動画を止めてください】\n\n▼ ブロック7：閉じ（8:00-8:30）\n  原典引用：「Review, refine, and repeat — this loop makes strategy evolve.」\n  Bが「ループを回す組織は、賢くなる組織です」",
+      "deep_questions": [
+        "6段階のうち、あなたの組織で最も飛ばされているのはどこですか？",
+        "Review & Refinement から次の Purpose に戻る場は、どこにありますか？",
+        "その飛ばされた段階を来週、どこにどれくらい入れますか？"
+      ],
+      "sources": [
+        "/Users/suzukitoshikazux/ありえるObsidian/35参考図書/Kindle/Kindle文字起こし/simple strategy/simple strategy.md",
+        "/Users/suzukitoshikazux/Workspace/ariel-apps/simple-strategy/data.json"
+      ],
+      "notebook_name": "ariel-apps/simple-strategy/six_step_process_mastery"
+    },
+    {
+      "seq": 10,
+      "id": "daily_execution_rhythm",
+      "layer": 3,
+      "title": "日々の実行リズム（Plan-Do-Reflect）",
+      "chapter": "Daily Execution Cycle",
+      "file": "10_daily_execution_rhythm.md",
+      "customize_prompt": "このLOは「戦略は朝夜のリズムに翻訳された時にはじめて生きる」を身体に届ける\n8〜10分の対話式動画です。\n\n▼ ブロック1：フック（0:00-0:45）\n  Aが「あなたの組織の朝は、Plan で始まっていますか？夜は Reflect で終わっていますか？」\n\n▼ ブロック2：鏡（0:45-2:00）\n  Bが「多くの組織で、朝は \"会議への駆け込み\" で始まり、夜は \"何となく残業\" で終わります。\n  だから戦略が現場に翻訳されない」\n  【3秒沈黙】\n\n▼ ブロック3：原理の解剖（2:00-4:00）\n  原典引用：「Morning: Plan. Day: Do. End of the Day: Reflect. Repeat every day.\n  Not micromanagement, but rhythm and pace. This cycle establishes a steady rhythm,\n  enabling consistent progress without unnecessary stress.」\n  マイクロマネジメントとの違いを日常語で説明。\n  リズム = 一定の呼吸、マイクロマネジメント = 常時監視。\n\n▼ ブロック4：Fast の反射（4:00-5:30）\n  Aが「朝夕の10分を確保するのは、現場に負担ではないですか？」\n  Bが「その反応、\"忙しいから時間がない\" の反射です。\n  リズムの欠如が忙しさを生んでいる、という因果を試してみますか？」\n\n▼ ブロック5：次の段の景色（5:30-7:00）\n  L1→L4：L1は「\"日々の振り返り\" の発想がなく、月次・四半期でしか見ていない」。\n  L4は「組織全体のリズムを設計・維持し、メンバーの成長速度を上げられる」。\n  次の段（L2）は「朝10分の Plan と夜10分の Reflect の意義を、現場に説明できる」。\n\n▼ ブロック6：次の1手（7:00-8:00）\n  「明日、朝10分だけ、Today's Plan（優先度3つ）を書いてください。\n  そして夜10分だけ、Today's Reflect（うまくいった1つ／改善する1つ）を書いてください」\n  【動画を止めてください】\n\n▼ ブロック7：閉じ（8:00-8:30）\n  原典引用：「This cycle increases alignment, growth, and continuous improvement.」\n  Bが「戦略はスライドではなく、朝夜のリズムに宿ります」",
+      "deep_questions": [
+        "明日の朝10分 と 夜10分、あなたはどこに Plan と Reflect の時間を置きますか？",
+        "その10分を、忙しくても守るには、何を仕組みにしますか？",
+        "2週間続けたら、あなたと現場は何を変えていますか？"
+      ],
+      "sources": [
+        "/Users/suzukitoshikazux/ありえるObsidian/35参考図書/Kindle/Kindle文字起こし/simple strategy/simple strategy.md",
+        "/Users/suzukitoshikazux/Workspace/ariel-apps/simple-strategy/data.json"
+      ],
+      "notebook_name": "ariel-apps/simple-strategy/daily_execution_rhythm"
+    },
+    {
+      "seq": 11,
+      "id": "rapid_experimentation",
+      "layer": 3,
+      "title": "素早い試行（10個のボックス）",
+      "chapter": "Theory of Ten Boxes",
+      "file": "11_rapid_experimentation.md",
+      "customize_prompt": "このLOは第3層の閉じ。「失敗を実験と呼び直し、試行の速度と数を上げる」\nを身体に届ける 8〜10分の対話式動画です。\n\n▼ ブロック1：フック（0:00-0:45）\n  Aが「あなたが今、\"やってみたいけど失敗が怖い\" と思っているアイデアはいくつありますか？」\n\n▼ ブロック2：鏡（0:45-2:00）\n  Bが「10個のボックスの前にあなたが立っています。中身は見えません。\n  1つに宝が入っている。あなたはどう動きますか？」\n  【3秒沈黙】「1つに絞って全力、が多くの組織の反射です。でも数式は言います」\n\n▼ ブロック3：原理の解剖（2:00-4:00）\n  原典引用：「Ten Boxes: Only one contains treasure. You cannot see inside from outside.\n  To win, you need to open the boxes as quickly as possible.\n  Success Formula: Successes = Attempts × Success Rate.\n  Prioritize rapid iteration over perfection.」\n  試行数 × 成功率 の数式が、\"選択と集中\" の反射をどう解体するか、\n  ボーイングの新型機開発のケースで見せる。\n\n▼ ブロック4：Fast の反射（4:00-5:30）\n  Aが「試行を増やすと、コストが積み上がる」\n  Bが「そのコストは、1つに絞って外れた時の \"戻れないコスト\" と比べていますか？」\n\n▼ ブロック5：次の段の景色（5:30-7:00）\n  L1→L4：L1は「失敗を恥と考え、試行数を増やす発想がない」。\n  L4は「組織文化として \"実験の速度\" が定着し、確率的思考で経営できる」。\n  次の段（L2）は「失敗を \"実験\" と呼び直したら、社内の空気がどう変わるか、想像できる」。\n\n▼ ブロック6：次の1手（7:00-8:00）\n  「今から3分、あなたが \"失敗が怖くて動けない\" 案を3つ書いてください。\n  そして、その3つを \"実験\" と呼び直して、\n  それぞれ 3週間以内に検証できる最小の一歩 を書いてください」【動画を止めてください】\n\n▼ ブロック7：閉じ（8:00-8:30）\n  原典引用：「Prioritize rapid iteration over perfection.\n  Each box represents a new business. Successes = Attempts × Success Rate.」\n  Bが「実験は失敗しません。実験は \"情報を返す\" だけです」",
+      "deep_questions": [
+        "あなたが \"失敗が怖くて動けない\" 案を3つ挙げてください",
+        "その3つを \"実験\" と呼び直したら、それぞれ3週間以内に検証できる最小の一歩は？",
+        "組織で \"失敗\" を \"実験\" と呼び直す文化を、あなたはどう仕込みますか？"
+      ],
+      "sources": [
+        "/Users/suzukitoshikazux/ありえるObsidian/35参考図書/Kindle/Kindle文字起こし/simple strategy/simple strategy.md",
+        "/Users/suzukitoshikazux/Workspace/ariel-apps/simple-strategy/data.json"
+      ],
+      "notebook_name": "ariel-apps/simple-strategy/rapid_experimentation"
+    }
+  ]
+}
