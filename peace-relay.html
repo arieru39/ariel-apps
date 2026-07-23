@@ -434,6 +434,84 @@
     vertical-align:middle;
   }
   .shift-badge select{outline:none}
+
+  /* ===== 🎤 24時間リーダーマップ ===== */
+  .leader-card{border-left:3px solid var(--sun)}
+  .leader-progress{margin:12px 0 16px}
+  .leader-progress .lp-bar{
+    height:8px;background:#1f3447;border-radius:4px;overflow:hidden;
+  }
+  .leader-progress .lp-fill{
+    height:100%;background:linear-gradient(90deg,var(--peace),var(--sun));
+    width:0%;transition:width .6s;
+  }
+  .leader-progress .lp-label{
+    margin-top:8px;font-size:.88rem;color:var(--text-soft);
+  }
+  .chip.your-tz{
+    display:inline-block;padding:2px 10px;background:var(--sun-soft);
+    color:var(--sun);border-radius:12px;font-size:.78rem;margin-left:6px;
+    border:1px dashed var(--sun);
+  }
+  .leader-ring-wrap{
+    position:relative;margin:16px auto;max-width:360px;
+  }
+  .leader-ring-wrap svg{width:100%;height:auto;display:block}
+  .leader-ring-center{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    text-align:center;pointer-events:none;
+  }
+  .lr-pct{font-size:1.5rem;font-weight:700;color:var(--peace)}
+  .lr-pctlbl{font-size:.7rem;color:var(--text-mute)}
+  .lr-tap{font-size:.78rem;color:var(--sun);margin-top:6px;max-width:150px}
+  .leader-detail{
+    margin-top:14px;padding:14px;
+    background:var(--card-2);border-radius:10px;
+    border-left:3px solid var(--peace);
+  }
+  .leader-detail h4{color:var(--peace);margin-bottom:8px;font-size:.98rem}
+  .leader-detail .ld-leaders{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+  .leader-detail .ld-leader{
+    padding:4px 10px;border-radius:12px;font-size:.82rem;
+    background:var(--peace-soft);color:#c5e5b3;
+    border:1px solid rgba(122,184,92,0.35);
+  }
+  .leader-detail .ld-leader.mine{
+    background:var(--sun-soft);color:var(--sun);
+    border-color:rgba(255,179,71,0.5);
+  }
+  .leader-detail .ld-empty{
+    color:var(--text-mute);font-size:.88rem;font-style:italic;
+    padding:6px 0;
+  }
+  .leader-detail .ld-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .leader-detail .ld-actions button{
+    padding:6px 12px;font-size:.82rem;border:none;border-radius:8px;
+    cursor:pointer;font-family:inherit;transition:transform .12s;
+  }
+  .leader-detail .ld-actions button:hover{transform:translateY(-1px)}
+  .leader-detail .ld-actions .btn-declare{
+    background:var(--peace);color:#fff;font-weight:600;
+  }
+  .leader-detail .ld-actions .btn-tier{
+    background:var(--card);color:var(--text-soft);
+    border:1px solid var(--line);
+  }
+  .leader-detail .ld-actions .btn-step-down{
+    background:transparent;color:var(--text-mute);
+    border:1px solid var(--line);
+  }
+  .leader-tier-legend{
+    display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;font-size:.75rem;
+  }
+  .leader-tier-legend .lt{
+    padding:3px 8px;border-radius:10px;background:#1f3447;color:var(--text-soft);
+  }
+  .leader-tier-legend .lt1{background:rgba(122,184,92,.15);color:#a8d68a}
+  .leader-tier-legend .lt2{background:rgba(78,163,216,.15);color:#84c1e2}
+  .leader-tier-legend .lt3{background:rgba(255,179,71,.18);color:#f9c47c}
+  .leader-tier-legend .lt4{background:rgba(255,215,120,.24);color:#ffe08a}
+  .leader-tier-legend .lt0{background:rgba(225,93,93,.10);color:#e88b8b}
 </style>
 </head>
 <body>
@@ -741,6 +819,48 @@
       ※ 各マスの上段は UTC時刻、下段は そこにいる人の名前（複数いる場合は最初の1人＋"+"）。
     </p>
     </details>
+  </div>
+
+  <!-- 🎤 24時間リーダーマップ（Phase 1） -->
+  <div class="card leader-card" style="margin-top:14px">
+    <h2 style="color:var(--sun)">🎤 24時間の"場"を回すリーダーの立ち上がり</h2>
+    <p>
+      9/21のリレーは、<strong>各1時間帯を"誰かが自分ごとで持つ"</strong> ことで、一周する輪になる。<br>
+      「主催者が全部やる」のではなく、<strong>あなたの現地時間を、あなたが持ってくれるだけでいい</strong>。
+    </p>
+
+    <div class="leader-progress">
+      <div class="lp-bar"><div class="lp-fill" id="leaderBar"></div></div>
+      <div class="lp-label">
+        <span id="leaderFilledCount">0</span> / 24 時間帯にリーダーがいる
+        ・「あなたの時間帯」は <span class="chip your-tz" id="yourTzChip">未登録</span>
+      </div>
+    </div>
+
+    <div class="leader-ring-wrap">
+      <svg id="leaderRing" viewBox="0 0 400 400"></svg>
+      <div class="leader-ring-center">
+        <div class="lr-pct" id="leaderPct">0%</div>
+        <div class="lr-pctlbl">リーダー確定</div>
+        <div class="lr-tap" id="leaderTap">スロットをタップ ↓</div>
+      </div>
+    </div>
+
+    <div class="leader-detail" id="leaderDetail" style="display:none"></div>
+
+    <div class="leader-tier-legend">
+      <span class="lt lt1">🕊 L1 名前を出す</span>
+      <span class="lt lt2">📝 L2 一言宣言</span>
+      <span class="lt lt3">🎤 L3 ライブで繋ぐ</span>
+      <span class="lt lt4">🔔 L4 セレモニー</span>
+      <span class="lt lt0">・ 空き（点滅）</span>
+    </div>
+
+    <div class="help">
+      💡 <strong>コミット段階は自己選択</strong>。まずは「名前だけ出す（L1）」でOK。あとから上げ下げ自由。<br>
+      💡 <strong>1時間帯に共同リーダーOK</strong>（最大3人）。1人で背負わなくてよい。<br>
+      💡 「あなたの時間帯」（点線ハイライト）が空いていたら、まずそこに手を挙げてみる。他の時間は、そこにいる仲間に任せる。
+    </div>
   </div>
 
   <div class="card" id="japanMapCard" style="display:none">
@@ -1486,6 +1606,7 @@ function subscribeParticipants(){
     renderJapanMap();
     renderHero();
     renderPerHourTargets();
+    renderLeaderRing();
     updateSyncBadge(items.length);
   }, (err) => {
     console.error('onSnapshot error', err);
@@ -1582,7 +1703,7 @@ function goPhase(n){
   document.querySelectorAll('.phase').forEach(el => el.classList.remove('active'));
   document.getElementById('phase'+n).classList.add('active');
   renderProgress();
-  if(n === 2){ renderTimeline(); renderJapanMap(); renderPerHourTargets(); }
+  if(n === 2){ renderTimeline(); renderJapanMap(); renderPerHourTargets(); renderLeaderRing(); }
   if(n === 3) renderGapList();
   if(n === 4) showTemplate(state.templateLang, null);
   if(n === 5){ renderSummary(); renderDays(); }
@@ -1947,6 +2068,305 @@ function toggleBaton(){
   const btn = document.getElementById('batonBtn');
   if(btn) btn.textContent = ringAnimOn ? '⏸ バトンを止める' : '▶ バトンを回す';
   if(ringAnimOn) ringTick();
+}
+
+/* ===================== 🎤 Leader System (Phase 1) ===================== */
+const TIER_META = {
+  0: {label:'空き',        emoji:'・',  color:'#3a5a70'},
+  1: {label:'名前を出す',  emoji:'🕊',  color:'#7ab85c'},
+  2: {label:'一言宣言',    emoji:'📝',  color:'#4ea3d8'},
+  3: {label:'ライブで繋ぐ',emoji:'🎤',  color:'#ffb347'},
+  4: {label:'セレモニー',  emoji:'🔔',  color:'#ffe08a'},
+};
+const MAX_COLEADERS = 3;
+let selectedLeaderHour = null;
+
+function getLeaderTier(f){
+  const t = Number(f && f.leaderTier);
+  if(isNaN(t) || t < 0 || t > 4) return 0;
+  return t;
+}
+function leadersAtUTC(h){
+  return confirmedFriends().filter(f =>
+    getShift(f) === h && getLeaderTier(f) >= 1
+  );
+}
+function topTierAt(h){
+  const leaders = leadersAtUTC(h);
+  if(leaders.length === 0) return 0;
+  return Math.max.apply(null, leaders.map(getLeaderTier));
+}
+function myDoc(){
+  return state.friends.find(f => f.id === state.myDocId);
+}
+function myShiftHour(){
+  const mine = myDoc();
+  if(mine) return getShift(mine);
+  return null;
+}
+function myLeaderTier(){
+  const mine = myDoc();
+  if(!mine) return 0;
+  return getLeaderTier(mine);
+}
+function myInviter(){
+  const mine = myDoc();
+  if(!mine || !mine.inviterSessionId) return null;
+  return state.friends.find(f => f.sessionId === mine.inviterSessionId && !isPending(f));
+}
+
+async function declareLeader(tier){
+  if(!state.myDocId){
+    alert('まず Phase 1 で「私」として登録してください。');
+    return;
+  }
+  const t = parseInt(tier, 10);
+  if(isNaN(t) || t < 0 || t > 4) return;
+  try{
+    await updateDoc(doc(fbDb, 'participants', state.myDocId), { leaderTier: t });
+  }catch(e){
+    console.error('declareLeader error', e);
+    alert('リーダー宣言に失敗しました：\n' + e.message);
+  }
+}
+async function moveMyShiftAndDeclare(hour, tier){
+  if(!state.myDocId){
+    alert('まず Phase 1 で「私」として登録してください。');
+    return;
+  }
+  const h = parseInt(hour, 10);
+  const t = parseInt(tier, 10);
+  if(isNaN(h) || h < 0 || h > 23) return;
+  if(isNaN(t) || t < 0 || t > 4) return;
+  try{
+    await updateDoc(doc(fbDb, 'participants', state.myDocId), {
+      shiftHour: h,
+      leaderTier: t
+    });
+    selectedLeaderHour = h;
+  }catch(e){
+    console.error('moveMyShiftAndDeclare error', e);
+    alert('保存に失敗しました：\n' + e.message);
+  }
+}
+
+/* ---- Leader ring geometry ---- */
+const LR_CX = 200, LR_CY = 200, LR_ROUT = 165, LR_RIN = 115, LR_GAP = 1.6;
+function lrPol(r, deg){
+  const a = (deg - 90) * Math.PI / 180;
+  return [LR_CX + r * Math.cos(a), LR_CY + r * Math.sin(a)];
+}
+function lrSegPath(h){
+  const a0 = h * 15 + LR_GAP, a1 = (h + 1) * 15 - LR_GAP;
+  const [x0,y0] = lrPol(LR_ROUT, a0), [x1,y1] = lrPol(LR_ROUT, a1);
+  const [x2,y2] = lrPol(LR_RIN, a1),  [x3,y3] = lrPol(LR_RIN, a0);
+  return `M${x0} ${y0} A${LR_ROUT} ${LR_ROUT} 0 0 1 ${x1} ${y1} L${x2} ${y2} A${LR_RIN} ${LR_RIN} 0 0 0 ${x3} ${y3} Z`;
+}
+
+function renderLeaderRing(){
+  const svg = document.getElementById('leaderRing');
+  if(!svg) return;
+  const ns = 'http://www.w3.org/2000/svg';
+  svg.innerHTML = '';
+  const yourHour = myShiftHour();
+  let filled = 0;
+  for(let h = 0; h < 24; h++){
+    const top = topTierAt(h);
+    const meta = TIER_META[top];
+    const leaders = leadersAtUTC(h);
+    if(top >= 1) filled++;
+    const p = document.createElementNS(ns, 'path');
+    p.setAttribute('d', lrSegPath(h));
+    p.setAttribute('fill', meta.color);
+    p.setAttribute('fill-opacity', top === 0 ? '0.22' : '0.9');
+    p.setAttribute('cursor', 'pointer');
+    if(h === yourHour){
+      p.setAttribute('stroke', '#ffffff');
+      p.setAttribute('stroke-width', '2.5');
+      p.setAttribute('stroke-dasharray', '4 3');
+    } else if(h === selectedLeaderHour){
+      p.setAttribute('stroke', '#f9d76e');
+      p.setAttribute('stroke-width', '2');
+    } else {
+      p.setAttribute('stroke', 'rgba(0,0,0,0.3)');
+      p.setAttribute('stroke-width', '0.5');
+    }
+    if(top === 0){
+      const anim = document.createElementNS(ns, 'animate');
+      anim.setAttribute('attributeName', 'fill-opacity');
+      anim.setAttribute('values', '0.14;0.36;0.14');
+      anim.setAttribute('dur', '2.8s');
+      anim.setAttribute('repeatCount', 'indefinite');
+      anim.setAttribute('begin', `${(h * 0.11).toFixed(2)}s`);
+      p.appendChild(anim);
+    }
+    p.addEventListener('click', () => selectLeaderHour(h));
+    svg.appendChild(p);
+    // hour label every 3 hours
+    if(h % 3 === 0){
+      const [lx, ly] = lrPol(LR_ROUT + 16, h * 15 + 7.5);
+      const t = document.createElementNS(ns, 'text');
+      t.setAttribute('x', lx); t.setAttribute('y', ly + 3);
+      t.setAttribute('text-anchor', 'middle');
+      t.setAttribute('font-size', '11');
+      t.setAttribute('fill', '#8aa7bd');
+      t.textContent = pad(h);
+      svg.appendChild(t);
+    }
+    // tier emoji at slot center
+    if(top >= 1){
+      const [ex, ey] = lrPol((LR_ROUT + LR_RIN) / 2, h * 15 + 7.5);
+      const t = document.createElementNS(ns, 'text');
+      t.setAttribute('x', ex); t.setAttribute('y', ey + 4);
+      t.setAttribute('text-anchor', 'middle');
+      t.setAttribute('font-size', '13');
+      t.setAttribute('pointer-events', 'none');
+      t.textContent = meta.emoji;
+      svg.appendChild(t);
+    }
+    // co-leader badge if >1
+    if(leaders.length > 1){
+      const [bx, by] = lrPol(LR_RIN - 6, h * 15 + 7.5);
+      const c = document.createElementNS(ns, 'circle');
+      c.setAttribute('cx', bx); c.setAttribute('cy', by);
+      c.setAttribute('r', 8); c.setAttribute('fill', '#173a55');
+      c.setAttribute('stroke', '#7ee7c7'); c.setAttribute('stroke-width', '1');
+      c.setAttribute('pointer-events', 'none');
+      svg.appendChild(c);
+      const n = document.createElementNS(ns, 'text');
+      n.setAttribute('x', bx); n.setAttribute('y', by + 3);
+      n.setAttribute('text-anchor', 'middle');
+      n.setAttribute('font-size', '9');
+      n.setAttribute('fill', '#7ee7c7');
+      n.setAttribute('pointer-events', 'none');
+      n.textContent = leaders.length;
+      svg.appendChild(n);
+    }
+  }
+  // progress numbers
+  const pct = Math.round(filled / 24 * 100);
+  const pctEl = document.getElementById('leaderPct');
+  const barEl = document.getElementById('leaderBar');
+  const cntEl = document.getElementById('leaderFilledCount');
+  if(pctEl) pctEl.textContent = pct + '%';
+  if(barEl) barEl.style.width = pct + '%';
+  if(cntEl) cntEl.textContent = filled;
+  // your-tz chip
+  const chipEl = document.getElementById('yourTzChip');
+  if(chipEl){
+    if(yourHour === null){
+      chipEl.textContent = '未登録';
+    } else {
+      const myTier = myLeaderTier();
+      chipEl.textContent = `UTC ${pad(yourHour)}:00 ${TIER_META[myTier].emoji}${TIER_META[myTier].label}`;
+    }
+  }
+  // refresh detail panel if a slot was selected
+  if(selectedLeaderHour !== null){
+    renderLeaderDetail(selectedLeaderHour);
+  }
+}
+
+function selectLeaderHour(h){
+  selectedLeaderHour = h;
+  const tapEl = document.getElementById('leaderTap');
+  if(tapEl) tapEl.textContent = `UTC ${pad(h)}:00 選択中`;
+  const el = document.getElementById('leaderDetail');
+  if(el) el.style.display = 'block';
+  renderLeaderDetail(h);
+  renderLeaderRing();  // to update the selected slot outline
+}
+
+function renderLeaderDetail(h){
+  const el = document.getElementById('leaderDetail');
+  if(!el) return;
+  const leaders = leadersAtUTC(h);
+  const myHour = myShiftHour();
+  const myTier = myLeaderTier();
+  const mine = myDoc();
+  const inviter = myInviter();
+  const inviterIsLeadHere = inviter && getShift(inviter) === h && getLeaderTier(inviter) >= 1;
+
+  let localHint = '';
+  if(mine){
+    const off = Number(mine.offset || 0);
+    const local = ((h + off) % 24 + 24) % 24;
+    localHint = ` <span class="mute" style="font-size:.78rem;color:var(--text-mute)">（あなたの現地 ${pad(local)}:00頃）</span>`;
+  }
+
+  let leadersHtml;
+  if(leaders.length === 0){
+    leadersHtml = `<div class="ld-empty">まだリーダーはいません。ここに手を挙げると、この時間帯の"場"の起点になります。</div>`;
+  } else {
+    leadersHtml = `<div class="ld-leaders">` +
+      leaders.map(f => {
+        const t = getLeaderTier(f);
+        const meta = TIER_META[t];
+        const isMine = f.id === state.myDocId;
+        return `<span class="ld-leader${isMine?' mine':''}">${meta.emoji} ${escapeHtml(f.name)} <small>(L${t}・${meta.label})</small></span>`;
+      }).join('') + `</div>`;
+  }
+
+  let actionsHtml = '';
+  const isThisMyHour = (myHour === h);
+  const canJoinAsCo = leaders.length < MAX_COLEADERS;
+
+  if(!state.myDocId){
+    actionsHtml = `<p class="mute" style="font-size:.85rem;color:var(--text-mute);margin-top:8px">まず Phase 1 で自分を登録すると、リーダー宣言できます。</p>`;
+  } else if(isThisMyHour){
+    if(myTier === 0){
+      actionsHtml = `
+        <p style="font-size:.9rem;color:var(--text-soft);margin:8px 0 6px">
+          ✨ ここはあなたの時間帯。<strong>どの段階から始めますか？</strong>
+        </p>
+        <div class="ld-actions">
+          <button class="btn-declare" onclick="declareLeader(1)">🕊 L1 名前だけ出す</button>
+          <button class="btn-tier" onclick="declareLeader(2)">📝 L2 一言宣言</button>
+          <button class="btn-tier" onclick="declareLeader(3)">🎤 L3 ライブで繋ぐ</button>
+          <button class="btn-tier" onclick="declareLeader(4)">🔔 L4 セレモニー</button>
+        </div>`;
+    } else {
+      actionsHtml = `
+        <p style="font-size:.9rem;color:var(--peace);margin:8px 0 6px">
+          ✓ あなたは <strong>L${myTier}・${TIER_META[myTier].label}</strong> のリーダーです。段階は自由に上下できます。
+        </p>
+        <div class="ld-actions">
+          ${[1,2,3,4].filter(t => t !== myTier).map(t =>
+            `<button class="btn-tier" onclick="declareLeader(${t})">${TIER_META[t].emoji} L${t}に変更</button>`
+          ).join('')}
+          <button class="btn-step-down" onclick="declareLeader(0)">リーダーを降りる</button>
+        </div>`;
+    }
+  } else {
+    if(canJoinAsCo){
+      const suggestFromInviter = inviterIsLeadHere
+        ? `<p style="font-size:.85rem;color:var(--sun);margin:8px 0 4px">
+             ✨ あなたを招待した <strong>${escapeHtml(inviter.name)}</strong> さんがここのリーダーです。共同リーダーで一緒に持ちませんか？
+           </p>`
+        : '';
+      actionsHtml = `
+        ${suggestFromInviter}
+        <p style="font-size:.85rem;color:var(--text-soft);margin:8px 0 6px">
+          あなたの時間帯 (UTC ${myHour !== null ? pad(myHour) + ':00' : '未登録'}) ではありませんが、<strong>共同リーダー</strong>として引き受けられます。（既存 ${leaders.length}/${MAX_COLEADERS}人）
+        </p>
+        <div class="ld-actions">
+          <button class="btn-declare" onclick="moveMyShiftAndDeclare(${h}, 1)">🕊 L1 共同リーダーになる</button>
+          <button class="btn-tier" onclick="moveMyShiftAndDeclare(${h}, 2)">📝 L2 共同</button>
+          <button class="btn-tier" onclick="moveMyShiftAndDeclare(${h}, 3)">🎤 L3 共同</button>
+        </div>
+        <p class="mute" style="font-size:.72rem;color:var(--text-mute);margin-top:6px">
+          ※ この操作で、あなたの担当時間も UTC ${pad(h)}:00 に変わります。
+        </p>`;
+    } else {
+      actionsHtml = `<p class="mute" style="font-size:.85rem;color:var(--text-mute);margin-top:8px">この時間帯は共同リーダーの上限（${MAX_COLEADERS}人）に達しています。他の空いている時間帯を選んでください。</p>`;
+    }
+  }
+
+  el.innerHTML = `
+    <h4>UTC ${pad(h)}:00 の時間帯${localHint}</h4>
+    ${leadersHtml}
+    ${actionsHtml}
+  `;
 }
 
 /* ===================== START画面の完成イメージ・リング ===================== */
@@ -2471,7 +2891,8 @@ Object.assign(window, {
   resetAll, toggleBaton,
   autoFillOffset,
   inviteFriend, inviteFriendManual, inviteFriendByPref,
-  confirmInvite, declineInvite
+  confirmInvite, declineInvite,
+  declareLeader, moveMyShiftAndDeclare, selectLeaderHour
 });
 
 /* ===================== Boot ===================== */
