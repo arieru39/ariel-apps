@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232a2521'/><text x='50' y='58' font-size='52' text-anchor='middle' dominant-baseline='central'>🧩</text></svg>" />
+<title>Claudian 導入マニュアル（Mac版 / Windows版）｜ありえる楽考</title>
+<meta name="description" content="Obsidian の中で Claude Code を動かすプラグイン「Claudian」を、まっさらな PC からセットアップする手順書。Mac版・Windows版をタブで切り替え。ターミナル未経験の方でも進められます。">
+<style>
+  :root{
+    --ink:#1c1a17;
+    --ink-2:#4a453e;
+    --ink-3:#7a736a;
+    --line:#e5e0d8;
+    --line-2:#efebe4;
+    --bg:#faf8f5;
+    --card:#ffffff;
+    --accent:#c96442;
+    --accent-soft:#fbf1ec;
+    --mac:#2b6cb0;
+    --win:#2f855a;
+    --warn:#b7791f;
+    --warn-soft:#fdf6e7;
+    --code-bg:#221f1c;
+    --code-ink:#f2ede6;
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic UI","Yu Gothic","Noto Sans JP","Segoe UI",Meiryo,sans-serif;
+    font-size:16px;
+    line-height:1.85;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:900px;margin:0 auto;padding:0 22px 100px}
+
+  /* ---------- header ---------- */
+  header.hero{
+    background:linear-gradient(160deg,#2a2521 0%,#3b332c 55%,#4a3d33 100%);
+    color:#fff;padding:54px 22px 46px;margin-bottom:0;
+  }
+  .hero-inner{max-width:900px;margin:0 auto}
+  .eyebrow{
+    display:inline-block;font-size:12px;letter-spacing:.14em;font-weight:700;
+    background:rgba(255,255,255,.14);padding:5px 12px;border-radius:999px;margin-bottom:16px;
+  }
+  .backlink{
+    display:inline-block;font-size:13px;color:#cfc4b7;text-decoration:none;
+    border:0;margin-bottom:18px;
+  }
+  .backlink:hover{color:#fff;border:0}
+  h1{font-size:32px;line-height:1.4;margin:0 0 12px;font-weight:800;letter-spacing:-.01em}
+  .hero p{margin:0;color:#e0d8ce;font-size:15px;max-width:640px}
+  .hero-meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px}
+  .hero-meta span{
+    font-size:12.5px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.16);
+    padding:5px 11px;border-radius:8px;color:#f0e9e1;
+  }
+
+  /* ---------- OS switch ---------- */
+  .os-bar{
+    position:sticky;top:0;z-index:50;background:rgba(250,248,245,.94);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+    padding:12px 22px;margin-bottom:34px;
+  }
+  .os-bar-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .os-label{font-size:12.5px;color:var(--ink-3);font-weight:700;letter-spacing:.06em}
+  .os-tabs{display:inline-flex;background:#efeae2;border-radius:11px;padding:4px;gap:4px}
+  .os-tabs button{
+    font:inherit;font-size:14px;font-weight:700;border:0;background:transparent;color:var(--ink-3);
+    padding:8px 20px;border-radius:8px;cursor:pointer;transition:.15s;
+  }
+  .os-tabs button:hover{color:var(--ink)}
+  .os-tabs button.active{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.10)}
+  .os-hint{font-size:12.5px;color:var(--ink-3)}
+
+  /* ---------- sections ---------- */
+  section{margin:0 0 46px}
+  h2{
+    font-size:23px;font-weight:800;margin:52px 0 6px;padding-bottom:12px;
+    border-bottom:2px solid var(--line);letter-spacing:-.01em;
+  }
+  h2 .num{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:32px;height:32px;background:var(--accent);color:#fff;border-radius:9px;
+    font-size:15px;margin-right:12px;vertical-align:2px;
+  }
+  h3{font-size:17px;font-weight:700;margin:30px 0 8px}
+  h4{font-size:15px;font-weight:700;margin:22px 0 6px;color:var(--ink-2)}
+  p{margin:10px 0}
+  .lead{color:var(--ink-2);font-size:15px}
+  ul,ol{padding-left:24px;margin:10px 0}
+  li{margin:6px 0}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(201,100,66,.35)}
+  a:hover{border-bottom-color:var(--accent)}
+  strong{font-weight:700}
+  code{
+    background:#f0ece5;border:1px solid var(--line);border-radius:5px;
+    padding:1.5px 6px;font-size:13.5px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace;
+    word-break:break-all;
+  }
+
+  /* ---------- cards / callouts ---------- */
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px 24px;margin:18px 0;
+  }
+  .note,.warn,.tip{
+    border-radius:12px;padding:15px 18px;margin:16px 0;font-size:14.5px;line-height:1.8;
+  }
+  .note{background:#f2f5f9;border-left:4px solid #5a7ba6}
+  .warn{background:var(--warn-soft);border-left:4px solid var(--warn)}
+  .tip{background:var(--accent-soft);border-left:4px solid var(--accent)}
+  .note b,.warn b,.tip b{display:block;margin-bottom:4px;font-size:13.5px;letter-spacing:.02em}
+  .note p:last-child,.warn p:last-child,.tip p:last-child,
+  .note ul:last-child,.warn ul:last-child,.tip ul:last-child{margin-bottom:0}
+  .note p:first-child,.warn p:first-child,.tip p:first-child{margin-top:0}
+
+  /* ---------- code block ---------- */
+  .code{
+    position:relative;background:var(--code-bg);color:var(--code-ink);
+    border-radius:11px;padding:16px 54px 16px 18px;margin:14px 0;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace;
+    font-size:13.5px;line-height:1.75;overflow-x:auto;white-space:pre;
+  }
+  .code .cmt{color:#9c948a}
+  .copy{
+    position:absolute;top:9px;right:9px;background:rgba(255,255,255,.10);color:#e8e2da;
+    border:1px solid rgba(255,255,255,.16);border-radius:7px;font:inherit;font-size:11.5px;
+    padding:4px 9px;cursor:pointer;font-family:-apple-system,sans-serif;
+  }
+  .copy:hover{background:rgba(255,255,255,.2)}
+  .copy.done{background:#3f7d55;border-color:#3f7d55;color:#fff}
+
+  /* ---------- steps ---------- */
+  .steps{counter-reset:st;list-style:none;padding:0;margin:14px 0}
+  .steps>li{
+    counter-increment:st;position:relative;padding:0 0 4px 40px;margin:0 0 18px;
+  }
+  .steps>li::before{
+    content:counter(st);position:absolute;left:0;top:2px;
+    width:26px;height:26px;border-radius:50%;background:#efeae2;color:var(--ink-2);
+    display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;
+  }
+
+  /* ---------- table ---------- */
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14.5px;background:#fff}
+  th,td{border:1px solid var(--line);padding:10px 13px;text-align:left;vertical-align:top}
+  th{background:#f5f1ea;font-weight:700;font-size:13.5px}
+  td code{font-size:12.5px}
+
+  /* ---------- os-specific blocks ---------- */
+  .osblock{display:none}
+  body[data-os="mac"] .os-mac{display:block}
+  body[data-os="win"] .os-win{display:block}
+  span.osblock{display:none}
+  body[data-os="mac"] span.os-mac{display:inline}
+  body[data-os="win"] span.os-win{display:inline}
+  li.osblock,tr.osblock{display:none}
+  body[data-os="mac"] li.os-mac{display:list-item}
+  body[data-os="win"] li.os-win{display:list-item}
+  body[data-os="mac"] tr.os-mac{display:table-row}
+  body[data-os="win"] tr.os-win{display:table-row}
+
+  .osbadge{
+    display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.05em;
+    padding:3px 10px;border-radius:6px;margin-bottom:10px;
+  }
+  .osbadge.mac{background:#e6effa;color:var(--mac)}
+  .osbadge.win{background:#e4f3ea;color:var(--win)}
+
+  /* ---------- toc ---------- */
+  .toc{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px 24px;margin:0 0 10px}
+  .toc h3{margin:0 0 10px;font-size:14px;letter-spacing:.06em;color:var(--ink-3)}
+  .toc ol{margin:0;padding-left:20px;font-size:14.5px;columns:2;column-gap:32px}
+  .toc li{margin:4px 0;break-inside:avoid}
+  .toc a{border:0;color:var(--ink-2)}
+  .toc a:hover{color:var(--accent)}
+
+  /* ---------- checklist ---------- */
+  .check{list-style:none;padding:0;margin:12px 0}
+  .check li{
+    padding:9px 0 9px 32px;position:relative;border-bottom:1px dashed var(--line-2);font-size:14.5px;
+  }
+  .check li:last-child{border-bottom:0}
+  .check li::before{
+    content:"";position:absolute;left:2px;top:15px;width:15px;height:15px;
+    border:2px solid #c3bcb1;border-radius:4px;
+  }
+
+  .kbd{
+    display:inline-block;background:#fff;border:1px solid #cfc8bd;border-bottom-width:2px;
+    border-radius:5px;padding:1px 7px;font-size:12.5px;font-weight:600;margin:0 1px;
+  }
+
+  footer{
+    border-top:1px solid var(--line);margin-top:60px;padding-top:24px;
+    font-size:13.5px;color:var(--ink-3);
+  }
+  footer a{color:var(--ink-3)}
+
+  @media (max-width:640px){
+    h1{font-size:25px}
+    h2{font-size:20px}
+    .toc ol{columns:1}
+    .wrap{padding:0 16px 70px}
+    header.hero{padding:38px 16px 34px}
+    .code{font-size:12.5px}
+  }
+  @media print{
+    .os-bar{position:static}
+    .copy{display:none}
+    body{background:#fff}
+  }
+</style>
+</head>
+<body data-os="mac">
+
+<header class="hero">
+  <div class="hero-inner">
+    <a class="backlink" href="../">← ありえる楽考 対話アプリ集</a><br>
+    <span class="eyebrow">導入マニュアル</span>
+    <h1>Claudian 導入マニュアル<br>― Obsidian を AI と一緒に使えるようにする ―</h1>
+    <p>Obsidian の中で Claude Code を動かすプラグイン「Claudian」を、まっさらな PC からセットアップするための手順書です。ターミナルを触ったことがない方でも、上から順番になぞれば完了します。</p>
+    <div class="hero-meta">
+      <span>対象：Mac / Windows（デスクトップ版）</span>
+      <span>所要時間：およそ 30〜45 分</span>
+      <span>前提知識：不要</span>
+      <span>最終更新：2026年7月</span>
+    </div>
+  </div>
+</header>
+
+<div class="os-bar">
+  <div class="os-bar-inner">
+    <span class="os-label">お使いの PC を選んでください</span>
+    <div class="os-tabs" role="tablist">
+      <button id="btn-mac" class="active" onclick="setOS('mac')">Mac 版</button>
+      <button id="btn-win" onclick="setOS('win')">Windows 版</button>
+    </div>
+    <span class="os-hint">切り替えると、以下の手順が選んだ OS 用に入れ替わります。</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+<div class="toc">
+  <h3>もくじ</h3>
+  <ol>
+    <li><a href="#s0">Claudian とは何か</a></li>
+    <li><a href="#s1">STEP 0：始める前の準備チェック</a></li>
+    <li><a href="#s2">STEP 1：Obsidian をインストールする</a></li>
+    <li><a href="#s3">STEP 2：Vault（保管庫）をつくる</a></li>
+    <li><a href="#s4">STEP 3：ターミナルを開く</a></li>
+    <li><a href="#s5">STEP 4：Claude Code をインストールする</a></li>
+    <li><a href="#s6">STEP 5：Claude にログインする</a></li>
+    <li><a href="#s7">STEP 6：Claudian プラグインを入れる</a></li>
+    <li><a href="#s8">STEP 7：Claudian の初期設定</a></li>
+    <li><a href="#s9">STEP 8：動作確認</a></li>
+    <li><a href="#s10">基本の使い方 5 つ</a></li>
+    <li><a href="#s11">困ったときは（トラブル対処）</a></li>
+    <li><a href="#s12">安全に使うための注意点</a></li>
+    <li><a href="#s13">参考リンク</a></li>
+  </ol>
+</div>
+
+<!-- ============ 0 ============ -->
+<section id="s0">
+  <h2>Claudian とは何か</h2>
+  <p class="lead">Claudian は、メモアプリ <strong>Obsidian</strong> の中に AI（Claude Code）を住まわせるための無料プラグインです。Obsidian の保管庫（Vault）がそのまま AI の作業場所になるので、「自分のメモを読ませて、書かせる」ことができます。</p>
+
+  <div class="card">
+    <h4 style="margin-top:0">Claudian で できるようになること</h4>
+    <ul>
+      <li><strong>自分のノートを読ませて相談できる</strong> — 「先週の議事録をまとめて」のように、Vault 内のファイルを根拠に答えてもらえる</li>
+      <li><strong>ノートを AI に書かせる・直させる</strong> — 新規ファイルの作成、既存ノートの追記・整形まで実行できる</li>
+      <li><strong>複数ファイルをまたいだ作業</strong> — 「日次メモ 30 件から今月の振り返りノートを作る」といった一括処理</li>
+      <li><strong>文章の部分編集</strong> — 選択した段落だけを、変更前後の差分を見ながら書き換え</li>
+      <li><strong>定型作業の登録</strong> — よく使う指示をスラッシュコマンドとして保存し、いつでも呼び出し</li>
+    </ul>
+  </div>
+
+  <h3>全体の流れ（ここで作るもの）</h3>
+  <p>セットアップは大きく 3 つの部品を揃える作業です。順番が大事なので、飛ばさずに進めてください。</p>
+  <table>
+    <thead><tr><th style="width:26%">部品</th><th>役割</th><th style="width:20%">担当 STEP</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Obsidian</strong></td><td>メモを書くアプリ本体。ここが「家」になります。</td><td>STEP 1〜2</td></tr>
+      <tr><td><strong>Claude Code</strong></td><td>実際に考えて作業する AI 本体。PC 側にインストールします。</td><td>STEP 3〜5</td></tr>
+      <tr><td><strong>Claudian</strong></td><td>上の 2 つをつなぐ配管。Obsidian のプラグインとして入れます。</td><td>STEP 6〜8</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note">
+    <b>用語メモ</b>
+    <p><strong>Vault（ヴォールト／保管庫）</strong>…Obsidian がメモを保存するフォルダのこと。<strong>プラグイン</strong>…アプリに機能を追加する部品。<strong>ターミナル / PowerShell</strong>…文字で PC に命令する画面。STEP 3 で開き方から説明します。</p>
+  </div>
+</section>
+
+<!-- ============ 1 ============ -->
+<section id="s1">
+  <h2><span class="num">0</span>STEP 0：始める前の準備チェック</h2>
+  <p class="lead">ここで足りないものがあると途中で止まります。先に確認しておきましょう。</p>
+
+  <div class="card">
+    <h4 style="margin-top:0">必要なもの</h4>
+    <ul class="check">
+      <li><strong>Claude の有料プラン</strong>（Pro / Max / Team / Enterprise）または Claude Console の API 契約。<span style="color:var(--warn)">無料プランでは Claude Code は使えません。</span></li>
+      <li><strong>インターネット接続</strong></li>
+      <li><strong>メモリ 4GB 以上の PC</strong></li>
+      <li class="osblock os-mac"><strong>macOS 13.0（Ventura）以降</strong></li>
+      <li class="osblock os-win"><strong>Windows 10（バージョン 1809）以降</strong>、または Windows 11</li>
+      <li><strong>作業時間 30〜45 分</strong>（途中でブラウザのログイン操作が入ります）</li>
+    </ul>
+  </div>
+
+  <div class="osblock os-mac">
+    <span class="osbadge mac">Mac 版</span>
+    <h4>OS のバージョンを確認する方法</h4>
+    <ol>
+      <li>画面左上の <strong>アップルマーク（）</strong> をクリック</li>
+      <li><strong>「このMacについて」</strong> を選択</li>
+      <li>表示された数字が <strong>13 以上</strong> であれば OK（例：macOS 15.x）</li>
+    </ol>
+  </div>
+
+  <div class="osblock os-win">
+    <span class="osbadge win">Windows 版</span>
+    <h4>OS のバージョンを確認する方法</h4>
+    <ol>
+      <li>キーボードの <span class="kbd">Windows</span> + <span class="kbd">R</span> を同時に押す</li>
+      <li>出てきた小窓に <code>winver</code> と入力して <span class="kbd">Enter</span></li>
+      <li><strong>Windows 10 バージョン 1809 以降</strong>、または <strong>Windows 11</strong> であれば OK</li>
+    </ol>
+  </div>
+
+  <div class="tip">
+    <b>Node.js は必要ですか？</b>
+    <p>このマニュアルで案内する方法（公式インストーラー）では <strong>Node.js のインストールは不要</strong>です。ネット上の古い記事では「先に Node.js を入れる」と書かれていることがありますが、現在は不要になっています。すでに入っていても問題ありません。</p>
+  </div>
+</section>
+
+<!-- ============ 2 ============ -->
+<section id="s2">
+  <h2><span class="num">1</span>STEP 1：Obsidian をインストールする</h2>
+  <p class="lead">すでに Obsidian を使っている方は、この STEP と STEP 2 を飛ばして <a href="#s4">STEP 3</a> へ進んでください。</p>
+
+  <div class="osblock os-mac">
+    <span class="osbadge mac">Mac 版</span>
+    <ol class="steps">
+      <li>ブラウザで <a href="https://obsidian.md/download" target="_blank" rel="noopener">obsidian.md/download</a> を開きます。</li>
+      <li><strong>macOS 用のダウンロードボタン</strong>をクリックします（<code>.dmg</code> ファイルが落ちてきます）。<br>
+        <span style="font-size:14px;color:var(--ink-3)">※ Apple シリコン（M1〜M4）／Intel の選択肢が出た場合は、STEP 0 の「このMacについて」で見たチップ名に合わせて選びます。迷ったら「Apple Silicon」を選んでください。</span></li>
+      <li>ダウンロードした <code>Obsidian-x.x.x.dmg</code> をダブルクリックします。</li>
+      <li>開いたウィンドウで、<strong>Obsidian のアイコンを Applications フォルダにドラッグ＆ドロップ</strong>します。</li>
+      <li>Launchpad または「アプリケーション」フォルダから <strong>Obsidian を起動</strong>します。</li>
+      <li>「インターネットからダウンロードされたアプリです」と確認が出たら <strong>「開く」</strong> をクリックします。</li>
+    </ol>
+  </div>
+
+  <div class="osblock os-win">
+    <span class="osbadge win">Windows 版</span>
+    <ol class="steps">
+      <li>ブラウザで <a href="https://obsidian.md/download" target="_blank" rel="noopener">obsidian.md/download</a> を開きます。</li>
+      <li><strong>Windows 用のダウンロードボタン</strong>をクリックします（<code>.exe</code> ファイルが落ちてきます）。</li>
+      <li>ダウンロードした <code>Obsidian-x.x.x.exe</code> をダブルクリックします。</li>
+      <li><strong>「WindowsによってPCが保護されました」</strong> と青い画面が出た場合は、<strong>「詳細情報」→「実行」</strong> の順にクリックします。</li>
+      <li>インストールが自動で進み、完了すると Obsidian が起動します。</li>
+    </ol>
+    <div class="note">
+      <b>補足</b>
+      <p>Microsoft Store 版ではなく、公式サイトの <code>.exe</code> 版を使ってください。Store 版はフォルダの扱いが異なり、プラグインで問題が起きることがあります。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3 ============ -->
+<section id="s3">
+  <h2><span class="num">2</span>STEP 2：Vault（保管庫）をつくる</h2>
+  <p class="lead">Vault は「メモを入れておくフォルダ」です。この Vault が、そのまま AI の作業場所になります。</p>
+
+  <ol class="steps">
+    <li>Obsidian を起動すると、最初に <strong>「Create new vault（新規保管庫を作成）」</strong> という画面が出ます。</li>
+    <li><strong>Vault name</strong> に好きな名前を入力します（例：<code>MyNotes</code>）。</li>
+    <li><strong>Location（場所）</strong> の「Browse」を押して、保存先フォルダを選びます。
+      <div class="osblock os-mac" style="margin-top:8px">「書類（Documents）」フォルダの中がおすすめです。</div>
+      <div class="osblock os-win" style="margin-top:8px">「ドキュメント」フォルダの中がおすすめです。</div>
+    </li>
+    <li><strong>「Create」</strong> をクリックすると、空の Vault が開きます。</li>
+  </ol>
+
+  <div class="warn">
+    <b>Vault の置き場所で気をつけること</b>
+    <ul>
+      <li><strong>フォルダ名・パスに日本語やスペースを含めない</strong>ことを強くおすすめします（例：<code>MyNotes</code> は OK、<code>私のメモ 2026</code> は避ける）。AI がファイルを扱うときにトラブルが起きにくくなります。</li>
+      <li class="osblock os-mac"><strong>iCloud Drive の中は避けてください。</strong>ファイルが自動で「クラウドのみ」に退避され、AI から読めなくなることがあります。</li>
+      <li class="osblock os-win"><strong>OneDrive の中は避けてください。</strong>「ファイルオンデマンド」により実体がローカルに無い状態になり、AI から読めなくなることがあります。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 4 ============ -->
+<section id="s4">
+  <h2><span class="num">3</span>STEP 3：ターミナルを開く</h2>
+  <p class="lead">ここから 2 STEP だけ、黒い画面（ターミナル）を使います。コピー＆ペーストするだけなので、身構えなくて大丈夫です。</p>
+
+  <div class="osblock os-mac">
+    <span class="osbadge mac">Mac 版：ターミナルの開き方</span>
+    <ol class="steps">
+      <li>キーボードの <span class="kbd">command ⌘</span> + <span class="kbd">スペース</span> を同時に押します（Spotlight 検索が開きます）。</li>
+      <li><code>ターミナル</code> と入力します（英語環境なら <code>Terminal</code>）。</li>
+      <li>一覧の先頭に出てくる <strong>「ターミナル」</strong> を選んで <span class="kbd">Enter</span>。</li>
+      <li>白または黒のウィンドウが開き、<code>ユーザー名@Mac ~ %</code> のような文字が表示されれば準備完了です。</li>
+    </ol>
+    <div class="note">
+      <b>ターミナルの使い方の基本</b>
+      <ul>
+        <li>コマンドは <strong>コピーして貼り付け</strong>（<span class="kbd">command ⌘</span> + <span class="kbd">V</span>）→ <span class="kbd">Enter</span> で実行します。</li>
+        <li>パスワードを入力する場面では、<strong>打っても画面に何も表示されません</strong>。これは正常です。そのまま入力して <span class="kbd">Enter</span> を押してください。</li>
+        <li>処理中は何も反応がないように見えることがあります。1〜2 分は待ちましょう。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="osblock os-win">
+    <span class="osbadge win">Windows 版：PowerShell の開き方</span>
+    <ol class="steps">
+      <li>キーボードの <span class="kbd">Windows</span> キーを押します。</li>
+      <li><code>powershell</code> と入力します。</li>
+      <li>一覧に出てくる <strong>「Windows PowerShell」</strong> を選んで <span class="kbd">Enter</span>。<br>
+        <span style="font-size:14px;color:var(--ink-3)">※ 管理者として実行する必要はありません。通常起動で大丈夫です。</span></li>
+      <li>青または黒のウィンドウが開き、<code>PS C:\Users\あなたの名前&gt;</code> のような文字が表示されれば準備完了です。</li>
+    </ol>
+    <div class="warn">
+      <b>ここが最重要：PowerShell と コマンドプロンプトは別物です</b>
+      <p>行頭に <strong><code>PS</code> が付いていれば PowerShell</strong>、付いておらず <code>C:\...&gt;</code> だけなら <strong>コマンドプロンプト（CMD）</strong>です。このマニュアルの Windows 手順は <strong>PowerShell 用</strong>です。<code>PS</code> が見当たらない場合は、いったん閉じて開き直してください。</p>
+    </div>
+    <div class="note">
+      <b>PowerShell の使い方の基本</b>
+      <ul>
+        <li>コマンドは <strong>コピーして貼り付け</strong>（<span class="kbd">Ctrl</span> + <span class="kbd">V</span>、または右クリック）→ <span class="kbd">Enter</span> で実行します。</li>
+        <li>処理中は何も反応がないように見えることがあります。1〜2 分は待ちましょう。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5 ============ -->
+<section id="s5">
+  <h2><span class="num">4</span>STEP 4：Claude Code をインストールする</h2>
+  <p class="lead">AI の本体をインストールします。開いたターミナルに、下のコマンドをそのまま貼り付けて実行してください。</p>
+
+  <div class="osblock os-mac">
+    <span class="osbadge mac">Mac 版</span>
+    <h4>インストールコマンド</h4>
+    <div class="code"><button class="copy" onclick="cp(this)">コピー</button>curl -fsSL https://claude.ai/install.sh | bash</div>
+    <p>貼り付けたら <span class="kbd">Enter</span>。ダウンロードとインストールが自動で進みます（1〜3 分程度）。</p>
+
+    <h4>インストールできたか確認する</h4>
+    <p>いったんターミナルを <strong>閉じて、開き直して</strong>から、次を実行します。</p>
+    <div class="code"><button class="copy" onclick="cp(this)">コピー</button>claude --version</div>
+    <p><code>2.1.211 (Claude Code)</code> のようにバージョン番号が表示されれば成功です。</p>
+
+    <div class="warn">
+      <b><code>command not found: claude</code> と出たら</b>
+      <p>ターミナルを開き直していない可能性が高いです。ターミナルを完全に終了（<span class="kbd">command ⌘</span> + <span class="kbd">Q</span>）してから開き直し、もう一度試してください。それでも直らない場合は <a href="#s11">「困ったときは」</a> を参照してください。</p>
+    </div>
+
+    <div class="note">
+      <b>Homebrew を使っている方へ</b>
+      <p>すでに Homebrew を使い慣れている場合は <code>brew install --cask claude-code</code> でも導入できます。ただし Homebrew 版は自動更新されないため、こだわりがなければ上のコマンドを推奨します。</p>
+    </div>
+  </div>
+
+  <div class="osblock os-win">
+    <span class="osbadge win">Windows 版</span>
+    <h4>インストールコマンド（PowerShell）</h4>
+    <div class="code"><button class="copy" onclick="cp(this)">コピー</button>irm https://claude.ai/install.ps1 | iex</div>
+    <p>貼り付けたら <span class="kbd">Enter</span>。ダウンロードとインストールが自動で進みます（1〜3 分程度）。</p>
+
+    <div class="warn">
+      <b>エラーが出たときの見分け方</b>
+      <ul>
+        <li><code>'irm' is not recognized...</code> → PowerShell ではなく <strong>コマンドプロンプト</strong>を開いています。PowerShell を開き直してください。</li>
+        <li><code>スクリプトの実行がシステムで無効になっています</code> → 下の 1 行を実行してから、もう一度インストールコマンドを試してください。
+          <div class="code" style="margin-top:8px"><button class="copy" onclick="cp(this)">コピー</button>Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned</div>
+          （<code>Y</code> と入力して <span class="kbd">Enter</span> で承認します）</li>
+      </ul>
+    </div>
+
+    <h4>インストールできたか確認する</h4>
+    <p>いったん PowerShell を <strong>閉じて、開き直して</strong>から、次を実行します。</p>
+    <div class="code"><button class="copy" onclick="cp(this)">コピー</button>claude --version</div>
+    <p><code>2.1.211 (Claude Code)</code> のようにバージョン番号が表示されれば成功です。</p>
+
+    <h4>（推奨）Git for Windows を入れておく</h4>
+    <p>必須ではありませんが、入れておくと Claude Code が使えるコマンドの種類が増え、動作が安定します。</p>
+    <ol>
+      <li><a href="https://git-scm.com/downloads/win" target="_blank" rel="noopener">git-scm.com/downloads/win</a> からインストーラーをダウンロード</li>
+      <li>ダブルクリックして起動し、<strong>設定はすべて初期値のまま「Next」を押し続けて</strong>インストール</li>
+    </ol>
+    <p style="font-size:14px;color:var(--ink-3)">入れなくても Claudian は動きます。後からでも追加できます。</p>
+  </div>
+</section>
+
+<!-- ============ 6 ============ -->
+<section id="s6">
+  <h2><span class="num">5</span>STEP 5：Claude にログインする</h2>
+  <p class="lead">インストールした AI に、あなたの Claude アカウントを紐づけます。この作業は最初の 1 回だけです。</p>
+
+  <ol class="steps">
+    <li>ターミナル<span class="osblock os-win">（PowerShell）</span>で、次のコマンドを実行します。
+      <div class="code"><button class="copy" onclick="cp(this)">コピー</button>claude</div>
+    </li>
+    <li>初回はログイン方法を聞かれます。<strong>キーボードの上下キー</strong>で選び、<span class="kbd">Enter</span> で決定します。
+      <ul style="margin-top:6px">
+        <li><strong>Claude の有料プラン（Pro / Max など）を使う場合</strong> → サブスクリプションでのログインを選択</li>
+        <li><strong>API キーで使う場合</strong> → Console / API キーの選択肢を選ぶ</li>
+      </ul>
+    </li>
+    <li>自動的に <strong>ブラウザが開きます</strong>。Claude アカウントでログインし、表示された内容を確認して <strong>承認</strong>します。</li>
+    <li>ブラウザに認証コードが表示された場合は、それをコピーしてターミナルに貼り付け、<span class="kbd">Enter</span>。</li>
+    <li>ターミナルに Claude Code の対話画面が表示されたら成功です。試しに <code>こんにちは</code> と打って返事が返ってくるか確認しましょう。</li>
+    <li>確認できたら <code>/exit</code> と入力して <span class="kbd">Enter</span>、または <span class="kbd">Ctrl</span> + <span class="kbd">C</span> を 2 回押して終了します。</li>
+  </ol>
+
+  <div class="tip">
+    <b>ここまで来れば山場は越えました</b>
+    <p>残りはすべて Obsidian の画面上でのマウス操作です。ターミナルはいったん閉じて構いません。</p>
+  </div>
+</section>
+
+<!-- ============ 7 ============ -->
+<section id="s7">
+  <h2><span class="num">6</span>STEP 6：Claudian プラグインを入れる</h2>
+  <p class="lead">Obsidian の画面に戻り、プラグインを追加します。ここからは Mac / Windows で操作は共通です（ショートカットキーだけ異なります）。</p>
+
+  <ol class="steps">
+    <li><strong>Obsidian を起動</strong>し、STEP 2 で作った Vault を開きます。</li>
+    <li>左下の <strong>歯車アイコン（⚙ Settings）</strong> をクリックして設定を開きます。<br>
+      <span style="font-size:14px;color:var(--ink-3)">ショートカット：<span class="osblock os-mac"><span class="kbd">command ⌘</span> + <span class="kbd">,</span></span><span class="osblock os-win"><span class="kbd">Ctrl</span> + <span class="kbd">,</span></span></span></li>
+    <li>左メニューから <strong>「Community plugins（コミュニティプラグイン）」</strong> を選びます。</li>
+    <li>初回のみ <strong>「Turn on community plugins（コミュニティプラグインを有効化）」</strong> というボタンが出るので、クリックして有効にします。<br>
+      <span style="font-size:14px;color:var(--ink-3)">※ 「制限モードをオフにする」と表示される場合もあります。同じ操作です。</span></li>
+    <li><strong>「Browse（閲覧）」</strong> ボタンをクリックします。</li>
+    <li>検索欄に <strong><code>Claudian</code></strong> と入力します。</li>
+    <li>検索結果から <strong>作者が「Yishen Tu」の「Claudian」</strong> を選びます。
+      <div class="warn" style="margin-top:10px">
+        <b>似た名前のプラグインに注意</b>
+        <p>ストアには <strong>「ClaudianIA」</strong> という別のプラグインも存在します。<strong>作者名が「Yishen Tu」であること</strong>を必ず確認してください。説明文に「embeds Claude Code/Codex as an AI collaborator in your vault」とあるものが正解です。</p>
+      </div>
+    </li>
+    <li><strong>「Install（インストール）」</strong> をクリックし、完了したら <strong>「Enable（有効化）」</strong> をクリックします。</li>
+    <li>Obsidian の <strong>左端のリボン（縦に並んだアイコン列）に Claudian のアイコン</strong> が追加されていれば成功です。</li>
+  </ol>
+
+  <div class="note">
+    <b>ストアに見つからない場合（手動インストール）</b>
+    <ol style="margin-top:6px">
+      <li><a href="https://github.com/YishenTu/claudian/releases" target="_blank" rel="noopener">GitHub のリリースページ</a> から <code>main.js</code> / <code>manifest.json</code> / <code>styles.css</code> の 3 ファイルをダウンロード</li>
+      <li>Vault フォルダの中に <code>.obsidian/plugins/claudian/</code> というフォルダを作り、3 ファイルを入れる<br>
+        <span class="osblock os-mac" style="font-size:14px;color:var(--ink-3)">※ <code>.obsidian</code> は隠しフォルダです。Finder で <span class="kbd">command ⌘</span> + <span class="kbd">shift</span> + <span class="kbd">.</span> を押すと表示されます。</span>
+        <span class="osblock os-win" style="font-size:14px;color:var(--ink-3)">※ <code>.obsidian</code> は隠しフォルダです。エクスプローラーの「表示」→「隠しファイル」にチェックを入れると表示されます。</span>
+      </li>
+      <li>Obsidian の Community plugins 画面で更新ボタンを押し、Claudian を有効化</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 8 ============ -->
+<section id="s8">
+  <h2><span class="num">7</span>STEP 7：Claudian の初期設定</h2>
+  <p class="lead">多くの場合、設定を触らなくてもそのまま動きます。まず STEP 8 の動作確認を先に試し、うまくいかないときだけここに戻ってきてください。</p>
+
+  <h3>設定画面の開き方</h3>
+  <p>Obsidian の <strong>設定（⚙）</strong> → 左メニューの下のほうにある <strong>「Claudian」</strong> をクリックします。</p>
+
+  <h3>確認しておきたい項目</h3>
+  <table>
+    <thead><tr><th style="width:30%">項目</th><th>設定内容</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Provider（プロバイダー）</strong></td><td><code>Claude</code> になっていることを確認します。初期値のままで OK です。</td></tr>
+      <tr><td><strong>Claude CLI path</strong><br>（Advanced タブ内）</td><td><strong>空欄のままにしておきます。</strong>空欄だと自動検出されます。動かないときだけ、下の手順で手入力します。</td></tr>
+      <tr><td><strong>Environment（環境変数）</strong></td><td>通常は何も入れません。</td></tr>
+    </tbody>
+  </table>
+
+  <h3>自動検出に失敗したとき：CLI パスを手入力する</h3>
+
+  <div class="osblock os-mac">
+    <span class="osbadge mac">Mac 版</span>
+    <ol class="steps">
+      <li>ターミナルを開き、次を実行します。
+        <div class="code"><button class="copy" onclick="cp(this)">コピー</button>which claude</div>
+      </li>
+      <li>表示されたパス（例：<code>/Users/あなたの名前/.local/bin/claude</code>）を<strong>すべてコピー</strong>します。</li>
+      <li>Obsidian の <strong>設定 → Claudian → Advanced → Claude CLI path</strong> に貼り付けます。</li>
+      <li>Obsidian を再起動します。</li>
+    </ol>
+  </div>
+
+  <div class="osblock os-win">
+    <span class="osbadge win">Windows 版</span>
+    <ol class="steps">
+      <li>PowerShell を開き、次を実行します。
+        <div class="code"><button class="copy" onclick="cp(this)">コピー</button>where.exe claude</div>
+      </li>
+      <li>表示されたパスのうち、<strong><code>claude.exe</code> で終わるもの</strong>をコピーします（例：<code>C:\Users\あなたの名前\.local\bin\claude.exe</code>）。</li>
+      <li>Obsidian の <strong>設定 → Claudian → Advanced → Claude CLI path</strong> に貼り付けます。</li>
+      <li>Obsidian を再起動します。</li>
+    </ol>
+    <div class="warn">
+      <b>Windows でのパス指定の鉄則</b>
+      <ul>
+        <li>指定するのは <strong><code>claude.exe</code></strong> です。</li>
+        <li><strong><code>.cmd</code> や <code>.ps1</code> で終わるパスは指定しないでください。</strong>正しく起動できません。</li>
+        <li>npm で入れた場合のみ、<code>npm root -g</code> で表示されたフォルダ内の <code>cli-wrapper.cjs</code> を指定します（古い <code>cli.js</code> ではありません）。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 9 ============ -->
+<section id="s9">
+  <h2><span class="num">8</span>STEP 8：動作確認</h2>
+  <p class="lead">最後に、ちゃんと動くか試してみましょう。</p>
+
+  <ol class="steps">
+    <li>Obsidian で <strong>左端のリボンにある Claudian アイコン</strong> をクリックします。<br>
+      <span style="font-size:14px;color:var(--ink-3)">見つからない場合：<span class="osblock os-mac"><span class="kbd">command ⌘</span> + <span class="kbd">P</span></span><span class="osblock os-win"><span class="kbd">Ctrl</span> + <span class="kbd">P</span></span> でコマンドパレットを開き、<code>Claudian: Open Chat</code> と入力して実行します。</span></li>
+    <li>右側（または左側）に <strong>チャットパネル</strong> が開きます。</li>
+    <li>入力欄に、テスト用の指示を打ってみます。
+      <div class="code"><button class="copy" onclick="cp(this)">コピー</button>test.md というファイルを作って、中に「セットアップ完了」と書いてください。</div>
+    </li>
+    <li>AI がファイル作成の <strong>許可を求めてくる</strong> ので、内容を確認して <strong>承認</strong>します。</li>
+    <li>Vault の中に <code>test.md</code> が作られ、「セットアップ完了」と書かれていれば <strong>すべて完了です</strong>。</li>
+  </ol>
+
+  <div class="tip">
+    <b>お疲れさまでした</b>
+    <p>これで、あなたのメモを読み書きできる AI が Obsidian の中に入りました。次のセクションで、実際に使うときの基本操作を押さえておきましょう。</p>
+  </div>
+
+  <div class="card">
+    <h4 style="margin-top:0">完了チェックリスト</h4>
+    <ul class="check">
+      <li>Obsidian が起動し、Vault が開ける</li>
+      <li>ターミナルで <code>claude --version</code> がバージョンを返す</li>
+      <li>Obsidian の左リボンに Claudian アイコンがある</li>
+      <li>Claudian のチャットパネルが開く</li>
+      <li>AI に指示してファイルが作れた</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 10 ============ -->
+<section id="s10">
+  <h2>基本の使い方 5 つ</h2>
+  <p class="lead">最初に覚えるのはこれだけで十分です。</p>
+
+  <div class="card">
+    <h4 style="margin-top:0">① チャットで相談する</h4>
+    <p>リボンの Claudian アイコンからチャットを開き、普通の日本語で指示します。会話は<strong>タブで複数持てる</strong>ので、話題ごとに分けられます。過去の会話は履歴から呼び戻せます。</p>
+    <p style="color:var(--ink-3);font-size:14px">例：「このVaultにある読書メモを、著者別に整理した一覧ノートを作って」</p>
+  </div>
+
+  <div class="card">
+    <h4 style="margin-top:0">② <code>@</code> でファイルを指定する</h4>
+    <p>チャット入力欄で <strong><code>@</code></strong> を打つと、Vault 内のファイル候補が出ます。読ませたいノートを名指しすると、精度がぐっと上がります。</p>
+    <p style="color:var(--ink-3);font-size:14px">例：「@daily/2026-07-20.md を要約して @weekly/2026-W30.md に追記して」</p>
+  </div>
+
+  <div class="card">
+    <h4 style="margin-top:0">③ <code>/</code> で定型コマンドを呼ぶ</h4>
+    <p><strong><code>/</code></strong> を打つと登録済みのコマンド一覧が出ます。<strong><code>$</code></strong> ではスキル（より大きな作業手順）を呼び出せます。よく使う指示を登録しておくと毎回打たずに済みます。</p>
+  </div>
+
+  <div class="card">
+    <h4 style="margin-top:0">④ Plan Mode（計画モード）で安全に進める</h4>
+    <p><span class="kbd">Shift</span> + <span class="kbd">Tab</span> で切り替わります。オンにすると <strong>AI がいきなり実行せず、「何をするか」の計画を先に見せてくれます</strong>。承認してから実行されるので、大きな作業をさせるときは必ずオンにしてください。</p>
+  </div>
+
+  <div class="card">
+    <h4 style="margin-top:0">⑤ Inline Edit（部分書き換え）</h4>
+    <p>ノート内の<strong>文章を選択した状態でホットキーを押す</strong>と、小窓が開きます。「もっと簡潔に」などと指示すると、<strong>変更前後の差分が単語単位で表示</strong>され、納得してから適用できます。</p>
+    <p style="color:var(--ink-3);font-size:14px">ホットキーは 設定 → ホットキー で <code>Claudian</code> を検索して割り当てられます。</p>
+  </div>
+</section>
+
+<!-- ============ 11 ============ -->
+<section id="s11">
+  <h2>困ったときは（トラブル対処）</h2>
+
+  <h3>症状別・対処一覧</h3>
+  <table>
+    <thead><tr><th style="width:34%">症状</th><th>対処</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><code>spawn claude ENOENT</code><br><code>Claude CLI not found</code></td>
+        <td>Claudian が Claude Code を見つけられていません。<a href="#s8">STEP 7 の「CLI パスを手入力する」</a> の手順でパスを指定してください。<br>nvm / fnm / volta などの Node バージョン管理ツールを使っている環境で特によく起こります。</td>
+      </tr>
+      <tr>
+        <td>Claudian のアイコンが出てこない</td>
+        <td>設定 → Community plugins で Claudian のスイッチが <strong>ON</strong> になっているか確認。ON なら Obsidian を完全に終了して再起動してください。</td>
+      </tr>
+      <tr>
+        <td>チャットは開くが返事が来ない</td>
+        <td>ターミナルで <code>claude</code> を実行し、ログインが切れていないか確認します。切れていれば再ログインしてください。</td>
+      </tr>
+      <tr>
+        <td><code>claude --version</code> が動かない</td>
+        <td>ターミナルを完全に終了してから開き直してください。それでも駄目なら、STEP 4 のインストールコマンドをもう一度実行します。</td>
+      </tr>
+      <tr>
+        <td>もっと詳しく原因を調べたい</td>
+        <td>ターミナルで <code>claude doctor</code> を実行すると、インストール状態と設定の診断結果が表示されます。</td>
+      </tr>
+      <tr class="osblock os-mac">
+        <td>Node.js と claude の場所がずれている</td>
+        <td>ターミナルで <code>dirname $(which claude)</code> と <code>dirname $(which node)</code> を実行し、結果が異なる場合は、設定 → Claudian → Environment に <code>PATH=/Node.jsのbinへのパス</code> を追加します。または STEP 4 の公式インストーラーで入れ直すのが確実です。</td>
+      </tr>
+      <tr class="osblock os-win">
+        <td>PowerShell でスクリプトが実行できない</td>
+        <td><code>Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned</code> を実行してから、インストールをやり直してください。</td>
+      </tr>
+      <tr class="osblock os-win">
+        <td>CLI パスを指定しても直らない</td>
+        <td>指定したパスが <code>.cmd</code> や <code>.ps1</code> で終わっていないか確認してください。<strong><code>claude.exe</code> を指定する必要があります。</strong></td>
+      </tr>
+      <tr>
+        <td>スマホの Obsidian で使いたい</td>
+        <td><strong>できません。</strong>Claudian はデスクトップ版 Obsidian（Mac / Windows / Linux）専用です。</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="note">
+    <b>迷ったらこの 3 つ</b>
+    <ol style="margin-top:6px">
+      <li>Obsidian を完全に終了して再起動する</li>
+      <li>ターミナルを開き直して <code>claude --version</code> を確認する</li>
+      <li>ターミナルで <code>claude doctor</code> を実行して診断結果を見る</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 12 ============ -->
+<section id="s12">
+  <h2>安全に使うための注意点</h2>
+
+  <div class="warn">
+    <b>Claudian は Vault の中のファイルを実際に書き換えます</b>
+    <p>チャット相手というより「あなたのフォルダで作業するアシスタント」です。以下の点を押さえておいてください。</p>
+  </div>
+
+  <ul>
+    <li><strong>大事な Vault は必ずバックアップを取る。</strong>Obsidian Sync、<span class="osblock os-mac">Time Machine</span><span class="osblock os-win">ファイル履歴</span>、あるいは Git などで履歴を残しておくと安心です。</li>
+    <li><strong>最初のうちは Plan Mode（<span class="kbd">Shift</span>+<span class="kbd">Tab</span>）を常にオンに。</strong>実行前に計画を確認できます。</li>
+    <li><strong>許可を求められたら内容を読む。</strong>ファイルの削除や上書き、コマンド実行の確認は流し読みせず承認してください。</li>
+    <li><strong>送信されるデータ。</strong>あなたの入力、添付したファイル、AI が読んだノートの内容は、設定したプロバイダー（Anthropic など）に送信されます。プラグイン自体は独自のデータ収集（テレメトリ）を行いません。</li>
+    <li><strong>設定の保存場所。</strong>Vault 内の <code>.claudian/</code>（プラグイン設定）と <code>.claude/</code>（Claude 関連ファイル）に保存されます。Git で管理している Vault なら、<code>.gitignore</code> にこの 2 つを追加しておくことをおすすめします。</li>
+    <li><strong>機密情報を含む Vault では慎重に。</strong>顧客情報や未公開情報を含む Vault を扱う場合は、社内ルールを確認してから使ってください。</li>
+  </ul>
+</section>
+
+<!-- ============ 13 ============ -->
+<section id="s13">
+  <h2>参考リンク</h2>
+  <ul>
+    <li><a href="https://claudian.xyz/en/docs/install/" target="_blank" rel="noopener">Claudian 公式ドキュメント（インストール）</a></li>
+    <li><a href="https://claudian.xyz/en/docs/faq/" target="_blank" rel="noopener">Claudian 公式 FAQ / トラブルシューティング</a></li>
+    <li><a href="https://github.com/YishenTu/claudian" target="_blank" rel="noopener">Claudian GitHub リポジトリ（開発元）</a></li>
+    <li><a href="https://community.obsidian.md/plugins/realclaudian" target="_blank" rel="noopener">Obsidian コミュニティプラグイン：Claudian</a></li>
+    <li><a href="https://code.claude.com/docs/en/setup" target="_blank" rel="noopener">Claude Code 公式セットアップガイド</a></li>
+    <li><a href="https://obsidian.md/download" target="_blank" rel="noopener">Obsidian ダウンロードページ</a></li>
+    <li><a href="https://git-scm.com/downloads/win" target="_blank" rel="noopener">Git for Windows（Windows のみ・任意）</a></li>
+  </ul>
+
+  <footer>
+    <p>Claudian 導入マニュアル ／ 2026年7月時点の情報に基づいて作成しています。Claudian および Claude Code は更新が活発なため、画面の表示や項目名が変わっている場合は、上記の公式ドキュメントをご確認ください。</p>
+    <p><a href="../">← ありえる楽考 対話アプリ集にもどる</a> ／ <a href="../book-to-app/">📚 本を学習アプリにする（次のステップ）</a></p>
+  </footer>
+</section>
+
+</div>
+
+<script>
+  function setOS(os){
+    document.body.setAttribute('data-os', os);
+    document.getElementById('btn-mac').classList.toggle('active', os === 'mac');
+    document.getElementById('btn-win').classList.toggle('active', os === 'win');
+  }
+  // 初期表示：閲覧中の OS を自動選択
+  (function(){
+    var p = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || '';
+    if (/win/i.test(p)) setOS('win');
+  })();
+
+  function cp(btn){
+    var el = btn.parentNode.cloneNode(true);
+    var b = el.querySelector('.copy');
+    if (b) b.remove();
+    var text = el.textContent.trim();
+    var done = function(){
+      var old = btn.textContent;
+      btn.textContent = 'コピーしました';
+      btn.classList.add('done');
+      setTimeout(function(){ btn.textContent = old; btn.classList.remove('done'); }, 1600);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function(){ fallback(text, done); });
+    } else {
+      fallback(text, done);
+    }
+  }
+  function fallback(text, done){
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); done(); } catch(e) {}
+    document.body.removeChild(ta);
+  }
+</script>
+</body>
+</html>
