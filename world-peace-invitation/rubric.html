@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>コンサルタントコーチ・ルーブリック｜一人への貢献から世界平和へ</title>
+<style>
+  :root {
+    --bg: #fefaf3;
+    --ink: #2a2a2a;
+    --muted: #6b6b6b;
+    --line: #d9cfbf;
+    --accent: #b8541a;
+    --l1: #f5e9d4;
+    --l2: #f0d47a;
+    --l3: #8fbf6e;
+    --l4: #3d6fb0;
+    --l1-ink: #7a5a2a;
+    --l2-ink: #6b4d0f;
+    --l3-ink: #1e4a10;
+    --l4-ink: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Hiragino Sans", "Yu Gothic", -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    margin: 0;
+    padding: 0;
+    line-height: 1.75;
+  }
+  .wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  .breadcrumb {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .breadcrumb a { color: var(--accent); text-decoration: none; }
+  h1 {
+    font-size: 28px;
+    margin: 0 0 8px;
+    letter-spacing: 0.02em;
+  }
+  .subtitle {
+    font-size: 15px;
+    color: var(--muted);
+    margin-bottom: 32px;
+  }
+  section {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  }
+  h2 {
+    font-size: 20px;
+    margin: 0 0 12px;
+    color: var(--accent);
+    border-bottom: 2px dotted var(--line);
+    padding-bottom: 6px;
+  }
+  h3 {
+    font-size: 16px;
+    margin: 20px 0 8px;
+  }
+  p { margin: 8px 0; }
+  ul { padding-left: 22px; margin: 8px 0; }
+  li { margin: 4px 0; }
+  .rubric-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 6px;
+    margin: 16px 0;
+  }
+  .rubric-table th {
+    background: #f7efe0;
+    padding: 12px 10px;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 8px;
+    vertical-align: top;
+    width: 30%;
+  }
+  .rubric-table th.level-col {
+    width: 10%;
+    background: #eee2cd;
+  }
+  .rubric-table td {
+    padding: 12px;
+    border-radius: 8px;
+    vertical-align: top;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .lvl-cell {
+    text-align: center;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 12px 6px;
+    border-radius: 8px;
+  }
+  .lvl-1 .lvl-cell { background: var(--l1); color: var(--l1-ink); }
+  .lvl-2 .lvl-cell { background: var(--l2); color: var(--l2-ink); }
+  .lvl-3 .lvl-cell { background: var(--l3); color: var(--l3-ink); }
+  .lvl-4 .lvl-cell { background: var(--l4); color: var(--l4-ink); }
+  .lvl-1 td.cell { background: #fdf7ea; border-left: 4px solid var(--l1); }
+  .lvl-2 td.cell { background: #fdf5da; border-left: 4px solid var(--l2); }
+  .lvl-3 td.cell { background: #eef7e5; border-left: 4px solid var(--l3); }
+  .lvl-4 td.cell { background: #e5edf7; border-left: 4px solid var(--l4); }
+  .cell-illust {
+    display: block;
+    margin: 0 auto 8px;
+    width: 80px;
+    height: 80px;
+  }
+  .cell-title {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 4px;
+    font-size: 14px;
+  }
+  .cell-body {
+    font-size: 12px;
+    color: #3a3a3a;
+  }
+  .usage-flow {
+    background: #f7efe0;
+    padding: 14px 18px;
+    border-radius: 8px;
+    margin: 12px 0;
+  }
+  .usage-flow ol {
+    margin: 0;
+    padding-left: 20px;
+  }
+  .footer-nav {
+    text-align: center;
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+  }
+  .footer-nav a {
+    display: inline-block;
+    padding: 10px 24px;
+    background: var(--accent);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    margin: 0 6px;
+  }
+  .footer-nav a.ghost {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+  }
+  @media (max-width: 800px) {
+    .rubric-table { border-spacing: 3px; }
+    .rubric-table th, .rubric-table td { padding: 8px 6px; font-size: 12px; }
+    .cell-illust { width: 60px; height: 60px; }
+    .cell-title { font-size: 12px; }
+    .cell-body { font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="breadcrumb"><a href="./">← 学習アプリに戻る</a></div>
+  <h1>🎨 コンサルタントコーチ・ルーブリック</h1>
+  <div class="subtitle">『一人への貢献から世界平和へ』を活用して成果を出すための 3領域 × 4段階の熟達地図</div>
+
+  <section>
+    <h2>📖 このルーブリックの背景</h2>
+    <p>本書『一人への貢献から世界平和へ―主人公として関わり、オーナーとして担う招待状』は、<strong>「たまかつ火（自己起点）→ 二者の盟約（一対一の貢献）→ エコシステム八原理（場の設計）」</strong>という3層のフラクタル構造を提示しています。個人の在り方が二者関係に、二者関係が場に、場が世界に折り返す──この構造の内、コンサルタントコーチが顧客と現場に成果をもたらすには、<strong>3つの領域を同時並行で耕す</strong>必要があります。</p>
+    <p>本ルーブリックは、その3領域それぞれについて<strong>4段階の熟達</strong>を言語化したものです。段階は Ericsson の熟達研究と Kahneman の Fast/Slow 二重過程理論に基づき、<strong>Slow で意識化 → 反復で Fast に沈殿 → 文脈で選び分ける</strong>という熟達曲線を辿ります。</p>
+    <ul>
+      <li><strong>L4（原則レベル）</strong>：原理から新しい文脈に応用できる。教えられる。</li>
+      <li><strong>L3（実践レベル）</strong>：反復で Fast に沈殿し、自然にできる。</li>
+      <li><strong>L2（理解レベル）</strong>：概念として理解し、Slow で意識すれば使える。</li>
+      <li><strong>L1（入門レベル）</strong>：気づき始めたばかり。まだ Fast は誤作動する。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🗺 ルーブリック本体（3領域 × 4段階）</h2>
+    <table class="rubric-table">
+      <thead>
+        <tr>
+          <th class="level-col">段階</th>
+          <th>🔥 領域A：たまかつ火（自己起点の在り方）</th>
+          <th>🤝 領域B：二者の盟約（目の前の一人への貢献）</th>
+          <th>🌏 領域C：エコシステム八原理（場とコミュニティの設計）</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- L4 -->
+        <tr class="lvl-4">
+          <td class="lvl-cell">L4<br>原則</td>
+          <td class="cell">
+            <svg class="cell-illust" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="30" fill="none" stroke="#3d6fb0" stroke-width="3"/>
+              <path d="M50 20 L55 40 L75 45 L58 55 L65 75 L50 62 L35 75 L42 55 L25 45 L45 40 Z" fill="#ffd54f" stroke="#3d6fb0" stroke-width="2"/>
+              <circle cx="50" cy="50" r="4" fill="#b8541a"/>
+              <text x="50" y="92" text-anchor="middle" font-size="8" fill="#3d6fb0">自己起点の火</text>
+            </svg>
+            <div class="cell-title">火種を教えられる</div>
+            <div class="cell-body">自らの「たまかつ火」を言語化し、他者の火種にも点火できる。「Who／What／How」の判断軸を原理から組み立て直せる。</div>
+          </td>
+          <td class="cell">
+            <svg class="cell-illust" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="30" cy="45" r="12" fill="#f0d47a" stroke="#3d6fb0" stroke-width="2"/>
+              <circle cx="70" cy="45" r="12" fill="#8fbf6e" stroke="#3d6fb0" stroke-width="2"/>
+              <path d="M42 45 Q50 30 58 45" fill="none" stroke="#b8541a" stroke-width="3"/>
+              <path d="M42 55 Q50 70 58 55" fill="none" stroke="#b8541a" stroke-width="3"/>
+              <text x="50" y="92" text-anchor="middle" font-size="8" fill="#3d6fb0">共著の盟約</text>
+            </svg>
+            <div class="cell-title">盟約を設計できる</div>
+            <div class="cell-body">目の前の一人と「共に何を成すか」の盟約を、契約の言葉ではなく本人の物語の言葉で編める。関係の崩れを予兆で察して修復できる。</div>
+          </td>
+          <td class="cell">
+            <svg class="cell-illust" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="35" fill="none" stroke="#3d6fb0" stroke-width="2"/>
+              <circle cx="50" cy="20" r="5" fill="#ffd54f"/>
+              <circle cx="80" cy="35" r="5" fill="#ffd54f"/>
+              <circle cx="80" cy="65" r="5" fill="#ffd54f"/>
+              <circle cx="50" cy="80" r="5" fill="#ffd54f"/>
+              <circle cx="20" cy="65" r="5" fill="#ffd54f"/>
+              <circle cx="20" cy="35" r="5" fill="#ffd54f"/>
+              <circle cx="65" cy="50" r="4" fill="#8fbf6e"/>
+              <circle cx="35" cy="50" r="4" fill="#8fbf6e"/>
+              <text x="50" y="97" text-anchor="middle" font-size="8" fill="#3d6fb0">八原理の場</text>
+            </svg>
+            <div class="cell-title">場に原理を編み込む</div>
+            <div class="cell-body">八原理（5つの自己自律＋3つの連合特有）を場の設計に翻訳できる。原理どうしの葛藤を含めて場の対話にできる。</div>
+          </td>
+        </tr>
+
+        <!-- L3 -->
+        <tr class="lvl-3">
+          <td class="lvl-cell">L3<br>実践</td>
+          <td class="cell">
+            <svg class="cell-illust" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50 25 L55 45 L75 50 L58 60 L65 80 L50 68 L35 80 L42 60 L25 50 L45 45 Z" fill="#8fbf6e" stroke="#1e4a10" stroke-width="2"/>
+              <text x="50" y="92" text-anchor="middle" font-size="8" fill="#1e4a10">自分の型で回す</text>
+            </svg>
+            <div class="cell-title">自分の型で回せる</div>
+            <div class="cell-body">日々の顧客対応で「Who／What／How」の順に自然に思考が回る。感情の乱れは自覚でき、Slow で戻せる。</div>
+          </td>
+          <td class="cell">
+            <svg class="cell-illust" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="35" cy="50" r="10" fill="#8fbf6e" stroke="#1e4a10" stroke-width="2"/>
+              <circle cx="65" cy="50" r="10" fill="#8fbf6e" stroke="#1e4a10" stroke-width="2"/>
+              <line x1="45" y1="50" x2="55" y2="50" stroke="#1e4a10" stroke-width="3"/>
+              <text x="50" y="92" text-anchor="middle" font-size="8" fill="#1e4a10">対等な貢献</text>
+            </svg>
+            <div class="cell-title">対等に貢献できる</div>
+            <div class="cell-body">顧客と対等な関係で、指示ではなく問いで場を動かせる。相手の主人公性を奪わずに次の一歩を共に置ける。</div>
+          </td>
+          <td class="cell">
+            <svg class="cell-illust" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="30" fill="none" stroke="#1e4a10" stroke-width="2" stroke-dasharray="4 3"/>
+              <circle cx="30" cy="50" r="6" fill="#8fbf6e"/>
+              <circle cx="70" cy="50" r="6" fill="#8fbf6e"/>
+              <circle cx="50" cy="30" r="6" fill="#8fbf6e"/>
+              <circle cx="50" cy="70" r="6" fill="#8fbf6e"/>
+              <text x="50" y="95" text-anchor="middle" font-size="8" fill="#1e4a10">場を耕す</text>
+            </svg>
+            <div class="cell-title">場を耕せる</div>
+            <div class="cell-body">複数人の場で、8原理のうち少なくとも3〜5つを意識的に運用できる。場の崩れの兆しを言語化して介入できる。</div>
+          </td>
+        </tr>
+
+        <!-- L2 -->
+        <tr class="lvl-2">
+          <td class="lvl-cell">L2<br>理解</td>
+          <td class="cell">
+            <svg class="cell-illust" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <rect x="30" y="30" width="40" height="40" fill="none" stroke="#6b4d0f" stroke-width="2"/>
+              <line x1="30" y1="45" x2="70" y2="45" stroke="#6b4d0f" stroke-width="1"/>
+              <line x1="30" y1="60" x2="70" y2="60" stroke="#6b4d0f" stroke-width="1"/>
+              <circle cx="50" cy="80" r="3" fill="#f0d47a"/>
+              <text x="50" y="95" text-anchor="middle" font-size="8" fill="#6b4d0f">概念地図</text>
+            </svg>
+            <div class="cell-title">言葉として掴んでいる</div>
+            <div class="cell-body">「たまかつ火」「主人公として関わる」の意味は説明できる。ただし日常の即断では Fast がまだ「損得」で動く。</div>
+          </td>
+          <td class="cell">
+            <svg class="cell-illust" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="35" cy="55" r="10" fill="#f0d47a" stroke="#6b4d0f" stroke-width="2"/>
+              <circle cx="65" cy="55" r="10" fill="#f0d47a" stroke="#6b4d0f" stroke-width="2"/>
+              <path d="M45 55 L55 55" stroke="#6b4d0f" stroke-width="2" stroke-dasharray="2 2"/>
+              <text x="50" y="30" text-anchor="middle" font-size="10" fill="#6b4d0f">?</text>
+              <text x="50" y="95" text-anchor="middle" font-size="8" fill="#6b4d0f">試行錯誤</text>
+            </svg>
+            <div class="cell-title">意識すればできる</div>
+            <div class="cell-body">「一対一の貢献」の意義は理解しており、意識的な場面（1on1、フィードバック）では実践できる。日常の会話ではまだ指示・評価が滑り込む。</div>
+          </td>
+          <td class="cell">
+            <svg class="cell-illust" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="30" fill="none" stroke="#6b4d0f" stroke-width="2"/>
+              <text x="50" y="45" text-anchor="middle" font-size="18" fill="#6b4d0f">8</text>
+              <text x="50" y="60" text-anchor="middle" font-size="8" fill="#6b4d0f">原理</text>
+              <text x="50" y="95" text-anchor="middle" font-size="8" fill="#6b4d0f">概念として</text>
+            </svg>
+            <div class="cell-title">8原理を列挙できる</div>
+            <div class="cell-body">エコシステム八原理を列挙・説明できる。ただし場の設計に落とすときは既存の型（会議設計・研修設計）に戻りがち。</div>
+          </td>
+        </tr>
+
+        <!-- L1 -->
+        <tr class="lvl-1">
+          <td class="lvl-cell">L1<br>入門</td>
+          <td class="cell">
+            <svg class="cell-illust" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="55" r="20" fill="#f5e9d4" stroke="#7a5a2a" stroke-width="2"/>
+              <circle cx="43" cy="52" r="2" fill="#7a5a2a"/>
+              <circle cx="57" cy="52" r="2" fill="#7a5a2a"/>
+              <path d="M43 62 Q50 68 57 62" fill="none" stroke="#7a5a2a" stroke-width="2"/>
+              <text x="50" y="30" text-anchor="middle" font-size="14" fill="#7a5a2a">?</text>
+              <text x="50" y="95" text-anchor="middle" font-size="8" fill="#7a5a2a">気づきの始まり</text>
+            </svg>
+            <div class="cell-title">言葉に触れたばかり</div>
+            <div class="cell-body">「主人公として関わる」という言葉に出会ったばかり。自分の行動を「損得ベース」で動いていたことに気づき始めた段階。</div>
+          </td>
+          <td class="cell">
+            <svg class="cell-illust" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="30" cy="50" r="10" fill="#f5e9d4" stroke="#7a5a2a" stroke-width="2"/>
+              <circle cx="70" cy="50" r="10" fill="#f5e9d4" stroke="#7a5a2a" stroke-width="2"/>
+              <line x1="40" y1="50" x2="60" y2="50" stroke="#7a5a2a" stroke-width="1" stroke-dasharray="1 2"/>
+              <text x="50" y="25" text-anchor="middle" font-size="10" fill="#7a5a2a">→</text>
+              <text x="50" y="92" text-anchor="middle" font-size="8" fill="#7a5a2a">一方向</text>
+            </svg>
+            <div class="cell-title">まだ「指示・評価」に戻る</div>
+            <div class="cell-body">顧客への関わりが「答えを渡す・評価を下す」に傾く。相手の主人公性という発想がまだ意識にのぼっていない。</div>
+          </td>
+          <td class="cell">
+            <svg class="cell-illust" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <rect x="25" y="35" width="50" height="30" fill="#f5e9d4" stroke="#7a5a2a" stroke-width="2"/>
+              <line x1="35" y1="50" x2="65" y2="50" stroke="#7a5a2a" stroke-width="1"/>
+              <text x="50" y="25" text-anchor="middle" font-size="8" fill="#7a5a2a">階層図</text>
+              <text x="50" y="92" text-anchor="middle" font-size="8" fill="#7a5a2a">従来の場</text>
+            </svg>
+            <div class="cell-title">場＝会議・研修と考える</div>
+            <div class="cell-body">「場」＝会議・研修・イベントという既存概念で捉えている。エコシステム・共同オーナーシップという発想には未接続。</div>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+    <p style="font-size:12px; color:var(--muted);">※ 段階は<strong>下から上へ</strong>登ります（L1 入門 → L4 原則）。数字の色は Fast/Slow の位相を表しており、下段は Slow が起動していない状態、上段は Fast が高解像度で機能している状態です。</p>
+  </section>
+
+  <section>
+    <h2>🧭 コンサルタントコーチとしての使い方</h2>
+
+    <h3>1. 自己診断（月次）</h3>
+    <p>月に1度、3領域それぞれについて「今の自分はどの段階か」を印をつける。<strong>3領域が同じ段階に揃うことは稀</strong>。多くの人は「A：L3／B：L2／C：L1」のように偏る。<strong>もっとも低い領域が全体のボトルネック</strong>になる。</p>
+
+    <h3>2. 顧客の見立てに使う</h3>
+    <p>コンサルタントコーチとして関わる顧客（経営者・リーダー・チーム）についても、3領域で見立てる。<strong>自分の段階より2段以上高い領域では、顧客を持ち上げられない</strong>。まず自分がその段階に登ることが、顧客への最大の貢献になる。</p>
+
+    <h3>3. 一段だけ登る「slow_question」を選ぶ</h3>
+    <div class="usage-flow">
+      <ol>
+        <li>もっとも低い領域を1つ選ぶ（例：領域C・L1）</li>
+        <li>その領域の学習アプリのテーマ（例：<a href="./#ecosystem_eight_principles">エコシステム八原理</a>）を開く</li>
+        <li>観点クイズを1つ解き、<strong>slow_question</strong>（🌱一段深めるための問い）を今週の実務で試す</li>
+        <li>翌週、その領域の段階が上がったかを再診断する</li>
+      </ol>
+    </div>
+
+    <h3>4. チーム／組織の共通言語として</h3>
+    <p>コンサルタントコーチ同士、あるいはクライアント組織のリーダー層と、この3領域 × 4段階を<strong>共通言語</strong>として使う。「あの案件は領域Bで詰まっている」「私は領域Aは L3 だが、領域C はまだ L1」といった対話ができるようになると、成長の方向が場に開かれる。</p>
+
+    <h3>5. 熟達曲線の心得</h3>
+    <ul>
+      <li><strong>L1 → L2 は「言葉を知る」</strong>だけで越えられる（本を読む・観点クイズを解く）</li>
+      <li><strong>L2 → L3 は「反復回数」</strong>が要る（Slow の意識的な運用を Fast に沈殿させる）</li>
+      <li><strong>L3 → L4 は「文脈の多様性」</strong>が要る（違う顧客・違う場・違う崩れ方の中で判断軸を鍛え直す）</li>
+      <li>どの段階も飛ばせない。焦らず、しかし止まらず。</li>
+    </ul>
+  </section>
+
+  <div class="footer-nav">
+    <a href="./">🌱 学習アプリで各テーマを深める</a>
+    <a href="../" class="ghost">📚 ariel-apps 全体に戻る</a>
+  </div>
+</div>
+</body>
+</html>
