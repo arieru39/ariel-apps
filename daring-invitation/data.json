@@ -10,44 +10,69 @@
     "amazon_url": "https://amzn.to/4ls2lSn",
     "playlist_url": "https://www.youtube.com/playlist?list=PL5au6sDA9NgWwRIrghoc-PzyNNlvjna0Z",
     "playlist_embed_url": "https://www.youtube.com/embed/videoseries?list=PL5au6sDA9NgWwRIrghoc-PzyNNlvjna0Z",
-    "video_title": "🎬 3冊が交差するプレイリスト（たまかつ側の関連動画）",
+    "video_title": "🎬 全体像 & 11のLO動画（全12本）",
     "tagline": "弱さを開いて、もうちょっと話してみたい人を誘う。誘い続けた先に、ビジョンは輪郭を得る。"
   },
-
   "layers": [
-    { "level": 3, "label": "第3層 · ビジョンを明確にする — 招待の連続がビジョンを輪郭化する" },
-    { "level": 2, "label": "第2層 · 誘う — 弱さを足場に、他者に手を差し伸べる" },
-    { "level": 1, "label": "第1層 · 自分の弱さから始める — 内側で「私はこれでよい」を取り戻す" }
+    {
+      "level": 3,
+      "label": "第3層 · ビジョンを明確にする — 招待の連続がビジョンを輪郭化する"
+    },
+    {
+      "level": 2,
+      "label": "第2層 · 誘う — 弱さを足場に、他者に手を差し伸べる"
+    },
+    {
+      "level": 1,
+      "label": "第1層 · 自分の弱さから始める — 内側で「私はこれでよい」を取り戻す"
+    }
   ],
-
   "rubric_labels": [
-    { "level": 1, "label": "気づいていない", "color": "#e0e0e0", "fast_slow": "Fast が自動で誤作動（Slow が起動していない）" },
-    { "level": 2, "label": "概念として理解している", "color": "#fff3b0", "fast_slow": "Slow で意識すれば使える（Fast にはまだ沈殿していない）" },
-    { "level": 3, "label": "実践できる", "color": "#a3d977", "fast_slow": "Slow の反復で Fast に沈殿し始めた" },
-    { "level": 4, "label": "文脈に応じて選び分けられる", "color": "#4a90e2", "fast_slow": "Fast が高解像度（educated guess）／熟達直観の域" }
+    {
+      "level": 1,
+      "label": "気づいていない",
+      "color": "#e0e0e0",
+      "fast_slow": "Fast が自動で誤作動（Slow が起動していない）"
+    },
+    {
+      "level": 2,
+      "label": "概念として理解している",
+      "color": "#fff3b0",
+      "fast_slow": "Slow で意識すれば使える（Fast にはまだ沈殿していない）"
+    },
+    {
+      "level": 3,
+      "label": "実践できる",
+      "color": "#a3d977",
+      "fast_slow": "Slow の反復で Fast に沈殿し始めた"
+    },
+    {
+      "level": 4,
+      "label": "文脈に応じて選び分けられる",
+      "color": "#4a90e2",
+      "fast_slow": "Fast が高解像度（educated guess）／熟達直観の域"
+    }
   ],
-
   "getting_started": {
     "enabled": true,
     "banner_title": "🌱 初めての方へ — まずは第1層「自分の弱さから始める」から",
     "banner_body": "11テーマは <strong>3層構造</strong> です。第2層「誘う」と第3層「ビジョンを明確にする」は、第1層で <strong>自分の弱さと和解している</strong> ことを土台にしています。<br>最初の扉は <strong>「弱さは弱点ではない — ヴァルネラビリティを勇気として置き直す」</strong>。ここから始めれば、誘うことが軽くなり、ビジョンが自然に語れるようになります。<br>いきなり書くのが重かったら、<strong>8問の関係性クイズ</strong> で3冊の交差点を先につかんでください。",
     "first_theme_id": "own_your_story",
     "quiz_cta_label": "🎯 関係性クイズで3冊の交差点を掴む（4択・8問・書かなくてOK）",
-    "write_cta_label": "✍️ 第1層から直接書く"
+    "write_cta_label": "✍️ 第1層から直接書く",
+    "video_embed_url": "https://www.youtube.com/embed/iK6JJkDtiHU",
+    "video_title": "🎬 全体像 — 弱さを抱いて誘う ─ ビジョンが明確になる旅（9分）"
   },
-
   "engine_note": {
     "sources": "原理レベル思考トレーニング（Ericsson『超一流になるのは才能か努力か?』最終章／Kahneman『Fast & Slow』／Gladwell『第1感』／Klein × Kahneman 2009 熟達直観）",
     "sub": "3冊の交差点で立ち上がる11テーマは、Slow で意識化 → 反復で Fast に沈殿 → 文脈で選び分け、という熟達曲線を辿ります。ルーブリックL1→L4はこの Fast/Slow の位相を表しています。",
     "unified_principle": "弱さを開示するSlowな一歩が、誘う勇気とビジョンの輪郭に沈殿する"
   },
-
   "relationship_quiz_meta": {
     "framing": "この8問は正解探しではありません。3冊がどこで交差するかを、あなたの現在地から映し出す鏡です。選んだ選択肢に応じて、あなたの視点／本の視座／立ち止まりの問い、の3つが返ってきます。",
     "deliberate_practice_note": "Comprehensible Input × 即時のフィードバック × 明確で具体的な目標 × 完全な集中 × コンフォートゾーンの一段外 × 専門家の設計（3冊の書籍） ── の6要件で組んでいます。",
     "score_label": "触れた視点"
   },
-
   "relationship_quiz": [
     {
       "focus_theme": "own_your_story",
@@ -402,7 +427,6 @@
       ]
     }
   ],
-
   "themes": [
     {
       "id": "own_your_story",
@@ -419,8 +443,8 @@
         "L4: 相手・タイミング・関係の段階に応じて、開く量と質を選び分け、共感の連鎖を意図的に設計できる"
       ],
       "implemented": true,
-      "video_embed_url": "",
-      "video_title": "第1章 弱さは弱点ではない — 果敢なる挑戦としてのヴァルネラビリティ",
+      "video_embed_url": "https://www.youtube.com/embed/kRf3XY5ZO28",
+      "video_title": "第1層 LO1 — 弱さは弱点ではない",
       "perspective_quiz": [
         {
           "q": "「今は準備が整っていない」と誘いや発信を先送りしているとき、実際には何を待っているのですか？",
@@ -525,8 +549,8 @@
         "L4: 自分だけでなく仲間のグレムリンにも気づき、共感の言葉で相手の恥を枯らす助けができる"
       ],
       "implemented": true,
-      "video_embed_url": "",
-      "video_title": "第1章 グレムリンの正体 — 恥のテープに名前をつける",
+      "video_embed_url": "https://www.youtube.com/embed/aR5wQtFPmUA",
+      "video_title": "第1層 LO2 — グレムリンを黙らせる",
       "perspective_quiz": [
         {
           "q": "恥のテープを『言葉にする』ことが、なぜ最も効くのですか？",
@@ -631,8 +655,8 @@
         "L4: 1人から始めて、その1人が動かした波紋の中から次の20人を選び分ける判断ができる"
       ],
       "implemented": true,
-      "video_embed_url": "https://www.youtube.com/embed/JfOjD6L_3nc",
-      "video_title": "16 リクルーティング — 「不可能」から「可能」へ：創造者の旅（たまかつ）",
+      "video_embed_url": "https://www.youtube.com/embed/GMKcE2XMcT0",
+      "video_title": "第1層 LO3 — あなたの『誰』を見つける",
       "perspective_quiz": [
         {
           "q": "『誰の何に役立ちたいか』を大きすぎず具体的に持つには、どう問い直しますか？",
@@ -737,8 +761,8 @@
         "L4: 一本釣りとその後の関係設計を段階的に選び分け、疲れずに人間関係を拡張できる"
       ],
       "implemented": true,
-      "video_embed_url": "",
-      "video_title": "第3章 一本釣り — 機能のつながりから、合う人を選び出す",
+      "video_embed_url": "https://www.youtube.com/embed/ITr8jPlOnVU",
+      "video_title": "第2層 LO4 — もうちょっと話してみたい",
       "perspective_quiz": [
         {
           "q": "『もうちょっと話してみたい』程度で誘うのは、失礼ではないですか？",
@@ -834,8 +858,8 @@
         "L4: 保険の裏で自分が本当に届けたい価値をブレさせず、相手にとっても喜ばしい形に統合できる"
       ],
       "implemented": true,
-      "video_embed_url": "",
-      "video_title": "第2章 保険の技術 — 店・人・コンテンツで誘いを軽くする",
+      "video_embed_url": "https://www.youtube.com/embed/r9jWXWWnWBc",
+      "video_title": "第2層 LO5 — 店・人・コンテンツの3保険",
       "perspective_quiz": [
         {
           "q": "『保険』を使うのは、相手を騙しているようで気が引けます。どう捉え直しますか？",
@@ -893,8 +917,8 @@
         "L4: 相手・場面・関係の段階に応じて、開示のサイズと質を選び分け、共感の場を意図的に育てられる"
       ],
       "implemented": true,
-      "video_embed_url": "",
-      "video_title": "第2章 共感は妙薬 — 先に開くことで場が変わる",
+      "video_embed_url": "https://www.youtube.com/embed/EoM0ul5ujDw",
+      "video_title": "第2層 LO6 — 先に弱さを開く",
       "perspective_quiz": [
         {
           "q": "『先に弱さを開く』ことに躊躇するとき、どこにブレーキがありますか？",
@@ -961,8 +985,8 @@
         "L4: 断られた後、より軽やかな次の招待を、その体験を活かして設計できる"
       ],
       "implemented": true,
-      "video_embed_url": "",
-      "video_title": "第1章 断られる恐怖の解体 — 大人のマッチング観",
+      "video_embed_url": "https://www.youtube.com/embed/TSWUDR8wIRQ",
+      "video_title": "第2層 LO7 — 断られる ≠ 人格否定",
       "perspective_quiz": [
         {
           "q": "『断られると堪える』の背景で、あなたは何を予測していますか？",
@@ -1020,8 +1044,8 @@
         "L4: 相手・場面・時期に応じてビジョンの語り方を選び分け、ビジョン自体が対話の中で磨かれ続けている"
       ],
       "implemented": true,
-      "video_embed_url": "https://www.youtube.com/embed/MOex-YrtnCY",
-      "video_title": "19 宣言システム — あなたはあなたの言葉でできている（たまかつ）",
+      "video_embed_url": "https://www.youtube.com/embed/zZo1CSnvEX8",
+      "video_title": "第3層 LO8 — ビジョンを社会への約束にする",
       "perspective_quiz": [
         {
           "q": "ビジョンを『社会への約束』に変える瞬間は、いつですか？",
@@ -1088,8 +1112,8 @@
         "L4: 20人リストを継続的に更新し、熱狂の連鎖を意図的にデザインできる"
       ],
       "implemented": true,
-      "video_embed_url": "",
-      "video_title": "第3章 20人の熱狂 — ジョブズの Think Different から学ぶ",
+      "video_embed_url": "https://www.youtube.com/embed/hrx1KDPMxe0",
+      "video_title": "第3層 LO9 — たった20人の熱狂",
       "perspective_quiz": [
         {
           "q": "『少数から』は理解できても、どうしても『広く届けなきゃ』と焦ります。どう扱いますか？",
@@ -1147,8 +1171,8 @@
         "L4: 場の運営を『新陳代謝』と『心理的安全』の両立で意図的にデザインできる"
       ],
       "implemented": true,
-      "video_embed_url": "",
-      "video_title": "第3章 コミュニティの自炊 — 偏食家こそ設計者",
+      "video_embed_url": "https://www.youtube.com/embed/hazMMux8ckw",
+      "video_title": "第3層 LO10 — 弱さを分かち合えるコミュニティを自炊する",
       "perspective_quiz": [
         {
           "q": "『自炊コミュニティ』の中核原理を、あなたはどこに置きますか？",
@@ -1215,8 +1239,8 @@
         "L4: 自分の回復儀式を仲間にも共有し、コミュニティ全体で競技場に立ち続けられる場を作れる"
       ],
       "implemented": true,
-      "video_embed_url": "",
-      "video_title": "第4章 果敢なる挑戦 — ルーズベルト演説と回復儀式",
+      "video_embed_url": "https://www.youtube.com/embed/JbxETMOr1Nw",
+      "video_title": "第3層 LO11 — 競技場に立ち続ける",
       "perspective_quiz": [
         {
           "q": "『競技場に立ち続ける』ために、あなたにとって必要なのは何ですか？",
