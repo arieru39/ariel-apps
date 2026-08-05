@@ -8,6 +8,23 @@
     "hashtag": "#daring_invitation",
     "source_note": "33価値共創コミュニティ／16リクルーティング + 35参考図書／誘える人 + 35参考図書／本当の勇気は弱さを認めること",
     "amazon_url": "https://amzn.to/4ls2lSn",
+    "source_books": [
+      {
+        "short_title": "誘える人（五百田達成）",
+        "title": "「誘える人」がぜんぶ手に入れる（五百田達成）",
+        "amazon_url": "https://amzn.asia/d/03uhwPz4"
+      },
+      {
+        "short_title": "本当の勇気は弱さを認めること（ブレネー・ブラウン）",
+        "title": "本当の勇気は弱さを認めること（ブレネー・ブラウン）",
+        "amazon_url": "https://amzn.asia/d/0ezi6XvR"
+      },
+      {
+        "short_title": "たまかつ 16章 リクルーティング（鈴木利和）",
+        "title": "価値共創コミュニティで「たまかつ」を生きる 16章（鈴木利和）",
+        "amazon_url": "https://amzn.to/4ls2lSn"
+      }
+    ],
     "playlist_url": "https://www.youtube.com/playlist?list=PL5au6sDA9NgWwRIrghoc-PzyNNlvjna0Z",
     "playlist_embed_url": "https://www.youtube.com/embed/videoseries?list=PL5au6sDA9NgWwRIrghoc-PzyNNlvjna0Z",
     "video_title": "🎬 全体像 & 11のLO動画（全12本）",

@@ -752,7 +752,18 @@ function applyBookMeta() {
   // Book-intro panel: book link + playlist embed
   const linksContainer = document.getElementById("book-links");
   linksContainer.innerHTML = "";
-  if (b.amazon_url) {
+  // Multi-book support: if source_books array present, render one button per book.
+  // Otherwise fallback to single amazon_url (backward-compat for single-book apps).
+  if (Array.isArray(b.source_books) && b.source_books.length > 0) {
+    b.source_books.forEach(sb => {
+      if (!sb || !sb.amazon_url) return;
+      const a = document.createElement("a");
+      a.href = sb.amazon_url;
+      a.target = "_blank"; a.rel = "noopener";
+      a.textContent = "📕 " + (sb.short_title || sb.title || "Amazonで本を見る");
+      linksContainer.appendChild(a);
+    });
+  } else if (b.amazon_url) {
     const a = document.createElement("a");
     a.href = b.amazon_url;
     a.target = "_blank"; a.rel = "noopener";
@@ -777,7 +788,7 @@ function applyBookMeta() {
     document.getElementById("book-video-caption").textContent =
       b.video_title || "🎬 章別解説プレイリスト";
   }
-  if (b.amazon_url || b.playlist_url || b.playlist_embed_url) {
+  if (b.amazon_url || (Array.isArray(b.source_books) && b.source_books.length) || b.playlist_url || b.playlist_embed_url) {
     document.getElementById("book-intro-panel").style.display = "";
   }
 }
