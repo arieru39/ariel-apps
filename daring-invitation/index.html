@@ -388,6 +388,74 @@
   .perspective-quiz-block .pq-hint {
     font-size: 11.5px; color: #7a6a30; margin-top: 8px; line-height: 1.6;
   }
+  /* ==== Quick mode（1ステップで動画に到達） ==== */
+  .perspective-quiz-block.quick-mode {
+    background: linear-gradient(135deg, #fff3d6, #ffe8a8);
+    border: 2px solid #e8b800;
+  }
+  .perspective-quiz-block.quick-mode .pq-quick-hero {
+    display: flex; align-items: center; gap: 10px;
+    background: #fff; border: 2px dashed #e8b800; border-radius: 10px;
+    padding: 10px 14px; margin-bottom: 12px;
+  }
+  .perspective-quiz-block.quick-mode .pq-quick-hero .icon {
+    font-size: 22px; line-height: 1;
+  }
+  .perspective-quiz-block.quick-mode .pq-quick-hero .txt {
+    font-size: 13.5px; font-weight: 700; color: #5a4a00; line-height: 1.5;
+  }
+  .perspective-quiz-block.quick-mode .pq-quick-hero .sub {
+    display: block; font-weight: 400; font-size: 11.5px; color: #7a6a30; margin-top: 2px;
+  }
+  .perspective-quiz-block.quick-mode .pq-choice {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .perspective-quiz-block.quick-mode .pq-choice .play-badge {
+    flex-shrink: 0; background: #e8b800; color: #fff; border-radius: 50%;
+    width: 26px; height: 26px; display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700;
+  }
+  .perspective-quiz-block.quick-mode .pq-choice:hover:not(.disabled) .play-badge {
+    background: #c99a00;
+  }
+  /* Quick mode: 他の選択肢を覗く（比較パネル） */
+  .quick-compare-panel {
+    margin-top: 16px; border: 1px solid #d0c8a8; border-radius: 10px; background: #fbf6e6;
+  }
+  .quick-compare-toggle {
+    display: block; width: 100%; text-align: left; padding: 10px 14px;
+    background: none; border: none; cursor: pointer;
+    font-size: 13px; font-weight: 700; color: #5a4a00;
+  }
+  .quick-compare-toggle:hover { background: #f4ecc8; }
+  .quick-compare-body {
+    padding: 4px 14px 14px; display: none;
+  }
+  .quick-compare-body.open { display: block; }
+  .quick-compare-item {
+    background: #fff; border: 1px solid #e0d8b8; border-radius: 8px;
+    padding: 10px 12px; margin-bottom: 8px; font-size: 12.5px; line-height: 1.55;
+  }
+  .quick-compare-item.was-chosen {
+    border-color: #b89400; background: #fdf4c8;
+  }
+  .quick-compare-item .qc-text { font-weight: 600; color: #2b2b2b; margin-bottom: 4px; }
+  .quick-compare-item .qc-stance { color: #5a4a00; font-size: 11.5px; margin-bottom: 2px; }
+  .quick-compare-item .qc-phase { color: #7a6a30; font-size: 11px; font-family: ui-monospace, monospace; }
+  .quick-compare-item .qc-author { color: #444; font-size: 12px; margin-top: 6px; padding-top: 6px; border-top: 1px dashed #e0d8b8; }
+  /* Quick mode: あなたの選択の特徴 */
+  .quick-insight {
+    margin-top: 14px; padding: 12px 16px; border-radius: 10px;
+    background: linear-gradient(135deg, #f0f4ff, #e6ecfa);
+    border: 1px solid #b3cdec; color: #2a3c60; font-size: 12.5px; line-height: 1.65;
+  }
+  .quick-insight .qi-title {
+    font-weight: 700; font-size: 13px; margin-bottom: 6px; color: #1a2b45;
+  }
+  .quick-insight .qi-phase-badge {
+    display: inline-block; background: #4a90e2; color: #fff; border-radius: 12px;
+    padding: 2px 10px; font-size: 11px; margin-right: 6px; font-weight: 600;
+  }
   /* 動画を観たあとの1〜2行反応 */
   .lo-reaction {
     margin: 14px 0 4px;
@@ -555,6 +623,14 @@
 
     <!-- 動画を観る前の観点クイズ（最大3問／あり方を映す鏡・正解探しではない） -->
     <div id="perspective-quiz-block" class="perspective-quiz-block" style="display:none;">
+      <!-- Quick mode ヒーロー（perspective_quiz_mode: "quick" のときだけ表示） -->
+      <div id="pq-quick-hero" class="pq-quick-hero" style="display:none;">
+        <div class="icon">▶️</div>
+        <div class="txt">
+          1つ選ぶと、動画が観られます。
+          <span class="sub">どれを選んでも動画は同じ。あなたの選択が、あなたの入り口になります。</span>
+        </div>
+      </div>
       <div class="pq-header">
         <span class="pq-label">🎯 動画を観る前の観点づくり</span>
         <span class="pq-progress" id="pq-progress"></span>
@@ -569,6 +645,15 @@
       <div id="pq-feedback-author" class="fb-author" style="display:none;"></div>
       <div id="pq-feedback-slow" class="fb-slow" style="display:none;"></div>
       <div class="pq-hint" id="pq-hint" style="display:none;"></div>
+      <!-- Quick mode: あなたの選択の特徴（位相ベースの示唆） -->
+      <div id="pq-quick-insight" class="quick-insight" style="display:none;"></div>
+      <!-- Quick mode: 他の選択肢を覗く（比較パネル） -->
+      <div id="pq-quick-compare" class="quick-compare-panel" style="display:none;">
+        <button type="button" class="quick-compare-toggle" onclick="toggleQuickCompare()">
+          <span id="quick-compare-toggle-label">🔍 他の選択肢を覗いてみる（4択の全景）</span>
+        </button>
+        <div id="quick-compare-body" class="quick-compare-body"></div>
+      </div>
       <div class="btn-row" id="pq-next-row" style="display:none; margin-top:12px;">
         <span></span>
         <button id="pq-next-btn" onclick="nextPerspectiveQuestion()">次の観点 →</button>
@@ -926,11 +1011,29 @@ function openTheme(id) {
   perspectiveStanceTrail = [];
   const pqList = currentTheme.perspective_quiz || [];
   const pqBlock = document.getElementById("perspective-quiz-block");
+  // Quick mode 状態のリセット（他のLOに戻ったときに quick-mode クラスが残らないように）
+  if (pqBlock) pqBlock.classList.remove("quick-mode");
+  const hero = document.getElementById("pq-quick-hero");
+  if (hero) hero.style.display = "none";
+  const qInsight = document.getElementById("pq-quick-insight");
+  if (qInsight) { qInsight.style.display = "none"; qInsight.innerHTML = ""; }
+  const qCompare = document.getElementById("pq-quick-compare");
+  if (qCompare) qCompare.style.display = "none";
+  const qCompareBody = document.getElementById("quick-compare-body");
+  if (qCompareBody) { qCompareBody.classList.remove("open"); qCompareBody.innerHTML = ""; }
+  const qCompareLabel = document.getElementById("quick-compare-toggle-label");
+  if (qCompareLabel) qCompareLabel.textContent = "🔍 他の選択肢を覗いてみる（4択の全景）";
+
   if (pqList.length && pqBlock) {
-    // まず動画を隠す。観点クイズを解き終わってから動画＋反応を表示
     pqBlock.style.display = "";
     if (loVideo) loVideo.style.display = "none";
-    renderPerspectiveQuestion();
+    if (currentTheme.perspective_quiz_mode === "quick") {
+      // Quick mode: 1問だけ、4択どれを選んでも即動画
+      renderQuickPerspective();
+    } else {
+      // Sequential mode: 従来通り全問順にこなしてから動画
+      renderPerspectiveQuestion();
+    }
   } else {
     // 観点クイズがなければ最初から動画＋反応を出す
     if (pqBlock) pqBlock.style.display = "none";
@@ -1087,6 +1190,190 @@ function finishPerspectiveQuiz() {
     const target = hasVideo ? loVideo : reactionBlock;
     if (target && target.scrollIntoView) target.scrollIntoView({behavior:"smooth", block:"start"});
   }, 100);
+}
+
+// ==================== Perspective Quiz: Quick Mode ====================
+// theme.perspective_quiz_mode === "quick" のとき、先頭の1問だけを提示し、
+// どの選択肢を押しても即座に動画が現れる。選択後に「他の選択肢を覗く」比較パネルと
+// 「あなたの選択の特徴」示唆パネルを表示する。
+function renderQuickPerspective() {
+  const pqList = (currentTheme && currentTheme.perspective_quiz) || [];
+  if (!pqList.length) { finishPerspectiveQuiz(); return; }
+  const q = pqList[0];
+  const pqBlock = document.getElementById("perspective-quiz-block");
+  if (pqBlock) pqBlock.classList.add("quick-mode");
+
+  const hero = document.getElementById("pq-quick-hero");
+  if (hero) hero.style.display = "";
+
+  // Progress は不要（1問なので）
+  const prog = document.getElementById("pq-progress");
+  if (prog) prog.textContent = "";
+
+  document.getElementById("pq-question").innerHTML = q.q || "";
+  const loEl = document.getElementById("pq-lo");
+  const loBody = document.getElementById("pq-lo-body");
+  if (q.learning_objective && loEl && loBody) {
+    loBody.innerHTML = q.learning_objective;
+    loEl.style.display = "";
+  } else if (loEl) {
+    loEl.style.display = "none";
+  }
+
+  const choicesEl = document.getElementById("pq-choices");
+  choicesEl.innerHTML = "";
+  (q.choices || []).forEach((c, i) => {
+    const div = document.createElement("div");
+    div.className = "pq-choice";
+    div.innerHTML =
+      `<span class="play-badge">▶</span><span>${c.text}</span>`;
+    div.onclick = () => selectQuickPerspective(i);
+    choicesEl.appendChild(div);
+  });
+
+  ["pq-feedback-stance","pq-feedback-author","pq-feedback-slow","pq-hint",
+   "pq-quick-insight","pq-quick-compare","pq-next-row"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = "none";
+  });
+}
+
+function selectQuickPerspective(idx) {
+  const pqList = currentTheme.perspective_quiz || [];
+  const q = pqList[0];
+  const chosen = q.choices[idx];
+
+  // Choice UI: mark chosen, dim others
+  const items = document.querySelectorAll("#pq-choices .pq-choice");
+  items.forEach((el, i) => {
+    el.classList.add("disabled");
+    el.onclick = null;
+    if (i === idx) el.classList.add("chosen");
+    else el.classList.add("dim");
+  });
+
+  // Save trail
+  perspectiveStanceTrail = [{
+    q_index: 0,
+    choice_index: idx,
+    stance: chosen.stance || "",
+    phase: chosen.phase || ""
+  }];
+
+  // Feedback: stance / author / slow
+  const fbStance = document.getElementById("pq-feedback-stance");
+  if (fbStance) {
+    fbStance.innerHTML = `
+      <div class="fb-title">${chosen.stance || ""}</div>
+      ${chosen.phase ? `<div class="fb-phase">${chosen.phase}</div>` : ""}
+      ${chosen.phase_note ? `<div class="fb-phase-note">${chosen.phase_note}</div>` : ""}
+    `;
+    fbStance.style.display = "";
+  }
+  const fbAuthor = document.getElementById("pq-feedback-author");
+  if (fbAuthor && chosen.author_view) {
+    fbAuthor.innerHTML = `
+      <div class="fb-title">本の視座として</div>
+      <div>${chosen.author_view}</div>
+    `;
+    fbAuthor.style.display = "";
+  }
+  const fbSlow = document.getElementById("pq-feedback-slow");
+  if (fbSlow && chosen.slow_question) {
+    fbSlow.innerHTML = `
+      <div class="fb-title">立ち止まって聞いてみる</div>
+      <div>${chosen.slow_question}</div>
+    `;
+    fbSlow.style.display = "";
+  }
+
+  // あなたの選択の特徴（位相ベースの示唆）
+  const insight = document.getElementById("pq-quick-insight");
+  if (insight) {
+    insight.innerHTML = buildQuickInsight(chosen, q, idx);
+    insight.style.display = "";
+  }
+
+  // 他の選択肢を覗く比較パネル
+  buildQuickComparePanel(q, idx);
+  const compare = document.getElementById("pq-quick-compare");
+  if (compare) compare.style.display = "";
+
+  // 動画＋反応欄を即座に表示
+  const loVideo = document.getElementById("lo-video");
+  const reactionBlock = document.getElementById("lo-reaction-block");
+  const reactionLabel = reactionBlock ? reactionBlock.querySelector(".lo-reaction-label") : null;
+  const reactionTa = document.getElementById("lo-reaction");
+  const hasVideo = !!(currentTheme && currentTheme.video_embed_url);
+  if (hasVideo) {
+    if (loVideo) loVideo.style.display = "";
+    if (reactionLabel) reactionLabel.textContent = "🎥 動画を観て感じたこと（1〜2行）";
+    if (reactionTa) reactionTa.setAttribute("placeholder", "動画で心に残った言葉・違和感・引っかかりを1〜2行で。");
+  }
+  if (reactionBlock) reactionBlock.style.display = "";
+  if (currentSession) currentSession.perspective_stance_trail = perspectiveStanceTrail.slice();
+
+  // 動画までスムーズにスクロール
+  setTimeout(() => {
+    const target = hasVideo ? loVideo : reactionBlock;
+    if (target && target.scrollIntoView) target.scrollIntoView({behavior:"smooth", block:"start"});
+  }, 250);
+}
+
+function buildQuickInsight(chosen, q, idx) {
+  // phase から3タイプ（Fast / Slow / 身体）を判別して、選択の特徴コメントを返す
+  const phase = chosen.phase || "";
+  let phaseType = "その他";
+  let phaseColor = "#4a90e2";
+  let insight = "";
+  if (phase.indexOf("Fast") >= 0) {
+    phaseType = "⚡ Fast の反射";
+    phaseColor = "#e07b00";
+    insight = "あなたはまず<strong>『いつもの反射』に正直</strong>に選びました。日常の即断が持つ強みと、その裏にある癖の両方に気づける入り口です。動画では、この反射をどう <strong>Slow の再構築</strong> に接続するかが語られます。";
+  } else if (phase.indexOf("Slow") >= 0) {
+    phaseType = "🐢 Slow の再構築";
+    phaseColor = "#3d7fbe";
+    insight = "あなたは<strong>立ち止まって言葉を作り直す</strong>選択をしました。反射より一歩内側で考えられる強みです。動画では、この <strong>Slow の再構築</strong> をどう習慣に落とすかが語られます。";
+  } else if (phase.indexOf("身体") >= 0) {
+    phaseType = "🌊 身体の感覚";
+    phaseColor = "#3aa38a";
+    insight = "あなたは<strong>身体感覚</strong>を判断材料にしました。頭で考える前に、身体が知っていることを聞ける強みです。動画では、その身体の直感と <strong>Fast/Slow</strong> をどう束ねるかが語られます。";
+  } else {
+    insight = "あなたはこの4択の中から、独自の入り口を選びました。動画を通じて、あなたの選択に本の視座を重ねてみてください。";
+  }
+  return `
+    <div class="qi-title"><span class="qi-phase-badge" style="background:${phaseColor}">${phaseType}</span>あなたの選択の特徴</div>
+    <div>${insight}</div>
+  `;
+}
+
+function buildQuickComparePanel(q, chosenIdx) {
+  const body = document.getElementById("quick-compare-body");
+  if (!body) return;
+  body.innerHTML = "";
+  (q.choices || []).forEach((c, i) => {
+    const item = document.createElement("div");
+    item.className = "quick-compare-item" + (i === chosenIdx ? " was-chosen" : "");
+    item.innerHTML = `
+      <div class="qc-text">${i === chosenIdx ? "✓ " : ""}${c.text}</div>
+      ${c.stance ? `<div class="qc-stance">${c.stance}</div>` : ""}
+      ${c.phase ? `<div class="qc-phase">${c.phase}</div>` : ""}
+      ${c.author_view ? `<div class="qc-author">${c.author_view}</div>` : ""}
+    `;
+    body.appendChild(item);
+  });
+}
+
+function toggleQuickCompare() {
+  const body = document.getElementById("quick-compare-body");
+  const label = document.getElementById("quick-compare-toggle-label");
+  if (!body) return;
+  const isOpen = body.classList.toggle("open");
+  if (label) {
+    label.textContent = isOpen
+      ? "🔽 閉じる（4択の全景）"
+      : "🔍 他の選択肢を覗いてみる（4択の全景）";
+  }
 }
 
 // ==================== Write ====================
