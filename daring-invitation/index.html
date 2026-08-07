@@ -517,11 +517,11 @@
     <div class="getting-started-banner" id="getting-started-banner" style="display:none;">
       <div class="gs-title" id="gs-title">🌱 初めての方へ</div>
       <div class="gs-body" id="gs-body"></div>
-      <div class="gs-video" id="gs-video" style="display:none;"></div>
       <div class="gs-actions">
-        <button onclick="showQuiz()" id="gs-quiz-btn">🎯 関係性クイズで全体を掴む（4択・8問・書かなくてOK）</button>
+        <button onclick="showQuiz()" id="gs-quiz-btn">🎯 関係性クイズで全体を掴む（4択・書かなくてOK）</button>
         <button class="secondary" onclick="openFirstTheme()" id="gs-write-btn">✍️ 第1層から直接書く</button>
       </div>
+      <div class="gs-video" id="gs-video" style="display:none;"></div>
       <button class="gs-collapse" onclick="dismissBanner()">今日は非表示にする →</button>
     </div>
 
@@ -540,12 +540,12 @@
   </div>
 </section>
 
-<!-- ========= [0.5] 関係性クイズ（4択・8問・あり方を映す鏡） ========= -->
+<!-- ========= [0.5] 関係性クイズ（4択・あり方を映す鏡／問題数は data.json に従う） ========= -->
 <section id="screen-quiz" class="screen">
   <div class="card">
     <div class="quiz-header">
-      <div class="quiz-progress" id="quiz-progress">Q1 / 8</div>
-      <div class="quiz-score" id="quiz-score">触れた視点 0 / 8</div>
+      <div class="quiz-progress" id="quiz-progress">Q1</div>
+      <div class="quiz-score" id="quiz-score">触れた視点 0</div>
     </div>
 
     <h2 style="font-size:15px; color:var(--sub); margin:0 0 4px; letter-spacing:1px;">🎯 関係性クイズ</h2>
@@ -571,15 +571,15 @@
   </div>
 </section>
 
-<!-- ========= [0.6] クイズ完了画面（8つの視点の軌跡） ========= -->
+<!-- ========= [0.6] クイズ完了画面（視点の軌跡） ========= -->
 <section id="screen-quiz-result" class="screen">
   <div class="card">
     <div class="quiz-result">
       <div class="emoji">🌱</div>
-      <div class="headline">8つの視点に触れました</div>
-      <div class="touched-count" id="quiz-result-touched-count">0 / 8 の視点に触れました</div>
+      <div class="headline" id="quiz-result-headline">視点に触れました</div>
+      <div class="touched-count" id="quiz-result-touched-count">0 の視点に触れました</div>
       <div class="sub" id="quiz-result-sub">
-        正解を数える場ではありません。あなたが8つの問いで見せた「あり方」の輪郭が、これからの学びの入口になります。
+        正解を数える場ではありません。あなたが問いで見せた「あり方」の輪郭が、これからの学びの入口になります。
       </div>
 
       <div class="quiz-stance-trail">
@@ -588,7 +588,7 @@
       </div>
 
       <div class="quiz-touched-themes">
-        <div class="h">この8問で触れた主要テーマ</div>
+        <div class="h" id="quiz-touched-heading">この問いで触れた主要テーマ</div>
         <ul id="quiz-touched-list"></ul>
       </div>
 
@@ -1686,7 +1686,7 @@ function selectChoice(idx) {
   document.getElementById("quiz-score").textContent = `触れた視点 ${quizAnswered} / ${quiz.length}`;
   const nextBtn = document.getElementById("quiz-next-btn");
   nextBtn.style.display = "";
-  nextBtn.textContent = (quizIdx + 1 >= quiz.length) ? "8つの軌跡を見る →" : "次の問い →";
+  nextBtn.textContent = (quizIdx + 1 >= quiz.length) ? `${quiz.length}つの軌跡を見る →` : "次の問い →";
 }
 function nextQuizQuestion() {
   const quiz = DATA.relationship_quiz;
@@ -1702,6 +1702,13 @@ function finishQuiz() {
   const total = quiz.length;
   showScreen("quiz-result");
   document.getElementById("quiz-result-touched-count").textContent = `${quizAnswered} / ${total} の視点に触れました`;
+  const headlineEl = document.getElementById("quiz-result-headline");
+  if (headlineEl) headlineEl.textContent = `${total}つの視点に触れました`;
+  const resultSubEl = document.getElementById("quiz-result-sub");
+  if (resultSubEl) resultSubEl.textContent =
+    `正解を数える場ではありません。あなたが${total}つの問いで見せた「あり方」の輪郭が、これからの学びの入口になります。`;
+  const touchedHeadingEl = document.getElementById("quiz-touched-heading");
+  if (touchedHeadingEl) touchedHeadingEl.textContent = `この${total}問で触れた主要テーマ`;
 
   // Stance trail: あなたの視点の軌跡
   const stanceUl = document.getElementById("quiz-stance-list");
