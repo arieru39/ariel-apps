@@ -765,7 +765,48 @@
 
 <!-- Phase 2: 友人を登録 -->
 <div class="phase" id="phase2">
-  <div class="card">
+
+  <!-- 📣 みんなの近況ボード -->
+  <div class="card upd-card">
+    <h2 style="color:var(--sun)">📣 みんなの近況</h2>
+    <p>
+      いま、あなたのまわりで起きている小さな一歩を、ひと言だけ置いていってください。<br>
+      <strong>「チラシを30枚配った」「1人誘えた」「まだ何もできてない」</strong> ——どれも大歓迎です。<br>
+      <span class="mute" style="font-size:.85rem">この欄は、仲間集めをしている全員にリアルタイムで見えます（最新60件）。</span>
+    </p>
+
+    <div class="upd-form">
+      <div class="upd-chips">
+        <button type="button" onclick="updChip('チラシを配りました：')">📄 チラシを配った</button>
+        <button type="button" onclick="updChip('1人誘えました：')">🤝 1人誘えた</button>
+        <button type="button" onclick="updChip('当日やることを決めました：')">🎤 当日やること</button>
+        <button type="button" onclick="updChip('いま困っています：')">🙏 困っている</button>
+        <button type="button" onclick="updChip('うれしかったこと：')">🌱 うれしかった</button>
+      </div>
+
+      <textarea id="updText" maxlength="140" placeholder="例：地元の小学校でピースデーの話をしてきました。先生が3人、参加してくれそうです。" oninput="updCountChars()"></textarea>
+
+      <div class="upd-namefield" id="updNameField" style="display:none">
+        <label class="field">お名前（ニックネーム可）</label>
+        <input type="text" id="updName" placeholder="例：としかず">
+      </div>
+
+      <div class="upd-form-row">
+        <span class="upd-as" id="updAs"></span>
+        <span>
+          <span class="upd-count" id="updCount">0 / 140</span>
+          <button class="btn sun" onclick="postUpdate()" style="margin-left:8px">近況を投稿</button>
+        </span>
+      </div>
+    </div>
+
+    <div class="upd-feed" id="updFeedMain"></div>
+    <div class="upd-more" id="updMore" style="display:none">
+      <button onclick="updShowMore()">もっと見る</button>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
     <h2 class="peace">② 世界中の友人を、思い出しながら登録</h2>
     <p>
       <strong>完璧を目指さない。</strong>
@@ -911,46 +952,6 @@
       ※ 各マスの上段は UTC時刻、下段は そこにいる人の名前（複数いる場合は最初の1人＋"+"）。
     </p>
     </details>
-  </div>
-
-  <!-- 📣 みんなの近況ボード -->
-  <div class="card upd-card" style="margin-top:14px">
-    <h2 style="color:var(--sun)">📣 みんなの近況</h2>
-    <p>
-      いま、あなたのまわりで起きている小さな一歩を、ひと言だけ置いていってください。<br>
-      <strong>「チラシを30枚配った」「1人誘えた」「まだ何もできてない」</strong> ——どれも大歓迎です。<br>
-      <span class="mute" style="font-size:.85rem">この欄は、仲間集めをしている全員にリアルタイムで見えます（最新60件）。</span>
-    </p>
-
-    <div class="upd-form">
-      <div class="upd-chips">
-        <button type="button" onclick="updChip('チラシを配りました：')">📄 チラシを配った</button>
-        <button type="button" onclick="updChip('1人誘えました：')">🤝 1人誘えた</button>
-        <button type="button" onclick="updChip('当日やることを決めました：')">🎤 当日やること</button>
-        <button type="button" onclick="updChip('いま困っています：')">🙏 困っている</button>
-        <button type="button" onclick="updChip('うれしかったこと：')">🌱 うれしかった</button>
-      </div>
-
-      <textarea id="updText" maxlength="140" placeholder="例：地元の小学校でピースデーの話をしてきました。先生が3人、参加してくれそうです。" oninput="updCountChars()"></textarea>
-
-      <div class="upd-namefield" id="updNameField" style="display:none">
-        <label class="field">お名前（ニックネーム可）</label>
-        <input type="text" id="updName" placeholder="例：としかず">
-      </div>
-
-      <div class="upd-form-row">
-        <span class="upd-as" id="updAs"></span>
-        <span>
-          <span class="upd-count" id="updCount">0 / 140</span>
-          <button class="btn sun" onclick="postUpdate()" style="margin-left:8px">近況を投稿</button>
-        </span>
-      </div>
-    </div>
-
-    <div class="upd-feed" id="updFeedMain"></div>
-    <div class="upd-more" id="updMore" style="display:none">
-      <button onclick="updShowMore()">もっと見る</button>
-    </div>
   </div>
 
   <!-- 🎤 24時間リーダーマップ（Phase 1） -->
