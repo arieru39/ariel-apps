@@ -512,6 +512,88 @@
   .leader-tier-legend .lt3{background:rgba(255,179,71,.18);color:#f9c47c}
   .leader-tier-legend .lt4{background:rgba(255,215,120,.24);color:#ffe08a}
   .leader-tier-legend .lt0{background:rgba(225,93,93,.10);color:#e88b8b}
+
+  /* ===== 📣 みんなの近況ボード ===== */
+  .upd-card{border-left:3px solid var(--sun)}
+  .upd-form{margin:12px 0 4px}
+  .upd-chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 6px}
+  .upd-chips button{
+    padding:4px 10px;border-radius:12px;font-size:.76rem;cursor:pointer;
+    background:#1f3447;color:var(--text-soft);border:1px solid var(--line);
+    font-family:inherit;transition:all .12s;
+  }
+  .upd-chips button:hover{border-color:var(--sun);color:var(--sun);transform:translateY(-1px)}
+  .upd-form textarea{min-height:64px}
+  .upd-form-row{
+    display:flex;align-items:center;justify-content:space-between;
+    gap:8px;margin-top:8px;flex-wrap:wrap;
+  }
+  .upd-count{font-size:.75rem;color:var(--text-mute)}
+  .upd-count.over{color:var(--gap)}
+  .upd-as{font-size:.78rem;color:var(--text-mute)}
+  .upd-as strong{color:var(--peace)}
+  .upd-namefield{margin-top:8px}
+
+  .upd-feed{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+  .upd-item{
+    background:var(--card-2);border-radius:10px;padding:10px 12px;
+    border-left:2px solid rgba(255,179,71,.35);
+  }
+  .upd-item.mine{border-left-color:var(--peace);background:rgba(122,184,92,.08)}
+  .upd-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:.8rem}
+  .upd-name{font-weight:600;color:var(--text);font-size:.88rem}
+  .upd-where{
+    color:var(--earth);background:var(--earth-soft);
+    padding:1px 7px;border-radius:8px;font-size:.72rem;
+  }
+  .upd-time{color:var(--text-mute);font-size:.72rem;margin-left:auto}
+  .upd-del{
+    background:transparent;border:none;color:var(--text-mute);
+    cursor:pointer;font-size:1rem;line-height:1;padding:0 2px;
+  }
+  .upd-del:hover{color:var(--gap)}
+  .upd-text{
+    color:var(--text-soft);font-size:.92rem;line-height:1.7;
+    margin-top:6px;white-space:pre-wrap;word-break:break-word;
+  }
+  .upd-foot{display:flex;align-items:center;gap:8px;margin-top:8px}
+  .upd-cheer{
+    background:transparent;border:1px solid var(--line);color:var(--text-mute);
+    border-radius:12px;padding:2px 10px;font-size:.76rem;cursor:pointer;
+    font-family:inherit;transition:all .12s;
+  }
+  .upd-cheer:hover{border-color:var(--peace);color:var(--peace)}
+  .upd-cheer.done{border-color:var(--peace);color:var(--peace);background:rgba(122,184,92,.12)}
+  .upd-empty{
+    color:var(--text-mute);font-size:.88rem;font-style:italic;
+    padding:14px 0;text-align:center;
+  }
+  .upd-more{
+    text-align:center;margin-top:10px;
+  }
+  .upd-more button{
+    background:transparent;border:1px solid var(--line);color:var(--text-soft);
+    border-radius:8px;padding:6px 14px;font-size:.82rem;cursor:pointer;font-family:inherit;
+  }
+  .upd-more button:hover{border-color:var(--sun);color:var(--sun)}
+
+  /* Phase 0 のコンパクト版 */
+  .upd-peek{
+    background:var(--card-2);border-radius:12px;padding:12px 14px;margin:14px 0;
+    border:1px solid rgba(255,179,71,.22);
+  }
+  .upd-peek-title{
+    font-size:.85rem;color:var(--sun);font-weight:600;margin-bottom:8px;
+    display:flex;align-items:center;gap:6px;
+  }
+  .upd-peek-title .live{
+    width:7px;height:7px;border-radius:50%;background:var(--peace);
+    animation:updPulse 1.8s ease-in-out infinite;
+  }
+  @keyframes updPulse{0%,100%{opacity:.35}50%{opacity:1}}
+  .upd-peek .upd-item{background:transparent;padding:6px 0 6px 10px;border-radius:0}
+  .upd-peek .upd-feed{gap:2px;margin-top:0}
+  .upd-peek-note{font-size:.76rem;color:var(--text-mute);margin-top:8px}
 </style>
 </head>
 <body>
@@ -589,6 +671,16 @@
         ↑ 完成イメージ：世界中の仲間でバトンをつなぐと、<br>こうして <strong>24時間＝地球が一周</strong> します。<br>
         <strong class="you-start">最初のひとりは、あなたから。🌱</strong>
       </p>
+    </div>
+
+    <!-- 📣 近況ボード（START画面：のぞき見版） -->
+    <div class="upd-peek" id="updPeek" style="display:none">
+      <div class="upd-peek-title"><span class="live"></span>📣 いま、世界の仲間はこう動いています</div>
+      <div class="upd-feed" id="updFeedPeek"></div>
+      <div class="upd-peek-note">
+        登録すると、あなたも近況をひと言書けます。<br>
+        「チラシを配った」「1人誘えた」だけで十分です。
+      </div>
     </div>
 
     <details>
@@ -821,6 +913,46 @@
     </details>
   </div>
 
+  <!-- 📣 みんなの近況ボード -->
+  <div class="card upd-card" style="margin-top:14px">
+    <h2 style="color:var(--sun)">📣 みんなの近況</h2>
+    <p>
+      いま、あなたのまわりで起きている小さな一歩を、ひと言だけ置いていってください。<br>
+      <strong>「チラシを30枚配った」「1人誘えた」「まだ何もできてない」</strong> ——どれも大歓迎です。<br>
+      <span class="mute" style="font-size:.85rem">この欄は、仲間集めをしている全員にリアルタイムで見えます（最新60件）。</span>
+    </p>
+
+    <div class="upd-form">
+      <div class="upd-chips">
+        <button type="button" onclick="updChip('チラシを配りました：')">📄 チラシを配った</button>
+        <button type="button" onclick="updChip('1人誘えました：')">🤝 1人誘えた</button>
+        <button type="button" onclick="updChip('当日やることを決めました：')">🎤 当日やること</button>
+        <button type="button" onclick="updChip('いま困っています：')">🙏 困っている</button>
+        <button type="button" onclick="updChip('うれしかったこと：')">🌱 うれしかった</button>
+      </div>
+
+      <textarea id="updText" maxlength="140" placeholder="例：地元の小学校でピースデーの話をしてきました。先生が3人、参加してくれそうです。" oninput="updCountChars()"></textarea>
+
+      <div class="upd-namefield" id="updNameField" style="display:none">
+        <label class="field">お名前（ニックネーム可）</label>
+        <input type="text" id="updName" placeholder="例：としかず">
+      </div>
+
+      <div class="upd-form-row">
+        <span class="upd-as" id="updAs"></span>
+        <span>
+          <span class="upd-count" id="updCount">0 / 140</span>
+          <button class="btn sun" onclick="postUpdate()" style="margin-left:8px">近況を投稿</button>
+        </span>
+      </div>
+    </div>
+
+    <div class="upd-feed" id="updFeedMain"></div>
+    <div class="upd-more" id="updMore" style="display:none">
+      <button onclick="updShowMore()">もっと見る</button>
+    </div>
+  </div>
+
   <!-- 🎤 24時間リーダーマップ（Phase 1） -->
   <div class="card leader-card" style="margin-top:14px">
     <h2 style="color:var(--sun)">🎤 24時間の"場"を回すリーダーの立ち上がり</h2>
@@ -982,7 +1114,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import {
   getFirestore, collection, addDoc, deleteDoc, doc, getDoc, updateDoc,
-  onSnapshot, serverTimestamp, query, orderBy
+  onSnapshot, serverTimestamp, query, orderBy, limit, increment
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -997,6 +1129,7 @@ const firebaseConfig = {
 const fbApp = initializeApp(firebaseConfig);
 const fbDb = getFirestore(fbApp);
 const participantsRef = collection(fbDb, 'participants');
+const updatesRef = collection(fbDb, 'updates');
 
 /* ===================== Session Identity ===================== */
 const SESSION_KEY = 'peace-relay-session-id';
@@ -1554,6 +1687,8 @@ const state = {
   templateLang: 'ja',
   myDocId: localStorage.getItem(ME_DOC_KEY) || null,
   synced: false,
+  updates: [],      // 📣 みんなの近況（Firestore updates コレクション）
+  updatesShown: 8,  // 「もっと見る」で増える表示件数
 };
 
 /* ===================== Init ===================== */
@@ -1580,9 +1715,14 @@ function init(){
   ringTick();
   startDemoRing();
   subscribeParticipants();
+  subscribeUpdates();
+  updCountChars();
+  renderUpdates();
   checkInviteParam();
   // Countdown を1時間ごとに再描画（日付跨ぎ対策）
   setInterval(() => { renderHero(); renderDays(); }, 60 * 60 * 1000);
+  // 近況の「〇分前」表示を1分ごとに更新
+  setInterval(() => { if(state.updates.length) renderUpdates(); }, 60 * 1000);
 }
 
 /* ===================== Firestore Subscription ===================== */
@@ -1607,6 +1747,7 @@ function subscribeParticipants(){
     renderHero();
     renderPerHourTargets();
     renderLeaderRing();
+    renderUpdAuthorField();
     updateSyncBadge(items.length);
   }, (err) => {
     console.error('onSnapshot error', err);
@@ -1621,6 +1762,206 @@ function updateSyncBadge(n){
   const label = document.getElementById('syncLabel');
   if(dot){ dot.style.background = '#7ee7c7'; }
   if(label){ label.textContent = `同期済み ・ ${n}人が参加中`; }
+}
+
+/* ===================== 📣 みんなの近況ボード ===================== */
+const UPD_MAX = 140;                              // 1投稿の最大文字数
+const CHEER_KEY = 'peace-relay-cheered';          // 応援済みの投稿ID（重複防止・ローカル）
+
+function cheeredSet(){
+  try{ return new Set(JSON.parse(localStorage.getItem(CHEER_KEY) || '[]')); }
+  catch(e){ return new Set(); }
+}
+function markCheered(id){
+  const s = cheeredSet();
+  s.add(id);
+  try{ localStorage.setItem(CHEER_KEY, JSON.stringify([...s])); }catch(e){}
+}
+
+/* Firestore: 最新60件をリアルタイム購読 */
+function subscribeUpdates(){
+  const q = query(updatesRef, orderBy('createdAt', 'desc'), limit(60));
+  onSnapshot(q, (snap) => {
+    const items = [];
+    snap.forEach(d => items.push({ id: d.id, ...d.data() }));
+    state.updates = items;
+    renderUpdates();
+  }, (err) => {
+    console.error('updates onSnapshot error', err);
+    const main = document.getElementById('updFeedMain');
+    if(main){
+      main.innerHTML = `<div class="upd-empty">近況の読み込みに失敗しました（${escapeHtml(err.code || 'error')}）。<br>時間をおいて再読み込みしてください。</div>`;
+    }
+  });
+}
+
+/* 「〇分前」表示 */
+function timeAgo(ts){
+  if(!ts || typeof ts.toDate !== 'function') return 'たった今';
+  const then = ts.toDate().getTime();
+  const diff = Math.floor((Date.now() - then) / 1000);
+  if(diff < 60) return 'たった今';
+  if(diff < 3600) return `${Math.floor(diff/60)}分前`;
+  if(diff < 86400) return `${Math.floor(diff/3600)}時間前`;
+  if(diff < 86400*7) return `${Math.floor(diff/86400)}日前`;
+  const d = ts.toDate();
+  return `${d.getMonth()+1}/${d.getDate()}`;
+}
+
+/* 投稿者名の決定：登録済みならその名前を使う */
+function updAuthor(){
+  const mine = myDoc();
+  if(mine && mine.name) return { name: mine.name, city: mine.city || '', offset: mine.offset };
+  if(state.me.name) return { name: state.me.name, city: state.me.city || '', offset: state.me.offset };
+  return null;
+}
+
+/* 名前欄の出し分け（登録済みなら隠す） */
+function renderUpdAuthorField(){
+  const a = updAuthor();
+  const field = document.getElementById('updNameField');
+  const as = document.getElementById('updAs');
+  if(!field || !as) return;
+  if(a){
+    field.style.display = 'none';
+    const where = a.city ? `${a.city}${typeof a.offset === 'number' ? '・UTC'+formatOffset(a.offset) : ''}` : '';
+    as.innerHTML = `投稿者：<strong>${escapeHtml(a.name)}</strong>${where ? ' <span class="upd-where">'+escapeHtml(where)+'</span>' : ''}`;
+  } else {
+    field.style.display = 'block';
+    as.innerHTML = '※ ①であなたの場所を登録すると、名前が自動で入ります';
+  }
+}
+
+function updCountChars(){
+  const ta = document.getElementById('updText');
+  const el = document.getElementById('updCount');
+  if(!ta || !el) return;
+  const n = ta.value.length;
+  el.textContent = `${n} / ${UPD_MAX}`;
+  el.classList.toggle('over', n > UPD_MAX);
+}
+
+/* クイック入力チップ */
+function updChip(prefix){
+  const ta = document.getElementById('updText');
+  if(!ta) return;
+  ta.value = ta.value.trim() ? (ta.value.trim() + '\n' + prefix) : prefix;
+  ta.focus();
+  ta.setSelectionRange(ta.value.length, ta.value.length);
+  updCountChars();
+}
+
+async function postUpdate(){
+  const ta = document.getElementById('updText');
+  if(!ta) return;
+  const text = ta.value.trim();
+  if(!text){ alert('近況をひと言、書いてください。'); return; }
+  if(text.length > UPD_MAX){ alert(`${UPD_MAX}文字以内で書いてください（いまは ${text.length} 文字）。`); return; }
+
+  const a = updAuthor();
+  let name = a ? a.name : (document.getElementById('updName')?.value || '').trim();
+  if(!name){ alert('お名前（ニックネーム可）を入れてください。'); return; }
+
+  const entry = {
+    name,
+    city: a ? (a.city || '') : '',
+    offset: (a && typeof a.offset === 'number') ? a.offset : null,
+    text,
+    cheers: 0,
+    sessionId,
+    createdAt: serverTimestamp()
+  };
+  try{
+    await addDoc(updatesRef, entry);
+    ta.value = '';
+    updCountChars();
+  }catch(e){
+    console.error('postUpdate error', e);
+    alert('投稿に失敗しました：\n' + e.message);
+  }
+}
+
+async function deleteUpdate(id){
+  const item = state.updates.find(u => u.id === id);
+  if(!item) return;
+  if(item.sessionId !== sessionId){ alert('自分が投稿した近況だけ削除できます。'); return; }
+  if(!confirm('この近況を削除しますか？')) return;
+  try{
+    await deleteDoc(doc(fbDb, 'updates', id));
+  }catch(e){
+    console.error('deleteUpdate error', e);
+    alert('削除に失敗しました：\n' + e.message);
+  }
+}
+
+async function cheerUpdate(id){
+  if(cheeredSet().has(id)) return;
+  markCheered(id);
+  renderUpdates();   // 楽観的に即反映
+  try{
+    await updateDoc(doc(fbDb, 'updates', id), { cheers: increment(1) });
+  }catch(e){
+    console.error('cheerUpdate error', e);
+  }
+}
+
+function updShowMore(){
+  state.updatesShown += 10;
+  renderUpdates();
+}
+
+function updItemHtml(u, opts){
+  const compact = opts && opts.compact;
+  const mine = u.sessionId === sessionId;
+  const where = u.city ? `${u.city}${typeof u.offset === 'number' ? '・UTC'+formatOffset(u.offset) : ''}` : '';
+  const cheered = cheeredSet().has(u.id);
+  const cheers = Number(u.cheers || 0);
+  return `
+    <div class="upd-item${mine ? ' mine' : ''}">
+      <div class="upd-head">
+        <span class="upd-name">${escapeHtml(u.name || '名無しの仲間')}</span>
+        ${where ? `<span class="upd-where">${escapeHtml(where)}</span>` : ''}
+        <span class="upd-time">${timeAgo(u.createdAt)}</span>
+        ${(!compact && mine) ? `<button class="upd-del" onclick="deleteUpdate('${u.id}')" title="削除">×</button>` : ''}
+      </div>
+      <div class="upd-text">${escapeHtml(u.text || '')}</div>
+      ${compact ? '' : `
+      <div class="upd-foot">
+        <button class="upd-cheer${cheered ? ' done' : ''}" onclick="cheerUpdate('${u.id}')">
+          🌱 ${cheered ? '応援した' : '応援する'}${cheers > 0 ? ' ' + cheers : ''}
+        </button>
+      </div>`}
+    </div>`;
+}
+
+function renderUpdates(){
+  const list = state.updates;
+
+  /* --- Phase 2：フル表示 --- */
+  const main = document.getElementById('updFeedMain');
+  if(main){
+    if(list.length === 0){
+      main.innerHTML = '<div class="upd-empty">まだ近況がありません。<br>最初のひと言を、あなたから 🌱</div>';
+    } else {
+      main.innerHTML = list.slice(0, state.updatesShown).map(u => updItemHtml(u, {compact:false})).join('');
+    }
+    const more = document.getElementById('updMore');
+    if(more) more.style.display = (list.length > state.updatesShown) ? 'block' : 'none';
+  }
+
+  /* --- Phase 0：のぞき見（最新3件・読むだけ） --- */
+  const peekWrap = document.getElementById('updPeek');
+  const peek = document.getElementById('updFeedPeek');
+  if(peekWrap && peek){
+    if(list.length === 0){
+      peekWrap.style.display = 'none';
+    } else {
+      peekWrap.style.display = 'block';
+      peek.innerHTML = list.slice(0, 3).map(u => updItemHtml(u, {compact:true})).join('');
+    }
+  }
+
+  renderUpdAuthorField();
 }
 
 function populateCityDropdowns(){
@@ -2892,7 +3233,8 @@ Object.assign(window, {
   autoFillOffset,
   inviteFriend, inviteFriendManual, inviteFriendByPref,
   confirmInvite, declineInvite,
-  declareLeader, moveMyShiftAndDeclare, selectLeaderHour
+  declareLeader, moveMyShiftAndDeclare, selectLeaderHour,
+  postUpdate, deleteUpdate, cheerUpdate, updChip, updCountChars, updShowMore
 });
 
 /* ===================== Boot ===================== */
