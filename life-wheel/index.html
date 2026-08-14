@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232f7d7b'/><circle cx='50' cy='50' r='30' fill='none' stroke='white' stroke-width='6'/><path d='M50 20 L50 80 M20 50 L80 50 M29 29 L71 71 M71 29 L29 71' stroke='white' stroke-width='4'/></svg>" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>人生の輪 — Wheel of Life</title>
+<meta name="description" content="人生を10の領域に分け、①現状の満足度 ②いましていること ③理想の点数 ④理想形 ⑤そこへ向かうアイデア を書き出して、輪として視覚化する対話アプリ。データは端末内のみに保存されます。">
+<style>
+  :root{
+    --bg:#f7f1e8; --ink:#2a2a2a; --sub:#6c6c6c; --accent:#2f7d7b;
+    --accent-d:#246160; --border:#ddd5c7; --card:#fff; --ideal:#c45a1a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.75;
+  }
+  header{
+    background:#fff;border-bottom:1px solid var(--border);
+    padding:14px 20px;position:sticky;top:0;z-index:20;
+    display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  }
+  header h1{font-size:1.05rem;color:var(--accent);font-weight:700}
+  header .spacer{flex:1}
+  .bar{height:4px;background:#e6ded1;border-radius:2px;width:100%;margin-top:10px;overflow:hidden}
+  .bar>i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+  main{max-width:760px;margin:0 auto;padding:24px 16px 96px}
+  .screen{display:none}
+  .screen.active{display:block;animation:fade .25s}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:16px}
+  h2{font-size:1.35rem;margin-bottom:10px}
+  h3{font-size:1.02rem;margin:22px 0 8px;color:var(--accent)}
+  p{color:#4a4a4a}
+  .muted{color:var(--sub);font-size:.9rem}
+  .lead{background:#fff;border-left:4px solid var(--accent);padding:16px 20px;border-radius:4px;margin:20px 0;font-size:.95rem}
+  ol.areas{margin:12px 0 0 20px}
+  ol.areas li{margin-bottom:6px;font-size:.92rem;color:#4a4a4a}
+
+  .qnum{display:inline-block;width:1.6em;color:var(--accent);font-weight:700}
+  .qlabel{font-weight:600;font-size:.98rem;margin-bottom:6px;display:block}
+  .hint{color:var(--sub);font-size:.83rem;margin-bottom:8px}
+  textarea{
+    width:100%;min-height:88px;padding:12px;border:1px solid var(--border);
+    border-radius:8px;font-family:inherit;font-size:.95rem;line-height:1.7;
+    background:#fffdf9;resize:vertical;color:var(--ink);
+  }
+  textarea:focus{outline:2px solid var(--accent);outline-offset:-1px;background:#fff}
+
+  .scorerow{display:flex;align-items:center;gap:14px;margin:4px 0 4px}
+  input[type=range]{flex:1;accent-color:var(--accent);height:28px}
+  .scorerow.ideal input[type=range]{accent-color:var(--ideal)}
+  .scoreval{
+    min-width:64px;text-align:center;font-size:1.6rem;font-weight:700;
+    color:var(--accent);font-variant-numeric:tabular-nums;
+  }
+  .scorerow.ideal .scoreval{color:var(--ideal)}
+  .scoreval small{font-size:.75rem;color:var(--sub);font-weight:400}
+  .ticks{display:flex;justify-content:space-between;font-size:.72rem;color:var(--sub);padding:0 2px}
+
+  .areahead{display:flex;align-items:center;gap:12px;margin-bottom:4px}
+  .dot{width:16px;height:16px;border-radius:50%;flex:none}
+  .areadesc{color:var(--sub);font-size:.9rem;margin-bottom:18px}
+
+  .nav{display:flex;gap:10px;align-items:center;margin-top:20px}
+  .nav .spacer{flex:1}
+  button{
+    font-family:inherit;font-size:.95rem;font-weight:600;cursor:pointer;
+    padding:11px 22px;border-radius:8px;border:1px solid var(--border);
+    background:#fff;color:var(--ink);transition:.15s;
+  }
+  button:hover{background:#f3efe7}
+  button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  button.primary:hover{background:var(--accent-d)}
+  button.ghost{border:none;background:none;color:var(--sub);padding:11px 8px}
+  button:disabled{opacity:.4;cursor:default}
+
+  .dots{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:18px 0 0}
+  .dots button{
+    width:30px;height:30px;padding:0;border-radius:50%;font-size:.78rem;
+    border:1px solid var(--border);background:#fff;color:var(--sub);font-weight:600;
+  }
+  .dots button.done{background:#e8f0ef;color:var(--accent);border-color:#bcd6d4}
+  .dots button.cur{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+  /* result */
+  .wheelwrap{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px 8px 8px;text-align:center}
+  svg.wheel{width:100%;max-width:560px;height:auto}
+  .legend{display:flex;gap:20px;justify-content:center;font-size:.85rem;color:var(--sub);margin:4px 0 12px;flex-wrap:wrap}
+  .legend i{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-2px;margin-right:5px}
+  .legend .il{width:20px;height:0;border-top:3px dashed var(--ideal);border-radius:0}
+
+  table{width:100%;border-collapse:collapse;font-size:.9rem;margin-top:8px}
+  th,td{padding:9px 8px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top}
+  th{color:var(--sub);font-weight:600;font-size:.82rem}
+  td.n{text-align:center;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .gap{font-weight:700}
+  .gap.hi{color:var(--ideal)}
+  .stat{display:flex;gap:12px;flex-wrap:wrap;margin:14px 0 0}
+  .stat div{flex:1;min-width:120px;background:#faf7f1;border-radius:8px;padding:12px;text-align:center}
+  .stat b{display:block;font-size:1.5rem;color:var(--accent)}
+  .stat span{font-size:.78rem;color:var(--sub)}
+  .detail{border-top:1px solid var(--border);padding:16px 0}
+  .detail h4{font-size:1rem;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+  .detail dl{font-size:.9rem;margin-top:6px}
+  .detail dt{color:var(--sub);font-size:.8rem;margin-top:8px}
+  .detail dd{white-space:pre-wrap}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+  .toast{
+    position:fixed;left:50%;transform:translateX(-50%);bottom:24px;
+    background:#2a2a2a;color:#fff;padding:10px 20px;border-radius:20px;
+    font-size:.88rem;opacity:0;pointer-events:none;transition:.25s;z-index:50;
+  }
+  .toast.on{opacity:1}
+  @media(max-width:520px){
+    main{padding:16px 12px 80px}
+    .card{padding:18px 16px}
+    .scoreval{min-width:52px;font-size:1.35rem}
+  }
+  @media print{
+    header,.nav,.dots,.toolbar,button{display:none!important}
+    body{background:#fff}
+    .card,.wheelwrap{border:none;page-break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎡 人生の輪</h1>
+  <span class="muted" id="hdr-step"></span>
+  <span class="spacer"></span>
+  <button class="ghost" onclick="showResult()">結果を見る</button>
+  <div class="bar"><i id="prog"></i></div>
+</header>
+
+<main>
+
+<!-- ========== イントロ ========== -->
+<section class="screen active" id="s-intro">
+  <div class="card">
+    <h2>人生の輪（Wheel of Life）</h2>
+    <p class="muted">人生を10の領域に分け、それぞれに5つの問いを立てて、いまの輪のかたちを描きます。</p>
+
+    <div class="lead">
+      <strong>大事なのは点数そのものではなく、輪の「歪み」です。</strong><br>
+      点数が低い領域が悪いのではありません。<b>現状と理想の差（ギャップ）が大きい領域</b>が、
+      いまのあなたが手をつけると一番効く場所です。
+    </div>
+
+    <h3>10の領域</h3>
+    <ol class="areas" id="intro-list"></ol>
+
+    <h3>各領域で答える5つの問い</h3>
+    <ol class="areas">
+      <li>① 現状の満足度を1〜10で採点</li>
+      <li>② 現状ではどんなことをしているか</li>
+      <li>③ 理想の点数</li>
+      <li>④ 理想形（具体的にどうしたいか）</li>
+      <li>⑤ 理想形に変えるためのアイデアや行動</li>
+    </ol>
+
+    <p class="muted" style="margin-top:20px">
+      所要 20〜40分。入力はこの端末のブラウザ内（localStorage）だけに保存され、どこにも送信されません。
+      途中で閉じても続きから再開できます。
+    </p>
+
+    <div class="nav">
+      <button class="primary" onclick="go(0)">はじめる</button>
+      <button id="btn-resume" style="display:none" onclick="resume()">続きから</button>
+      <span class="spacer"></span>
+      <button class="ghost" onclick="resetAll()">入力を消す</button>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 設問（JSで生成） ========== -->
+<section class="screen" id="s-q">
+  <div class="card" id="q-card"></div>
+  <div class="dots" id="dots"></div>
+</section>
+
+<!-- ========== 結果 ========== -->
+<section class="screen" id="s-result">
+  <div class="card">
+    <h2>あなたの人生の輪</h2>
+    <p class="muted" id="res-date"></p>
+    <div class="wheelwrap">
+      <div id="wheel"></div>
+      <div class="legend">
+        <span><i style="background:#2f7d7b"></i>現状の満足度（塗り）</span>
+        <span><i class="il"></i>理想の点数（点線）</span>
+      </div>
+    </div>
+    <div class="stat">
+      <div><b id="st-now">–</b><span>現状の平均</span></div>
+      <div><b id="st-ideal">–</b><span>理想の平均</span></div>
+      <div><b id="st-gap">–</b><span>平均ギャップ</span></div>
+      <div><b id="st-round">–</b><span>輪のまるさ</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>ギャップの大きい順</h3>
+    <p class="muted">上から順に、いま手をつけると効く領域です。</p>
+    <table id="tbl"></table>
+  </div>
+
+  <div class="card">
+    <h3>最初の一歩</h3>
+    <p class="muted">ギャップ上位3領域の「⑤アイデア・行動」を並べました。ここから1つだけ選んで、今週やってみてください。</p>
+    <div id="firststep"></div>
+  </div>
+
+  <div class="card">
+    <h3>10領域の記録</h3>
+    <div id="details"></div>
+    <div class="toolbar">
+      <button class="primary" onclick="copyMd()">📋 Markdownをコピー</button>
+      <button onclick="downloadMd()">⬇ .md で保存</button>
+      <button onclick="downloadPng()">🖼 輪を画像で保存</button>
+      <button onclick="window.print()">🖨 印刷 / PDF</button>
+      <button class="ghost" onclick="go(0)">修正する</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============ データ定義 ============ */
+const AREAS = [
+  {n:"お金",            c:"#2f7d7b", d:"収入、貯蓄、投資、借金の状況など、経済面での安心感と満足度"},
+  {n:"キャリア・仕事",   c:"#3a7ca5", d:"仕事への満足度。やりがい、成長機会、職場環境、自分の能力が活かせているか"},
+  {n:"健康・フィットネス",c:"#5b8c5a", d:"睡眠、食事、運動、外見、休息、笑い、自然に触れる"},
+  {n:"遊び・余暇",       c:"#e0a03a", d:"趣味、レジャー、旅、一人の時間、デジタルデトックス、純粋に楽しむための時間"},
+  {n:"環境",            c:"#8a9a5b", d:"住まい、職場、身の回りの物理的な空間への満足度"},
+  {n:"コミュニティ",     c:"#c07a3e", d:"地域社会や所属するグループとのリアルなつながり。新しい出会い"},
+  {n:"家族・友人",       c:"#c45a5a", d:"家族や友人との関係。一緒にいて楽しい人たち。関係の量と質"},
+  {n:"パートナー・恋愛", c:"#b05a86", d:"配偶者や恋人との関係"},
+  {n:"成長・学び",       c:"#7a5aa8", d:"知識やスキルの習得、自己成長の実感。読書、学習、挑戦など"},
+  {n:"精神の豊かさ",     c:"#4a6fa5", d:"人生の意味や目的。瞑想や内省の時間、自分の価値観に沿って生きている感覚"}
+];
+
+const QS = [
+  {k:"now",   mark:"①", label:"現状の満足度を1〜10で採点",        type:"score", hint:"直感で。いま何点ですか？"},
+  {k:"doing", mark:"②", label:"現状ではどんなことをしているか",    type:"text",  hint:"事実だけを書きます。良し悪しの判断はいったん脇に。", ph:"例）週2回ジムに行っている。ただし夜更かしが続いていて睡眠は5時間台。"},
+  {k:"ideal", mark:"③", label:"理想の点数",                      type:"score", hint:"10点である必要はありません。あなたにとっての「これで十分」の点数を。"},
+  {k:"want",  mark:"④", label:"理想形（具体的にどうしたいか）",    type:"text",  hint:"その点数になっているとき、あなたは何をして、どんな状態でいますか。", ph:"例）7時間眠れていて、朝に頭がはっきりしている。週末に自然の中を歩いている。"},
+  {k:"act",   mark:"⑤", label:"理想形に変えるためのアイデアや行動",type:"text",  hint:"できるかどうかは考えず、思いつくものを並べます。最後に1つだけ選びます。", ph:"例）・23時にPCを閉じる／・寝室にスマホを持ち込まない／・土曜の朝に散歩"}
+];
+
+const KEY = "life-wheel-v1";
+let data = load(), cur = 0;
+
+function blank(){ return AREAS.map(()=>({now:5, doing:"", ideal:8, want:"", act:""})); }
+function load(){
+  try{ const v = JSON.parse(localStorage.getItem(KEY));
+    if(v && Array.isArray(v.a) && v.a.length===10) return v; }catch(e){}
+  return {a:blank(), t:null};
+}
+function save(){ data.t = data.t || new Date().toISOString(); localStorage.setItem(KEY, JSON.stringify(data)); }
+
+/* ============ 画面遷移 ============ */
+function screen(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  window.scrollTo({top:0,behavior:"instant"});
+}
+function go(i){
+  cur = Math.max(0, Math.min(9, i));
+  render(); screen("s-q");
+  document.getElementById("prog").style.width = ((cur+1)/11*100)+"%";
+  document.getElementById("hdr-step").textContent = `${cur+1} / 10 ・ ${AREAS[cur].n}`;
+}
+function resume(){
+  const i = data.a.findIndex(x=>!x.doing && !x.want && !x.act);
+  go(i<0 ? 0 : i);
+}
+
+/* ============ 設問レンダリング ============ */
+function render(){
+  const a = AREAS[cur], v = data.a[cur];
+  let h = `<div class="areahead"><span class="dot" style="background:${a.c}"></span>
+           <h2>${cur+1}. ${a.n}</h2></div>
+           <p class="areadesc">${a.d}</p>`;
+
+  QS.forEach(q=>{
+    h += `<div style="margin-bottom:22px">
+      <span class="qlabel"><span class="qnum">${q.mark}</span>${q.label}</span>
+      <div class="hint">${q.hint}</div>`;
+    if(q.type==="score"){
+      const cls = q.k==="ideal" ? "scorerow ideal" : "scorerow";
+      h += `<div class="${cls}">
+              <input type="range" min="1" max="10" step="1" value="${v[q.k]}"
+                     oninput="setv('${q.k}',this.value)" aria-label="${q.label}">
+              <span class="scoreval" id="sv-${q.k}">${v[q.k]}<small>/10</small></span>
+            </div>
+            <div class="ticks"><span>1 まったく満たされていない</span><span>10 十分満たされている</span></div>`;
+    }else{
+      h += `<textarea placeholder="${q.ph}" oninput="setv('${q.k}',this.value)">${esc(v[q.k])}</textarea>`;
+    }
+    h += `</div>`;
+  });
+
+  h += `<div class="nav">
+          <button onclick="go(${cur-1})" ${cur===0?"disabled":""}>← 前へ</button>
+          <span class="spacer"></span>
+          ${cur===9
+            ? `<button class="primary" onclick="showResult()">輪を見る 🎡</button>`
+            : `<button class="primary" onclick="go(${cur+1})">次へ →</button>`}
+        </div>`;
+  document.getElementById("q-card").innerHTML = h;
+
+  document.getElementById("dots").innerHTML = AREAS.map((x,i)=>{
+    const done = data.a[i].doing || data.a[i].want || data.a[i].act;
+    return `<button class="${i===cur?"cur":(done?"done":"")}" onclick="go(${i})" title="${x.n}">${i+1}</button>`;
+  }).join("");
+}
+function setv(k,val){
+  data.a[cur][k] = (k==="now"||k==="ideal") ? +val : val;
+  if(k==="now"||k==="ideal"){ const el=document.getElementById("sv-"+k); if(el) el.innerHTML = val+"<small>/10</small>"; }
+  save();
+}
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+/* ============ 輪の描画 ============ */
+function wheelSVG(size){
+  const R = 170, cx = 0, cy = 0, N = 10, step = 360/N, gap = 1.2;
+  const pol = (r,deg)=>{ const t=(deg-90)*Math.PI/180; return [cx+r*Math.cos(t), cy+r*Math.sin(t)]; };
+  const wedge = (r,a0,a1)=>{
+    const [x0,y0]=pol(r,a0), [x1,y1]=pol(r,a1);
+    return `M ${cx} ${cy} L ${x0.toFixed(2)} ${y0.toFixed(2)} A ${r} ${r} 0 0 1 ${x1.toFixed(2)} ${y1.toFixed(2)} Z`;
+  };
+  const arc = (r,a0,a1)=>{
+    const [x0,y0]=pol(r,a0), [x1,y1]=pol(r,a1);
+    return `M ${x0.toFixed(2)} ${y0.toFixed(2)} A ${r} ${r} 0 0 1 ${x1.toFixed(2)} ${y1.toFixed(2)}`;
+  };
+
+  let g = "";
+  // 同心円グリッド
+  for(let i=1;i<=10;i++){
+    g += `<circle cx="0" cy="0" r="${R*i/10}" fill="none" stroke="${i%5===0?'#c9c0b0':'#e8e1d5'}" stroke-width="${i%5===0?1.2:0.7}"/>`;
+  }
+  // 各セクター
+  AREAS.forEach((a,i)=>{
+    const a0 = i*step + gap/2, a1 = (i+1)*step - gap/2, mid = i*step + step/2;
+    const v = data.a[i];
+    g += `<path d="${wedge(R, a0, a1)}" fill="${a.c}" opacity="0.06"/>`;
+    g += `<path d="${wedge(R*v.now/10, a0, a1)}" fill="${a.c}" opacity="0.82"/>`;
+    g += `<path d="${arc(R*v.ideal/10, a0, a1)}" fill="none" stroke="#c45a1a" stroke-width="2.4" stroke-dasharray="5 3" stroke-linecap="round"/>`;
+    // 区切り線
+    const [lx,ly] = pol(R, i*step);
+    g += `<line x1="0" y1="0" x2="${lx.toFixed(2)}" y2="${ly.toFixed(2)}" stroke="#fff" stroke-width="1.6"/>`;
+    // ラベル
+    const [tx,ty] = pol(R+22, mid);
+    const anchor = Math.abs(mid%360-0)<1 || Math.abs(mid%360-180)<1 ? "middle" : (mid%360<180 ? "start" : "end");
+    const nm = a.n.length>7 ? a.n.replace("・","・​") : a.n;
+    g += `<text x="${tx.toFixed(1)}" y="${ty.toFixed(1)}" text-anchor="${anchor}" dominant-baseline="middle"
+             font-size="13" font-weight="600" fill="#3a3a3a">${nm}</text>`;
+    const [sx,sy] = pol(R+22, mid);
+    g += `<text x="${sx.toFixed(1)}" y="${(sy+15).toFixed(1)}" text-anchor="${anchor}" dominant-baseline="middle"
+             font-size="11.5" fill="${a.c}" font-weight="700">${v.now} <tspan fill="#c45a1a">→ ${v.ideal}</tspan></text>`;
+  });
+  g += `<circle cx="0" cy="0" r="3" fill="#8a8172"/>`;
+
+  return `<svg class="wheel" xmlns="http://www.w3.org/2000/svg" viewBox="-270 -230 540 470"
+    font-family="-apple-system, 'Hiragino Sans', 'Yu Gothic', sans-serif">
+    <rect x="-270" y="-230" width="540" height="470" fill="#ffffff"/>${g}</svg>`;
+}
+
+/* ============ 結果 ============ */
+function showResult(){
+  screen("s-result");
+  document.getElementById("prog").style.width = "100%";
+  document.getElementById("hdr-step").textContent = "結果";
+
+  const a = data.a;
+  const now = a.map(x=>x.now), idl = a.map(x=>x.ideal);
+  const avg = arr => arr.reduce((s,x)=>s+x,0)/arr.length;
+  const gaps = a.map((x,i)=>({i, g:x.ideal-x.now}));
+  const sorted = [...gaps].sort((p,q)=> q.g-p.g || now[p.i]-now[q.i]);
+  const round = (100 - (Math.max(...now)-Math.min(...now))*10);
+
+  document.getElementById("res-date").textContent =
+    new Date().toLocaleDateString("ja-JP",{year:"numeric",month:"long",day:"numeric"}) + " 時点の記録";
+  document.getElementById("wheel").innerHTML = wheelSVG();
+  document.getElementById("st-now").textContent   = avg(now).toFixed(1);
+  document.getElementById("st-ideal").textContent = avg(idl).toFixed(1);
+  document.getElementById("st-gap").textContent   = "+" + (avg(idl)-avg(now)).toFixed(1);
+  document.getElementById("st-round").textContent = round + "%";
+
+  document.getElementById("tbl").innerHTML =
+    `<tr><th>領域</th><th class="n">現状</th><th class="n">理想</th><th class="n">ギャップ</th></tr>` +
+    sorted.map(({i,g})=>`<tr>
+        <td><span class="dot" style="background:${AREAS[i].c};display:inline-block;width:10px;height:10px;margin-right:7px"></span>${AREAS[i].n}</td>
+        <td class="n">${a[i].now}</td><td class="n">${a[i].ideal}</td>
+        <td class="n gap ${g>=3?"hi":""}">${g>0?"+"+g:g}</td></tr>`).join("");
+
+  document.getElementById("firststep").innerHTML = sorted.slice(0,3).map(({i,g})=>`
+    <div class="detail" style="border-top:none;padding-bottom:4px">
+      <h4><span class="dot" style="background:${AREAS[i].c}"></span>${AREAS[i].n}
+        <span class="muted" style="font-weight:400">（${a[i].now} → ${a[i].ideal}／ギャップ ${g>0?"+"+g:g}）</span></h4>
+      <div style="font-size:.92rem;white-space:pre-wrap">${esc(a[i].act||"（⑤が未記入です）")}</div>
+    </div>`).join("");
+
+  document.getElementById("details").innerHTML = a.map((v,i)=>`
+    <div class="detail">
+      <h4><span class="dot" style="background:${AREAS[i].c}"></span>${i+1}. ${AREAS[i].n}
+        <span class="muted" style="font-weight:400">${v.now} → ${v.ideal}</span></h4>
+      <dl>
+        <dt>② 現状していること</dt><dd>${esc(v.doing||"—")}</dd>
+        <dt>④ 理想形</dt><dd>${esc(v.want||"—")}</dd>
+        <dt>⑤ アイデア・行動</dt><dd>${esc(v.act||"—")}</dd>
+      </dl>
+    </div>`).join("");
+}
+
+/* ============ 書き出し ============ */
+function buildMd(){
+  const a = data.a, d = new Date();
+  const ymd = d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+  const avg = arr=>(arr.reduce((s,x)=>s+x,0)/arr.length).toFixed(1);
+  let m = `---\n作成日: ${ymd}\nタグ: [人生の輪, 振り返り]\n---\n\n# 人生の輪 ${ymd}\n\n`;
+  m += `現状の平均: ${avg(a.map(x=>x.now))} ／ 理想の平均: ${avg(a.map(x=>x.ideal))}\n\n`;
+  m += `| 領域 | 現状 | 理想 | ギャップ |\n|---|---|---|---|\n`;
+  a.map((v,i)=>({i,g:v.ideal-v.now})).sort((p,q)=>q.g-p.g).forEach(({i,g})=>{
+    m += `| ${AREAS[i].n} | ${a[i].now} | ${a[i].ideal} | ${g>0?"+"+g:g} |\n`;
+  });
+  m += `\n---\n\n`;
+  a.forEach((v,i)=>{
+    m += `## ${i+1}. ${AREAS[i].n}\n\n`;
+    m += `- **① 現状の満足度**: ${v.now} / 10\n`;
+    m += `- **② 現状していること**:\n${ind(v.doing)}\n`;
+    m += `- **③ 理想の点数**: ${v.ideal} / 10\n`;
+    m += `- **④ 理想形**:\n${ind(v.want)}\n`;
+    m += `- **⑤ アイデア・行動**:\n${ind(v.act)}\n\n`;
+  });
+  return m;
+}
+function ind(s){ return (s||"—").split("\n").map(l=>"  "+l).join("\n"); }
+
+function copyMd(){
+  navigator.clipboard.writeText(buildMd())
+    .then(()=>toast("Markdownをコピーしました"))
+    .catch(()=>toast("コピーできませんでした"));
+}
+function downloadMd(){
+  const d = new Date(), ymd = d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+  dl(new Blob([buildMd()],{type:"text/markdown"}), `人生の輪_${ymd}.md`);
+}
+function downloadPng(){
+  const svg = document.querySelector("#wheel svg").cloneNode(true);
+  svg.setAttribute("width",1080); svg.setAttribute("height",940);
+  const s = new XMLSerializer().serializeToString(svg);
+  const img = new Image();
+  img.onload = ()=>{
+    const cv = document.createElement("canvas");
+    cv.width = 1080; cv.height = 940;
+    const ctx = cv.getContext("2d");
+    ctx.fillStyle = "#fff"; ctx.fillRect(0,0,1080,940);
+    ctx.drawImage(img,0,0,1080,940);
+    cv.toBlob(b=>{
+      const d = new Date(), ymd = d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+      dl(b, `人生の輪_${ymd}.png`);
+    });
+  };
+  img.onerror = ()=>toast("画像化に失敗しました。印刷→PDFをお使いください");
+  img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(s);
+}
+function dl(blob, name){
+  const u = URL.createObjectURL(blob), a = document.createElement("a");
+  a.href = u; a.download = name; a.click(); setTimeout(()=>URL.revokeObjectURL(u), 3000);
+  toast("保存しました");
+}
+function toast(msg){
+  const t = document.getElementById("toast");
+  t.textContent = msg; t.classList.add("on");
+  clearTimeout(t._h); t._h = setTimeout(()=>t.classList.remove("on"), 2200);
+}
+function resetAll(){
+  if(!confirm("入力した内容をすべて消します。よろしいですか？")) return;
+  localStorage.removeItem(KEY); data = {a:blank(), t:null};
+  toast("消去しました"); location.reload();
+}
+
+/* ============ 初期化 ============ */
+document.getElementById("intro-list").innerHTML =
+  AREAS.map(a=>`<li><span class="dot" style="background:${a.c};display:inline-block;width:10px;height:10px;margin-right:7px"></span><b>${a.n}</b>：${a.d}</li>`).join("");
+if(data.a.some(v=>v.doing||v.want||v.act)) document.getElementById("btn-resume").style.display = "";
+</script>
+</body>
+</html>
