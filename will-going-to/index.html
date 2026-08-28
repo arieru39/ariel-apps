@@ -239,6 +239,9 @@ footer{text-align:center;font-size:.65rem;color:var(--mute);margin-top:26px;lett
 .verdict .why{margin-top:12px;padding-top:12px;border-top:1px solid rgba(244,185,66,.26);font-size:.89rem;color:var(--dim)}
 .verdict .why b{color:var(--ink)}
 .verdict .why i{color:var(--rose);font-style:italic}
+.verdict .beyond{margin-top:13px;padding-top:13px;border-top:1px solid rgba(244,185,66,.26);font-size:.93rem;color:var(--ink)}
+.verdict .beyond b{color:var(--gold)}
+.verdict .beyond i{color:var(--sky);font-style:italic}
 @media(max-width:520px){.ledger table{font-size:.68rem}.ledger th,.ledger td{padding:5px 5px}}
 </style>
 </head>
@@ -338,7 +341,14 @@ function verdictHTML(n){
     never quite arrives.<br><br>
     <b>Why an English schema instead.</b> One question, asked from inside the language.
     Nothing is left over — because there was never a rule for anything to be an exception to.</div>` : "";
-  return `<div class="verdict"><span class="vn">${tag}</span>${msg}${why}</div>`;
+  /* beyond-english v1 */
+  const beyond = k>=6 ? `<div class="beyond">
+    <b>And this was never only about English.</b><br>
+    Every field you will ever learn hands you the same thing: a translation of something you have not met yet —
+    given once, useful often enough, and never checked again. It stays invisible <i>because</i> it mostly works.<br>
+    You have now watched six of them fall.
+    <b>The transferable part is not the six questions. It is knowing what the falling looks like.</b></div>` : "";
+  return `<div class="verdict"><span class="vn">${tag}</span>${msg}${why}${beyond}</div>`;
 }
 
 function ledgerHTML(){
