@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2312324a'/><rect x='14' y='36' width='26' height='26' rx='6' fill='none' stroke='%23f4b942' stroke-width='5'/><line x1='48' y1='49' x2='76' y2='49' stroke='%235fb4e0' stroke-width='4' stroke-dasharray='6 4'/><circle cx='84' cy='49' r='8' fill='none' stroke='%235fb4e0' stroke-width='4'/></svg>" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>-ing / to ~ — In your hand, or at the end of an arrow?</title>
+<meta name="description" content="An English-schema device. -ing is a real thing already running. to is an arrow pointing at something not here yet. The two verb lists disappear.">
+<style>
+:root{
+  --ink:#f2ead9; --dim:#bcb39c; --mute:#847c68;
+  --gold:#f4b942; --goldD:#c9931f;
+  --sky:#5fb4e0; --skyD:#2f7fae;
+  --rose:#e8737d;
+  --leaf:#7cc47a;
+  --violet:#a894dd;
+  --card:rgba(255,248,225,.055);
+  --cardHi:rgba(255,248,225,.10);
+  --line:rgba(242,234,217,.16);
+  --sh:0 8px 28px rgba(0,0,0,.38);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:"Georgia","Hiragino Mincho ProN",-apple-system,serif;
+  background:
+    radial-gradient(1100px 700px at 15% -10%, #1b3a58 0%, transparent 60%),
+    radial-gradient(900px 650px at 105% 105%, #3a2350 0%, transparent 55%),
+    linear-gradient(180deg,#0d1b2a 0%,#152a3f 60%,#1b3350 100%);
+  color:var(--ink); line-height:1.7; min-height:100vh; padding:22px 13px 60px;
+}
+.wrap{max-width:720px;margin:0 auto}
+header{text-align:center;padding:6px 0 14px}
+h1{font-size:1.8rem;letter-spacing:.05em;color:var(--gold);font-weight:400}
+h1 .t{color:var(--sky)} h1 .sl{color:var(--mute);font-size:.62em}
+.sub{font-size:.77rem;color:var(--dim);letter-spacing:.07em;margin-top:6px;font-family:system-ui,sans-serif}
+.rule{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:16px 0}
+
+.jp{font-family:-apple-system,"Hiragino Sans","Yu Gothic",sans-serif;font-size:.82rem;color:var(--mute);line-height:1.85}
+details.note{background:rgba(0,0,0,.2);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:10px 0 18px}
+details.note summary{cursor:pointer;font-size:.78rem;color:var(--mute);font-family:system-ui,sans-serif;letter-spacing:.04em;list-style:none}
+details.note summary::-webkit-details-marker{display:none}
+details.note summary::before{content:"▸ ";color:var(--gold)}
+details.note[open] summary::before{content:"▾ "}
+details.note .jp{margin-top:10px}
+details.note .jp b{color:var(--dim)}
+
+nav.steps{display:flex;gap:5px;margin:0 0 18px;font-family:system-ui,sans-serif}
+nav.steps button{flex:1;background:rgba(255,255,255,.05);border:1px solid transparent;color:var(--mute);
+  font-size:.57rem;letter-spacing:.03em;padding:7px 2px;border-radius:7px;cursor:pointer;transition:.2s;font-family:inherit}
+nav.steps button.on{background:rgba(244,185,66,.16);color:var(--gold);border-color:rgba(244,185,66,.4)}
+nav.steps button.done{color:var(--leaf)}
+nav.steps button:hover{color:var(--ink)}
+
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 20px;box-shadow:var(--sh);backdrop-filter:blur(6px)}
+.panel h2{font-size:1.08rem;color:var(--gold);letter-spacing:.08em;font-weight:400;margin-bottom:4px}
+.panel h2 small{display:block;font-size:.6rem;color:var(--mute);letter-spacing:.14em;font-family:system-ui,sans-serif;margin-bottom:5px}
+.lead{color:var(--dim);font-size:.92rem;margin:10px 0 16px;font-style:italic}
+
+.counter{display:flex;justify-content:space-between;align-items:baseline;font-family:system-ui,sans-serif;font-size:.72rem;color:var(--mute);letter-spacing:.08em;margin-bottom:12px}
+.counter .sc{color:var(--gold);font-weight:700;font-size:.85rem}
+.counter .streak{color:var(--rose)}
+
+/* ============ THE HAND AND THE ARROW — the central device ============ */
+.grip{position:relative;height:150px;border-radius:13px;background:rgba(0,0,0,.26);
+  border:1px solid var(--line);overflow:hidden;margin:14px 0}
+.grip .hand{position:absolute;left:19%;top:56%;transform:translate(-50%,-50%);font-size:1.85rem;z-index:5;
+  filter:saturate(.5) brightness(1.05)}
+.grip .youlab{position:absolute;left:19%;top:78%;transform:translateX(-50%);font-size:.5rem;letter-spacing:.16em;
+  color:var(--mute);font-family:system-ui,sans-serif;z-index:5}
+.grip .obj{position:absolute;left:19%;top:28%;transform:translate(-50%,-50%) scale(.35);opacity:0;z-index:4;
+  width:40px;height:40px;border-radius:10px;background:rgba(244,185,66,.28);border:2px solid var(--gold);
+  transition:opacity .35s, transform .55s cubic-bezier(.34,1.45,.5,1)}
+.grip .objlab{position:absolute;left:19%;top:9%;transform:translateX(-50%);font-size:.5rem;letter-spacing:.14em;
+  color:var(--gold);font-family:system-ui,sans-serif;opacity:0;transition:.4s;z-index:4;white-space:nowrap}
+.grip .arrow{position:absolute;left:27%;top:56%;width:0;height:2px;opacity:0;z-index:2;
+  transition:width .6s cubic-bezier(.3,.8,.4,1), opacity .35s;
+  background:repeating-linear-gradient(90deg,var(--sky) 0 9px,transparent 9px 16px)}
+.grip .head2{position:absolute;left:27%;top:56%;transform:translate(-50%,-50%);opacity:0;z-index:3;
+  color:var(--sky);font-size:1.05rem;transition:left .6s cubic-bezier(.3,.8,.4,1), opacity .35s}
+.grip .target{position:absolute;left:82%;top:56%;transform:translate(-50%,-50%) scale(.4);opacity:0;z-index:2;
+  width:44px;height:44px;border-radius:50%;border:2px dashed var(--sky);
+  transition:opacity .4s .25s, transform .55s .25s cubic-bezier(.34,1.4,.5,1)}
+.grip .targetlab{position:absolute;left:82%;top:80%;transform:translateX(-50%);font-size:.5rem;letter-spacing:.14em;
+  color:var(--sky);font-family:system-ui,sans-serif;opacity:0;transition:.4s .3s;z-index:4;white-space:nowrap}
+.grip .cap{position:absolute;left:12px;right:12px;bottom:8px;text-align:center;font-size:.59rem;letter-spacing:.13em;
+  font-family:system-ui,sans-serif;color:var(--mute);transition:color .4s}
+.grip .tag{position:absolute;right:12px;top:9px;font-size:.6rem;letter-spacing:.17em;
+  font-family:system-ui,sans-serif;color:var(--mute);transition:color .4s}
+
+.grip.ing .obj{opacity:1;transform:translate(-50%,-50%) scale(1);animation:hum 1.7s ease-in-out infinite}
+.grip.ing .objlab{opacity:1}
+.grip.ing .hand{filter:saturate(1.1) brightness(1.15) drop-shadow(0 0 10px rgba(244,185,66,.45))}
+.grip.ing .cap,.grip.ing .tag{color:var(--gold)}
+@keyframes hum{0%,100%{box-shadow:0 0 16px rgba(244,185,66,.3)}50%{box-shadow:0 0 32px rgba(244,185,66,.75)}}
+
+.grip.to .arrow{width:47%;opacity:1}
+.grip.to .head2{left:76%;opacity:1}
+.grip.to .target{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.grip.to .targetlab{opacity:1}
+.grip.to .cap,.grip.to .tag{color:var(--sky)}
+
+.grip.sm{height:116px}
+.grip.sm .hand{font-size:1.4rem}
+.grip.sm .cap{font-size:.52rem}
+
+.duo{display:grid;grid-template-columns:1fr;gap:12px;margin:14px 0}
+
+/* ============ sentence / choices ============ */
+.situ{font-size:.79rem;color:var(--mute);text-align:center;font-family:system-ui,sans-serif;letter-spacing:.03em}
+.sent{font-size:1.22rem;text-align:center;margin:14px 0 6px}
+.blank{display:inline-block;min-width:86px;border-bottom:2px solid var(--gold);color:var(--gold);
+  text-align:center;padding:0 6px;font-style:italic}
+.blank.filled{border-bottom-color:var(--leaf);color:var(--leaf);font-style:normal}
+.blank.wrong{border-bottom-color:var(--rose);color:var(--rose);font-style:normal;text-decoration:line-through}
+.verb{color:var(--violet);font-style:italic}
+
+.choices{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:12px 0 10px}
+.ch{background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--ink);border-radius:11px;
+  padding:10px 18px;font-size:1rem;font-family:inherit;font-style:italic;cursor:pointer;transition:.16s;
+  display:flex;flex-direction:column;align-items:center;gap:3px;min-width:158px}
+.ch em{font-style:normal;font-size:.52rem;letter-spacing:.13em;color:var(--mute);font-family:system-ui,sans-serif}
+.ch:hover:not(:disabled){background:var(--cardHi);border-color:var(--gold);transform:translateY(-2px)}
+.ch:disabled{cursor:default;opacity:.4}
+.ch.right{background:rgba(124,196,122,.2);border-color:var(--leaf);color:#e2f7e1;opacity:1}
+.ch.right em{color:var(--leaf)}
+.ch.wrong{background:rgba(232,115,125,.18);border-color:var(--rose);color:#ffdfe2;opacity:1}
+
+.opts{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.opt{text-align:left;background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--ink);
+  border-radius:10px;padding:11px 14px;font-size:.93rem;font-family:inherit;cursor:pointer;transition:.16s}
+.opt:hover:not(:disabled){background:var(--cardHi);border-color:var(--sky)}
+.opt:disabled{cursor:default}
+.opt.right{background:rgba(124,196,122,.18);border-color:var(--leaf)}
+.opt.wrong{background:rgba(232,115,125,.16);border-color:var(--rose)}
+
+.pair{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:8px 0 14px}
+.pair .s{background:rgba(0,0,0,.24);border:1px solid var(--line);border-radius:10px;padding:9px 14px;font-size:1rem}
+.pair .s b{color:var(--gold);font-style:italic}
+.pair .s.alt b{color:var(--sky)}
+.pair .s.dead{border-color:rgba(232,115,125,.4);background:rgba(232,115,125,.08);color:var(--dim)}
+.pair .s.dead b{color:var(--rose)}
+
+.jgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:10px 0}
+.jgrid button{background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--ink);border-radius:9px;
+  padding:12px 8px;font-size:.77rem;font-family:system-ui,sans-serif;cursor:pointer;transition:.15s;letter-spacing:.04em}
+.jgrid button:hover:not(:disabled){border-color:var(--sky);background:var(--cardHi)}
+.jgrid button:disabled{opacity:.4;cursor:default}
+.jgrid button.right{background:rgba(124,196,122,.2);border-color:var(--leaf);opacity:1}
+.jgrid button.wrong{background:rgba(232,115,125,.18);border-color:var(--rose);opacity:1}
+
+/* ============ feedback ============ */
+.fb{margin:14px 0 4px;padding:13px 15px;border-radius:10px;font-size:.93rem;border-left:3px solid var(--mute);
+  background:rgba(255,255,255,.045);animation:fade .3s}
+.fb.ok{border-color:var(--leaf);background:rgba(124,196,122,.1)}
+.fb.no{border-color:var(--rose);background:rgba(232,115,125,.1)}
+.fb b{color:var(--gold)} .fb i{color:var(--sky)}
+.fb .head{font-family:system-ui,sans-serif;font-size:.62rem;letter-spacing:.15em;color:var(--mute);display:block;margin-bottom:5px}
+@keyframes fade{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+
+.btnrow{display:flex;gap:10px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
+.btn{background:linear-gradient(180deg,var(--gold),var(--goldD));color:#191204;border:none;border-radius:10px;
+  padding:10px 22px;font-family:system-ui,sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;
+  letter-spacing:.06em;transition:.15s;box-shadow:0 4px 12px rgba(244,185,66,.28)}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(244,185,66,.42)}
+.btn.ghost{background:none;color:var(--dim);border:1px solid var(--line);box-shadow:none}
+.btn.ghost:hover{color:var(--gold);border-color:var(--gold)}
+.btn.sky{background:linear-gradient(180deg,var(--sky),var(--skyD));color:#04161f;box-shadow:0 4px 12px rgba(95,180,224,.28)}
+
+.quote{font-size:1.1rem;text-align:center;margin:16px 0;color:var(--ink)}
+.quote b{color:var(--gold);font-style:italic;border-bottom:2px solid rgba(244,185,66,.45);padding-bottom:1px}
+
+.tool{background:rgba(95,180,224,.1);border:1px solid rgba(95,180,224,.3);border-radius:11px;padding:13px 15px;margin:12px 0;font-size:.91rem}
+.tool .lbl{font-family:system-ui,sans-serif;font-size:.58rem;letter-spacing:.17em;color:var(--sky);display:block;margin-bottom:6px}
+.tool.gold{background:rgba(244,185,66,.09);border-color:rgba(244,185,66,.3)}
+.tool.gold .lbl{color:var(--gold)}
+.tool.rose{background:rgba(232,115,125,.09);border-color:rgba(232,115,125,.32)}
+.tool.rose .lbl{color:var(--rose)}
+
+table.grid{width:100%;border-collapse:collapse;margin:14px 0;font-size:.86rem}
+table.grid th,table.grid td{border:1px solid var(--line);padding:8px 9px;text-align:left;vertical-align:top}
+table.grid th{font-family:system-ui,sans-serif;font-size:.57rem;letter-spacing:.13em;color:var(--mute);font-weight:600;background:rgba(0,0,0,.18)}
+table.grid td i{font-style:italic;color:var(--ink)}
+table.grid td.x{color:var(--dim);font-style:italic;font-size:.82rem}
+table.grid .vb{color:var(--violet);font-family:system-ui,sans-serif;font-size:.79rem;letter-spacing:.03em;line-height:2}
+
+.bar{height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;margin:0 0 14px}
+.bar div{height:100%;background:linear-gradient(90deg,var(--gold),var(--sky));transition:width .35s}
+
+.score-big{font-size:2.9rem;color:var(--gold);text-align:center;letter-spacing:.04em}
+.score-lab{text-align:center;font-family:system-ui,sans-serif;font-size:.65rem;letter-spacing:.17em;color:var(--mute)}
+textarea{width:100%;background:rgba(0,0,0,.28);color:var(--ink);border:1px solid var(--line);border-radius:10px;
+  padding:12px;font-family:inherit;font-size:1rem;min-height:130px;resize:vertical;line-height:1.9}
+textarea:focus{outline:none;border-color:var(--gold)}
+.check{list-style:none;margin:12px 0}
+.check li{font-size:.89rem;padding:7px 0 7px 26px;position:relative;color:var(--dim);cursor:pointer;transition:.15s}
+.check li::before{content:"○";position:absolute;left:4px;color:var(--mute)}
+.check li.on{color:var(--ink)}
+.check li.on::before{content:"●";color:var(--leaf)}
+.next{background:rgba(168,148,221,.09);border:1px solid rgba(168,148,221,.3);border-radius:12px;padding:14px 16px;margin-top:18px}
+.next h3{font-size:.93rem;color:var(--violet);letter-spacing:.06em;font-weight:400;margin-bottom:8px}
+.next ul{list-style:none;font-size:.86rem}
+.next li{padding:4px 0 4px 18px;position:relative;color:var(--dim)}
+.next li::before{content:"→";position:absolute;left:0;color:var(--violet)}
+.next li b{color:var(--ink);font-style:italic}
+footer{text-align:center;font-size:.65rem;color:var(--mute);margin-top:26px;letter-spacing:.08em;font-family:system-ui,sans-serif}
+@media(max-width:520px){
+  h1{font-size:1.35rem}
+  .sent{font-size:1.02rem}
+  .jgrid{grid-template-columns:1fr}
+  .ch{min-width:132px;font-size:.9rem}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>-ing <span class="sl">/</span> <span class="t">to ~</span></h1>
+  <div class="sub">IN YOUR HAND, OR AT THE END OF AN ARROW?</div>
+</header>
+
+<details class="note">
+  <summary>この装置の設計意図（日本語・トレーニング外）</summary>
+  <div class="jp">
+    <b>「〜すること」を捨てる。</b>この訳語は -ing と to ~ を<b>同じもの</b>だと思わせる。だが <b>I stopped smoking.</b>（禁煙した）と <b>I stopped to smoke.</b>（一服しに立ち止まった）は<b>正反対</b>である。<br><br>
+    そしてこの項目の最大の破綻は、<b>動詞リストが2本あること自体</b>。enjoy・finish・mind…は -ing、want・hope・decide…は to、と<b>2本のリストを暗記させる</b>のは、原理を持っていないことの自白である。<br><br>
+    英語話者が見ているのは一つだけ。<b>それは手の中にあるか、指の先にあるか。</b><br>
+    <b>-ing</b>＝すでに走っている<b>実物</b>。<b>to</b>＝矢印の先の<b>的</b>（前置詞の to と同じ「→」）。<br><br>
+    これで<b>リストが消える</b>。enjoy は実物がないと楽しめない。want はもう手にあるものを欲しがらない。<b>リストを読むのではなく、動詞の意味を読む。</b><br><br>
+    STEP 4 では <b>to が矢印ではなくなる場所</b>（look forward to seeing / be used to doing）まで行く。ここは <b>no.02 in/on/at</b> と地続きである。<br><br>
+    以降は全編英語。<b>訳さずに、手と矢印として見ること。</b>
+  </div>
+</details>
+
+<nav class="steps" id="nav"></nav>
+<div id="app"></div>
+
+<footer>an english-schema device · no.05 · no translation inside</footer>
+</div>
+
+<script>
+/* ================= THE DEVICE ================= */
+const MODE={
+  ing:{tag:"IN YOUR HAND", cap:"IT IS REAL · IT IS ALREADY RUNNING"},
+  to :{tag:"AT THE END OF AN ARROW", cap:"NOT HERE YET · YOU ARE ONLY POINTING"}
+};
+function gripHTML(id,cls,sm){
+  const m=cls?MODE[cls]:null;
+  return `<div class="grip ${cls||''}${sm?' sm':''}" id="${id||''}"${sm?' data-sm="1"':''}>
+    <span class="tag">${m?m.tag:'&nbsp;'}</span>
+    <span class="objlab">REAL · RUNNING</span>
+    <div class="obj"></div>
+    <div class="hand">✋</div><span class="youlab">YOU</span>
+    <div class="arrow"></div><div class="head2">▶</div>
+    <div class="target"></div><span class="targetlab">NOT YET</span>
+    <span class="cap">${m?m.cap:'in your hand, or out there?'}</span>
+  </div>`;
+}
+function setGrip(el,k){
+  el.className="grip "+k+(el.dataset.sm==="1"?" sm":"");
+  el.querySelector(".tag").textContent=MODE[k].tag;
+  el.querySelector(".cap").textContent=MODE[k].cap;
+}
+
+/* ================= DATA ================= */
+
+/* STEP 1 — minimal pairs */
+const NOTICE=[
+ {situ:"(both are perfectly good English)", a:"I stopped smoking.", b:"I stopped to smoke.", dead:false,
+  opts:["How long he smoked for.","Whether he is still a smoker.","How many cigarettes he had."], ok:1,
+  fb:"<b>stopped smoking</b> — the smoking was <b>in his hand, running</b>. He ended it. He has quit.<br><b>stopped to smoke</b> — he stopped <i>something else</i> (walking, working), and the cigarette was the <b>target at the end of the arrow</b>. He is still a smoker."},
+ {situ:"(both are perfectly good English)", a:"I remember locking the door.", b:"I remember to lock the door.", dead:false,
+  opts:["Whether the door is locked now.","How old the door is.","Whether he has the key."], ok:0,
+  fb:"<b>remember locking</b> — the locking is a solid thing he already holds. <b>It happened.</b><br><b>remember to lock</b> — the locking is still out there, ahead of him. It has not happened yet."},
+ {situ:"(both are perfectly good English)", a:"I tried opening the window.", b:"I tried to open the window.", dead:false,
+  opts:["Whether the window actually opened.","How hot the room was.","Which window it was."], ok:0,
+  fb:"<b>tried opening</b> — he <b>did</b> it. The opening is real, in his hand. It just did not solve his problem.<br><b>tried to open</b> — he aimed at it. <b>The arrow may never have landed.</b>"},
+ {situ:"(one of these is impossible)", a:"I enjoy swimming.", b:"I enjoy to swim.", dead:true,
+  opts:["Because <i>enjoy</i> is an old-fashioned word.","Because you cannot enjoy something that is not happening.","Because <i>to swim</i> is too formal."], ok:1,
+  fb:"Enjoyment needs <b>something real in your hand</b>.<br>A target at the far end of an arrow gives you nothing to enjoy — <b>you have not reached it yet.</b>"},
+ {situ:"(one of these is impossible)", a:"I want swimming.", b:"I want to swim.", dead:"a",
+  opts:["Because wanting points at something you do not have yet.","Because <i>swimming</i> is a noun.","Because <i>want</i> is too short a verb."], ok:0,
+  fb:"You cannot want what is <b>already in your hand</b>.<br><b>Wanting points forward.</b> So it can only take the arrow."}
+];
+
+/* STEP 2 — core */
+const CORE=[
+ {situ:"(he gave up cigarettes last year)",pre:"He stopped ",post:".",fi:"smoking",ft:"to smoke",ok:"ing",
+  fb:{ing:"The smoking was running in his hand. He ended it.",
+      to:"That means he paused something else <i>in order to</i> have a cigarette. He is still smoking."}},
+ {situ:"(he was walking to work, then paused)",pre:"He stopped ",post:" a cigarette.",fi:"buying",ft:"to buy",ok:"to",
+  fb:{to:"The walking stopped. The cigarette was the <b>target ahead</b>.",
+      ing:"That would mean he used to buy cigarettes regularly and has now quit."}},
+ {situ:"(talking about your free time)",pre:"I enjoy ",post:" novels.",fi:"reading",ft:"to read",ok:"ing",
+  fb:{ing:"You need <b>something real</b> to enjoy. The reading has to be happening.",
+      to:"You cannot enjoy a target you have not reached. <i>enjoy</i> never takes the arrow."}},
+ {situ:"(a plan you made last night)",pre:"I've decided ",post:" Spanish.",fi:"learning",ft:"to learn",ok:"to",
+  fb:{to:"Deciding <b>chooses something that does not exist yet</b>. Pure arrow.",
+      ing:"You cannot decide something already in your hand — it would be too late."}},
+ {situ:"(the report is complete)",pre:"I've finished ",post:" it.",fi:"writing",ft:"to write",ok:"ing",
+  fb:{ing:"You can only finish <b>something that was running</b>.",
+      to:"There is nothing to finish at the end of an arrow. Nothing has started."}},
+ {situ:"(you gave your word)",pre:"I promised ",post:" her.",fi:"helping",ft:"to help",ok:"to",
+  fb:{to:"A promise <b>points at something not here yet</b>. That is what makes it a promise.",
+      ing:"You cannot promise what has already happened."}},
+ {situ:"(you have the memory of doing it)",pre:"I remember ",post:" the door.",fi:"locking",ft:"to lock",ok:"ing",
+  fb:{ing:"The memory is <b>a solid thing you are holding</b>. It happened.",
+      to:"That would be a reminder about tonight — not a memory."}},
+ {situ:"(a reminder to yourself for tonight)",pre:"Please remember ",post:" the door.",fi:"locking",ft:"to lock",ok:"to",
+  fb:{to:"Still ahead of you. <b>Nothing is in your hand yet.</b>",
+      ing:"That would mean: <i>recall the moment you locked it.</i> Not what you meant."}},
+ {situ:"(the door was jammed; you pushed hard, nothing moved)",pre:"I tried ",post:" the door.",fi:"opening",ft:"to open",ok:"to",
+  fb:{to:"You aimed. <b>The arrow did not land.</b> The door is still shut.",
+      ing:"That would mean you opened it — as an experiment."}},
+ {situ:"(as an experiment you pushed instead of pulling — and it worked)",pre:"I tried ",post:" instead.",fi:"pushing",ft:"to push",ok:"ing",
+  fb:{ing:"You <b>actually did it</b>, to see what would happen. Real, in your hand.",
+      to:"That would mean you attempted and possibly failed. Here you succeeded."}},
+ {situ:"(he would not say a word)",pre:"He refused ",post:" anything.",fi:"saying",ft:"to say",ok:"to",
+  fb:{to:"Refusing <b>pushes away something that has not happened yet</b>.",
+      ing:"You cannot refuse what is already done."}},
+ {situ:"(you are happy to wait)",pre:"I don't mind ",post:".",fi:"waiting",ft:"to wait",ok:"ing",
+  fb:{ing:"<i>mind</i> judges <b>something real</b>. There has to be waiting for you not to mind it.",
+      to:"Nothing at the end of an arrow can bother you yet."}}
+];
+
+/* STEP 3 — the two lists disappear */
+const FAMQ=[
+ {pre:"She avoided ",post:" him.",fi:"answering",ft:"to answer",ok:"ing",
+  why:"You can only avoid <b>something really coming at you</b>."},
+ {pre:"They agreed ",post:" the price.",fi:"lowering",ft:"to lower",ok:"to",
+  why:"Agreeing settles <b>something not yet done</b>."},
+ {pre:"He admitted ",post:" the money.",fi:"taking",ft:"to take",ok:"ing",
+  why:"You admit <b>what already happened</b>. It is in your hand whether you like it or not."},
+ {pre:"We're planning ",post:" in June.",fi:"moving",ft:"to move",ok:"to",
+  why:"A plan is an arrow by definition."},
+ {pre:"Do you mind ",post:" the window?",fi:"opening",ft:"to open",ok:"ing",
+  why:"<i>mind</i> weighs a real event."},
+ {pre:"I can't afford ",post:" a new one.",fi:"buying",ft:"to buy",ok:"to",
+  why:"Afford measures <b>a purchase that has not been made</b>."},
+ {pre:"She suggested ",post:" a taxi.",fi:"taking",ft:"to take",ok:"ing",
+  why:"A suggestion puts <b>the whole action on the table</b> as a thing to look at."},
+ {pre:"He offered ",post:" me home.",fi:"driving",ft:"to drive",ok:"to",
+  why:"An offer points at <b>something not yet given</b>."},
+ {pre:"Have you considered ",post:" jobs?",fi:"changing",ft:"to change",ok:"ing",
+  why:"To consider it, you must <b>hold it up and look at it</b> as a real thing."},
+ {pre:"They managed ",post:" the door.",fi:"opening",ft:"to open",ok:"to",
+  why:"<i>manage</i> = the arrow <b>reached</b> a difficult target. The aiming came first."}
+];
+
+/* STEP 4 — when to is not an arrow */
+const PREPQ=[
+ {s:"I want ___ home.",v:"go",ok:"ARROW",why:"<i>I want the house.</i> ✓ &nbsp;<i>I want to the house.</i> ✗<br>So this <i>to</i> is the <b>arrow</b>. → <i>want <b>to go</b></i>"},
+ {s:"I look forward ___ you.",v:"meet",ok:"PREP",why:"<i>I look forward to the party.</i> ✓ — a noun fits.<br>So this <i>to</i> is a <b>preposition</b>, a place you point at. → <i>look forward <b>to meeting</b></i>"},
+ {s:"She's used ___ at night.",v:"work",ok:"PREP",why:"<i>She's used to the night shift.</i> ✓<br><b>be used to</b> = accustomed. → <i>used <b>to working</b></i>"},
+ {s:"She used ___ at night.",v:"work",ok:"ARROW",why:"<b>used to</b> (no <i>be</i>) is the old-habit form. Pure arrow. → <i>used <b>to work</b></i><br><span style='color:var(--rose)'>These two sentences differ by one word — <i>be</i> — and nothing else.</span>"},
+ {s:"He objects ___ so much.",v:"pay",ok:"PREP",why:"<i>He objects to the price.</i> ✓ → <i>objects <b>to paying</b></i>"},
+ {s:"We agreed ___ at six.",v:"meet",ok:"ARROW",why:"<i>We agreed to the plan.</i> …possible, but here the target is the meeting itself. → <i>agreed <b>to meet</b></i>"},
+ {s:"I'm not used ___ on the left.",v:"drive",ok:"PREP",why:"<i>I'm not used to left-hand traffic.</i> ✓ → <i>used <b>to driving</b></i>"},
+ {s:"They refused ___ .",v:"leave",ok:"ARROW",why:"<i>They refused the offer.</i> ✓ but <i>refused to the offer</i> ✗ → <i>refused <b>to leave</b></i>"}
+];
+
+/* STEP 5 — live fire */
+const FIRE=[
+ {situ:"(after months of failing)",pre:"I've given up ",post:".",fi:"trying",ft:"to try",ok:"ing",why:"You can only give up something that was running."},
+ {situ:"(her ambition)",pre:"She hopes ",post:" a doctor.",fi:"becoming",ft:"to become",ok:"to",why:"Hope is an arrow."},
+ {situ:"(politely, at the counter)",pre:"Do you mind ",post:"?",fi:"waiting",ft:"to wait",ok:"ing",why:"<i>mind</i> weighs a real event."},
+ {situ:"(he gave his word)",pre:"He promised ",post:" me.",fi:"calling",ft:"to call",ok:"to",why:"A promise points ahead."},
+ {situ:"(writing at the end of a letter)",pre:"I'm looking forward ",post:" you.",fi:"to seeing",ft:"to see",ok:"ing",why:"<b>look forward to</b> — that <i>to</i> is a preposition. <i>to the weekend</i> ✓"},
+ {situ:"(after a long discussion)",pre:"We decided ",post:".",fi:"staying",ft:"to stay",ok:"to",why:"Deciding chooses a target."},
+ {situ:"(you cannot concentrate)",pre:"Stop ",post:"! ",fi:"talking",ft:"to talk",ok:"ing",why:"The talking is running. End it."},
+ {situ:"(on his way to the office he paused)",pre:"He stopped ",post:" a paper.",fi:"buying",ft:"to buy",ok:"to",why:"The paper was the target ahead."},
+ {situ:"(you hate queues)",pre:"I can't stand ",post:".",fi:"queueing",ft:"to queue",ok:"ing",why:"You cannot hate what has not happened."},
+ {situ:"(against the odds, she did it)",pre:"She managed ",post:" it.",fi:"fixing",ft:"to fix",ok:"to",why:"The arrow reached a difficult target."},
+ {situ:"(you have done it for years)",pre:"I'm used ",post:" alone.",fi:"to living",ft:"to live",ok:"ing",why:"<b>be used to</b> — preposition. <i>used to the silence</i> ✓"},
+ {situ:"(a note on the fridge)",pre:"Remember ",post:" the letter.",fi:"posting",ft:"to post",ok:"to",why:"Still ahead of you."},
+ {situ:"(you have a clear memory of it)",pre:"I remember ",post:" him in 2019.",fi:"meeting",ft:"to meet",ok:"ing",why:"A solid memory in your hand."},
+ {situ:"(they said nothing)",pre:"They refused ",post:".",fi:"answering",ft:"to answer",ok:"to",why:"Refusing pushes away what has not happened."},
+ {situ:"(asking about a big change)",pre:"Would you consider ",post:"?",fi:"moving",ft:"to move",ok:"ing",why:"To consider it you must hold it up and look at it."}
+];
+
+/* ================= STATE ================= */
+const STEPS=[
+ {k:"start",n:"START"},{k:"notice",n:"NOTICE"},{k:"core",n:"HAND OR ARROW"},
+ {k:"fam",n:"NO LISTS"},{k:"prep",n:"NOT AN ARROW"},{k:"fire",n:"LIVE FIRE"},{k:"you",n:"YOUR TURN"}
+];
+let S={step:0,i:0,score:0,total:0,streak:0,best:0,locked:false,phase:"show"};
+try{S.best=parseInt(localStorage.getItem("it_best")||"0",10)||0}catch(e){}
+
+const app=document.getElementById("app"), navEl=document.getElementById("nav");
+function drawNav(){
+  navEl.innerHTML=STEPS.map((s,i)=>`<button data-i="${i}" class="${i===S.step?'on':(i<S.step?'done':'')}">${s.n}</button>`).join("");
+  navEl.querySelectorAll("button").forEach(b=>b.onclick=()=>go(parseInt(b.dataset.i,10)));
+}
+function go(i){S.step=i;S.i=0;S.locked=false;S.phase="show";render();window.scrollTo({top:0,behavior:"smooth"})}
+function next(){S.i++;S.locked=false;render();window.scrollTo({top:0,behavior:"smooth"})}
+function tally(g){S.total++;if(g){S.score++;S.streak++}else S.streak=0;
+  if(S.score>S.best){S.best=S.score;try{localStorage.setItem("it_best",S.best)}catch(e){}}}
+function counter(l,c,n){return `<div class="counter"><span>${l} &nbsp;${c}/${n}</span>
+  <span><span class="sc">${S.score}</span> correct${S.streak>1?` &nbsp;<span class="streak">▲${S.streak} in a row</span>`:""}</span></div>`}
+function chBtns(){return `<div class="choices">
+  <button class="ch" data-v="ing"><span>-ing</span><em>IN YOUR HAND</em></button>
+  <button class="ch" data-v="to"><span>to ~</span><em>AT THE END OF AN ARROW</em></button></div>`}
+
+function render(){drawNav();({start:rStart,notice:rNotice,core:rCore,fam:rFam,prep:rPrep,fire:rFire,you:rYou})[STEPS[S.step].k]()}
+
+/* ---------- START ---------- */
+function rStart(){
+  app.innerHTML=`<div class="panel">
+    <h2><small>STEP 0</small>TWO DISTANCES</h2>
+    <p class="lead">Both are usually translated the same way. They sit at <b style="font-style:normal;color:var(--ink)">opposite distances from your body</b>.</p>
+    <div class="duo">
+      <div>${gripHTML("","ing")}</div>
+      <div>${gripHTML("","to")}</div>
+    </div>
+    <div class="tool gold">
+      <span class="lbl">THE WHOLE MACHINE</span>
+      It is real, and already running &nbsp;→&nbsp; <b style="color:var(--gold);font-style:italic">-ing</b><br>
+      It is not here yet — you are only pointing at it &nbsp;→&nbsp; <b style="color:var(--sky);font-style:italic">to ~</b><br>
+      <span style="color:var(--dim);font-size:.86rem">The <i>to</i> of <i>to swim</i> is the same <i>to</i> as <i>to the station</i>. <b>It has always been an arrow.</b></span>
+    </div>
+    <div class="tool rose">
+      <span class="lbl">WHAT THIS DELETES</span>
+      <b style="color:var(--rose)">The two verb lists.</b><br>
+      <span style="color:var(--dim);font-size:.88rem">enjoy · finish · mind · avoid · give up …&nbsp; take -ing<br>
+      want · hope · decide · promise · refuse …&nbsp; take to</span><br>
+      Nobody needs to memorise these. <b>Read the verb.</b> Does it handle something real, or does it point at something not here yet?
+    </div>
+    <div class="btnrow">
+      ${S.best?`<span style="font-family:system-ui;font-size:.67rem;color:var(--mute);align-self:center;letter-spacing:.1em">BEST ${S.best}</span>`:""}
+      <button class="btn" onclick="go(1)">BEGIN →</button>
+    </div>
+  </div>`;
+}
+
+/* ---------- NOTICE ---------- */
+function rNotice(){
+  if(S.i>=NOTICE.length) return done("NOTICE",
+    "Three pairs where <b>both were correct</b> and the meaning flipped.<br>Two pairs where one was <b>impossible</b> — and the reason was the same reason.",2);
+  const q=NOTICE[S.i];
+  const deadA=(q.dead==="a"), deadB=(q.dead===true);
+  app.innerHTML=`<div class="panel">
+    <h2><small>STEP 1 · NOTICE</small>${q.dead?"WHY IS ONE IMPOSSIBLE?":"BOTH ARE CORRECT. WHAT FLIPPED?"}</h2>
+    ${counter("PAIR",S.i+1,NOTICE.length)}
+    <div class="situ">${q.situ}</div>
+    <div class="pair" style="margin-top:10px">
+      <div class="s ${deadA?'dead':''}">${deadA?'✗ ':''}${q.a.replace(/(\w+ing)\b/,'<b>$1</b>')}</div>
+      <div class="s alt ${deadB?'dead':''}">${deadB?'✗ ':''}${q.b.replace(/(to \w+)/,'<b>$1</b>')}</div>
+    </div>
+    <div class="opts">${q.opts.map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join("")}</div>
+    <div id="out"></div>
+  </div>`;
+  app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
+    if(S.locked)return; S.locked=true;
+    const i=parseInt(b.dataset.i,10), good=(i===q.ok);
+    tally(good);
+    app.querySelectorAll(".opt").forEach((x,j)=>{x.disabled=true;
+      if(j===q.ok)x.classList.add("right"); else if(j===i)x.classList.add("wrong")});
+    document.getElementById("out").innerHTML=
+      `<div class="fb ${good?'ok':'no'}"><span class="head">${good?'YES':'LOOK AGAIN'}</span>${q.fb}</div>
+       <div class="btnrow"><button class="btn" onclick="next()">NEXT →</button></div>`;
+  });
+}
+
+/* ---------- generic single ---------- */
+function single(cfg){
+  const q=cfg.q;
+  app.innerHTML=`<div class="panel">
+    <h2><small>${cfg.step}</small>${cfg.title}</h2>
+    ${counter(cfg.unit,S.i+1,cfg.len)}
+    ${cfg.bar?`<div class="bar"><div style="width:${(S.i/cfg.len)*100}%"></div></div>`:""}
+    ${cfg.intro&&S.i===0?cfg.intro:""}
+    <div class="situ">${q.situ||""}</div>
+    <div class="sent">${q.pre}<span class="blank" id="bl">?</span>${q.post}</div>
+    ${gripHTML("f","")}
+    ${chBtns()}
+    <div id="out"></div>
+  </div>`;
+  app.querySelectorAll(".choices .ch").forEach(b=>b.onclick=()=>{
+    if(S.locked)return; S.locked=true;
+    const v=b.dataset.v, good=(v===q.ok);
+    tally(good);
+    const bl=document.getElementById("bl");
+    bl.textContent=(v==="ing"?q.fi:q.ft); bl.className="blank "+(good?"filled":"wrong");
+    setGrip(document.getElementById("f"), good? q.ok : v);
+    app.querySelectorAll(".choices .ch").forEach(x=>{x.disabled=true;
+      if(x.dataset.v===q.ok)x.classList.add("right"); else if(x.dataset.v===v)x.classList.add("wrong")});
+    const msg=q.fb? q.fb[v] : q.why;
+    const extra=(!good&&q.fb)?`<div style="margin-top:9px;padding-top:9px;border-top:1px solid var(--line)"><b>${q.ok==="ing"?q.fi:q.ft}</b> — ${q.fb[q.ok]}</div>`:"";
+    const head=good?MODE[q.ok].tag:(q.fb?"YOU SAID "+(v==="ing"?"-ING":"TO ~"):MODE[q.ok].tag);
+    document.getElementById("out").innerHTML=
+      `<div class="fb ${good?'ok':'no'}"><span class="head">${head}</span>${msg}${extra}</div>
+       <div class="btnrow"><button class="btn" onclick="next()">NEXT →</button></div>`;
+    if(!good) setTimeout(()=>{const g=document.getElementById("f"); if(g)setGrip(g,q.ok);},1700);
+  });
+}
+
+/* ---------- STEP 2 ---------- */
+function rCore(){
+  if(S.i>=CORE.length) return done("HAND OR ARROW",
+    "Three verbs — <b>stop, remember, try</b> — took both forms<br>and meant two different things each time.<br>The verb never changed. <b>The distance did.</b>",3);
+  single({step:"STEP 2 · HAND OR ARROW",title:"HOW FAR AWAY IS IT?",unit:"SCENE",len:CORE.length,q:CORE[S.i]});
+}
+
+/* ---------- STEP 3 ---------- */
+function rFam(){
+  if(S.phase==="show"){
+    app.innerHTML=`<div class="panel">
+      <h2><small>STEP 3 · NO LISTS</small>THE TWO LISTS WERE NEVER LISTS</h2>
+      <p class="lead">Textbooks give you two columns of verbs and tell you to learn them.<br>
+      They are not two columns. They are <b style="font-style:normal;color:var(--ink)">two kinds of meaning</b>.</p>
+      <table class="grid">
+        <tr><th>WHAT THE VERB DOES</th><th>FORM</th><th>VERBS</th></tr>
+        <tr><td class="x">handles something <b style="color:var(--gold);font-style:normal">real</b> —<br>it must already exist to be<br>enjoyed, finished, avoided, admitted</td>
+            <td><i style="color:var(--gold)">-ing</i></td>
+            <td class="vb">enjoy · finish · mind · keep · give up<br>avoid · admit · deny · practise<br>suggest · consider · can't stand</td></tr>
+        <tr><td class="x">points at something <b style="color:var(--sky);font-style:normal">not here yet</b> —<br>you cannot want, decide, promise<br>or refuse what you already hold</td>
+            <td><i style="color:var(--sky)">to ~</i></td>
+            <td class="vb">want · hope · decide · promise · plan<br>expect · agree · refuse · offer<br>learn · manage · afford · need</td></tr>
+      </table>
+      <div class="tool gold">
+        <span class="lbl">THE TEST, IF YOU MEET A NEW VERB</span>
+        <b>Does this verb need the thing to exist already?</b><br>
+        <span style="color:var(--dim);font-size:.87rem">You cannot <i>finish</i> what never started. You cannot <i>decide</i> what is already done.<br>
+        The verb tells you. You do not have to remember which column it was in.</span>
+      </div>
+      <div class="quote" style="margin-top:16px">Two columns. <b>One question.</b></div>
+      <div class="btnrow"><button class="btn sky" onclick="S.phase='quiz';S.i=0;render()">TEN NEW VERBS →</button></div>
+    </div>`;
+    return;
+  }
+  if(S.i>=FAMQ.length) return done("NO LISTS",
+    "Ten verbs, and you were never told which column they were in.<br><b>You read what each verb does.</b>",4);
+  single({step:"STEP 3 · NO LISTS",title:"READ THE VERB, NOT THE LIST",unit:"VERB",len:FAMQ.length,q:FAMQ[S.i]});
+}
+
+/* ---------- STEP 4 : to is not always an arrow ---------- */
+function ingOf(v){
+  if(/e$/.test(v)&&!/ee$/.test(v)) return v.slice(0,-1)+"ing";
+  if(/^(pay|meet|work|leave|answer|drive)$/.test(v)) return v+"ing";
+  return v+"ing";
+}
+function rPrep(){
+  if(S.i>=PREPQ.length) return done("NOT AN ARROW",
+    "<i>She used to work</i> · <i>She's used to working</i>.<br>One word apart — and a different <i>to</i> entirely.<br><b>The noun test tells them apart every time.</b>",5);
+  const q=PREPQ[S.i];
+  app.innerHTML=`<div class="panel">
+    <h2><small>STEP 4 · NOT AN ARROW</small>WHICH <i>TO</i> IS THIS?</h2>
+    ${counter("ITEM",S.i+1,PREPQ.length)}
+    ${S.i===0?`<div class="tool rose"><span class="lbl">THE EDGE OF THE SCHEMA</span>
+      Sometimes <i>to</i> is <b style="color:var(--rose)">not the arrow at all</b> — it is the preposition <i>to</i>,
+      the same one as in <i>to the station</i>. A preposition needs a <b>thing</b> after it, so the verb must become <i>-ing</i>.<br>
+      <span style="color:var(--gold);font-size:.9rem"><b>THE NOUN TEST:</b> can you put a plain noun after this <i>to</i>?</span><br>
+      <span style="color:var(--dim);font-size:.86rem"><i>I look forward to the party.</i> ✓ → preposition → <b>-ing</b><br>
+      <i>I want to the party.</i> ✗ → arrow → <b>plain verb</b></span></div>`:""}
+    <div class="sent" style="font-size:1.12rem">${q.s}</div>
+    <div class="situ">the verb is <span class="verb">${q.v}</span></div>
+    <div class="jgrid" id="jg" style="margin-top:14px">
+      <button data-k="ARROW">ARROW → <i>to ${q.v}</i></button>
+      <button data-k="PREP">PREPOSITION → <i>to ${ingOf(q.v)}</i></button>
+    </div>
+    <div id="out"></div>
+  </div>`;
+  app.querySelectorAll("#jg button").forEach(b=>b.onclick=()=>{
+    if(S.locked)return; S.locked=true;
+    const k=b.dataset.k, good=(k===q.ok);
+    tally(good);
+    app.querySelectorAll("#jg button").forEach(x=>{x.disabled=true;
+      if(x.dataset.k===q.ok)x.classList.add("right"); else if(x.dataset.k===k)x.classList.add("wrong")});
+    document.getElementById("out").innerHTML=
+      `<div class="fb ${good?'ok':'no'}"><span class="head">${q.ok==="ARROW"?"THE ARROW":"THE PREPOSITION"}</span>${q.why}</div>
+       ${S.i===PREPQ.length-1?`<div class="tool gold" style="margin-top:14px"><span class="lbl">THE SHORT LIST — AND IT IS SHORT</span>
+         <i style="color:var(--ink)">look forward to · be used to · get used to · object to · in addition to · devoted to</i><br>
+         <span style="color:var(--dim);font-size:.86rem">Every one of them passes the noun test. That is the only thing they have in common —
+         and it is the only thing you need.</span></div>`:""}
+       <div class="btnrow"><button class="btn" onclick="next()">NEXT →</button></div>`;
+  });
+}
+
+/* ---------- STEP 5 ---------- */
+function rFire(){
+  if(S.i>=FIRE.length) return done("LIVE FIRE",
+    "Not once did you ask <i>which list is this verb in?</i><br><b>You asked how far away the thing was.</b>",6);
+  single({step:"STEP 5 · LIVE FIRE",title:"NO WARNING, NO HINTS",unit:"SHOT",len:FIRE.length,q:FIRE[S.i],bar:true});
+}
+
+/* ---------- STEP 6 ---------- */
+function rYou(){
+  const pct=S.total?Math.round(S.score/S.total*100):0;
+  app.innerHTML=`<div class="panel">
+    <h2><small>STEP 6 · YOUR TURN</small>ONE VERB, TWO DISTANCES</h2>
+    <div class="score-big">${S.score}<span style="font-size:.4em;color:var(--mute)"> / ${S.total}</span></div>
+    <div class="score-lab">${pct}% &nbsp;·&nbsp; BEST ${S.best}</div>
+    <div class="rule"></div>
+    <p class="lead">Write four sentences about your own life.</p>
+    <div class="tool gold">
+      <span class="lbl">THE ONLY REQUIREMENT</span>
+      1 — something you <b style="color:var(--gold)">really do</b>, after enjoy / can't stand / keep &nbsp;<i>-ing</i><br>
+      2 — something you have <b style="color:var(--sky)">decided or promised</b> &nbsp;<i>to ~</i><br>
+      3 &amp; 4 — <b>the same verb</b> (stop / remember / try) used <b>both ways</b>, so the meaning flips
+    </div>
+    <textarea id="ta" placeholder="I enjoy walking to work.&#10;I've decided to learn Portuguese.&#10;I stopped drinking coffee last month.&#10;Yesterday I stopped to drink a coffee on the way home."></textarea>
+    <p class="lead" style="margin-top:16px">Now check the <b style="color:var(--violet);font-style:normal">distance</b>, not the translation.</p>
+    <ul class="check" id="ck">
+      <li>For every <i>-ing</i>: is the thing <b>real and already running</b>?</li>
+      <li>For every <i>to ~</i>: is the thing <b>still out there, not reached</b>?</li>
+      <li>Did I use <i>〜すること</i> as my test anywhere? (if yes, redo that line)</li>
+      <li>In 3 and 4 — can I say exactly what flipped?</li>
+      <li>Any <i>to</i> that is really a <b>preposition</b>? (look forward to · be used to)</li>
+    </ul>
+    <div class="btnrow">
+      <button class="btn ghost" onclick="copyOut()">COPY</button>
+      <button class="btn ghost" onclick="S.score=0;S.total=0;S.streak=0;go(1)">RUN AGAIN</button>
+      <button class="btn" onclick="go(0)">↑ TOP</button>
+    </div>
+    <div class="next">
+      <h3>The series</h3>
+      <ul>
+        <li>no.01 · <b>a / the</b> — can she point at it? &nbsp;<span style="color:var(--mute)">(done)</span></li>
+        <li>no.02 · <b>in / on / at</b> — what shape did you give it? &nbsp;<span style="color:var(--mute)">(done)</span></li>
+        <li>no.03 · <b>will / be going to</b> — was it already there? &nbsp;<span style="color:var(--mute)">(done)</span></li>
+        <li>no.04 · <b>did / have done</b> — does it reach now? &nbsp;<span style="color:var(--mute)">(done)</span></li>
+        <li>no.05 · <b>-ing / to ~</b> — in your hand, or at the end of an arrow? &nbsp;<span style="color:var(--leaf)">(this one)</span></li>
+        <li>no.06 · <b>can / may / must</b> — where is the pressure coming from?</li>
+      </ul>
+    </div>
+  </div>`;
+  app.querySelectorAll("#ck li").forEach(li=>li.onclick=()=>li.classList.toggle("on"));
+}
+function copyOut(){
+  const t=document.getElementById("ta").value.trim();
+  const c=[...document.querySelectorAll("#ck li")].map(li=>(li.classList.contains("on")?"[x] ":"[ ] ")+li.textContent.trim()).join("\n");
+  navigator.clipboard.writeText(`-ing / to ~ — one verb, two distances\n\n${t}\n\nself-check\n${c}\n\nscore ${S.score}/${S.total}`)
+    .then(()=>alert("copied")).catch(()=>{});
+}
+
+/* ---------- interstitial ---------- */
+function done(title,msg,nx){
+  app.innerHTML=`<div class="panel" style="text-align:center">
+    <h2 style="justify-content:center"><small>CLEARED</small>${title}</h2>
+    <div class="score-big">${S.score}<span style="font-size:.4em;color:var(--mute)"> / ${S.total}</span></div>
+    <div class="rule"></div>
+    <p style="font-size:1rem;color:var(--ink);margin:10px 0 4px">${msg}</p>
+    <div class="btnrow" style="justify-content:center"><button class="btn" onclick="go(${nx})">CONTINUE →</button></div>
+  </div>`;
+}
+
+render();
+</script>
+</body>
+</html>
+</content>

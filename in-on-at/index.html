@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='#12324a'/><circle cx='26' cy='50' r='7' fill='%23e8737d'/><rect x='42' y='46' width='22' height='7' rx='3' fill='%23f4b942'/><rect x='70' y='34' width='22' height='32' rx='5' fill='none' stroke='%235fb4e0' stroke-width='5'/></svg>" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>in / on / at — What shape did you give it?</title>
+<meta name="description" content="An English-schema device. in, on and at are not place words. They are three shapes you hand to the listener: a point, a surface, a box.">
+<style>
+:root{
+  --ink:#f2ead9; --dim:#bcb39c; --mute:#847c68;
+  --gold:#f4b942; --goldD:#c9931f;
+  --sky:#5fb4e0; --skyD:#2f7fae;
+  --rose:#e8737d; --roseD:#b8434d;
+  --leaf:#7cc47a;
+  --violet:#a894dd;
+  --card:rgba(255,248,225,.055);
+  --cardHi:rgba(255,248,225,.10);
+  --line:rgba(242,234,217,.16);
+  --sh:0 8px 28px rgba(0,0,0,.38);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:"Georgia","Hiragino Mincho ProN",-apple-system,serif;
+  background:
+    radial-gradient(1100px 700px at 15% -10%, #1b3a58 0%, transparent 60%),
+    radial-gradient(900px 650px at 105% 105%, #3a2350 0%, transparent 55%),
+    linear-gradient(180deg,#0d1b2a 0%,#152a3f 60%,#1b3350 100%);
+  color:var(--ink); line-height:1.7; min-height:100vh; padding:22px 13px 60px;
+}
+.wrap{max-width:720px;margin:0 auto}
+header{text-align:center;padding:6px 0 14px}
+h1{font-size:1.9rem;letter-spacing:.06em;color:var(--gold);font-weight:400}
+h1 .at{color:var(--rose)} h1 .on{color:var(--gold)} h1 .in{color:var(--sky)}
+h1 .sl{color:var(--mute);font-size:.62em}
+.sub{font-size:.8rem;color:var(--dim);letter-spacing:.08em;margin-top:6px;font-family:system-ui,sans-serif}
+.rule{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:16px 0}
+
+.jp{font-family:-apple-system,"Hiragino Sans","Yu Gothic",sans-serif;font-size:.82rem;color:var(--mute);line-height:1.85}
+details.note{background:rgba(0,0,0,.2);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:10px 0 18px}
+details.note summary{cursor:pointer;font-size:.78rem;color:var(--mute);font-family:system-ui,sans-serif;letter-spacing:.04em;list-style:none}
+details.note summary::-webkit-details-marker{display:none}
+details.note summary::before{content:"▸ ";color:var(--gold)}
+details.note[open] summary::before{content:"▾ "}
+details.note .jp{margin-top:10px}
+details.note .jp b{color:var(--dim)}
+
+nav.steps{display:flex;gap:5px;margin:0 0 18px;font-family:system-ui,sans-serif}
+nav.steps button{flex:1;background:rgba(255,255,255,.05);border:1px solid transparent;color:var(--mute);
+  font-size:.6rem;letter-spacing:.05em;padding:7px 2px;border-radius:7px;cursor:pointer;transition:.2s;font-family:inherit}
+nav.steps button.on{background:rgba(244,185,66,.16);color:var(--gold);border-color:rgba(244,185,66,.4)}
+nav.steps button.done{color:var(--leaf)}
+nav.steps button:hover{color:var(--ink)}
+
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 20px;box-shadow:var(--sh);backdrop-filter:blur(6px)}
+.panel h2{font-size:1.12rem;color:var(--gold);letter-spacing:.09em;font-weight:400;margin-bottom:4px}
+.panel h2 small{display:block;font-size:.62rem;color:var(--mute);letter-spacing:.14em;font-family:system-ui,sans-serif;margin-bottom:5px}
+.lead{color:var(--dim);font-size:.92rem;margin:10px 0 16px;font-style:italic}
+
+.counter{display:flex;justify-content:space-between;align-items:baseline;font-family:system-ui,sans-serif;font-size:.72rem;color:var(--mute);letter-spacing:.08em;margin-bottom:12px}
+.counter .sc{color:var(--gold);font-weight:700;font-size:.85rem}
+.counter .streak{color:var(--rose)}
+
+/* ============ THE FIELD — the central device ============ */
+.field{position:relative;height:150px;border-radius:13px;background:rgba(0,0,0,.26);
+  border:1px solid var(--line);overflow:hidden;margin:14px 0}
+.field .lm{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);opacity:0;
+  width:0;height:0;border:2px solid transparent;background:transparent;z-index:1;
+  transition:width .55s cubic-bezier(.34,1.32,.5,1),height .55s cubic-bezier(.34,1.32,.5,1),
+             top .5s cubic-bezier(.34,1.32,.5,1),opacity .35s,border-radius .5s,background .4s,border-color .4s,box-shadow .5s}
+.field .me{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;
+  font-size:1.05rem;color:var(--ink);letter-spacing:.1em;transition:top .5s cubic-bezier(.34,1.32,.5,1);
+  text-shadow:0 0 12px rgba(0,0,0,.9),0 0 4px rgba(0,0,0,.9);font-family:system-ui,sans-serif}
+.field .cap{position:absolute;left:12px;bottom:9px;right:12px;font-size:.6rem;letter-spacing:.16em;z-index:4;
+  font-family:system-ui,sans-serif;color:var(--mute);transition:color .4s}
+.field .tag{position:absolute;right:12px;top:9px;font-size:.62rem;letter-spacing:.2em;z-index:4;
+  font-family:system-ui,sans-serif;color:var(--mute);transition:color .4s}
+
+.field.at  .lm{width:15px;height:15px;border-radius:50%;top:50%;opacity:1;background:var(--rose);
+  border-color:var(--rose);box-shadow:0 0 0 9px rgba(232,115,125,.16),0 0 0 18px rgba(232,115,125,.07)}
+.field.at  .me{top:50%}
+.field.at  .cap,.field.at .tag{color:var(--rose)}
+
+.field.on  .lm{width:74%;height:11px;border-radius:6px;top:60%;opacity:1;
+  background:rgba(244,185,66,.4);border-color:var(--gold);box-shadow:0 6px 20px rgba(244,185,66,.2)}
+.field.on  .me{top:50%}
+.field.on  .cap,.field.on .tag{color:var(--gold)}
+
+.field.in  .lm{width:72%;height:74%;border-radius:12px;top:50%;opacity:1;
+  background:rgba(95,180,224,.13);border-color:var(--sky);box-shadow:inset 0 0 30px rgba(95,180,224,.15)}
+.field.in  .me{top:50%}
+.field.in  .cap,.field.in .tag{color:var(--sky)}
+
+.field.sm{height:86px;margin:8px 0}
+.field.sm .me{font-size:.85rem}
+.field.sm .cap{font-size:.53rem;bottom:6px;left:9px}
+.field.sm .tag{font-size:.55rem;right:9px;top:6px}
+.field.sm.on .lm{top:62%}
+
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:14px 0}
+.trio .field{height:104px;margin:0}
+.trio .field .me{font-size:.85rem}
+.trio .field .cap{font-size:.52rem;letter-spacing:.1em;bottom:6px;left:8px;right:8px}
+.trio .lab{text-align:center;font-family:system-ui,sans-serif;font-size:.72rem;letter-spacing:.16em;margin-top:5px}
+
+/* ============ sentence / choices ============ */
+.situ{font-size:.8rem;color:var(--mute);text-align:center;font-family:system-ui,sans-serif;letter-spacing:.03em}
+.sent{font-size:1.3rem;text-align:center;margin:14px 0 6px;letter-spacing:.01em}
+.blank{display:inline-block;min-width:62px;border-bottom:2px solid var(--gold);color:var(--gold);
+  text-align:center;padding:0 6px;font-style:italic}
+.blank.filled{border-bottom-color:var(--leaf);color:var(--leaf);font-style:normal}
+.blank.wrong{border-bottom-color:var(--rose);color:var(--rose);font-style:normal;text-decoration:line-through}
+
+.choices{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin:10px 0}
+.ch{background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--ink);border-radius:11px;
+  padding:9px 20px;font-size:1.02rem;font-family:inherit;font-style:italic;cursor:pointer;transition:.16s;letter-spacing:.04em;
+  display:flex;flex-direction:column;align-items:center;gap:2px;min-width:88px}
+.ch em{font-style:normal;font-size:.54rem;letter-spacing:.16em;color:var(--mute);font-family:system-ui,sans-serif}
+.ch:hover:not(:disabled){background:var(--cardHi);border-color:var(--gold);transform:translateY(-2px)}
+.ch:disabled{cursor:default;opacity:.4}
+.ch.right{background:rgba(124,196,122,.2);border-color:var(--leaf);color:#e2f7e1;opacity:1}
+.ch.right em{color:var(--leaf)}
+.ch.wrong{background:rgba(232,115,125,.18);border-color:var(--rose);color:#ffdfe2;opacity:1}
+
+/* triple rows */
+.row{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:12px;padding:12px 13px;margin:10px 0}
+.row .rs{font-size:1.02rem;margin-bottom:3px}
+.row .rsitu{font-size:.72rem;color:var(--mute);font-family:system-ui,sans-serif;letter-spacing:.04em;margin-bottom:8px}
+.row .choices{margin:6px 0 0}
+.row .ch{padding:6px 14px;font-size:.92rem;min-width:70px}
+.row .why{font-size:.85rem;color:var(--dim);margin-top:8px;font-style:italic;animation:fade .35s}
+.row .why b{color:var(--ink);font-style:normal}
+@keyframes fade{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+
+/* ============ feedback ============ */
+.fb{margin:14px 0 4px;padding:13px 15px;border-radius:10px;font-size:.94rem;border-left:3px solid var(--mute);
+  background:rgba(255,255,255,.045);animation:fade .3s}
+.fb.ok{border-color:var(--leaf);background:rgba(124,196,122,.1)}
+.fb.no{border-color:var(--rose);background:rgba(232,115,125,.1)}
+.fb b{color:var(--gold)} .fb i{color:var(--sky)}
+.fb .head{font-family:system-ui,sans-serif;font-size:.64rem;letter-spacing:.16em;color:var(--mute);display:block;margin-bottom:5px}
+
+.btnrow{display:flex;gap:10px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
+.btn{background:linear-gradient(180deg,var(--gold),var(--goldD));color:#191204;border:none;border-radius:10px;
+  padding:10px 22px;font-family:system-ui,sans-serif;font-size:.86rem;font-weight:700;cursor:pointer;
+  letter-spacing:.06em;transition:.15s;box-shadow:0 4px 12px rgba(244,185,66,.28)}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(244,185,66,.42)}
+.btn.ghost{background:none;color:var(--dim);border:1px solid var(--line);box-shadow:none}
+.btn.ghost:hover{color:var(--gold);border-color:var(--gold)}
+.btn.sky{background:linear-gradient(180deg,var(--sky),var(--skyD));color:#04161f;box-shadow:0 4px 12px rgba(95,180,224,.28)}
+
+.quote{font-size:1.14rem;text-align:center;margin:16px 0;color:var(--ink)}
+.quote b{color:var(--gold);font-style:italic;border-bottom:2px solid rgba(244,185,66,.45);padding-bottom:1px}
+
+.tool{background:rgba(95,180,224,.1);border:1px solid rgba(95,180,224,.3);border-radius:11px;padding:13px 15px;margin:12px 0;font-size:.92rem}
+.tool .lbl{font-family:system-ui,sans-serif;font-size:.6rem;letter-spacing:.18em;color:var(--sky);display:block;margin-bottom:6px}
+.tool.gold{background:rgba(244,185,66,.09);border-color:rgba(244,185,66,.3)}
+.tool.gold .lbl{color:var(--gold)}
+
+table.grid{width:100%;border-collapse:collapse;margin:14px 0;font-size:.9rem}
+table.grid th,table.grid td{border:1px solid var(--line);padding:8px 9px;text-align:left}
+table.grid th{font-family:system-ui,sans-serif;font-size:.62rem;letter-spacing:.14em;color:var(--mute);font-weight:600;background:rgba(0,0,0,.18)}
+table.grid td i{font-style:italic}
+table.grid .h-at{color:var(--rose)} table.grid .h-on{color:var(--gold)} table.grid .h-in{color:var(--sky)}
+table.grid td.w{font-size:.78rem;color:var(--dim);font-style:italic}
+
+.bar{height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;margin:0 0 14px}
+.bar div{height:100%;background:linear-gradient(90deg,var(--rose),var(--gold),var(--sky));transition:width .35s}
+
+.score-big{font-size:2.9rem;color:var(--gold);text-align:center;letter-spacing:.04em}
+.score-lab{text-align:center;font-family:system-ui,sans-serif;font-size:.66rem;letter-spacing:.18em;color:var(--mute)}
+textarea{width:100%;background:rgba(0,0,0,.28);color:var(--ink);border:1px solid var(--line);border-radius:10px;
+  padding:12px;font-family:inherit;font-size:1rem;min-height:120px;resize:vertical;line-height:1.9}
+textarea:focus{outline:none;border-color:var(--gold)}
+.check{list-style:none;margin:12px 0}
+.check li{font-size:.9rem;padding:7px 0 7px 26px;position:relative;color:var(--dim);cursor:pointer;transition:.15s}
+.check li::before{content:"○";position:absolute;left:4px;color:var(--mute)}
+.check li.on{color:var(--ink)}
+.check li.on::before{content:"●";color:var(--leaf)}
+.next{background:rgba(168,148,221,.09);border:1px solid rgba(168,148,221,.3);border-radius:12px;padding:14px 16px;margin-top:18px}
+.next h3{font-size:.94rem;color:var(--violet);letter-spacing:.06em;font-weight:400;margin-bottom:8px}
+.next ul{list-style:none;font-size:.87rem}
+.next li{padding:4px 0 4px 18px;position:relative;color:var(--dim)}
+.next li::before{content:"→";position:absolute;left:0;color:var(--violet)}
+.next li b{color:var(--ink);font-style:italic}
+footer{text-align:center;font-size:.66rem;color:var(--mute);margin-top:26px;letter-spacing:.08em;font-family:system-ui,sans-serif}
+@media(max-width:520px){
+  h1{font-size:1.45rem}
+  .sent{font-size:1.08rem}
+  .trio{grid-template-columns:1fr}
+  .trio .field{height:88px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1><span class="at">at</span> <span class="sl">/</span> <span class="on">on</span> <span class="sl">/</span> <span class="in">in</span></h1>
+  <div class="sub">WHAT SHAPE DID YOU JUST GIVE IT?</div>
+</header>
+
+<details class="note">
+  <summary>この装置の設計意図（日本語・トレーニング外）</summary>
+  <div class="jp">
+    <b>日本語スキーマ（格助詞）を経由しない。</b>「in＝〜の中に／on＝〜の上に／at＝〜で」は、英語の前置詞を日本語の格助詞の網で捕まえ直す作業であって、英語のスキーマではない。<br><br>
+    この訳語は <b>a fly on the ceiling</b>（天井の「下」にいるのに on）で即死する。<b>at Frankfurt / in Frankfurt</b>（同じ地名で切り替わる）でも死ぬ。<b>at war / on fire / in trouble</b> に至っては、中も上も存在しない。<br><br>
+    英語話者が実際にやっているのは、<b>対象に「形」を与える</b>という一つの行為だけ。<br>
+    大きさなし＝<b>点</b> → at ／ 触れて支えられる＝<b>面</b> → on ／ 閉じて囲む＝<b>箱</b> → in。<br><br>
+    <b>corner は変わらない。変わるのは、話し手が corner をどう立ち上げたか。</b><br>
+    そしてこの3つの形は、<b>場所・時間・状態の3世界すべてに同じまま効く</b>（at 7 o'clock ／ on Monday ／ in July）。<br><br>
+    以降は全編英語。<b>訳さずに、図形として見ること。</b>
+  </div>
+</details>
+
+<nav class="steps" id="nav"></nav>
+<div id="app"></div>
+
+<footer>an english-schema device · no.02 · no translation inside</footer>
+</div>
+
+<script>
+/* ================= SHAPES ================= */
+const SHAPE={
+  at:{k:"at", tag:"A POINT",   cap:"NO SIZE · NO INSIDE · JUST A POSITION"},
+  on:{k:"on", tag:"A SURFACE", cap:"YOU TOUCH IT · IT HOLDS YOU"},
+  in:{k:"in", tag:"A BOX",     cap:"IT CLOSES AROUND YOU"}
+};
+function fieldHTML(id,cls,me,sm){
+  const s=cls?SHAPE[cls]:null;
+  return `<div class="field ${cls||''}${sm?' sm':''}" id="${id||''}"${sm?' data-sm="1"':''}>
+    <span class="tag">${s?s.tag:'&nbsp;'}</span>
+    <div class="lm"></div>
+    <div class="me">${me||'●'}</div>
+    <span class="cap">${s?s.cap:'choose a shape'}</span>
+  </div>`;
+}
+function setField(el,k){
+  el.className="field "+k+(el.dataset.sm==="1"?" sm":"");
+  el.querySelector(".tag").textContent=SHAPE[k].tag;
+  el.querySelector(".cap").textContent=SHAPE[k].cap;
+}
+
+/* ================= DATA ================= */
+
+/* STEP 1 — one landmark, three shapes */
+const TRIPLE=[
+ { lm:"THE CORNER",
+   reveal:"One corner. Three shapes.<br><b>The corner never moved. You chose, three times.</b>",
+   rows:[
+    {pre:"There's a spider ",post:" the corner.",situ:"(inside a room)",ok:"in",
+     why:"Two walls and a floor <b>close around</b> it. A box."},
+    {pre:"The café is ",post:" the corner.",situ:"(a street corner)",ok:"on",
+     why:"The corner of a block is a flat piece of ground. It <b>holds</b> the building."},
+    {pre:"Turn left ",post:" the corner.",situ:"(giving directions)",ok:"at",
+     why:"The place where two streets meet. <b>No size.</b> Only a position."}
+   ]},
+ { lm:"THE WINDOW",
+   reveal:"The glass never moved.<br><b>You did.</b>",
+   rows:[
+    {pre:"Someone is standing ",post:" the window.",situ:"(you see a figure)",ok:"at",
+     why:"A position beside it. The window has no inside here — it is a <b>spot</b>."},
+    {pre:"There are raindrops ",post:" the window.",situ:"(it is raining)",ok:"on",
+     why:"They <b>touch</b> the glass and the glass holds them."},
+    {pre:"That dress ",post:" the window costs a fortune.",situ:"(a shop display)",ok:"in",
+     why:"The frame becomes a <b>box</b> with a display inside it."}
+   ]},
+ { lm:"THE TABLE",
+   reveal:"A point to gather at. A surface to hold keys. A box to hold numbers.<br><b>Same table.</b>",
+   rows:[
+    {pre:"We were all sitting ",post:" the table.",situ:"(dinner)",ok:"at",
+     why:"The table shrinks to <b>one gathering point</b>. Nobody is on it or in it."},
+    {pre:"Your keys are ",post:" the table.",situ:"(you lost them)",ok:"on",
+     why:"The top <b>touches and supports</b> them."},
+    {pre:"The numbers ",post:" this table are wrong.",situ:"(a spreadsheet)",ok:"in",
+     why:"Rows and columns become <b>walls</b>. The numbers live inside."}
+   ]}
+];
+
+/* STEP 2 — physical place */
+const CORE=[
+ {situ:"(you are swimming)",pre:"I'm ",post:" the water.",ok:"in",
+  fb:{in:"It closes over your head. You are surrounded.",
+      on:"You would be floating — not swimming.",
+      at:"The sea loses all its size and becomes one dot on a map."}},
+ {situ:"(a small boat)",pre:"The boat is ",post:" the water.",ok:"on",
+  fb:{on:"It touches the surface, and the surface holds it up.",
+      in:"Then the boat has sunk. It is now surrounded by water.",
+      at:"The water becomes a position, not a thing to float on."}},
+ {situ:"(you look up)",pre:"There's a fly ",post:" the ceiling.",ok:"on",
+  fb:{on:"<b>Not above.</b> It touches the ceiling and the ceiling holds it.<br>Gravity was never the question. <i>Contact</i> is.",
+      in:"Then the fly is inside the plaster.",
+      at:"The ceiling becomes a single dot. It has a surface — use it."}},
+ {situ:"(decorating)",pre:"The poster is ",post:" the wall.",ok:"on",
+  fb:{on:"Flat against it. Touching, held.",
+      in:"Then it is buried inside the bricks.",
+      at:"The wall is wide. You are not using its width."}},
+ {situ:"(the building is old)",pre:"There's a crack ",post:" the wall.",ok:"in",
+  fb:{in:"It goes <b>into</b> the thickness. The wall has a volume, and the crack is inside it.",
+      on:"Then it is only drawn on the surface — a line, not a crack.",
+      at:"A crack needs depth. A point has none."}},
+ {situ:"(reading a flight itinerary)",pre:"We stop ",post:" Frankfurt for two hours.",ok:"at",
+  fb:{at:"On this route, a whole city shrinks to <b>one dot</b>. You never go inside it.",
+      in:"Then you entered the city and moved around in it — not a stopover.",
+      on:"A city is not a surface you stand on top of."}},
+ {situ:"(where you live)",pre:"I live ",post:" Frankfurt.",ok:"in",
+  fb:{in:"Now the city has walls and streets around you. Same city — <b>you gave it a different shape.</b>",
+      at:"Then you are a dot on someone's route, not a resident.",
+      on:"You would be standing on top of the city."}},
+ {situ:"(you are reading)",pre:"The answer is ",post:" page 40.",ok:"on",
+  fb:{on:"A page is a <b>flat surface</b>. Ink sits on it.",
+      in:"A single page has no room to go inside.",
+      at:"Then you are pointing at the page as a location, not reading it."}},
+ {situ:"(same book, different frame)",pre:"There's nothing ",post:" this book about it.",ok:"in",
+  fb:{in:"A book is a <b>volume</b>. You go inside it. Same object as page 40 — <b>bigger shape.</b>",
+      on:"You would be standing on the cover.",
+      at:"A book on a shelf can be a dot. A book you read cannot."}},
+ {situ:"(the taxi drops you off)",pre:"We arrived ",post:" the airport at six.",ok:"at",
+  fb:{at:"An airport on a journey is <b>a dot on the line</b>. You have not gone inside yet.",
+      in:"Possible — but then you are already through the doors, moving inside it.",
+      on:"An airport is not a surface."}}
+];
+
+/* STEP 3 — time & state */
+const ABSTRACT=[
+ {situ:"TIME",pre:"The meeting starts ",post:" 9:30.",ok:"at",
+  why:"A clock time has <b>no width</b>. It is a dot on the line."},
+ {situ:"TIME",pre:"I'll see you ",post:" Friday.",ok:"on",
+  why:"A day is a <b>named square</b> on the calendar. You stand on it."},
+ {situ:"TIME",pre:"She was born ",post:" 1994.",ok:"in",
+  why:"A year is <b>long enough to walk around inside</b>."},
+ {situ:"TIME",pre:"Call me ",post:" the morning.",ok:"in",
+  why:"A stretch with a beginning and an end, around you. A box."},
+ {situ:"TIME",pre:"He arrived ",post:" midnight.",ok:"at",
+  why:"A single instant. No width at all."},
+ {situ:"STATE",pre:"The house is ",post:" fire!",ok:"on",
+  why:"The flame is <b>touching</b> it, riding on its surface."},
+ {situ:"STATE",pre:"She's ",post:" love with him.",ok:"in",
+  why:"It is <b>all around her</b>. She is inside it and cannot see out."},
+ {situ:"STATE",pre:"The two countries are ",post:" war.",ok:"at",
+  why:"One word on a label. The state shrinks to <b>a single point</b>: <i>at war</i>, <i>at peace</i>, <i>at rest</i>."},
+ {situ:"STATE",pre:"Don't worry, we're ",post:" time.",ok:"on",
+  why:"Time is a track. You are <b>on the line</b>, not behind it."},
+ {situ:"STATE",pre:"Sorry, I'm ",post:" a hurry.",ok:"in",
+  why:"The hurry surrounds you. You are moving inside it."}
+];
+
+/* STEP 4 — frozen shapes */
+const FROZEN=[
+ {pre:"I'm ",post:" the bus.",ok:"on",
+  why:"A bus has a <b>deck you walk along</b>. You board it like a floor. It holds you.<br>Same for a train, a plane, a ship."},
+ {pre:"I'm ",post:" the car.",ok:"in",
+  why:"A car is a <b>small box</b>. You fold yourself into it. No deck, no walking.<br>Same for a taxi."},
+ {pre:"I saw it ",post:" TV.",ok:"on",
+  why:"A broadcast is a <b>channel</b> — a line you tune onto. Same for <i>on the radio</i>."},
+ {pre:"I read it ",post:" the newspaper.",ok:"in",
+  why:"Paper has <b>pages you go inside</b>. Same for <i>in a magazine</i>, <i>in a book</i>."},
+ {pre:"She's ",post:" the phone right now.",ok:"on",
+  why:"There used to be a <b>wire</b>. You were on the line. The wire went; the shape stayed."},
+ {pre:"Your name is ",post:" the list.",ok:"on",
+  why:"A list is a <b>flat surface with lines</b>. Names sit on it."},
+ {pre:"My son is ",post:" school.",ok:"at",
+  why:"<b>The institution, not the building.</b> It shrinks to one label: <i>at school</i>, <i>at work</i>, <i>at university</i>."},
+ {pre:"We went ",post:" holiday.",ok:"on",
+  why:"A holiday is a <b>track you travel along</b>, not a room. Same for <i>on a trip</i>, <i>on a diet</i>."}
+];
+
+/* STEP 5 — live fire */
+const FIRE=[
+ {situ:"(a spider, inside a room)",pre:"There's a spider ",post:" the corner.",ok:"in",why:"Walls close around it."},
+ {situ:"(a calendar)",pre:"The meeting is ",post:" Tuesday.",ok:"on",why:"A day is a square you stand on."},
+ {situ:"(you are late)",pre:"I'll be there ",post:" ten minutes.",ok:"in",why:"A stretch that closes around the arrival."},
+ {situ:"(she can't talk now)",pre:"She's ",post:" the phone.",ok:"on",why:"Frozen shape: the old wire."},
+ {situ:"(a holiday)",pre:"We arrived ",post:" Rome yesterday.",ok:"in",why:"A city you go around inside."},
+ {situ:"(a timetable)",pre:"The train stops ",post:" Oxford.",ok:"at",why:"On a route, a city is one dot."},
+ {situ:"(a textbook)",pre:"Look at the picture ",post:" page 12.",ok:"on",why:"A page is a flat surface."},
+ {situ:"(the same textbook)",pre:"There's nothing ",post:" this book about it.",ok:"in",why:"A book is a volume."},
+ {situ:"(handing something over)",pre:"Put it ",post:" the table.",ok:"on",why:"The top holds it."},
+ {situ:"(dinner)",pre:"The whole family was sitting ",post:" the table.",ok:"at",why:"The table becomes one gathering point."},
+ {situ:"(smoke everywhere)",pre:"The building is ",post:" fire.",ok:"on",why:"The flame touches and rides it."},
+ {situ:"(a hard week)",pre:"I've been ",post:" trouble all week.",ok:"in",why:"It surrounds you."},
+ {situ:"(her birthday)",pre:"She was born ",post:" March.",ok:"in",why:"A month is wide enough to be inside."},
+ {situ:"(opening hours)",pre:"The shop opens ",post:" nine.",ok:"at",why:"A clock time has no width."},
+ {situ:"(at the door of an event)",pre:"Sorry — your name isn't ",post:" the list.",ok:"on",why:"A list is a surface with lines."}
+];
+
+/* ================= STATE ================= */
+const STEPS=[
+ {k:"start",n:"START"},{k:"notice",n:"NOTICE"},{k:"core",n:"SHAPE IT"},
+ {k:"abs",n:"3 WORLDS"},{k:"frozen",n:"FROZEN"},{k:"fire",n:"LIVE FIRE"},{k:"you",n:"YOUR TURN"}
+];
+let S={step:0,i:0,score:0,total:0,streak:0,best:0,locked:false,rows:[null,null,null],phase:"show"};
+try{S.best=parseInt(localStorage.getItem("ioa_best")||"0",10)||0}catch(e){}
+
+const app=document.getElementById("app"), navEl=document.getElementById("nav");
+function drawNav(){
+  navEl.innerHTML=STEPS.map((s,i)=>`<button data-i="${i}" class="${i===S.step?'on':(i<S.step?'done':'')}">${s.n}</button>`).join("");
+  navEl.querySelectorAll("button").forEach(b=>b.onclick=()=>go(parseInt(b.dataset.i,10)));
+}
+function go(i){S.step=i;S.i=0;S.locked=false;S.rows=[null,null,null];S.phase="show";render();window.scrollTo({top:0,behavior:"smooth"})}
+function next(){S.i++;S.locked=false;S.rows=[null,null,null];render();window.scrollTo({top:0,behavior:"smooth"})}
+function tally(g){S.total++;if(g){S.score++;S.streak++}else S.streak=0;
+  if(S.score>S.best){S.best=S.score;try{localStorage.setItem("ioa_best",S.best)}catch(e){}}}
+function counter(l,c,n){return `<div class="counter"><span>${l} &nbsp;${c}/${n}</span>
+  <span><span class="sc">${S.score}</span> correct${S.streak>1?` &nbsp;<span class="streak">▲${S.streak} in a row</span>`:""}</span></div>`}
+function chBtns(){return `<div class="choices">
+  <button class="ch" data-v="at"><span>at</span><em>A POINT</em></button>
+  <button class="ch" data-v="on"><span>on</span><em>A SURFACE</em></button>
+  <button class="ch" data-v="in"><span>in</span><em>A BOX</em></button></div>`}
+
+function render(){drawNav();({start:rStart,notice:rNotice,core:rCore,abs:rAbs,frozen:rFrozen,fire:rFire,you:rYou})[STEPS[S.step].k]()}
+
+/* ---------- START ---------- */
+function rStart(){
+  app.innerHTML=`<div class="panel">
+    <h2><small>STEP 0</small>THREE SHAPES, ONE ACT</h2>
+    <p class="lead">These are not place words. They are shapes you hand to the listener.</p>
+    <div class="quote">What shape did you just <b>give</b> it?</div>
+    <div class="trio">
+      <div>${fieldHTML("","at")}<div class="lab" style="color:var(--rose)">at</div></div>
+      <div>${fieldHTML("","on")}<div class="lab" style="color:var(--gold)">on</div></div>
+      <div>${fieldHTML("","in")}<div class="lab" style="color:var(--sky)">in</div></div>
+    </div>
+    <div class="tool gold">
+      <span class="lbl">THE WHOLE MACHINE</span>
+      It has no size — it is only a position &nbsp;→&nbsp; <b style="color:var(--rose);font-style:italic">at</b><br>
+      It touches you and holds you up &nbsp;→&nbsp; <b style="color:var(--gold);font-style:italic">on</b><br>
+      It closes around you &nbsp;→&nbsp; <b style="color:var(--sky);font-style:italic">in</b>
+    </div>
+    <p class="lead" style="margin-top:16px">The thing itself does not decide.<br>
+    A corner, a window, a table, a city — each can take all three.<br>
+    <b style="color:var(--ink);font-style:normal">You decide the shape. Every time you speak.</b></p>
+    <div class="btnrow">
+      ${S.best?`<span style="font-family:system-ui;font-size:.68rem;color:var(--mute);align-self:center;letter-spacing:.1em">BEST ${S.best}</span>`:""}
+      <button class="btn" onclick="go(1)">BEGIN →</button>
+    </div>
+  </div>`;
+}
+
+/* ---------- NOTICE : one landmark, three shapes ---------- */
+function rNotice(){
+  if(S.i>=TRIPLE.length) return done("NOTICE",
+    "Three landmarks. Nine sentences. <b>Nothing in the world changed shape.</b><br>Only your description did.",2);
+  const t=TRIPLE[S.i];
+  app.innerHTML=`<div class="panel">
+    <h2><small>STEP 1 · NOTICE</small>${t.lm}</h2>
+    ${counter("LANDMARK",S.i+1,TRIPLE.length)}
+    <p class="lead">One word. Three sentences. Give each one a shape.</p>
+    ${t.rows.map((r,j)=>`<div class="row" id="row${j}">
+      <div class="rs">${r.pre}<span class="blank" id="bl${j}">?</span>${r.post}</div>
+      <div class="rsitu">${r.situ}</div>
+      ${fieldHTML("rf"+j,"","●",true)}
+      ${chBtns().replace(/data-v="/g,'data-r="'+j+'" data-v="')}
+      <div id="rw${j}"></div>
+    </div>`).join("")}
+    <div id="out"></div>
+  </div>`;
+  app.querySelectorAll(".row .ch").forEach(b=>b.onclick=()=>{
+    const j=parseInt(b.dataset.r,10); if(S.rows[j])return;
+    const v=b.dataset.v, r=t.rows[j], good=(v===r.ok);
+    S.rows[j]=v; tally(good);
+    const bl=document.getElementById("bl"+j);
+    bl.textContent=v; bl.className="blank "+(good?"filled":"wrong");
+    const f=document.getElementById("rf"+j); setField(f,r.ok);
+    document.querySelectorAll(`#row${j} .ch`).forEach(x=>{x.disabled=true;
+      if(x.dataset.v===r.ok)x.classList.add("right"); else if(x.dataset.v===v)x.classList.add("wrong")});
+    document.getElementById("rw"+j).innerHTML=`<div class="why">${r.why}</div>`;
+    if(S.rows.every(Boolean)){
+      document.getElementById("out").innerHTML=
+        `<div class="fb ok"><span class="head">SAME WORD</span>${t.reveal}</div>
+         <div class="btnrow"><button class="btn" onclick="next()">NEXT →</button></div>`;
+      document.getElementById("out").scrollIntoView({behavior:"smooth",block:"center"});
+    }
+    // refresh counter
+    render_counter();
+  });
+}
+function render_counter(){
+  const c=app.querySelector(".counter"); if(!c)return;
+  c.innerHTML=c.innerHTML.replace(/<span class="sc">\d+<\/span>/,`<span class="sc">${S.score}</span>`);
+}
+
+/* ---------- generic single-item screen ---------- */
+function single(cfg){
+  const q=cfg.q;
+  app.innerHTML=`<div class="panel">
+    <h2><small>${cfg.step}</small>${cfg.title}</h2>
+    ${counter(cfg.unit,S.i+1,cfg.len)}
+    ${cfg.bar?`<div class="bar"><div style="width:${(S.i/cfg.len)*100}%"></div></div>`:""}
+    ${cfg.intro&&S.i===0?cfg.intro:""}
+    <div class="situ">${q.situ||""}</div>
+    <div class="sent">${q.pre}<span class="blank" id="bl">?</span>${q.post}</div>
+    ${fieldHTML("f","","●")}
+    ${chBtns()}
+    <div id="out"></div>
+  </div>`;
+  app.querySelectorAll(".choices .ch").forEach(b=>b.onclick=()=>{
+    if(S.locked)return; S.locked=true;
+    const v=b.dataset.v, good=(v===q.ok);
+    tally(good);
+    const bl=document.getElementById("bl"); bl.textContent=v; bl.className="blank "+(good?"filled":"wrong");
+    setField(document.getElementById("f"), good? q.ok : v);
+    app.querySelectorAll(".choices .ch").forEach(x=>{x.disabled=true;
+      if(x.dataset.v===q.ok)x.classList.add("right"); else if(x.dataset.v===v)x.classList.add("wrong")});
+    const msg = q.fb ? q.fb[v] : q.why;
+    const extra = (!good && q.fb) ? `<div style="margin-top:9px;padding-top:9px;border-top:1px solid var(--line)"><b>${q.ok}</b> — ${q.fb[q.ok]}</div>` : "";
+    const head = good ? SHAPE[q.ok].tag
+                      : (q.fb ? "YOU SAID "+v.toUpperCase() : q.ok.toUpperCase()+" · "+SHAPE[q.ok].tag);
+    document.getElementById("out").innerHTML=
+      `<div class="fb ${good?'ok':'no'}"><span class="head">${head}</span>${msg}${extra}</div>
+       <div class="btnrow"><button class="btn" onclick="next()">NEXT →</button></div>`;
+    if(!good) setTimeout(()=>setField(document.getElementById("f"),q.ok),1400);
+  });
+}
+
+/* ---------- STEP 2 CORE ---------- */
+function rCore(){
+  if(S.i>=CORE.length) return done("SHAPE IT",
+    "Ten scenes. Not once did the <b>object</b> decide.<br>Water, wall, book, city — you shaped each one yourself.",3);
+  single({step:"STEP 2 · SHAPE IT",title:"GIVE IT A SHAPE",unit:"SCENE",len:CORE.length,q:CORE[S.i]});
+}
+
+/* ---------- STEP 3 THREE WORLDS ---------- */
+function rAbs(){
+  if(S.phase==="show"){
+    app.innerHTML=`<div class="panel">
+      <h2><small>STEP 3 · THREE WORLDS</small>THE SAME THREE SHAPES, EVERYWHERE</h2>
+      <p class="lead">You have been shaping places. Now watch the same three shapes run through time and through states of being.</p>
+      <table class="grid">
+        <tr><th></th><th class="h-at">at · A POINT</th><th class="h-on">on · A SURFACE</th><th class="h-in">in · A BOX</th></tr>
+        <tr><th>PLACE</th><td><i>at the door</i></td><td><i>on the wall</i></td><td><i>in the room</i></td></tr>
+        <tr><th>TIME</th><td><i>at 7 o'clock</i></td><td><i>on Monday</i></td><td><i>in July</i></td></tr>
+        <tr><th>STATE</th><td><i>at war</i></td><td><i>on fire</i></td><td><i>in trouble</i></td></tr>
+        <tr><th>WHY</th><td class="w">no width at all</td><td class="w">touching, carried</td><td class="w">surrounded, inside</td></tr>
+      </table>
+      <div class="tool">
+        <span class="lbl">TIME IS A LINE YOU CAN ZOOM</span>
+        A clock time has <b style="color:var(--rose)">no width</b> → <i>at 9:30</i><br>
+        A day is a <b style="color:var(--gold)">named square you stand on</b> → <i>on Monday</i><br>
+        A month or a year is <b style="color:var(--sky)">wide enough to walk around inside</b> → <i>in July</i>
+      </div>
+      <div class="tool">
+        <span class="lbl">A STATE HAS A SHAPE TOO</span>
+        <i>at war</i> — the whole country becomes <b style="color:var(--rose)">one label</b>, no inside<br>
+        <i>on fire</i> — the flame is <b style="color:var(--gold)">touching it</b>, riding its surface<br>
+        <i>in trouble</i> — it is <b style="color:var(--sky)">all around you</b>; you cannot see out
+      </div>
+      <div class="quote" style="margin-top:18px">Nothing new to learn.<br><b>The same three shapes.</b></div>
+      <div class="btnrow"><button class="btn sky" onclick="S.phase='quiz';S.i=0;render()">TIME &amp; STATE →</button></div>
+    </div>`;
+    return;
+  }
+  if(S.i>=ABSTRACT.length) return done("THREE WORLDS",
+    "Time and feeling have no walls you can touch.<br><b>You gave them walls anyway. That is what English does.</b>",4);
+  single({step:"STEP 3 · THREE WORLDS",title:"TIME &amp; STATE",unit:"ITEM",len:ABSTRACT.length,q:ABSTRACT[S.i]});
+}
+
+/* ---------- STEP 4 FROZEN ---------- */
+function rFrozen(){
+  if(S.i>=FROZEN.length) return done("FROZEN",
+    "Every frozen shape was once a live choice.<br><b>You cannot re-choose them — but you can still see the logic that froze.</b>",5);
+  single({step:"STEP 4 · FROZEN",title:"WHEN THE SHAPE IS NOT YOURS",unit:"PAIR",len:FROZEN.length,q:FROZEN[S.i],
+    intro:`<div class="tool gold"><span class="lbl">THE EDGE OF THE SCHEMA</span>
+      Sometimes the shape was chosen <b>centuries ago</b> and you inherit it.<br>
+      The logic is still in there — you just cannot re-choose it.<br>
+      <span style="color:var(--dim);font-size:.85rem">These are the only ones you have to remember. There are not many.</span></div>`});
+}
+
+/* ---------- STEP 5 LIVE FIRE ---------- */
+function rFire(){
+  if(S.i>=FIRE.length) return done("LIVE FIRE",
+    "No particle was translated. <b>You looked at the shape, every time.</b>",6);
+  single({step:"STEP 5 · LIVE FIRE",title:"NO WARNING, NO HINTS",unit:"SHOT",len:FIRE.length,q:FIRE[S.i],bar:true});
+}
+
+/* ---------- STEP 6 YOUR TURN ---------- */
+function rYou(){
+  const pct=S.total?Math.round(S.score/S.total*100):0;
+  app.innerHTML=`<div class="panel">
+    <h2><small>STEP 6 · YOUR TURN</small>SHAPE ONE THING THREE WAYS</h2>
+    <div class="score-big">${S.score}<span style="font-size:.4em;color:var(--mute)"> / ${S.total}</span></div>
+    <div class="score-lab">${pct}% &nbsp;·&nbsp; BEST ${S.best}</div>
+    <div class="rule"></div>
+    <p class="lead">Pick one real thing near you right now. A desk, a window, a room, a station.<br>
+    Write three sentences that give it three different shapes.</p>
+    <div class="tool gold">
+      <span class="lbl">THE ONLY REQUIREMENT</span>
+      1 — a <b style="color:var(--rose)">POINT</b>: it loses all size and becomes a position &nbsp;<i>at</i><br>
+      2 — a <b style="color:var(--gold)">SURFACE</b>: it touches something and holds it &nbsp;<i>on</i><br>
+      3 — a <b style="color:var(--sky)">BOX</b>: something is inside it &nbsp;<i>in</i>
+    </div>
+    <textarea id="ta" placeholder="I'm sitting at the desk.&#10;My coffee is on the desk.&#10;There's a pen somewhere in the desk."></textarea>
+    <p class="lead" style="margin-top:16px">Now check it as a <b style="color:var(--violet);font-style:normal">shape</b>, not as a translation.</p>
+    <ul class="check" id="ck">
+      <li>Did I <i>choose</i> the shape — or did I translate a Japanese particle?</li>
+      <li>For every <i>on</i>: is something being touched and carried? (not "above")</li>
+      <li>For every <i>in</i>: is something really closing around it?</li>
+      <li>For every <i>at</i>: has the thing lost its size and become a position?</li>
+      <li>If I swapped one shape for another, could I say what would change?</li>
+    </ul>
+    <div class="btnrow">
+      <button class="btn ghost" onclick="copyOut()">COPY</button>
+      <button class="btn ghost" onclick="S.score=0;S.total=0;S.streak=0;go(1)">RUN AGAIN</button>
+      <button class="btn" onclick="go(0)">↑ TOP</button>
+    </div>
+    <div class="next">
+      <h3>The series</h3>
+      <ul>
+        <li>no.01 · <b>a / the</b> — can she point at it? &nbsp;<span style="color:var(--mute)">(done)</span></li>
+        <li>no.02 · <b>in / on / at</b> — what shape did you give it? &nbsp;<span style="color:var(--leaf)">(this one)</span></li>
+        <li>no.03 · <b>will / be going to</b> — decided now, or already leaning?</li>
+        <li>no.04 · <b>have done</b> — is the past still touching now?</li>
+        <li>no.05 · <b>-ing / to ~</b> — already running, or still ahead of you?</li>
+      </ul>
+    </div>
+  </div>`;
+  app.querySelectorAll("#ck li").forEach(li=>li.onclick=()=>li.classList.toggle("on"));
+}
+function copyOut(){
+  const t=document.getElementById("ta").value.trim();
+  const c=[...document.querySelectorAll("#ck li")].map(li=>(li.classList.contains("on")?"[x] ":"[ ] ")+li.textContent.trim()).join("\n");
+  navigator.clipboard.writeText(`in / on / at — my three shapes\n\n${t}\n\nself-check\n${c}\n\nscore ${S.score}/${S.total}`)
+    .then(()=>alert("copied")).catch(()=>{});
+}
+
+/* ---------- interstitial ---------- */
+function done(title,msg,nx){
+  app.innerHTML=`<div class="panel" style="text-align:center">
+    <h2 style="justify-content:center"><small>CLEARED</small>${title}</h2>
+    <div class="score-big">${S.score}<span style="font-size:.4em;color:var(--mute)"> / ${S.total}</span></div>
+    <div class="rule"></div>
+    <p style="font-size:1rem;color:var(--ink);margin:10px 0 4px">${msg}</p>
+    <div class="btnrow" style="justify-content:center"><button class="btn" onclick="go(${nx})">CONTINUE →</button></div>
+  </div>`;
+}
+
+render();
+</script>
+</body>
+</html>
+</content>
