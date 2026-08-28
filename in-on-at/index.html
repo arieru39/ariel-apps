@@ -190,6 +190,42 @@ footer{text-align:center;font-size:.66rem;color:var(--mute);margin-top:26px;lett
   .trio{grid-template-columns:1fr}
   .trio .field{height:88px}
 }
+
+/* ==== series frame & ledger (shared by all six units) ==== */
+.frame{background:linear-gradient(180deg,rgba(168,148,221,.14),rgba(168,148,221,.04));
+  border:1px solid rgba(168,148,221,.34);border-radius:12px;padding:14px 16px;margin:0 0 18px}
+.frame .fh{font-family:system-ui,sans-serif;font-size:.57rem;letter-spacing:.2em;color:var(--violet);margin-bottom:8px}
+.frame p{font-size:.88rem;color:var(--dim);margin:6px 0;line-height:1.75}
+.frame p b{color:var(--ink);font-style:normal}
+.frame .fq{color:var(--ink);font-size:.93rem;margin-top:9px}
+.frame .dots{margin-top:11px;font-family:system-ui,sans-serif;font-size:.61rem;letter-spacing:.11em;color:var(--mute)}
+.frame .dots i{font-style:normal;letter-spacing:.32em;color:var(--violet);margin-right:10px}
+.frame .dots i s{text-decoration:none;color:rgba(242,234,217,.16)}
+
+.ledger{margin-top:22px}
+.ledger h3{font-size:1rem;color:var(--violet);letter-spacing:.05em;font-weight:400;margin-bottom:3px}
+.ledger .lsub{font-size:.56rem;color:var(--mute);font-family:system-ui,sans-serif;letter-spacing:.16em;margin-bottom:11px}
+.ledger table{width:100%;border-collapse:collapse;font-size:.79rem}
+.ledger th,.ledger td{border:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+.ledger th{font-family:system-ui,sans-serif;font-size:.52rem;letter-spacing:.11em;color:var(--mute);
+  font-weight:600;background:rgba(0,0,0,.22)}
+.ledger tr.off td{opacity:.3}
+.ledger tr.now td{background:rgba(124,196,122,.11)}
+.ledger a{color:var(--sky);text-decoration:none;border-bottom:1px solid rgba(95,180,224,.35)}
+.ledger a:hover{color:var(--gold);border-color:var(--gold)}
+.ledger .qq{color:var(--ink);font-style:italic}
+.ledger .put{color:var(--rose);font-style:italic}
+.ledger .was{color:var(--leaf)}
+.pairnote{margin-top:12px;font-size:.76rem;color:var(--mute);font-family:system-ui,sans-serif;letter-spacing:.02em;line-height:1.8}
+.pairnote b{color:var(--dim)}
+.verdict{margin-top:15px;padding:15px 17px;border-radius:11px;font-size:.95rem;
+  background:rgba(244,185,66,.09);border:1px solid rgba(244,185,66,.33);color:var(--ink);line-height:1.8}
+.verdict .vn{font-family:system-ui,sans-serif;font-size:.57rem;letter-spacing:.2em;color:var(--gold);display:block;margin-bottom:8px}
+.verdict b{color:var(--gold)}
+.verdict .why{margin-top:12px;padding-top:12px;border-top:1px solid rgba(244,185,66,.26);font-size:.89rem;color:var(--dim)}
+.verdict .why b{color:var(--ink)}
+.verdict .why i{color:var(--rose);font-style:italic}
+@media(max-width:520px){.ledger table{font-size:.68rem}.ledger th,.ledger td{padding:5px 5px}}
 </style>
 </head>
 <body>
@@ -216,10 +252,105 @@ footer{text-align:center;font-size:.66rem;color:var(--mute);margin-top:26px;lett
 <nav class="steps" id="nav"></nav>
 <div id="app"></div>
 
-<footer>an english-schema device · no.02 · no translation inside</footer>
+<footer>an english-schema device &middot; <a href="../" style="color:var(--violet);text-decoration:none;border-bottom:1px solid rgba(168,148,221,.4)">one of six &mdash; start anywhere</a> &middot; no translation inside</footer>
 </div>
 
 <script>
+
+/* == SERIES LAYER v1 == */
+const SERIES=[
+ {id:"a-vs-the",n:"01",t:"a / the",
+  put:'a = "one" &middot; the = "that"',
+  was:"whether your listener can point at it",
+  q:"Can she point at it?"},
+ {id:"in-on-at",n:"02",t:"in / on / at",
+  put:'"inside" &middot; "on top of" &middot; "at"',
+  was:"the shape you hand over",
+  q:"What shape did you give it?"},
+ {id:"will-going-to",n:"03",t:"will / be going to",
+  put:'both = "intend to"',
+  was:"where the sentence came from",
+  q:"Was it already there before you spoke?"},
+ {id:"have-done",n:"04",t:"did / have done",
+  put:'"have once done it"',
+  was:"which room you are standing in",
+  q:"Does it reach now?"},
+ {id:"ing-to",n:"05",t:"-ing / to ~",
+  put:'both = "the act of doing"',
+  was:"how far away the thing is",
+  q:"In your hand, or at the end of an arrow?"},
+ {id:"modals",n:"06",t:"can / may / should / must",
+  put:'"be able to" &middot; "maybe" &middot; "have to"',
+  was:"how many ways are still open",
+  q:"How much room is left?"}
+];
+const UNIT="in-on-at";
+function _seen(){try{return JSON.parse(localStorage.getItem("ens_seen")||"{}")}catch(e){return{}}}
+function markSeen(){try{const o=_seen();o[UNIT]=1;localStorage.setItem("ens_seen",JSON.stringify(o))}catch(e){}}
+function seenCount(){const o=_seen();return SERIES.filter(u=>o[u.id]).length}
+
+function frameHTML(){
+  const o=_seen(), n=SERIES.filter(u=>o[u.id]&&u.id!==UNIT).length;
+  const dots=SERIES.map(u=>(o[u.id]||u.id===UNIT)?"●":"<s>●</s>").join("");
+  const tail = n===0
+    ? "this is your first one"
+    : (n===5 ? "one left — and then the point of all six"
+             : "you have already watched this happen "+n+" time"+(n>1?"s":""));
+  return `<div class="frame">
+    <div class="fh">ONE OF SIX &middot; START ANYWHERE</div>
+    <p>Every English word arrives with a translation. That translation is what the word meant
+    <b>on one occasion</b>. Take it for the meaning, and every other occasion turns into
+    an exception you have to memorise.</p>
+    <p class="fq">This unit is one demonstration of the same thing:
+    <b>a list of exceptions collapsing into a single question.</b></p>
+    <div class="dots"><i>${dots}</i>${tail}</div>
+  </div>`;
+}
+
+function verdictHTML(n){
+  const L={
+   1:["ONE","One unit. One list of exceptions replaced by one question.<br>That could simply be a lucky topic. <b>Try another one and see.</b>"],
+   2:["TWO","Two units. Two lists gone.<br>Two could still be a coincidence. <b>Try a third.</b>"],
+   3:["THREE","Three units — three unrelated corners of the grammar — and the same thing happened in every one.<br><b>Three is where a coincidence stops being one.</b>"],
+   4:["FOUR","Four. Different words, different chapters, different centuries.<br><b>The same shape of failure, four times over.</b><br>It is beginning to look as though the failure was never in the words."],
+   5:["FIVE","Five out of six.<br><b>What are the odds that five unrelated topics all happen to be badly explained in exactly the same way?</b>"],
+   6:["SIX OF SIX","<b>It was never the words. It was the method.</b>"]
+  };
+  const k=Math.min(Math.max(n,1),6), tag=L[k][0], msg=L[k][1];
+  const why = k>=3 ? `<div class="why">
+    <b>Why a translation gets in the way.</b> It is not wrong. It is <i>one occasion</i> — frozen, and then sold to you
+    as the meaning. You cannot catch it failing, because it works often enough. And on the day it does fail you are told:
+    <i>that one is an exception — memorise it.</i> So the list grows, and the day you can build the sentence yourself
+    never quite arrives.<br><br>
+    <b>Why an English schema instead.</b> One question, asked from inside the language.
+    Nothing is left over — because there was never a rule for anything to be an exception to.</div>` : "";
+  return `<div class="verdict"><span class="vn">${tag}</span>${msg}${why}</div>`;
+}
+
+function ledgerHTML(){
+  const o=_seen();
+  const rows=SERIES.map(u=>{
+    const done=!!o[u.id], now=(u.id===UNIT);
+    return `<tr class="${now?'now':(done?'':'off')}">
+      <td>${now?'▸ ':''}<a href="../${u.id}/">${u.n}&nbsp; ${u.t}</a></td>
+      <td class="put">${u.put}</td>
+      <td class="was">${u.was}</td>
+      <td class="qq">${u.q}</td></tr>`;
+  }).join("");
+  return `<div class="ledger">
+    <h3>The ledger</h3>
+    <div class="lsub">SIX UNITS &middot; ONE QUESTION EACH &middot; NOTHING LEFT TO MEMORISE</div>
+    <table>
+      <tr><th>UNIT</th><th>THE TRANSLATION SAID</th><th>IT WAS REALLY ABOUT</th><th>THE ONE QUESTION</th></tr>
+      ${rows}
+    </table>
+    <div class="pairnote"><b>Order is free.</b> Two pairs are worth taking in order, though:
+      <b>02 before 05</b> (where <i>to</i> stops being an arrow) &middot;
+      <b>03 before 06</b> (what a modal actually is).</div>
+    ${verdictHTML(seenCount())}
+  </div>`;
+}
+
 /* ================= SHAPES ================= */
 const SHAPE={
   at:{k:"at", tag:"A POINT",   cap:"NO SIZE · NO INSIDE · JUST A POSITION"},
@@ -413,6 +544,7 @@ function render(){drawNav();({start:rStart,notice:rNotice,core:rCore,abs:rAbs,fr
 /* ---------- START ---------- */
 function rStart(){
   app.innerHTML=`<div class="panel">
+    ${frameHTML()}
     <h2><small>STEP 0</small>THREE SHAPES, ONE ACT</h2>
     <p class="lead">These are not place words. They are shapes you hand to the listener.</p>
     <div class="quote">What shape did you just <b>give</b> it?</div>
@@ -575,6 +707,7 @@ function rFire(){
 
 /* ---------- STEP 6 YOUR TURN ---------- */
 function rYou(){
+  markSeen();
   const pct=S.total?Math.round(S.score/S.total*100):0;
   app.innerHTML=`<div class="panel">
     <h2><small>STEP 6 · YOUR TURN</small>SHAPE ONE THING THREE WAYS</h2>
@@ -603,16 +736,7 @@ function rYou(){
       <button class="btn ghost" onclick="S.score=0;S.total=0;S.streak=0;go(1)">RUN AGAIN</button>
       <button class="btn" onclick="go(0)">↑ TOP</button>
     </div>
-    <div class="next">
-      <h3>The series</h3>
-      <ul>
-        <li>no.01 · <b>a / the</b> — can she point at it? &nbsp;<span style="color:var(--mute)">(done)</span></li>
-        <li>no.02 · <b>in / on / at</b> — what shape did you give it? &nbsp;<span style="color:var(--leaf)">(this one)</span></li>
-        <li>no.03 · <b>will / be going to</b> — decided now, or already leaning?</li>
-        <li>no.04 · <b>have done</b> — is the past still touching now?</li>
-        <li>no.05 · <b>-ing / to ~</b> — already running, or still ahead of you?</li>
-      </ul>
-    </div>
+    ${ledgerHTML()}
   </div>`;
   app.querySelectorAll("#ck li").forEach(li=>li.onclick=()=>li.classList.toggle("on"));
 }
