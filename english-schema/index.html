@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2312324a'/><text x='50' y='44' font-size='30' text-anchor='middle' fill='%23f4b942' font-family='Georgia'>a/th</text><text x='50' y='76' font-size='26' text-anchor='middle' fill='%235fb4e0' font-family='Georgia'>in on at</text></svg>" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>English Schema — six units, start anywhere</title>
+<meta name="description" content="日本語の訳語を経由せず、英語話者の頭で走っている一つの問いを直接つかむ連作。6つの単元は相互に連結していて、どこから始めてもよい。">
+<!--
+  ================= HOW TO ADD A UNIT =================
+  1. 新しい単元のフォルダを english-schema/{slug}/ に置く（単一HTML）
+  2. english-schema/_series.py の CANON に1行足す
+  3. python3 english-schema/_series.py  を実行
+     → このハブと全単元の SERIES 配列が同期される
+  4. 進捗キーは localStorage["ens_seen"]（オリジン共有）。slug がそのままキーになる
+  =====================================================
+-->
+<style>
+:root{
+  --ink:#f2ead9; --dim:#bcb39c; --mute:#847c68;
+  --gold:#f4b942; --goldD:#c9931f;
+  --sky:#5fb4e0; --skyD:#2f7fae;
+  --rose:#e8737d;
+  --leaf:#7cc47a;
+  --violet:#a894dd;
+  --card:rgba(255,248,225,.055);
+  --cardHi:rgba(255,248,225,.10);
+  --line:rgba(242,234,217,.16);
+  --sh:0 8px 28px rgba(0,0,0,.38);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:"Georgia","Hiragino Mincho ProN",-apple-system,serif;
+  background:
+    radial-gradient(1100px 700px at 15% -10%, #1b3a58 0%, transparent 60%),
+    radial-gradient(900px 650px at 105% 105%, #3a2350 0%, transparent 55%),
+    linear-gradient(180deg,#0d1b2a 0%,#152a3f 60%,#1b3350 100%);
+  color:var(--ink); line-height:1.7; min-height:100vh; padding:24px 13px 60px;
+}
+.wrap{max-width:780px;margin:0 auto}
+header{text-align:center;padding:8px 0 6px}
+h1{font-size:1.9rem;letter-spacing:.09em;color:var(--gold);font-weight:400}
+.sub{font-size:.76rem;color:var(--dim);letter-spacing:.18em;margin-top:8px;font-family:system-ui,sans-serif}
+.subjp{font-family:-apple-system,"Hiragino Sans","Yu Gothic",sans-serif;font-size:.8rem;color:var(--mute);
+  letter-spacing:.06em;margin-top:5px}
+.rule{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:22px 0}
+
+.jp{font-family:-apple-system,"Hiragino Sans","Yu Gothic",sans-serif;font-size:.84rem;color:var(--dim);line-height:1.95}
+.jp b{color:var(--ink)}
+.jp .q{color:var(--gold);font-style:normal}
+details.note{background:rgba(0,0,0,.22);border:1px solid var(--line);border-radius:11px;padding:11px 15px;margin:16px 0}
+details.note summary{cursor:pointer;font-size:.8rem;color:var(--mute);font-family:system-ui,sans-serif;letter-spacing:.04em;list-style:none}
+details.note summary::-webkit-details-marker{display:none}
+details.note summary::before{content:"▸ ";color:var(--gold)}
+details.note[open] summary::before{content:"▾ "}
+details.note .jp{margin-top:12px}
+details.note h4{font-size:.86rem;color:var(--gold);font-weight:400;letter-spacing:.05em;margin:14px 0 4px;
+  font-family:-apple-system,"Hiragino Sans",sans-serif}
+
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 20px;
+  box-shadow:var(--sh);backdrop-filter:blur(6px);margin-bottom:16px}
+h2.sec{font-size:.62rem;letter-spacing:.24em;color:var(--mute);font-family:system-ui,sans-serif;
+  font-weight:600;margin-bottom:12px}
+
+/* --- thesis --- */
+.thesis{background:linear-gradient(180deg,rgba(168,148,221,.14),rgba(168,148,221,.04));
+  border:1px solid rgba(168,148,221,.34);border-radius:14px;padding:18px 20px}
+.thesis p{font-size:.96rem;color:var(--dim);margin:8px 0;line-height:1.85}
+.thesis p b{color:var(--ink)}
+.thesis .big{font-size:1.12rem;color:var(--ink);margin-top:12px}
+.thesis .big b{color:var(--gold);font-style:italic}
+
+/* --- progress --- */
+.prog{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:4px}
+.prog .dots{font-size:1.5rem;letter-spacing:.3em;color:var(--violet);line-height:1}
+.prog .dots s{text-decoration:none;color:rgba(242,234,217,.15)}
+.prog .cnt{font-family:system-ui,sans-serif;font-size:.74rem;letter-spacing:.13em;color:var(--mute)}
+.prog .cnt b{color:var(--gold);font-size:1.1rem;font-weight:700}
+.verdict{margin-top:14px;padding:15px 17px;border-radius:11px;font-size:.95rem;line-height:1.85;
+  background:rgba(244,185,66,.09);border:1px solid rgba(244,185,66,.33);color:var(--ink)}
+.verdict .vn{font-family:system-ui,sans-serif;font-size:.57rem;letter-spacing:.2em;color:var(--gold);display:block;margin-bottom:8px}
+.verdict b{color:var(--gold)}
+.verdict .why{margin-top:12px;padding-top:12px;border-top:1px solid rgba(244,185,66,.26);font-size:.89rem;color:var(--dim)}
+.verdict .why b{color:var(--ink)} .verdict .why i{color:var(--rose);font-style:italic}
+.verdict .beyond{margin-top:13px;padding-top:13px;border-top:1px solid rgba(244,185,66,.26);font-size:.93rem;color:var(--ink)}
+.verdict .beyond b{color:var(--gold)} .verdict .beyond i{color:var(--sky);font-style:italic}
+
+/* --- unit cards --- */
+.units{display:grid;grid-template-columns:1fr;gap:11px}
+.unit{display:block;text-decoration:none;color:inherit;background:rgba(255,255,255,.05);
+  border:1px solid var(--line);border-radius:13px;padding:14px 16px;transition:.18s;position:relative}
+.unit:hover{background:var(--cardHi);border-color:var(--gold);transform:translateY(-2px)}
+.unit .no{font-family:system-ui,sans-serif;font-size:.56rem;letter-spacing:.2em;color:var(--mute)}
+.unit .ti{font-size:1.16rem;color:var(--gold);letter-spacing:.03em;margin:3px 0 6px}
+.unit .qq{font-size:.95rem;color:var(--ink);font-style:italic}
+.unit .meta{font-family:system-ui,sans-serif;font-size:.68rem;color:var(--mute);letter-spacing:.03em;margin-top:7px}
+.unit .meta em{font-style:normal;color:var(--sky)}
+.unit .meta s{text-decoration:none;color:var(--rose)}
+.unit .st{position:absolute;right:14px;top:13px;font-family:system-ui,sans-serif;font-size:.56rem;
+  letter-spacing:.14em;color:var(--mute);border:1px solid var(--line);border-radius:20px;padding:2px 9px}
+.unit.done{border-color:rgba(124,196,122,.42);background:rgba(124,196,122,.08)}
+.unit.done .st{color:var(--leaf);border-color:rgba(124,196,122,.5)}
+.unit.done .ti{color:var(--leaf)}
+
+.pairnote{margin-top:13px;font-size:.77rem;color:var(--mute);font-family:system-ui,sans-serif;line-height:1.85}
+.pairnote b{color:var(--dim)}
+
+/* --- ledger --- */
+table.led{width:100%;border-collapse:collapse;font-size:.79rem}
+table.led th,table.led td{border:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+table.led th{font-family:system-ui,sans-serif;font-size:.52rem;letter-spacing:.11em;color:var(--mute);
+  font-weight:600;background:rgba(0,0,0,.22)}
+table.led tr.off td{opacity:.3}
+table.led a{color:var(--sky);text-decoration:none;border-bottom:1px solid rgba(95,180,224,.35)}
+table.led a:hover{color:var(--gold);border-color:var(--gold)}
+table.led .qq{color:var(--ink);font-style:italic}
+table.led .put{color:var(--rose);font-style:italic}
+table.led .was{color:var(--leaf)}
+
+.btnrow{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+.btn{background:linear-gradient(180deg,var(--gold),var(--goldD));color:#191204;border:none;border-radius:10px;
+  padding:12px 26px;font-family:system-ui,sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;
+  letter-spacing:.06em;transition:.15s;box-shadow:0 4px 12px rgba(244,185,66,.28);text-decoration:none;display:inline-block}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(244,185,66,.42)}
+.btn.ghost{background:none;color:var(--mute);border:1px solid var(--line);box-shadow:none;font-weight:400;
+  font-size:.72rem;padding:8px 16px}
+.btn.ghost:hover{color:var(--rose);border-color:var(--rose)}
+
+footer{text-align:center;font-size:.68rem;color:var(--mute);margin-top:28px;letter-spacing:.08em;font-family:system-ui,sans-serif}
+footer a{color:var(--violet);text-decoration:none;border-bottom:1px solid rgba(168,148,221,.4)}
+@media(max-width:560px){
+  h1{font-size:1.4rem}
+  table.led{font-size:.68rem}
+  table.led th,table.led td{padding:5px 5px}
+  .prog .dots{font-size:1.2rem}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>ENGLISH SCHEMA</h1>
+  <div class="sub">SIX UNITS &middot; START ANYWHERE</div>
+  <div class="subjp">英語スキーマ・シリーズ ── 訳語を経由せずに、英語の切り取り方をそのまま持つ</div>
+</header>
+
+<div class="rule"></div>
+
+<div class="panel thesis">
+  <p>Every English word arrives with a translation. That translation is what the word meant
+  <b>on one occasion</b>. Take it for the meaning, and every other occasion turns into
+  an exception you have to memorise.</p>
+  <p>Each unit below shows the same thing happening once:
+  <b>a list of exceptions collapsing into a single question.</b></p>
+  <p class="big">The six are connected. <b>Start anywhere.</b><br>
+  What accumulates is not vocabulary — it is <b>the evidence that the method was the problem.</b></p>
+</div>
+
+<details class="note">
+  <summary>日本語で読む ── なぜ訳語を捨てるのか／このシリーズは何を目指すのか</summary>
+  <div class="jp">
+    <h4>1. 英語学習の目的は、英語ではない</h4>
+    <b>学び方の基本原理を学ぶこと</b>にある。英語は素材で、教材の本体は「学び方」のほう。
+
+    <h4>2. 母語はすべて素朴理論。ただし射程の中では正しい</h4>
+    母語は誰からも習わないという意味で<b>すべてが素朴理論</b>といえる。ただし現実の中で繰り返し運用して通じているので、ほぼ間違いがない。
+    <b>素朴理論は「間違い」ではなく、射程の中では正しい。</b>
+
+    <h4>3. 第二言語では、その正しさが妨げに変わる</h4>
+    世界をどのように切り取っているかが言語ごとに違うので、<b>母語のスキーマが邪魔をする</b>。
+    しかも無意識に使っているので、<b>使っていることに気づけない</b>。訳語はそこそこ当たるから、壊れていることが見えない。
+
+    <h4>4. 「を」学ぶと熟達できない</h4>
+    無意識レベルで運用されると「を」から「で」になる。速くなるが説明できなくなる。
+    <b>その状態が到達点</b>であって、「英語を学ぶ」で止まっている限り届かない。
+
+    <h4>5. だから映像を介す</h4>
+    母語を介さずに言語運用するには、<b>人間にとっての共通言語である映像</b>を介するしかない。
+    各単元の中央にある図（棚・図形・トラック・二つの部屋・手と矢印・ブロック）は説明の飾りではなく、
+    <b>訳語の入る隙をなくすための通路そのもの</b>。
+
+    <h4>6. これは英語だけの話ではない</h4>
+    どの領域にも「一度だけ教わり、そこそこ当たるので、二度と検算されない翻訳」がある。
+    <b>各領域の学びを阻害する素朴理論を特定し、更新することで達人になる。</b>
+    ここで体験するのは、その<span class="q">崩れ方</span>の見本。<br><br>
+    <b>だから6本やる意味は、6つの文法項目を覚えることではない。</b>
+    同じ崩れ方を6回見て、<b>「語のせいではなく、やり方のせいだった」に自分で辿り着くこと</b>にある。
+  </div>
+</details>
+
+<div class="panel">
+  <h2 class="sec">YOUR PROGRESS</h2>
+  <div id="prog"></div>
+</div>
+
+<div class="panel">
+  <h2 class="sec">THE SIX UNITS &middot; START ANYWHERE</h2>
+  <div class="units" id="units"></div>
+  <div class="pairnote"><b>Order is free.</b> Two pairs are worth taking in order, though:
+    <b>02 before 05</b> (where <i>to</i> stops being an arrow) &middot;
+    <b>03 before 06</b> (what a modal actually is).</div>
+</div>
+
+<div class="panel">
+  <h2 class="sec">THE LEDGER &middot; ONE QUESTION EACH, NOTHING LEFT TO MEMORISE</h2>
+  <div id="ledger"></div>
+  <div class="btnrow">
+    <button class="btn ghost" onclick="resetProgress()">reset progress</button>
+  </div>
+</div>
+
+<footer>an english-schema device &middot; <a href="../">ありえる楽考 — 対話アプリ集</a></footer>
+</div>
+
+<script>
+/* ============================================================
+   SERIES — canonical list. 単元を足すときはここに1行足す。
+   （english-schema/_series.py で全単元へ同期される）
+   ============================================================ */
+/* SERIES:BEGIN */
+const SERIES=[
+ {id:"a-vs-the",n:"01",t:"a / the",
+  put:'a = "one" &middot; the = "that"',
+  was:"whether your listener can point at it",
+  q:"Can she point at it?",
+  dev:"her shelf",
+  kills:"a page of article exceptions"},
+ {id:"in-on-at",n:"02",t:"in / on / at",
+  put:'"inside" &middot; "on top of" &middot; "at"',
+  was:"the shape you hand over",
+  q:"What shape did you give it?",
+  dev:"a field that changes shape",
+  kills:"the preposition tables"},
+ {id:"will-going-to",n:"03",t:"will / be going to",
+  put:'both = "intend to"',
+  was:"where the sentence came from",
+  q:"Was it already there before you spoke?",
+  dev:"a track through NOW",
+  kills:'"will = future tense"'},
+ {id:"have-done",n:"04",t:"did / have done",
+  put:'"have once done it"',
+  was:"which room you are standing in",
+  q:"Does it reach now?",
+  dev:"two rooms and a nail",
+  kills:"three uses and a forbidden-adverb list"},
+ {id:"ing-to",n:"05",t:"-ing / to ~",
+  put:'both = "the act of doing"',
+  was:"how far away the thing is",
+  q:"In your hand, or at the end of an arrow?",
+  dev:"a hand and an arrow",
+  kills:"two lists of verbs"},
+ {id:"modals",n:"06",t:"can / may / should / must",
+  put:'"be able to" &middot; "maybe" &middot; "have to"',
+  was:"how many ways are still open",
+  q:"How much room is left?",
+  dev:"the options that survive",
+  kills:"four modals &times; four uses = sixteen"}
+];
+/* SERIES:END */
+
+const SKEY="ens_seen";
+function _seen(){try{return JSON.parse(localStorage.getItem(SKEY)||"{}")}catch(e){return{}}}
+function seenCount(){const o=_seen();return SERIES.filter(u=>o[u.id]).length}
+function resetProgress(){
+  if(!confirm("Clear your progress across all six units?"))return;
+  try{localStorage.removeItem(SKEY)}catch(e){}
+  render();
+}
+
+function verdictHTML(n){
+  const L={
+   0:["NOT STARTED","Six units are waiting. <b>Any one of them is a valid first.</b><br>What you are about to watch is not a grammar rule — it is a list of exceptions being deleted."],
+   1:["ONE","One unit. One list of exceptions replaced by one question.<br>That could simply be a lucky topic. <b>Try another one and see.</b>"],
+   2:["TWO","Two units. Two lists gone.<br>Two could still be a coincidence. <b>Try a third.</b>"],
+   3:["THREE","Three units — three unrelated corners of the grammar — and the same thing happened in every one.<br><b>Three is where a coincidence stops being one.</b>"],
+   4:["FOUR","Four. Different words, different chapters, different centuries.<br><b>The same shape of failure, four times over.</b><br>It is beginning to look as though the failure was never in the words."],
+   5:["FIVE","Five out of six.<br><b>What are the odds that five unrelated topics all happen to be badly explained in exactly the same way?</b>"],
+   6:["SIX OF SIX","<b>It was never the words. It was the method.</b>"]
+  };
+  const k=Math.min(Math.max(n,0),6), tag=L[k][0], msg=L[k][1];
+  const why = k>=3 ? `<div class="why">
+    <b>Why a translation gets in the way.</b> It is not wrong. It is <i>one occasion</i> — frozen, and then sold to you
+    as the meaning. You cannot catch it failing, because it works often enough. And on the day it does fail you are told:
+    <i>that one is an exception — memorise it.</i> So the list grows, and the day you can build the sentence yourself
+    never quite arrives.<br><br>
+    <b>Why an English schema instead.</b> One question, asked from inside the language.
+    Nothing is left over — because there was never a rule for anything to be an exception to.</div>` : "";
+  const beyond = k>=6 ? `<div class="beyond">
+    <b>And this was never only about English.</b><br>
+    Every field you will ever learn hands you the same thing: a translation of something you have not met yet —
+    given once, useful often enough, and never checked again. It stays invisible <i>because</i> it mostly works.<br>
+    You have now watched six of them fall.
+    <b>The transferable part is not the six questions. It is knowing what the falling looks like.</b></div>` : "";
+  return `<div class="verdict"><span class="vn">${tag}</span>${msg}${why}${beyond}</div>`;
+}
+
+function render(){
+  const o=_seen(), n=seenCount();
+  const dots=SERIES.map(u=>o[u.id]?"●":"<s>●</s>").join("");
+  const nextUnit = SERIES.find(u=>!o[u.id]);
+
+  document.getElementById("prog").innerHTML=`
+    <div class="prog">
+      <span class="dots">${dots}</span>
+      <span class="cnt"><b>${n}</b> / ${SERIES.length} &nbsp;UNITS SEEN</span>
+    </div>
+    ${verdictHTML(n)}
+    ${nextUnit ? `<div class="btnrow">
+       <a class="btn" href="${nextUnit.id}/">${n===0?"START":"CONTINUE"} &rarr; ${nextUnit.n} ${nextUnit.t}</a>
+     </div>` : `<div class="btnrow">
+       <a class="btn" href="${SERIES[0].id}/">RUN ANY UNIT AGAIN &rarr;</a>
+     </div>`}`;
+
+  document.getElementById("units").innerHTML=SERIES.map(u=>`
+    <a class="unit ${o[u.id]?'done':''}" href="${u.id}/">
+      <span class="st">${o[u.id]?'✓ SEEN':'NOT YET'}</span>
+      <div class="no">UNIT ${u.n}</div>
+      <div class="ti">${u.t}</div>
+      <div class="qq">${u.q}</div>
+      <div class="meta">the picture: <em>${u.dev}</em> &nbsp;·&nbsp; it deletes: <s>${u.kills}</s></div>
+    </a>`).join("");
+
+  document.getElementById("ledger").innerHTML=`
+    <table class="led">
+      <tr><th>UNIT</th><th>THE TRANSLATION SAID</th><th>IT WAS REALLY ABOUT</th><th>THE ONE QUESTION</th></tr>
+      ${SERIES.map(u=>`<tr class="${o[u.id]?'':'off'}">
+        <td><a href="${u.id}/">${u.n}&nbsp; ${u.t}</a></td>
+        <td class="put">${u.put}</td>
+        <td class="was">${u.was}</td>
+        <td class="qq">${u.q}</td></tr>`).join("")}
+    </table>`;
+}
+render();
+window.addEventListener("pageshow",render);
+</script>
+</body>
+</html>
+</content>

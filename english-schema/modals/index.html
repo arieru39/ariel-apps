@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2312324a'/><rect x='12' y='34' width='16' height='32' rx='4' fill='%23f4b942'/><rect x='34' y='42' width='16' height='24' rx='4' fill='%23847c68' opacity='.5'/><rect x='56' y='42' width='16' height='24' rx='4' fill='%23847c68' opacity='.3'/><rect x='78' y='42' width='12' height='24' rx='4' fill='%23847c68' opacity='.2'/></svg>" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>can / may / should / must — How much room is left?</title>
+<meta name="description" content="An English-schema device. Modals say nothing about the action. They say how much room is left. Sixteen memorised uses collapse into one scale.">
+<style>
+:root{
+  --ink:#f2ead9; --dim:#bcb39c; --mute:#847c68;
+  --gold:#f4b942; --goldD:#c9931f;
+  --sky:#5fb4e0; --skyD:#2f7fae;
+  --rose:#e8737d;
+  --leaf:#7cc47a;
+  --violet:#a894dd;
+  --card:rgba(255,248,225,.055);
+  --cardHi:rgba(255,248,225,.10);
+  --line:rgba(242,234,217,.16);
+  --sh:0 8px 28px rgba(0,0,0,.38);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:"Georgia","Hiragino Mincho ProN",-apple-system,serif;
+  background:
+    radial-gradient(1100px 700px at 15% -10%, #1b3a58 0%, transparent 60%),
+    radial-gradient(900px 650px at 105% 105%, #3a2350 0%, transparent 55%),
+    linear-gradient(180deg,#0d1b2a 0%,#152a3f 60%,#1b3350 100%);
+  color:var(--ink); line-height:1.7; min-height:100vh; padding:22px 13px 60px;
+}
+.wrap{max-width:720px;margin:0 auto}
+header{text-align:center;padding:6px 0 14px}
+h1{font-size:1.5rem;letter-spacing:.04em;color:var(--gold);font-weight:400}
+h1 .sl{color:var(--mute);font-size:.66em}
+h1 .c{color:var(--violet)} h1 .m{color:var(--sky)} h1 .s{color:var(--leaf)} h1 .u{color:var(--gold)}
+.sub{font-size:.77rem;color:var(--dim);letter-spacing:.07em;margin-top:6px;font-family:system-ui,sans-serif}
+.rule{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:16px 0}
+
+.jp{font-family:-apple-system,"Hiragino Sans","Yu Gothic",sans-serif;font-size:.82rem;color:var(--mute);line-height:1.85}
+details.note{background:rgba(0,0,0,.2);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:10px 0 18px}
+details.note summary{cursor:pointer;font-size:.78rem;color:var(--mute);font-family:system-ui,sans-serif;letter-spacing:.04em;list-style:none}
+details.note summary::-webkit-details-marker{display:none}
+details.note summary::before{content:"▸ ";color:var(--gold)}
+details.note[open] summary::before{content:"▾ "}
+details.note .jp{margin-top:10px}
+details.note .jp b{color:var(--dim)}
+
+nav.steps{display:flex;gap:5px;margin:0 0 18px;font-family:system-ui,sans-serif}
+nav.steps button{flex:1;background:rgba(255,255,255,.05);border:1px solid transparent;color:var(--mute);
+  font-size:.55rem;letter-spacing:.02em;padding:7px 2px;border-radius:7px;cursor:pointer;transition:.2s;font-family:inherit}
+nav.steps button.on{background:rgba(244,185,66,.16);color:var(--gold);border-color:rgba(244,185,66,.4)}
+nav.steps button.done{color:var(--leaf)}
+nav.steps button:hover{color:var(--ink)}
+
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 20px;box-shadow:var(--sh);backdrop-filter:blur(6px)}
+.panel h2{font-size:1.06rem;color:var(--gold);letter-spacing:.07em;font-weight:400;margin-bottom:4px}
+.panel h2 small{display:block;font-size:.6rem;color:var(--mute);letter-spacing:.14em;font-family:system-ui,sans-serif;margin-bottom:5px}
+.lead{color:var(--dim);font-size:.92rem;margin:10px 0 16px;font-style:italic}
+
+.counter{display:flex;justify-content:space-between;align-items:baseline;font-family:system-ui,sans-serif;font-size:.72rem;color:var(--mute);letter-spacing:.08em;margin-bottom:12px}
+.counter .sc{color:var(--gold);font-weight:700;font-size:.85rem}
+.counter .streak{color:var(--rose)}
+
+/* ============ THE OPTIONS — the central device ============ */
+.room{position:relative;height:152px;border-radius:13px;background:rgba(0,0,0,.26);
+  border:1px solid var(--line);overflow:hidden;margin:14px 0;display:flex;align-items:center;justify-content:center}
+.blocks{display:flex;gap:10px;align-items:center}
+.blk{width:46px;height:58px;border-radius:9px;border:2px solid var(--mute);background:rgba(255,255,255,.05);
+  transition:.55s cubic-bezier(.34,1.3,.5,1);position:relative;opacity:.42}
+.blk .lab{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:.46rem;letter-spacing:.1em;
+  color:var(--mute);font-family:system-ui,sans-serif;white-space:nowrap;transition:.4s}
+.blk.target .lab{color:var(--ink)}
+.blk.target{border-color:var(--ink);opacity:.75}
+.blk.target::after{content:"✕";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.3);
+  color:var(--rose);font-size:1.6rem;opacity:0;transition:.45s;font-family:system-ui,sans-serif}
+.room .cap{position:absolute;left:12px;right:12px;bottom:9px;text-align:center;font-size:.59rem;letter-spacing:.13em;
+  font-family:system-ui,sans-serif;color:var(--mute);transition:color .4s}
+.room .tag{position:absolute;right:12px;top:9px;font-size:.6rem;letter-spacing:.17em;
+  font-family:system-ui,sans-serif;color:var(--mute);transition:color .4s}
+
+.room.must .blk:not(.target){opacity:.05;transform:scaleY(.2)}
+.room.must .blk.target{opacity:1;border-color:var(--gold);background:rgba(244,185,66,.3);
+  box-shadow:0 0 30px rgba(244,185,66,.55);transform:scaleY(1.14)}
+.room.must .cap,.room.must .tag{color:var(--gold)}
+
+.room.should .blk{opacity:.28;transform:scaleY(.86)}
+.room.should .blk.target{opacity:1;border-color:var(--leaf);background:rgba(124,196,122,.22);
+  box-shadow:0 0 22px rgba(124,196,122,.45);transform:scaleY(1.06)}
+.room.should .cap,.room.should .tag{color:var(--leaf)}
+
+.room.may .blk{opacity:.12;transform:scaleY(.55)}
+.room.may .blk.alt{opacity:.62;transform:none}
+.room.may .blk.target{opacity:1;border-color:var(--sky);background:rgba(95,180,224,.22);
+  box-shadow:0 0 20px rgba(95,180,224,.4);transform:none}
+.room.may .cap,.room.may .tag{color:var(--sky)}
+
+.room.can .blk{opacity:.5}
+.room.can .blk.target{opacity:1;border-color:var(--violet);border-style:dashed;background:rgba(168,148,221,.16);
+  box-shadow:0 0 18px rgba(168,148,221,.35)}
+.room.can .cap,.room.can .tag{color:var(--violet)}
+
+.room.cant .blk{opacity:.55}
+.room.cant .blk.target{opacity:.3;border-color:var(--rose);background:rgba(232,115,125,.08);transform:scaleY(.8)}
+.room.cant .blk.target::after{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.room.cant .blk.target .lab{color:rgba(232,115,125,.5)}
+.room.cant .cap,.room.cant .tag{color:var(--rose)}
+
+.quad{display:grid;grid-template-columns:1fr;gap:10px;margin:14px 0}
+.quad .room{height:112px;margin:0}
+.quad .blk{width:34px;height:44px}
+
+/* ============ sentence / choices ============ */
+.situ{font-size:.79rem;color:var(--mute);text-align:center;font-family:system-ui,sans-serif;letter-spacing:.03em}
+.sent{font-size:1.2rem;text-align:center;margin:14px 0 6px}
+.blank{display:inline-block;min-width:76px;border-bottom:2px solid var(--gold);color:var(--gold);
+  text-align:center;padding:0 6px;font-style:italic}
+.blank.filled{border-bottom-color:var(--leaf);color:var(--leaf);font-style:normal}
+.blank.wrong{border-bottom-color:var(--rose);color:var(--rose);font-style:normal;text-decoration:line-through}
+
+.choices{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:12px 0 10px}
+.ch{background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--ink);border-radius:11px;
+  padding:9px 14px;font-size:.98rem;font-family:inherit;font-style:italic;cursor:pointer;transition:.16s;
+  display:flex;flex-direction:column;align-items:center;gap:3px;min-width:96px}
+.ch em{font-style:normal;font-size:.48rem;letter-spacing:.1em;color:var(--mute);font-family:system-ui,sans-serif;white-space:nowrap}
+.ch:hover:not(:disabled){background:var(--cardHi);border-color:var(--gold);transform:translateY(-2px)}
+.ch:disabled{cursor:default;opacity:.38}
+.ch.right{background:rgba(124,196,122,.2);border-color:var(--leaf);color:#e2f7e1;opacity:1}
+.ch.right em{color:var(--leaf)}
+.ch.wrong{background:rgba(232,115,125,.18);border-color:var(--rose);color:#ffdfe2;opacity:1}
+
+.opts{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.opt{text-align:left;background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--ink);
+  border-radius:10px;padding:11px 14px;font-size:.93rem;font-family:inherit;cursor:pointer;transition:.16s}
+.opt:hover:not(:disabled){background:var(--cardHi);border-color:var(--sky)}
+.opt:disabled{cursor:default}
+.opt.right{background:rgba(124,196,122,.18);border-color:var(--leaf)}
+.opt.wrong{background:rgba(232,115,125,.16);border-color:var(--rose)}
+.opt i{color:var(--sky);font-style:italic}
+
+.pair{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:8px 0 14px}
+.pair .s{background:rgba(0,0,0,.24);border:1px solid var(--line);border-radius:10px;padding:9px 14px;font-size:1rem}
+.pair .s b{color:var(--gold);font-style:italic}
+.pair .s.alt b{color:var(--sky)}
+
+.jgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:10px 0}
+.jgrid button{background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--ink);border-radius:9px;
+  padding:12px 8px;font-size:.78rem;font-family:system-ui,sans-serif;cursor:pointer;transition:.15s;letter-spacing:.04em}
+.jgrid button:hover:not(:disabled){border-color:var(--sky);background:var(--cardHi)}
+.jgrid button:disabled{opacity:.4;cursor:default}
+.jgrid button.right{background:rgba(124,196,122,.2);border-color:var(--leaf);opacity:1}
+.jgrid button.wrong{background:rgba(232,115,125,.18);border-color:var(--rose);opacity:1}
+
+/* ============ feedback ============ */
+.fb{margin:14px 0 4px;padding:13px 15px;border-radius:10px;font-size:.93rem;border-left:3px solid var(--mute);
+  background:rgba(255,255,255,.045);animation:fade .3s}
+.fb.ok{border-color:var(--leaf);background:rgba(124,196,122,.1)}
+.fb.no{border-color:var(--rose);background:rgba(232,115,125,.1)}
+.fb b{color:var(--gold)} .fb i{color:var(--sky)}
+.fb .head{font-family:system-ui,sans-serif;font-size:.62rem;letter-spacing:.15em;color:var(--mute);display:block;margin-bottom:5px}
+@keyframes fade{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+
+.btnrow{display:flex;gap:10px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
+.btn{background:linear-gradient(180deg,var(--gold),var(--goldD));color:#191204;border:none;border-radius:10px;
+  padding:10px 22px;font-family:system-ui,sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;
+  letter-spacing:.06em;transition:.15s;box-shadow:0 4px 12px rgba(244,185,66,.28)}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(244,185,66,.42)}
+.btn.ghost{background:none;color:var(--dim);border:1px solid var(--line);box-shadow:none}
+.btn.ghost:hover{color:var(--gold);border-color:var(--gold)}
+.btn.sky{background:linear-gradient(180deg,var(--sky),var(--skyD));color:#04161f;box-shadow:0 4px 12px rgba(95,180,224,.28)}
+
+.quote{font-size:1.08rem;text-align:center;margin:16px 0;color:var(--ink)}
+.quote b{color:var(--gold);font-style:italic;border-bottom:2px solid rgba(244,185,66,.45);padding-bottom:1px}
+
+.tool{background:rgba(95,180,224,.1);border:1px solid rgba(95,180,224,.3);border-radius:11px;padding:13px 15px;margin:12px 0;font-size:.9rem}
+.tool .lbl{font-family:system-ui,sans-serif;font-size:.58rem;letter-spacing:.17em;color:var(--sky);display:block;margin-bottom:6px}
+.tool.gold{background:rgba(244,185,66,.09);border-color:rgba(244,185,66,.3)}
+.tool.gold .lbl{color:var(--gold)}
+.tool.rose{background:rgba(232,115,125,.09);border-color:rgba(232,115,125,.32)}
+.tool.rose .lbl{color:var(--rose)}
+
+table.grid{width:100%;border-collapse:collapse;margin:14px 0;font-size:.85rem}
+table.grid th,table.grid td{border:1px solid var(--line);padding:8px 9px;text-align:left;vertical-align:top}
+table.grid th{font-family:system-ui,sans-serif;font-size:.56rem;letter-spacing:.12em;color:var(--mute);font-weight:600;background:rgba(0,0,0,.18)}
+table.grid td i{font-style:italic;color:var(--ink)}
+table.grid td.x{color:var(--dim);font-style:italic;font-size:.8rem}
+table.grid .md{font-style:italic;letter-spacing:.03em}
+table.grid .g{color:var(--gold)} table.grid .l{color:var(--leaf)}
+table.grid .s{color:var(--sky)} table.grid .v{color:var(--violet)}
+
+.bar{height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;margin:0 0 14px}
+.bar div{height:100%;background:linear-gradient(90deg,var(--violet),var(--sky),var(--gold));transition:width .35s}
+
+.score-big{font-size:2.9rem;color:var(--gold);text-align:center;letter-spacing:.04em}
+.score-lab{text-align:center;font-family:system-ui,sans-serif;font-size:.65rem;letter-spacing:.17em;color:var(--mute)}
+textarea{width:100%;background:rgba(0,0,0,.28);color:var(--ink);border:1px solid var(--line);border-radius:10px;
+  padding:12px;font-family:inherit;font-size:1rem;min-height:140px;resize:vertical;line-height:1.9}
+textarea:focus{outline:none;border-color:var(--gold)}
+.check{list-style:none;margin:12px 0}
+.check li{font-size:.89rem;padding:7px 0 7px 26px;position:relative;color:var(--dim);cursor:pointer;transition:.15s}
+.check li::before{content:"○";position:absolute;left:4px;color:var(--mute)}
+.check li.on{color:var(--ink)}
+.check li.on::before{content:"●";color:var(--leaf)}
+.next{background:rgba(168,148,221,.09);border:1px solid rgba(168,148,221,.3);border-radius:12px;padding:14px 16px;margin-top:18px}
+.next h3{font-size:.93rem;color:var(--violet);letter-spacing:.06em;font-weight:400;margin-bottom:8px}
+.next ul{list-style:none;font-size:.85rem}
+.next li{padding:4px 0 4px 18px;position:relative;color:var(--dim)}
+.next li::before{content:"→";position:absolute;left:0;color:var(--violet)}
+.next li b{color:var(--ink);font-style:italic}
+footer{text-align:center;font-size:.65rem;color:var(--mute);margin-top:26px;letter-spacing:.08em;font-family:system-ui,sans-serif}
+@media(max-width:520px){
+  h1{font-size:1.1rem}
+  .sent{font-size:1rem}
+  .jgrid{grid-template-columns:1fr}
+  .ch{min-width:82px;font-size:.88rem;padding:8px 10px}
+  .blk{width:34px;height:46px}
+}
+
+/* ==== series frame & ledger (shared by all six units) ==== */
+.frame{background:linear-gradient(180deg,rgba(168,148,221,.14),rgba(168,148,221,.04));
+  border:1px solid rgba(168,148,221,.34);border-radius:12px;padding:14px 16px;margin:0 0 18px}
+.frame .fh{font-family:system-ui,sans-serif;font-size:.57rem;letter-spacing:.2em;color:var(--violet);margin-bottom:8px}
+.frame p{font-size:.88rem;color:var(--dim);margin:6px 0;line-height:1.75}
+.frame p b{color:var(--ink);font-style:normal}
+.frame .fq{color:var(--ink);font-size:.93rem;margin-top:9px}
+.frame .dots{margin-top:11px;font-family:system-ui,sans-serif;font-size:.61rem;letter-spacing:.11em;color:var(--mute)}
+.frame .dots i{font-style:normal;letter-spacing:.32em;color:var(--violet);margin-right:10px}
+.frame .dots i s{text-decoration:none;color:rgba(242,234,217,.16)}
+
+.ledger{margin-top:22px}
+.ledger h3{font-size:1rem;color:var(--violet);letter-spacing:.05em;font-weight:400;margin-bottom:3px}
+.ledger .lsub{font-size:.56rem;color:var(--mute);font-family:system-ui,sans-serif;letter-spacing:.16em;margin-bottom:11px}
+.ledger table{width:100%;border-collapse:collapse;font-size:.79rem}
+.ledger th,.ledger td{border:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+.ledger th{font-family:system-ui,sans-serif;font-size:.52rem;letter-spacing:.11em;color:var(--mute);
+  font-weight:600;background:rgba(0,0,0,.22)}
+.ledger tr.off td{opacity:.3}
+.ledger tr.now td{background:rgba(124,196,122,.11)}
+.ledger a{color:var(--sky);text-decoration:none;border-bottom:1px solid rgba(95,180,224,.35)}
+.ledger a:hover{color:var(--gold);border-color:var(--gold)}
+.ledger .qq{color:var(--ink);font-style:italic}
+.ledger .put{color:var(--rose);font-style:italic}
+.ledger .was{color:var(--leaf)}
+.pairnote{margin-top:12px;font-size:.76rem;color:var(--mute);font-family:system-ui,sans-serif;letter-spacing:.02em;line-height:1.8}
+.pairnote b{color:var(--dim)}
+.verdict{margin-top:15px;padding:15px 17px;border-radius:11px;font-size:.95rem;
+  background:rgba(244,185,66,.09);border:1px solid rgba(244,185,66,.33);color:var(--ink);line-height:1.8}
+.verdict .vn{font-family:system-ui,sans-serif;font-size:.57rem;letter-spacing:.2em;color:var(--gold);display:block;margin-bottom:8px}
+.verdict b{color:var(--gold)}
+.verdict .why{margin-top:12px;padding-top:12px;border-top:1px solid rgba(244,185,66,.26);font-size:.89rem;color:var(--dim)}
+.verdict .why b{color:var(--ink)}
+.verdict .why i{color:var(--rose);font-style:italic}
+.verdict .beyond{margin-top:13px;padding-top:13px;border-top:1px solid rgba(244,185,66,.26);font-size:.93rem;color:var(--ink)}
+.verdict .beyond b{color:var(--gold)}
+.verdict .beyond i{color:var(--sky);font-style:italic}
+@media(max-width:520px){.ledger table{font-size:.68rem}.ledger th,.ledger td{padding:5px 5px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1><span class="c">can</span> <span class="sl">/</span> <span class="m">may</span> <span class="sl">/</span> <span class="s">should</span> <span class="sl">/</span> <span class="u">must</span></h1>
+  <div class="sub">HOW MUCH ROOM IS LEFT?</div>
+</header>
+
+<details class="note">
+  <summary>この装置の設計意図（日本語・トレーニング外）</summary>
+  <div class="jp">
+    <b>「〜できる／〜かもしれない／〜ねばならない」を捨てる。</b>この訳語は助動詞を<b>動作の種類を表す語</b>だと誤認させる。だが <b>He must be tired.</b> は「疲れねばならない」ではないし、<b>Accidents can happen.</b> は「事故はできる」ではない。<br><br>
+    最大の破綻は、<b>4語すべてが「義務系」と「推量系」に割れること</b>。文法書は 4語×4用法＝<b>16個</b>を並べて暗記させる。これは原則9の最大級のサインである。<br><br>
+    英語話者が見ているのは一つだけ。<b>どれだけ余地が残っているか。</b><br>
+    <b>must</b>＝余地ゼロ、これ一つ／<b>should</b>＝余地はあるが、これが筋／<b>may</b>＝開いている道の一つ／<b>can</b>＝そもそも鍵がかかっていない。<br><br>
+    <b>can は「能力」を意味したことが一度もない。</b>「道が開いている」だけ。人について言えば技能に読め、事故について言えば可能性に読める。同じ一語である。<br><br>
+    そして「2つの用法」は用法ではない。<b>同じ絞り込みを、行為に向けるか、自分の結論に向けるか</b>の違いにすぎない。STEP 3 でそこに降りる。<br><br>
+    以降は全編英語。<b>訳さずに、残った選択肢の数として見ること。</b>
+  </div>
+</details>
+
+<nav class="steps" id="nav"></nav>
+<div id="app"></div>
+
+<footer>an english-schema device &middot; <a href="../" style="color:var(--violet);text-decoration:none;border-bottom:1px solid rgba(168,148,221,.4)">one of six &mdash; start anywhere</a> &middot; no translation inside</footer>
+</div>
+
+<script>
+
+/* == SERIES LAYER v1 == */
+/* SERIES:BEGIN */
+const SERIES=[
+ {id:"a-vs-the",n:"01",t:"a / the",
+  put:'a = "one" &middot; the = "that"',
+  was:"whether your listener can point at it",
+  q:"Can she point at it?",
+  dev:"her shelf",
+  kills:"a page of article exceptions"},
+ {id:"in-on-at",n:"02",t:"in / on / at",
+  put:'"inside" &middot; "on top of" &middot; "at"',
+  was:"the shape you hand over",
+  q:"What shape did you give it?",
+  dev:"a field that changes shape",
+  kills:"the preposition tables"},
+ {id:"will-going-to",n:"03",t:"will / be going to",
+  put:'both = "intend to"',
+  was:"where the sentence came from",
+  q:"Was it already there before you spoke?",
+  dev:"a track through NOW",
+  kills:'"will = future tense"'},
+ {id:"have-done",n:"04",t:"did / have done",
+  put:'"have once done it"',
+  was:"which room you are standing in",
+  q:"Does it reach now?",
+  dev:"two rooms and a nail",
+  kills:"three uses and a forbidden-adverb list"},
+ {id:"ing-to",n:"05",t:"-ing / to ~",
+  put:'both = "the act of doing"',
+  was:"how far away the thing is",
+  q:"In your hand, or at the end of an arrow?",
+  dev:"a hand and an arrow",
+  kills:"two lists of verbs"},
+ {id:"modals",n:"06",t:"can / may / should / must",
+  put:'"be able to" &middot; "maybe" &middot; "have to"',
+  was:"how many ways are still open",
+  q:"How much room is left?",
+  dev:"the options that survive",
+  kills:"four modals &times; four uses = sixteen"}
+];
+/* SERIES:END */
+const UNIT="modals";
+function _seen(){try{return JSON.parse(localStorage.getItem("ens_seen")||"{}")}catch(e){return{}}}
+function markSeen(){try{const o=_seen();o[UNIT]=1;localStorage.setItem("ens_seen",JSON.stringify(o))}catch(e){}}
+function seenCount(){const o=_seen();return SERIES.filter(u=>o[u.id]).length}
+
+function frameHTML(){
+  const o=_seen(), n=SERIES.filter(u=>o[u.id]&&u.id!==UNIT).length;
+  const dots=SERIES.map(u=>(o[u.id]||u.id===UNIT)?"●":"<s>●</s>").join("");
+  const tail = n===0
+    ? "this is your first one"
+    : (n===5 ? "one left — and then the point of all six"
+             : "you have already watched this happen "+n+" time"+(n>1?"s":""));
+  return `<div class="frame">
+    <div class="fh">ONE OF SIX &middot; START ANYWHERE</div>
+    <p>Every English word arrives with a translation. That translation is what the word meant
+    <b>on one occasion</b>. Take it for the meaning, and every other occasion turns into
+    an exception you have to memorise.</p>
+    <p class="fq">This unit is one demonstration of the same thing:
+    <b>a list of exceptions collapsing into a single question.</b></p>
+    <div class="dots"><i>${dots}</i>${tail}</div>
+  </div>`;
+}
+
+function verdictHTML(n){
+  const L={
+   1:["ONE","One unit. One list of exceptions replaced by one question.<br>That could simply be a lucky topic. <b>Try another one and see.</b>"],
+   2:["TWO","Two units. Two lists gone.<br>Two could still be a coincidence. <b>Try a third.</b>"],
+   3:["THREE","Three units — three unrelated corners of the grammar — and the same thing happened in every one.<br><b>Three is where a coincidence stops being one.</b>"],
+   4:["FOUR","Four. Different words, different chapters, different centuries.<br><b>The same shape of failure, four times over.</b><br>It is beginning to look as though the failure was never in the words."],
+   5:["FIVE","Five out of six.<br><b>What are the odds that five unrelated topics all happen to be badly explained in exactly the same way?</b>"],
+   6:["SIX OF SIX","<b>It was never the words. It was the method.</b>"]
+  };
+  const k=Math.min(Math.max(n,1),6), tag=L[k][0], msg=L[k][1];
+  const why = k>=3 ? `<div class="why">
+    <b>Why a translation gets in the way.</b> It is not wrong. It is <i>one occasion</i> — frozen, and then sold to you
+    as the meaning. You cannot catch it failing, because it works often enough. And on the day it does fail you are told:
+    <i>that one is an exception — memorise it.</i> So the list grows, and the day you can build the sentence yourself
+    never quite arrives.<br><br>
+    <b>Why an English schema instead.</b> One question, asked from inside the language.
+    Nothing is left over — because there was never a rule for anything to be an exception to.</div>` : "";
+  /* beyond-english v1 */
+  const beyond = k>=6 ? `<div class="beyond">
+    <b>And this was never only about English.</b><br>
+    Every field you will ever learn hands you the same thing: a translation of something you have not met yet —
+    given once, useful often enough, and never checked again. It stays invisible <i>because</i> it mostly works.<br>
+    You have now watched six of them fall.
+    <b>The transferable part is not the six questions. It is knowing what the falling looks like.</b></div>` : "";
+  return `<div class="verdict"><span class="vn">${tag}</span>${msg}${why}${beyond}</div>`;
+}
+
+function ledgerHTML(){
+  const o=_seen();
+  const rows=SERIES.map(u=>{
+    const done=!!o[u.id], now=(u.id===UNIT);
+    return `<tr class="${now?'now':(done?'':'off')}">
+      <td>${now?'▸ ':''}<a href="../${u.id}/">${u.n}&nbsp; ${u.t}</a></td>
+      <td class="put">${u.put}</td>
+      <td class="was">${u.was}</td>
+      <td class="qq">${u.q}</td></tr>`;
+  }).join("");
+  return `<div class="ledger">
+    <h3>The ledger</h3>
+    <div class="lsub">SIX UNITS &middot; ONE QUESTION EACH &middot; NOTHING LEFT TO MEMORISE</div>
+    <table>
+      <tr><th>UNIT</th><th>THE TRANSLATION SAID</th><th>IT WAS REALLY ABOUT</th><th>THE ONE QUESTION</th></tr>
+      ${rows}
+    </table>
+    <div class="pairnote"><b>Order is free.</b> Two pairs are worth taking in order, though:
+      <b>02 before 05</b> (where <i>to</i> stops being an arrow) &middot;
+      <b>03 before 06</b> (what a modal actually is).</div>
+    ${verdictHTML(seenCount())}
+  </div>`;
+}
+
+/* ================= THE DEVICE ================= */
+const MOD={
+  must  :{lab:"must",  hint:"NO ROOM",        tag:"NO ROOM",        cap:"NO ROOM LEFT · ONLY THIS ONE"},
+  should:{lab:"should",hint:"THE NATURAL WAY",tag:"THE NATURAL WAY",cap:"ROOM REMAINS · BUT THIS IS THE WAY"},
+  may   :{lab:"may",   hint:"ONE OF SEVERAL", tag:"ONE OF SEVERAL", cap:"SEVERAL ARE OPEN · THIS IS ONE OF THEM"},
+  can   :{lab:"can",   hint:"NOT LOCKED",     tag:"UNLOCKED",       cap:"NOTHING IS LOCKED · THE WAY EXISTS"},
+  cant  :{lab:"can't", hint:"SHUT",           tag:"SHUT",           cap:"THIS ONE IS GONE"}
+};
+function roomHTML(id,cls,sm){
+  const m=cls?MOD[cls]:null;
+  return `<div class="room ${cls||''}" id="${id||''}">
+    <span class="tag">${m?m.tag:'&nbsp;'}</span>
+    <div class="blocks">
+      <div class="blk target"><span class="lab">THIS</span></div>
+      <div class="blk"><span class="lab"></span></div>
+      <div class="blk alt"><span class="lab"></span></div>
+      <div class="blk"><span class="lab"></span></div>
+      <div class="blk alt"><span class="lab"></span></div>
+    </div>
+    <span class="cap">${m?m.cap:'how many are still open?'}</span>
+  </div>`;
+}
+function setRoom(el,k){
+  el.className="room "+k;
+  el.querySelector(".tag").textContent=MOD[k].tag;
+  el.querySelector(".cap").textContent=MOD[k].cap;
+}
+function chBtns(keys){
+  return `<div class="choices">`+keys.map(k=>
+    `<button class="ch" data-v="${k}"><span>${MOD[k].lab}</span><em>${MOD[k].hint}</em></button>`).join("")+`</div>`;
+}
+
+/* ================= DATA ================= */
+
+/* STEP 1 */
+const NOTICE=[
+ {a:"You must wear a helmet.", b:"He must be tired.",
+  opts:["How strong the word <i>must</i> is in each.","What the pressure is aimed at.","How polite each sentence is."], ok:1,
+  fb:"<b>Same word. Same amount: no room left.</b><br>First — no room left in <b>what he is allowed to do</b>.<br>Second — no room left in <b>what I am able to conclude</b>."},
+ {a:"May I come in?", b:"It may rain later.",
+  opts:["<i>may</i> is really two different words.","The same <i>one of several</i> aimed first at an act, then at a conclusion.","The second one is more formal."], ok:1,
+  fb:"One door among several is open.<br>Aimed at <b>my coming in</b> → that reads as permission.<br>Aimed at <b>my conclusion</b> → that reads as possibility."},
+ {a:"She can swim.", b:"Accidents can happen.",
+  opts:["<i>can</i> changes from ability to possibility.","Nothing is locked in either — first for her, then for the world.","The second sentence is a mistake."], ok:1,
+  fb:"<b><i>can</i> has never meant ability.</b> It means <b>the way is open</b>.<br>For a person, an open way reads as skill. For accidents, the same open way reads as possibility."},
+ {a:"You should apologise.", b:"She should be home by now.",
+  opts:["Whether <i>should</i> means duty or expectation.","The same <i>this is the natural way</i>, aimed at an act, then at a fact.","The second one is an order."], ok:1,
+  fb:"Room remains in both — you could refuse, she could be stuck in traffic.<br>But one path is <b>the natural one</b>. That is all <i>should</i> ever says."},
+ {a:"You mustn't tell him.", b:"You don't have to tell him.",
+  opts:["Which one forbids, and which one sets you free.","Which one is more rude.","Which one is British English."], ok:0,
+  fb:"<b>mustn't</b> — the pressure stays at maximum and lands on <b>not telling</b>. Forbidden.<br><b>don't have to</b> — the pressure is <b>removed altogether</b>. Tell him or don't, as you like.<br><span style='color:var(--rose)'>Translating <i>must</i> and then negating it gives you the first when you meant the second.</span>"}
+];
+
+/* STEP 2 */
+const CORE=[
+ {situ:"(a sign at a building site)",pre:"You ",post:" wear a helmet.",ok:"must",
+  fb:{must:"No room at all. There is one way through this gate.",
+      should:"That makes it advice. A site sign does not advise.",
+      may:"That would open several ways, including going bare-headed.",
+      can:"That only says the way is not locked."}},
+ {situ:"(he has been awake for thirty hours)",pre:"He ",post:" be exhausted.",ok:"must",
+  fb:{must:"You have <b>run out of other conclusions</b>. Nothing else fits thirty hours.",
+      should:"That leaves room — as if he might have found a second wind.",
+      may:"That is far too weak for thirty hours of evidence.",
+      can:"That only says exhaustion is possible in general."}},
+ {situ:"(the sky is grey but you really do not know)",pre:"It ",post:" rain later.",ok:"may",
+  fb:{may:"One of several futures. You are not narrowing much.",
+      must:"That claims no other weather is possible. Grey is not that strong.",
+      should:"That would mean rain is <i>due</i> — scheduled, expected.",
+      can:"That says rain is possible here in general — not about this afternoon."}},
+ {situ:"(politely, in someone's house)",pre:"",post:" I use your phone?",ok:"may",
+  fb:{may:"You are asking her to leave <b>this one door</b> open.",
+      can:"Common in speech, but it asks whether the way exists, not whether she permits it.",
+      must:"That would be an order to yourself.",
+      should:"That asks for her advice, not her permission."}},
+ {situ:"(she has trained for years)",pre:"She ",post:" swim three kilometres.",ok:"can",
+  fb:{can:"The way is open to her. In a person, an open way looks like skill.",
+      may:"That would mean she is permitted to, or that it is one possibility.",
+      must:"That would force her into the water.",
+      should:"That would make it her duty."}},
+ {situ:"(a warning about rare events)",pre:"Accidents ",post:" happen.",ok:"can",
+  fb:{can:"<b>The same open way as <i>she can swim</i>.</b> Nothing is locked, so it is possible.",
+      may:"That would suggest a particular accident is likely today.",
+      must:"That would make accidents compulsory.",
+      should:"That would make accidents the natural, proper outcome."}},
+ {situ:"(advice to a friend who was rude)",pre:"You ",post:" apologise.",ok:"should",
+  fb:{should:"Other paths remain — but <b>one of them is clearly the way</b>.",
+      must:"That removes his choice entirely. Friends rarely do that.",
+      may:"That merely permits an apology.",
+      can:"That only says apologising is possible."}},
+ {situ:"(she left two hours ago; it is a one-hour drive)",pre:"She ",post:" be home by now.",ok:"should",
+  fb:{should:"The natural outcome — but traffic leaves room.",
+      must:"That claims no other outcome is possible. Two hours is not that airtight.",
+      may:"That is too weak — the arithmetic points one way.",
+      can:"That only says being home is possible."}},
+ {situ:"(a hotel rule, printed on the door)",pre:"Guests ",post:" not smoke in the rooms.",ok:"must",
+  fb:{must:"Maximum pressure, landing on <b>not smoking</b>. Forbidden.",
+      should:"A hotel rule does not suggest.",
+      may:"<i>may not</i> would read as <i>perhaps they do not</i>.",
+      can:"<i>cannot</i> would say it is impossible — which it plainly is not."}},
+ {situ:"(the number matches, the name is on the door)",pre:"This ",post:" be the right house.",ok:"must",
+  fb:{must:"Two pieces of evidence and <b>nothing else is left</b>.",
+      should:"That leaves doubt you no longer have.",
+      may:"Far too weak for a matching number and name.",
+      can:"That only says it is possible."}},
+ {situ:"(you have no idea; it is 6 a.m.)",pre:"He ",post:" still be asleep.",ok:"may",
+  fb:{may:"One of many. He may also be up, out, or away.",
+      must:"That claims certainty you do not have.",
+      should:"That says sleeping is the natural, proper state at 6 a.m. — close, but you are guessing.",
+      can:"That says sleeping is possible in general."}},
+ {situ:"(reassuring a beginner)",pre:"Anyone ",post:" make a mistake.",ok:"can",
+  fb:{can:"The way is open to everyone. Nothing is locked.",
+      may:"That would ask permission to err.",
+      must:"That would make mistakes compulsory.",
+      should:"That would make mistakes the proper thing to do."}}
+];
+
+/* STEP 3 — two targets */
+const TGTQ=[
+ {s:"You <b>must</b> be joking.",ok:"CON",why:"You are narrowing <b>your own conclusion</b>. Nothing is being ordered."},
+ {s:"You <b>must</b> sign here.",ok:"ACT",why:"You are narrowing <b>what he is allowed to do</b>."},
+ {s:"She <b>can</b> speak four languages.",ok:"ACT",why:"The open way belongs to her — it is about what she does."},
+ {s:"That <b>can't</b> be true.",ok:"CON",why:"That option has been removed from <b>your reasoning</b>."},
+ {s:"<b>May</b> I leave early?",ok:"ACT",why:"You are asking her to keep <b>one course of action</b> open."},
+ {s:"He <b>may</b> know the answer.",ok:"CON",why:"One of several conclusions. Nobody is being permitted anything."},
+ {s:"You <b>should</b> see a doctor.",ok:"ACT",why:"Of the paths open to you, one is the natural one."},
+ {s:"The parcel <b>should</b> arrive tomorrow.",ok:"CON",why:"Of the outcomes still possible, one is the natural one."},
+ {s:"Children <b>must</b> be accompanied by an adult.",ok:"ACT",why:"A rule. It narrows what people may do."},
+ {s:"There <b>must</b> be a mistake somewhere.",ok:"CON",why:"You have eliminated every other explanation."}
+];
+
+/* STEP 4 — the negatives do not mirror */
+const NEGQ=[
+ {mean:"You are forbidden to tell him.",a:"You mustn't tell him.",b:"You don't have to tell him.",ok:"a",
+  why:"The pressure <b>stays at maximum</b> and lands on <i>not telling</i>."},
+ {mean:"It's up to you — tell him or don't.",a:"You mustn't tell him.",b:"You don't have to tell him.",ok:"b",
+  why:"Here the pressure is <b>removed</b>. <i>must</i> has no negative that means this — English borrows <i>have to</i>."},
+ {mean:"I am certain he is not the thief.",a:"He mustn't be the thief.",b:"He can't be the thief.",ok:"b",
+  why:"<i>must be</i> = only this option is left. Kill it and <b>the option is gone</b> — that is <i>can't be</i>.<br><i>mustn't be</i> would be giving an order to a fact, and facts take no orders."},
+ {mean:"Perhaps he isn't at home.",a:"He may not be at home.",b:"He can't be at home.",ok:"a",
+  why:"The amount of room is unchanged — <i>one of several</i>. The <i>not</i> lands on <b>being at home</b>."},
+ {mean:"It is impossible that she has finished already.",a:"She mustn't have finished.",b:"She can't have finished.",ok:"b",
+  why:"Again: the opposite of <i>no room left</i> is <b>the door is shut</b>."},
+ {mean:"There is no obligation to come early.",a:"You don't have to come early.",b:"You mustn't come early.",ok:"a",
+  why:"No pressure at all. The second one <b>forbids</b> it."},
+ {mean:"Parking here is prohibited.",a:"You don't have to park here.",b:"You mustn't park here.",ok:"b",
+  why:"Maximum pressure, landing on <i>not parking</i>."},
+ {mean:"I'm sure that isn't her handwriting.",a:"That can't be her handwriting.",b:"That may not be her handwriting.",ok:"a",
+  why:"Certainty about a negative = <b>the door is shut</b>. The second one only says <i>perhaps not</i>."}
+];
+
+/* STEP 5 */
+const FIRE=[
+ {situ:"(a hospital sign)",pre:"Mobile phones ",post:" be switched off.",ok:"must",why:"A rule. No room."},
+ {situ:"(the lights are off and the car is gone)",pre:"They ",post:" be out.",ok:"must",why:"No other conclusion is left."},
+ {situ:"(you honestly do not know)",pre:"She ",post:" be in a meeting.",ok:"may",why:"One of several."},
+ {situ:"(you know for a fact she is in Paris today)",pre:"That ",post:" be her at the door.",ok:"cant",why:"That option is gone."},
+ {situ:"(politely, to your manager)",pre:"",post:" I leave a little early today?",ok:"may",why:"Asking her to keep one door open."},
+ {situ:"(she holds the licence)",pre:"She ",post:" drive a lorry.",ok:"can",why:"The way is open to her."},
+ {situ:"(friendly advice)",pre:"You ",post:" get more sleep.",ok:"should",why:"One path is clearly the natural one."},
+ {situ:"(posted three days ago; it usually takes three)",pre:"It ",post:" arrive today.",ok:"should",why:"The natural outcome — with room for delay."},
+ {situ:"(a railway notice)",pre:"Passengers ",post:" not lean out of the window.",ok:"must",why:"Maximum pressure on <i>not leaning</i>."},
+ {situ:"(he is severely allergic and this is a peanut sauce)",pre:"He ",post:" eat this.",ok:"cant",why:"The door is shut."},
+ {situ:"(in this business anything is possible)",pre:"Anything ",post:" happen.",ok:"can",why:"Nothing is locked."},
+ {situ:"(you watched him leave five minutes ago)",pre:"He ",post:" be far away yet.",ok:"cant",why:"Five minutes rules it out."},
+ {situ:"(it is 6 a.m. and you are guessing)",pre:"He ",post:" still be asleep.",ok:"may",why:"One of many."},
+ {situ:"(the name is on the door and the number matches)",pre:"This ",post:" be the right house.",ok:"must",why:"Nothing else is left."},
+ {situ:"(a gentle word from the doctor)",pre:"You ",post:" cut down on salt.",ok:"should",why:"The natural path, not an order."}
+];
+
+/* ================= STATE ================= */
+const STEPS=[
+ {k:"start",n:"START"},{k:"notice",n:"NOTICE"},{k:"core",n:"HOW MUCH"},
+ {k:"tgt",n:"2 TARGETS"},{k:"neg",n:"THE NO"},{k:"fire",n:"LIVE FIRE"},{k:"you",n:"YOUR TURN"}
+];
+let S={step:0,i:0,score:0,total:0,streak:0,best:0,locked:false,phase:"show"};
+try{S.best=parseInt(localStorage.getItem("md_best")||"0",10)||0}catch(e){}
+
+const app=document.getElementById("app"), navEl=document.getElementById("nav");
+function drawNav(){
+  navEl.innerHTML=STEPS.map((s,i)=>`<button data-i="${i}" class="${i===S.step?'on':(i<S.step?'done':'')}">${s.n}</button>`).join("");
+  navEl.querySelectorAll("button").forEach(b=>b.onclick=()=>go(parseInt(b.dataset.i,10)));
+}
+function go(i){S.step=i;S.i=0;S.locked=false;S.phase="show";render();window.scrollTo({top:0,behavior:"smooth"})}
+function next(){S.i++;S.locked=false;render();window.scrollTo({top:0,behavior:"smooth"})}
+function tally(g){S.total++;if(g){S.score++;S.streak++}else S.streak=0;
+  if(S.score>S.best){S.best=S.score;try{localStorage.setItem("md_best",S.best)}catch(e){}}}
+function counter(l,c,n){return `<div class="counter"><span>${l} &nbsp;${c}/${n}</span>
+  <span><span class="sc">${S.score}</span> correct${S.streak>1?` &nbsp;<span class="streak">▲${S.streak} in a row</span>`:""}</span></div>`}
+
+function render(){drawNav();({start:rStart,notice:rNotice,core:rCore,tgt:rTgt,neg:rNeg,fire:rFire,you:rYou})[STEPS[S.step].k]()}
+
+/* ---------- START ---------- */
+function rStart(){
+  app.innerHTML=`<div class="panel">
+    ${frameHTML()}
+    <h2><small>STEP 0</small>ONE SCALE, NOT SIXTEEN USES</h2>
+    <p class="lead">A modal says <b style="font-style:normal;color:var(--ink)">nothing at all</b> about the action.<br>
+    It says how many ways are still open.</p>
+    <div class="quad">
+      <div>${roomHTML("","must")}</div>
+      <div>${roomHTML("","should")}</div>
+      <div>${roomHTML("","may")}</div>
+      <div>${roomHTML("","can")}</div>
+    </div>
+    <div class="tool gold">
+      <span class="lbl">THE WHOLE MACHINE</span>
+      No room. One way only &nbsp;→&nbsp; <b style="color:var(--gold);font-style:italic">must</b><br>
+      Room remains, but this is the way &nbsp;→&nbsp; <b style="color:var(--leaf);font-style:italic">should</b><br>
+      Several are open; this is one &nbsp;→&nbsp; <b style="color:var(--sky);font-style:italic">may / might</b><br>
+      Nothing is locked &nbsp;→&nbsp; <b style="color:var(--violet);font-style:italic">can</b><br>
+      This one is gone &nbsp;→&nbsp; <b style="color:var(--rose);font-style:italic">can't</b>
+    </div>
+    <div class="tool rose">
+      <span class="lbl">THE FIRST THING TO PUT DOWN</span>
+      <b style="color:var(--rose)">can has never meant "ability".</b><br>
+      <i style="color:var(--ink)">She can swim.</i> &nbsp;·&nbsp; <i style="color:var(--ink)">Accidents can happen.</i><br>
+      <span style="color:var(--dim);font-size:.87rem">Same word, same meaning: <b>the way is open</b>. In a person that looks like skill.
+      In the world it looks like possibility. <b>Nothing changed but what you pointed it at.</b></span>
+    </div>
+    <div class="btnrow">
+      ${S.best?`<span style="font-family:system-ui;font-size:.67rem;color:var(--mute);align-self:center;letter-spacing:.1em">BEST ${S.best}</span>`:""}
+      <button class="btn" onclick="go(1)">BEGIN →</button>
+    </div>
+  </div>`;
+}
+
+/* ---------- NOTICE ---------- */
+function rNotice(){
+  if(S.i>=NOTICE.length) return done("NOTICE",
+    "Four times the same word did two jobs.<br><b>Not two meanings — two targets.</b>",2);
+  const q=NOTICE[S.i];
+  app.innerHTML=`<div class="panel">
+    <h2><small>STEP 1 · NOTICE</small>SAME WORD, TWICE. WHAT MOVED?</h2>
+    ${counter("PAIR",S.i+1,NOTICE.length)}
+    <div class="pair" style="margin-top:10px">
+      <div class="s">${q.a.replace(/(must|may|can|should|mustn't|don't have to)/,'<b>$1</b>')}</div>
+      <div class="s alt">${q.b.replace(/(must|may|can|should|mustn't|don't have to)/,'<b>$1</b>')}</div>
+    </div>
+    <div class="opts">${q.opts.map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join("")}</div>
+    <div id="out"></div>
+  </div>`;
+  app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
+    if(S.locked)return; S.locked=true;
+    const i=parseInt(b.dataset.i,10), good=(i===q.ok);
+    tally(good);
+    app.querySelectorAll(".opt").forEach((x,j)=>{x.disabled=true;
+      if(j===q.ok)x.classList.add("right"); else if(j===i)x.classList.add("wrong")});
+    document.getElementById("out").innerHTML=
+      `<div class="fb ${good?'ok':'no'}"><span class="head">${good?'YES':'LOOK AGAIN'}</span>${q.fb}</div>
+       <div class="btnrow"><button class="btn" onclick="next()">NEXT →</button></div>`;
+  });
+}
+
+/* ---------- generic single ---------- */
+function single(cfg){
+  const q=cfg.q, keys=cfg.keys;
+  app.innerHTML=`<div class="panel">
+    <h2><small>${cfg.step}</small>${cfg.title}</h2>
+    ${counter(cfg.unit,S.i+1,cfg.len)}
+    ${cfg.bar?`<div class="bar"><div style="width:${(S.i/cfg.len)*100}%"></div></div>`:""}
+    <div class="situ">${q.situ||""}</div>
+    <div class="sent">${q.pre}<span class="blank" id="bl">?</span>${q.post}</div>
+    ${roomHTML("f","")}
+    ${chBtns(keys)}
+    <div id="out"></div>
+  </div>`;
+  app.querySelectorAll(".choices .ch").forEach(b=>b.onclick=()=>{
+    if(S.locked)return; S.locked=true;
+    const v=b.dataset.v, good=(v===q.ok);
+    tally(good);
+    const bl=document.getElementById("bl");
+    bl.textContent=MOD[v].lab; bl.className="blank "+(good?"filled":"wrong");
+    setRoom(document.getElementById("f"), v);
+    app.querySelectorAll(".choices .ch").forEach(x=>{x.disabled=true;
+      if(x.dataset.v===q.ok)x.classList.add("right"); else if(x.dataset.v===v)x.classList.add("wrong")});
+    const msg=(q.fb&&q.fb[v])? q.fb[v] : q.why;
+    const extra=(!good&&q.fb&&q.fb[q.ok])?`<div style="margin-top:9px;padding-top:9px;border-top:1px solid var(--line)"><b>${MOD[q.ok].lab}</b> — ${q.fb[q.ok]}</div>`:"";
+    const head=good?MOD[q.ok].tag:("YOU SAID "+MOD[v].lab.toUpperCase());
+    document.getElementById("out").innerHTML=
+      `<div class="fb ${good?'ok':'no'}"><span class="head">${head}</span>${msg}${extra}</div>
+       <div class="btnrow"><button class="btn" onclick="next()">NEXT →</button></div>`;
+    if(!good) setTimeout(()=>{const g=document.getElementById("f"); if(g)setRoom(g,q.ok);},1800);
+  });
+}
+
+/* ---------- STEP 2 ---------- */
+function rCore(){
+  if(S.i>=CORE.length) return done("HOW MUCH",
+    "Twelve scenes. <b>Six were about what someone may do.<br>Six were about what you could conclude.</b><br>You used the same four words for both — and never noticed.",3);
+  single({step:"STEP 2 · HOW MUCH",title:"HOW MANY WAYS ARE STILL OPEN?",unit:"SCENE",len:CORE.length,
+    q:CORE[S.i],keys:["can","may","should","must"]});
+}
+
+/* ---------- STEP 3 ---------- */
+function rTgt(){
+  if(S.phase==="show"){
+    app.innerHTML=`<div class="panel">
+      <h2><small>STEP 3 · TWO TARGETS</small>WHERE THE NARROWING LANDS</h2>
+      <p class="lead">Grammar books give each modal a list of "uses" and ask you to learn them.<br>
+      <b style="font-style:normal;color:var(--ink)">No modal has two meanings.</b> Each has one amount of room.<br>
+      What changes is what you are measuring.</p>
+      <table class="grid">
+        <tr><th>ROOM LEFT</th><th></th><th>AIMED AT AN ACTION</th><th>AIMED AT YOUR CONCLUSION</th></tr>
+        <tr><td class="x">none</td><td class="md g">must</td><td><i>You must wear a helmet.</i></td><td><i>He must be tired.</i></td></tr>
+        <tr><td class="x">this is the way</td><td class="md l">should</td><td><i>You should apologise.</i></td><td><i>She should be home by now.</i></td></tr>
+        <tr><td class="x">one of several</td><td class="md s">may</td><td><i>May I come in?</i></td><td><i>It may rain.</i></td></tr>
+        <tr><td class="x">not locked</td><td class="md v">can</td><td><i>She can swim.</i></td><td><i>Accidents can happen.</i></td></tr>
+      </table>
+      <div class="tool">
+        <span class="lbl">WHAT THIS DELETES</span>
+        Four modals × four "uses" = <b>sixteen things to memorise</b>.<br>
+        One scale × two targets = <b>you already know all of it</b>.
+      </div>
+      <div class="quote" style="margin-top:16px">One scale. <b>Two targets.</b></div>
+      <div class="btnrow"><button class="btn sky" onclick="S.phase='quiz';S.i=0;render()">NAME THE TARGET →</button></div>
+    </div>`;
+    return;
+  }
+  if(S.i>=TGTQ.length) return done("TWO TARGETS",
+    "You never asked <i>which of the four uses is this?</i><br><b>You asked what was being narrowed.</b>",4);
+  const q=TGTQ[S.i];
+  app.innerHTML=`<div class="panel">
+    <h2><small>STEP 3 · TWO TARGETS</small>WHAT IS BEING NARROWED?</h2>
+    ${counter("ITEM",S.i+1,TGTQ.length)}
+    <div class="sent" style="font-size:1.12rem">${q.s}</div>
+    <div class="jgrid" id="jg" style="margin-top:14px">
+      <button data-k="ACT">AN ACTION<br><span style="font-size:.64rem;color:var(--mute)">what someone may do</span></button>
+      <button data-k="CON">A CONCLUSION<br><span style="font-size:.64rem;color:var(--mute)">what I can decide is true</span></button>
+    </div>
+    <div id="out"></div>
+  </div>`;
+  app.querySelectorAll("#jg button").forEach(b=>b.onclick=()=>{
+    if(S.locked)return; S.locked=true;
+    const k=b.dataset.k, good=(k===q.ok);
+    tally(good);
+    app.querySelectorAll("#jg button").forEach(x=>{x.disabled=true;
+      if(x.dataset.k===q.ok)x.classList.add("right"); else if(x.dataset.k===k)x.classList.add("wrong")});
+    document.getElementById("out").innerHTML=
+      `<div class="fb ${good?'ok':'no'}"><span class="head">${q.ok==="ACT"?"AN ACTION":"A CONCLUSION"}</span>${q.why}</div>
+       <div class="btnrow"><button class="btn" onclick="next()">NEXT →</button></div>`;
+  });
+}
+
+/* ---------- STEP 4 : the negatives ---------- */
+function rNeg(){
+  if(S.i>=NEGQ.length) return done("THE NO",
+    "<b><i>must</i> has two opposites.</b><br><i>mustn't</i> when you were measuring an action.<br><i>can't</i> when you were measuring a conclusion.<br>Which one you need depends on what you were narrowing.",5);
+  const q=NEGQ[S.i];
+  app.innerHTML=`<div class="panel">
+    <h2><small>STEP 4 · THE NO</small>SAY IT IN ENGLISH</h2>
+    ${counter("ITEM",S.i+1,NEGQ.length)}
+    ${S.i===0?`<div class="tool rose"><span class="lbl">THE EDGE OF THE SCHEMA</span>
+      <b style="color:var(--rose)">The negatives do not mirror.</b> A <i>not</i> can land in two places:
+      on the <b>pressure</b> itself, or on the <b>action</b>.<br>
+      <span style="color:var(--dim);font-size:.86rem">Translate <i>must</i> first and then negate, and you will pick the wrong one almost every time.
+      This is the single most expensive mistake in the whole topic.</span></div>`:""}
+    <div class="sent" style="font-size:1.04rem;color:var(--dim);font-style:italic">${q.mean}</div>
+    <div class="opts" style="margin-top:14px">
+      <button class="opt" data-k="a"><i>${q.a}</i></button>
+      <button class="opt" data-k="b"><i>${q.b}</i></button>
+    </div>
+    <div id="out"></div>
+  </div>`;
+  app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
+    if(S.locked)return; S.locked=true;
+    const k=b.dataset.k, good=(k===q.ok);
+    tally(good);
+    app.querySelectorAll(".opt").forEach(x=>{x.disabled=true;
+      if(x.dataset.k===q.ok)x.classList.add("right"); else if(x.dataset.k===k)x.classList.add("wrong")});
+    document.getElementById("out").innerHTML=
+      `<div class="fb ${good?'ok':'no'}"><span class="head">${q.ok==="a"?q.a:q.b}</span>${q.why}</div>
+       ${S.i===NEGQ.length-1?`<div class="tool gold" style="margin-top:14px"><span class="lbl">THE WHOLE MAP OF NO</span>
+         <b>MEASURING AN ACTION</b><br>
+         <i style="color:var(--ink)">must do</i> → forbidden: <i style="color:var(--rose)">mustn't do</i> &nbsp;·&nbsp; no pressure: <i style="color:var(--leaf)">don't have to</i><br><br>
+         <b>MEASURING A CONCLUSION</b><br>
+         <i style="color:var(--ink)">must be</i> → impossible: <i style="color:var(--rose)">can't be</i><br>
+         <i style="color:var(--ink)">may be</i> → perhaps not: <i style="color:var(--leaf)">may not be</i><br>
+         <span style="color:var(--dim);font-size:.86rem">Facts take no orders. That is why <i>mustn't be</i> does not exist as a guess.</span></div>`:""}
+       <div class="btnrow"><button class="btn" onclick="next()">NEXT →</button></div>`;
+  });
+}
+
+/* ---------- STEP 5 ---------- */
+function rFire(){
+  if(S.i>=FIRE.length) return done("LIVE FIRE",
+    "Not once did you ask <i>is this obligation or deduction?</i><br><b>You asked how many ways were left.</b>",6);
+  single({step:"STEP 5 · LIVE FIRE",title:"NO WARNING, NO HINTS",unit:"SHOT",len:FIRE.length,
+    q:FIRE[S.i],keys:["can","cant","may","should","must"],bar:true});
+}
+
+/* ---------- STEP 6 ---------- */
+function rYou(){
+  markSeen();
+  const pct=S.total?Math.round(S.score/S.total*100):0;
+  app.innerHTML=`<div class="panel">
+    <h2><small>STEP 6 · YOUR TURN</small>FIVE AMOUNTS OF ROOM</h2>
+    <div class="score-big">${S.score}<span style="font-size:.4em;color:var(--mute)"> / ${S.total}</span></div>
+    <div class="score-lab">${pct}% &nbsp;·&nbsp; BEST ${S.best}</div>
+    <div class="rule"></div>
+    <p class="lead">Write five sentences about your own life or what is around you right now.</p>
+    <div class="tool gold">
+      <span class="lbl">THE ONLY REQUIREMENT</span>
+      1 — no room at all, aimed at <b style="color:var(--gold)">an action</b> &nbsp;<i>must</i><br>
+      2 — no room at all, aimed at <b style="color:var(--gold)">your own conclusion</b> &nbsp;<i>must be</i><br>
+      3 — that option is <b style="color:var(--rose)">gone</b> &nbsp;<i>can't be</i><br>
+      4 — <b style="color:var(--sky)">one of several</b> &nbsp;<i>may / might</i><br>
+      5 — <b style="color:var(--leaf)">the natural way</b> &nbsp;<i>should</i>
+    </div>
+    <textarea id="ta" placeholder="I must renew my passport this month.&#10;The neighbours must be away — their post is piling up.&#10;That can't be my train; it's going the wrong way.&#10;It may rain tonight, so take a coat.&#10;You should call her before it gets late."></textarea>
+    <p class="lead" style="margin-top:16px">Now check the <b style="color:var(--violet);font-style:normal">room</b>, not the translation.</p>
+    <ul class="check" id="ck">
+      <li>For every <i>must</i>: can I say <b>why no other way is left</b>?</li>
+      <li>For each sentence: was I measuring <b>an action</b> or <b>a conclusion</b>?</li>
+      <li>Did I use <i>〜ねばならない</i> as my test anywhere? (if yes, redo that line)</li>
+      <li>My conclusion-<i>must</i> — is its opposite <i>can't</i> (not <i>mustn't</i>)?</li>
+      <li>Did I mix up <i>mustn't</i> (forbidden) with <i>don't have to</i> (free)?</li>
+    </ul>
+    <div class="btnrow">
+      <button class="btn ghost" onclick="copyOut()">COPY</button>
+      <button class="btn ghost" onclick="S.score=0;S.total=0;S.streak=0;go(1)">RUN AGAIN</button>
+      <button class="btn" onclick="go(0)">↑ TOP</button>
+    </div>
+    ${ledgerHTML()}
+  </div>`;
+  app.querySelectorAll("#ck li").forEach(li=>li.onclick=()=>li.classList.toggle("on"));
+}
+function copyOut(){
+  const t=document.getElementById("ta").value.trim();
+  const c=[...document.querySelectorAll("#ck li")].map(li=>(li.classList.contains("on")?"[x] ":"[ ] ")+li.textContent.trim()).join("\n");
+  navigator.clipboard.writeText(`can / may / should / must — five amounts of room\n\n${t}\n\nself-check\n${c}\n\nscore ${S.score}/${S.total}`)
+    .then(()=>alert("copied")).catch(()=>{});
+}
+
+/* ---------- interstitial ---------- */
+function done(title,msg,nx){
+  app.innerHTML=`<div class="panel" style="text-align:center">
+    <h2 style="justify-content:center"><small>CLEARED</small>${title}</h2>
+    <div class="score-big">${S.score}<span style="font-size:.4em;color:var(--mute)"> / ${S.total}</span></div>
+    <div class="rule"></div>
+    <p style="font-size:1rem;color:var(--ink);margin:10px 0 4px">${msg}</p>
+    <div class="btnrow" style="justify-content:center"><button class="btn" onclick="go(${nx})">CONTINUE →</button></div>
+  </div>`;
+}
+
+render();
+</script>
+</body>
+</html>
+</content>
