@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2312324a'/><circle cx='28' cy='50' r='11' fill='%23f4b942'/><circle cx='72' cy='50' r='11' fill='%235fb4e0'/><path d='M39 50 L61 50' stroke='%237cc47a' stroke-width='5'/></svg>" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>THE FIELD — 場：使って、返ってきたものを記録する</title>
+<meta name="description" content="英語スキーマの実運用の場。判定はしない。今日の生活で実際に使い、現実の相手が返したものを記録して「を」から「で」への移行を追う。">
+<style>
+:root{
+  --ink:#f2ead9; --dim:#bcb39c; --mute:#847c68;
+  --gold:#f4b942; --goldD:#c9931f;
+  --sky:#5fb4e0; --skyD:#2f7fae;
+  --rose:#e8737d;
+  --leaf:#7cc47a;
+  --violet:#a894dd;
+  --card:rgba(255,248,225,.055);
+  --cardHi:rgba(255,248,225,.10);
+  --line:rgba(242,234,217,.16);
+  --sh:0 8px 28px rgba(0,0,0,.38);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:"Georgia","Hiragino Mincho ProN",-apple-system,serif;
+  background:
+    radial-gradient(1100px 700px at 15% -10%, #1b3a58 0%, transparent 60%),
+    radial-gradient(900px 650px at 105% 105%, #2a3a25 0%, transparent 55%),
+    linear-gradient(180deg,#0d1b2a 0%,#152a3f 60%,#1b3350 100%);
+  color:var(--ink); line-height:1.7; min-height:100vh; padding:22px 13px 60px;
+}
+.wrap{max-width:760px;margin:0 auto}
+header{text-align:center;padding:8px 0 8px}
+h1{font-size:1.8rem;letter-spacing:.14em;color:var(--leaf);font-weight:400}
+.sub{font-size:.74rem;color:var(--dim);letter-spacing:.18em;margin-top:7px;font-family:system-ui,sans-serif}
+.subjp{font-family:-apple-system,"Hiragino Sans","Yu Gothic",sans-serif;font-size:.8rem;color:var(--mute);
+  letter-spacing:.05em;margin-top:5px}
+.rule{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:18px 0}
+
+.jp{font-family:-apple-system,"Hiragino Sans","Yu Gothic",sans-serif;font-size:.84rem;color:var(--dim);line-height:1.95}
+.jp b{color:var(--ink)}
+details.note{background:rgba(0,0,0,.22);border:1px solid var(--line);border-radius:11px;padding:11px 15px;margin:14px 0}
+details.note summary{cursor:pointer;font-size:.79rem;color:var(--mute);font-family:system-ui,sans-serif;letter-spacing:.04em;list-style:none}
+details.note summary::-webkit-details-marker{display:none}
+details.note summary::before{content:"▸ ";color:var(--leaf)}
+details.note[open] summary::before{content:"▾ "}
+details.note .jp{margin-top:12px}
+details.note h4{font-size:.86rem;color:var(--leaf);font-weight:400;letter-spacing:.05em;margin:14px 0 4px;
+  font-family:-apple-system,"Hiragino Sans",sans-serif}
+
+nav.tabs{display:flex;gap:6px;margin:16px 0 18px;font-family:system-ui,sans-serif}
+nav.tabs button{flex:1;background:rgba(255,255,255,.05);border:1px solid transparent;color:var(--mute);
+  font-size:.66rem;letter-spacing:.1em;padding:10px 4px;border-radius:8px;cursor:pointer;transition:.2s;font-family:inherit}
+nav.tabs button.on{background:rgba(124,196,122,.16);color:var(--leaf);border-color:rgba(124,196,122,.42)}
+nav.tabs button:hover{color:var(--ink)}
+
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 20px;
+  box-shadow:var(--sh);backdrop-filter:blur(6px);margin-bottom:16px}
+h2.sec{font-size:.6rem;letter-spacing:.24em;color:var(--mute);font-family:system-ui,sans-serif;
+  font-weight:600;margin-bottom:12px}
+.lead{color:var(--dim);font-size:.92rem;margin:10px 0 16px;font-style:italic}
+
+/* --- the card --- */
+.deal{background:linear-gradient(180deg,rgba(124,196,122,.13),rgba(124,196,122,.04));
+  border:1px solid rgba(124,196,122,.36);border-radius:14px;padding:18px 20px}
+.deal .no{font-family:system-ui,sans-serif;font-size:.56rem;letter-spacing:.2em;color:var(--leaf)}
+.deal .ti{font-size:1.2rem;color:var(--gold);margin:4px 0 2px;letter-spacing:.02em}
+.deal .qq{font-size:.95rem;color:var(--ink);font-style:italic;margin-bottom:12px}
+.deal .mission{font-size:1.02rem;color:var(--ink);background:rgba(0,0,0,.22);border-radius:10px;
+  padding:13px 15px;border-left:3px solid var(--leaf);line-height:1.8}
+.deal .mission b{color:var(--leaf)}
+.deal .where{font-family:system-ui,sans-serif;font-size:.7rem;color:var(--mute);margin-top:9px;letter-spacing:.03em}
+.deal .stale{font-family:system-ui,sans-serif;font-size:.63rem;color:var(--mute);letter-spacing:.1em;margin-top:10px}
+
+textarea{width:100%;background:rgba(0,0,0,.3);color:var(--ink);border:1px solid var(--line);border-radius:10px;
+  padding:12px;font-family:inherit;font-size:1rem;min-height:84px;resize:vertical;line-height:1.85;margin-top:8px}
+textarea:focus{outline:none;border-color:var(--leaf)}
+label.q{display:block;font-family:system-ui,sans-serif;font-size:.66rem;letter-spacing:.12em;color:var(--mute);
+  margin:18px 0 4px}
+label.q em{font-style:normal;color:var(--dim);letter-spacing:0;font-size:.78rem;display:block;margin-top:3px;
+  font-family:-apple-system,"Hiragino Sans",sans-serif}
+
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.row button{flex:1;min-width:110px;background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--ink);
+  border-radius:10px;padding:11px 9px;font-size:.8rem;font-family:system-ui,sans-serif;cursor:pointer;transition:.16s;
+  line-height:1.5}
+.row button span{display:block;font-size:.62rem;color:var(--mute);margin-top:3px}
+.row button:hover{background:var(--cardHi);border-color:var(--leaf)}
+.row button.on{background:rgba(124,196,122,.2);border-color:var(--leaf);color:#e2f7e1}
+.row button.on span{color:var(--leaf)}
+
+.btnrow{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+.btn{background:linear-gradient(180deg,var(--leaf),#4e8f4c);color:#08210a;border:none;border-radius:10px;
+  padding:12px 26px;font-family:system-ui,sans-serif;font-size:.86rem;font-weight:700;cursor:pointer;
+  letter-spacing:.06em;transition:.15s;box-shadow:0 4px 12px rgba(124,196,122,.28);text-decoration:none;display:inline-block}
+.btn:hover{transform:translateY(-1px)}
+.btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+.btn.gold{background:linear-gradient(180deg,var(--gold),var(--goldD));color:#191204;box-shadow:0 4px 12px rgba(244,185,66,.28)}
+.btn.ghost{background:none;color:var(--mute);border:1px solid var(--line);box-shadow:none;font-weight:400;
+  font-size:.72rem;padding:9px 16px}
+.btn.ghost:hover{color:var(--gold);border-color:var(--gold)}
+
+/* --- meter --- */
+.meter{margin:6px 0 0}
+.mrow{margin:0 0 15px}
+.mhead{display:flex;justify-content:space-between;align-items:baseline;font-size:.86rem;margin-bottom:5px}
+.mhead .nm{color:var(--ink)}
+.mhead .nm i{color:var(--mute);font-style:normal;font-size:.7rem;letter-spacing:.1em;font-family:system-ui,sans-serif;margin-right:7px}
+.mhead .ct{font-family:system-ui,sans-serif;font-size:.63rem;color:var(--mute);letter-spacing:.08em}
+.track{position:relative;height:24px;border-radius:12px;background:rgba(0,0,0,.3);border:1px solid var(--line);overflow:hidden}
+.track .fill{position:absolute;left:0;top:0;bottom:0;border-radius:12px;transition:width .7s cubic-bezier(.3,.9,.3,1);
+  background:linear-gradient(90deg,rgba(244,185,66,.35),rgba(124,196,122,.6))}
+.track .pin{position:absolute;top:50%;transform:translate(-50%,-50%);width:12px;height:12px;border-radius:50%;
+  background:var(--ink);box-shadow:0 0 10px rgba(0,0,0,.8);transition:left .7s cubic-bezier(.3,.9,.3,1)}
+.track .ends{position:absolute;left:0;right:0;top:0;bottom:0;display:flex;justify-content:space-between;
+  align-items:center;padding:0 9px;font-family:system-ui,sans-serif;font-size:.53rem;letter-spacing:.14em;color:var(--mute)}
+.mrow.arrived .track{border-color:rgba(124,196,122,.55);box-shadow:0 0 18px rgba(124,196,122,.2)}
+.mrow.unseen{opacity:.35}
+.mnote{font-size:.76rem;color:var(--mute);font-family:system-ui,sans-serif;margin-top:5px;letter-spacing:.02em}
+.mrow.arrived .mnote{color:var(--leaf)}
+
+.arrived-box{background:rgba(124,196,122,.1);border:1px solid rgba(124,196,122,.38);border-radius:12px;
+  padding:14px 16px;margin-top:16px;font-size:.93rem;line-height:1.85}
+.arrived-box .lbl{font-family:system-ui,sans-serif;font-size:.57rem;letter-spacing:.2em;color:var(--leaf);
+  display:block;margin-bottom:7px}
+.arrived-box b{color:var(--leaf)}
+
+/* --- log --- */
+.entry{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin-bottom:9px}
+.entry .top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
+  font-family:system-ui,sans-serif;font-size:.63rem;letter-spacing:.07em;color:var(--mute)}
+.entry .top b{color:var(--gold);font-weight:400;letter-spacing:.02em}
+.entry .txt{font-size:1rem;color:var(--ink);margin:7px 0 6px;font-style:italic}
+.entry .tags{font-family:system-ui,sans-serif;font-size:.62rem;letter-spacing:.06em}
+.entry .tags .f0{color:var(--gold)} .entry .tags .f1{color:var(--sky)} .entry .tags .f2{color:var(--leaf)}
+.entry .tags .l{color:var(--dim);margin-left:8px}
+.empty{text-align:center;color:var(--mute);font-size:.88rem;padding:24px 0;font-style:italic}
+
+.stat{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-bottom:16px}
+.stat div{text-align:center;min-width:78px}
+.stat .n{font-size:1.9rem;color:var(--gold);line-height:1.2}
+.stat .l{font-family:system-ui,sans-serif;font-size:.55rem;letter-spacing:.14em;color:var(--mute)}
+
+.tool{background:rgba(95,180,224,.1);border:1px solid rgba(95,180,224,.3);border-radius:11px;padding:13px 15px;margin:12px 0;font-size:.9rem}
+.tool .lbl{font-family:system-ui,sans-serif;font-size:.57rem;letter-spacing:.17em;color:var(--sky);display:block;margin-bottom:6px}
+.tool.rose{background:rgba(232,115,125,.09);border-color:rgba(232,115,125,.32)}
+.tool.rose .lbl{color:var(--rose)}
+.tool.leaf{background:rgba(124,196,122,.1);border-color:rgba(124,196,122,.34)}
+.tool.leaf .lbl{color:var(--leaf)}
+
+footer{text-align:center;font-size:.66rem;color:var(--mute);margin-top:28px;letter-spacing:.08em;font-family:system-ui,sans-serif}
+footer a{color:var(--violet);text-decoration:none;border-bottom:1px solid rgba(168,148,221,.4)}
+@media(max-width:560px){
+  h1{font-size:1.35rem}
+  .row button{min-width:calc(50% - 4px)}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>THE FIELD</h1>
+  <div class="sub">USE IT · SEE WHAT COMES BACK · RECORD IT</div>
+  <div class="subjp">場 ── 教材の外。ここでは正誤を判定しない</div>
+</header>
+
+<details class="note">
+  <summary>この場は何のためにあるのか（日本語）</summary>
+  <div class="jp">
+    <h4>単元をいくら足しても、届かない場所がある</h4>
+    8つの単元が作るのは「<b>原理を意識的に適用できる</b>」状態 ── まだ<b>「を」の側</b>です。
+    到達点は「<b>説明できなくなること</b>」（無意識運用＝「で」）。<b>そこは教材では越えられません。</b>
+
+    <h4>母語がなぜ間違えないかを、そのまま条件にする</h4>
+    母語は誰にも習わないのに、ほぼ間違いがない。理由は一つでした ──
+    <b>現実の中で、繰り返し運用して、通じている</b>から。<br>
+    だから必要なのは <b>反復 × 実運用 × 通じたか否かのフィードバック</b>。この3つを揃えるのが、この場の役割です。
+
+    <h4>だから、ここでは採点しない</h4>
+    <b>あなたの英語が正しいかどうかを、このアプリは一度も判定しません。</b>
+    判定するのは現実の相手です。ここがするのは、<b>①今日どれを使うか配る ②あなたが実際に使った文を預かる
+    ③相手から返ってきたものを記録する</b>——それだけ。<br>
+    <b>教材は正誤を返す。場は「通じたか」を返す。役割が違います。</b>
+
+    <h4>測っているのは英語力ではない</h4>
+    記録するのは <b>「どう出てきたか」</b> です。
+    <b>問いを回して作った</b>／<b>少し詰まって出た</b>／<b>ただ出てきた</b>。<br>
+    この比率が動くことが、「を」から「で」へ移っている唯一の証拠になります。
+    そして「で」に入った単元は、<b>やがて説明できなくなります</b>。それは失われたのではなく、着いたということです。
+  </div>
+</details>
+
+<nav class="tabs" id="tabs"></nav>
+<div id="app"></div>
+
+<footer>
+  <a href="../">← ENGLISH SCHEMA（8単元）へ戻る</a>
+</footer>
+</div>
+
+<script>
+/* == SERIES LAYER v1 == */
+/* SERIES:BEGIN */
+const SERIES=[
+ {id:"a-vs-the",n:"01",t:"a / the",
+  put:'a = "one" &middot; the = "that"',
+  was:"whether your listener can point at it",
+  q:"Can she point at it?",
+  dev:"her shelf",
+  kills:"a page of article exceptions"},
+ {id:"in-on-at",n:"02",t:"in / on / at",
+  put:'"inside" &middot; "on top of" &middot; "at"',
+  was:"the shape you hand over",
+  q:"What shape did you give it?",
+  dev:"a field that changes shape",
+  kills:"the preposition tables"},
+ {id:"will-going-to",n:"03",t:"will / be going to",
+  put:'both = "intend to"',
+  was:"where the sentence came from",
+  q:"Was it already there before you spoke?",
+  dev:"a track through NOW",
+  kills:'"will = future tense"'},
+ {id:"have-done",n:"04",t:"did / have done",
+  put:'"have once done it"',
+  was:"which room you are standing in",
+  q:"Does it reach now?",
+  dev:"two rooms and a nail",
+  kills:"three uses and a forbidden-adverb list"},
+ {id:"ing-to",n:"05",t:"-ing / to ~",
+  put:'both = "the act of doing"',
+  was:"how far away the thing is",
+  q:"In your hand, or at the end of an arrow?",
+  dev:"a hand and an arrow",
+  kills:"two lists of verbs"},
+ {id:"modals",n:"06",t:"can / may / should / must",
+  put:'"be able to" &middot; "maybe" &middot; "have to"',
+  was:"how many ways are still open",
+  q:"How much room is left?",
+  dev:"the options that survive",
+  kills:"four modals &times; four uses = sixteen"},
+ {id:"that",n:"07",t:"that",
+  put:'"over there" &middot; "the fact that" &middot; (not translated)',
+  was:"what is being settled into one",
+  q:"What is being settled into one?",
+  dev:"a clamp that makes one thing",
+  kills:"four names for one word"},
+ {id:"distance",n:"08",t:"would / could / if I were",
+  put:'"-ed" = it happened before',
+  was:"how far back you are standing",
+  q:"What are you stepping back from?",
+  dev:"depth &mdash; one step back",
+  kills:"the conditional and subjunctive tables"}
+];
+/* SERIES:END */
+
+/* ===== missions: 単元を足したら、ここにも1行足す ===== */
+const MISSION={
+ "a-vs-the":{
+   m:'今日あったことを <b>2文つづけて</b> 書く（または言う）。<br>1文目で <b>新しいものを手渡し</b>、2文目で <b>それを指し返す</b>。',
+   c:"Can she point at it?"},
+ "in-on-at":{
+   m:'いま自分のまわりにあるものを <b>3つ</b>、置き場所つきで言う。<br><b>3つとも違う形</b>（点・面・箱）を与えること。',
+   c:"What shape did you give it?"},
+ "will-going-to":{
+   m:'<b>今日より前に決めたこと</b>を1つ、<b>書きながら決めること</b>を1つ、続けて言う。',
+   c:"Was it already there before you spoke?"},
+ "have-done":{
+   m:'今日すでに起きたことで <b>いまも自分と一緒にあるもの</b> を、誰かに1文で伝える。',
+   c:"Does it reach now?"},
+ "ing-to":{
+   m:'<b>いま実際にやっていること</b>を1文、<b>まだ狙っているだけのこと</b>を1文。同じ動詞が使えるとなお良い。',
+   c:"In your hand, or at the end of an arrow?"},
+ "modals":{
+   m:'<b>確かめようがないこと</b>について、いまどれくらい確からしいかを1文で言う。',
+   c:"How much room is left?"},
+ "that":{
+   m:'<b>自分が知っていること</b>を1文で言う。節ぜんぶを留めて、1つの「こと」にすること。',
+   c:"What is being settled into one?"},
+ "distance":{
+   m:'今日、<b>誰かに何かを頼む</b>。頼むときに <b>一歩下がる</b>こと。',
+   c:"What are you stepping back from?"}
+};
+const FALLBACK={m:'この単元の原理を、今日の生活の中で1文だけ使う。',c:"—"};
+
+const WHERE = "使う場所はどこでもよい ── メッセージ／メール／日記の1行／独り言／会話。<b>実際に外に出すこと</b>が条件。";
+
+/* ===== storage ===== */
+const KEY="ens_field";
+function load(){try{return JSON.parse(localStorage.getItem(KEY)||'{"log":[]}')}catch(e){return{log:[]}}}
+function save(d){try{localStorage.setItem(KEY,JSON.stringify(d))}catch(e){}}
+function seen(){try{return JSON.parse(localStorage.getItem("ens_seen")||"{}")}catch(e){return{}}}
+
+const DAY=86400000;
+function daysAgo(ts){return Math.floor((Date.now()-ts)/DAY)}
+function entriesFor(id){return load().log.filter(e=>e.unit===id)}
+function lastFor(id){const l=entriesFor(id);return l.length?l[l.length-1].ts:null}
+
+/* 直近5件の「どう出てきたか」平均 → 0..1 */
+function fluencyOf(id){
+  const l=entriesFor(id).slice(-5);
+  if(!l.length)return null;
+  return l.reduce((a,e)=>a+e.f,0)/l.length/2;
+}
+function arrived(id){
+  const l=entriesFor(id); const f=fluencyOf(id);
+  return l.length>=3 && f!==null && f>=0.8;
+}
+
+/* 配札：見た単元のうち、最も間の空いたもの。同点なら「を」寄りを優先 */
+function deal(){
+  const sn=seen();
+  let pool=SERIES.filter(u=>sn[u.id]);
+  if(!pool.length) pool=SERIES.slice();
+  const score=u=>{
+    const t=lastFor(u.id);
+    const stale = t===null ? 9999 : daysAgo(t);
+    const f = fluencyOf(u.id);
+    const need = f===null ? 1 : (1-f);      /* まだ「を」寄りなら優先 */
+    return stale + need*3;
+  };
+  pool.sort((a,b)=>score(b)-score(a));
+  return pool[0];
+}
+
+let TAB="today", CUR=null, PICK={f:null,l:null};
+const tabsEl=document.getElementById("tabs"), app=document.getElementById("app");
+const TABS=[["today","TODAY 今日の1枚"],["meter","METER を→で"],["log","LOG 記録"]];
+function drawTabs(){
+  tabsEl.innerHTML=TABS.map(([k,n])=>`<button data-k="${k}" class="${TAB===k?'on':''}">${n}</button>`).join("");
+  tabsEl.querySelectorAll("button").forEach(b=>b.onclick=()=>{TAB=b.dataset.k;render()});
+}
+
+/* ===== views ===== */
+function vToday(){
+  const sn=seen(), anySeen=SERIES.some(u=>sn[u.id]);
+  if(!CUR) CUR=deal();
+  const u=CUR, ms=MISSION[u.id]||FALLBACK;
+  const t=lastFor(u.id);
+  const stale = t===null ? "この単元はまだ一度も外で使っていない" : `前回この単元を使ったのは <b>${daysAgo(t)}日前</b>`;
+  app.innerHTML=`
+  ${!anySeen?`<div class="tool rose"><span class="lbl">先にひとつ通しておく</span>
+    まだ単元を1つも終えていないようです。場は<b>原理を持ってから</b>効きます。
+    <a href="../" style="color:var(--gold)">まず ENGLISH SCHEMA を1つ</a> 通してから戻ってきてください。</div>`:""}
+  <div class="panel deal">
+    <div class="no">TODAY'S CARD &middot; UNIT ${u.n}</div>
+    <div class="ti">${u.t}</div>
+    <div class="qq">${u.q}</div>
+    <div class="mission">${ms.m}</div>
+    <div class="where">${WHERE}</div>
+    <div class="stale">${stale}</div>
+    <div class="btnrow"><button class="btn ghost" onclick="CUR=null;shuffle()">別の1枚にする</button></div>
+  </div>
+
+  <div class="panel">
+    <h2 class="sec">使ったあとで、戻ってきて記録する</h2>
+    <label class="q">1 &middot; 実際に外に出した文<em>直したあとではなく、そのとき出した形のまま</em></label>
+    <textarea id="sent" placeholder="Could you let me know by Friday?"></textarea>
+
+    <label class="q">2 &middot; どう出てきたか<em>ここだけが、この場でいちばん大事な記録です</em></label>
+    <div class="row" id="fl">
+      <button data-v="0">問いを回して作った<span>まだ「を」</span></button>
+      <button data-v="1">少し詰まって出た<span>移行中</span></button>
+      <button data-v="2">ただ出てきた<span>「で」に入りつつある</span></button>
+    </div>
+
+    <label class="q">3 &middot; 相手から返ってきたもの<em>判定するのはアプリではなく、現実の相手です</em></label>
+    <div class="row" id="ld">
+      <button data-v="ok">通じた</button>
+      <button data-v="again">言い直した</button>
+      <button data-v="none">わからない／相手なし</button>
+    </div>
+
+    <div class="btnrow"><button class="btn" id="save" disabled onclick="commit()">記録する</button></div>
+  </div>`;
+  app.querySelectorAll("#fl button").forEach(b=>b.onclick=()=>{
+    PICK.f=parseInt(b.dataset.v,10);
+    app.querySelectorAll("#fl button").forEach(x=>x.classList.toggle("on",x===b)); chk();});
+  app.querySelectorAll("#ld button").forEach(b=>b.onclick=()=>{
+    PICK.l=b.dataset.v;
+    app.querySelectorAll("#ld button").forEach(x=>x.classList.toggle("on",x===b)); chk();});
+  document.getElementById("sent").oninput=chk;
+}
+function chk(){
+  const s=document.getElementById("sent");
+  document.getElementById("save").disabled = !(s && s.value.trim() && PICK.f!==null && PICK.l);
+}
+function shuffle(){PICK={f:null,l:null};render()}
+function commit(){
+  const d=load();
+  d.log.push({ts:Date.now(),unit:CUR.id,txt:document.getElementById("sent").value.trim(),f:PICK.f,l:PICK.l});
+  save(d);
+  CUR=null; PICK={f:null,l:null}; TAB="meter"; render();
+}
+
+function vMeter(){
+  const sn=seen(), d=load();
+  const rows=SERIES.map(u=>{
+    const l=entriesFor(u.id), f=fluencyOf(u.id), a=arrived(u.id);
+    const pos = f===null ? 0 : Math.round(f*100);
+    const t=lastFor(u.id);
+    const note = l.length===0 ? "まだ外で使っていない"
+      : (a ? "「で」に入りつつある ── そろそろ説明できなくなる"
+           : `直近${l.length<5?l.length:5}回の平均。${t!==null?daysAgo(t)+"日前が最後":""}`);
+    return `<div class="mrow ${a?'arrived':''} ${sn[u.id]?'':'unseen'}">
+      <div class="mhead"><span class="nm"><i>${u.n}</i>${u.t}</span>
+        <span class="ct">${l.length} 回</span></div>
+      <div class="track">
+        <div class="fill" style="width:${pos}%"></div>
+        <div class="ends"><span>を CONSCIOUS</span><span>で AUTOMATIC</span></div>
+        <div class="pin" style="left:${Math.max(3,Math.min(97,pos))}%"></div>
+      </div>
+      <div class="mnote">${note}</div>
+    </div>`;
+  }).join("");
+  const arr=SERIES.filter(u=>arrived(u.id));
+  app.innerHTML=`
+  <div class="panel">
+    <h2 class="sec">「を」から「で」へ ── 動いているかどうかだけを見る</h2>
+    <p class="lead">測っているのは英語力ではありません。<b style="font-style:normal;color:var(--ink)">どう出てきたか</b>だけです。</p>
+    <div class="meter">${rows}</div>
+    ${arr.length?`<div class="arrived-box"><span class="lbl">ARRIVED &middot; ${arr.length} 単元</span>
+      <b>${arr.map(u=>u.t).join("　·　")}</b><br>
+      この単元は、そろそろ<b>説明できなくなります</b>。問いを思い出せなくなっても、正しく出るようになります。<br>
+      <span style="color:var(--dim);font-size:.87rem">それは失われたのではありません。<b>着いた</b>ということです。母語がそうなっているのと同じ状態です。</span></div>`:""}
+  </div>`;
+}
+
+function vLog(){
+  const d=load(), l=d.log.slice().reverse();
+  const F=["問いを回して作った","少し詰まって出た","ただ出てきた"];
+  const L={ok:"通じた",again:"言い直した",none:"—"};
+  const days=new Set(l.map(e=>new Date(e.ts).toDateString())).size;
+  const auto=l.filter(e=>e.f===2).length;
+  app.innerHTML=`
+  <div class="panel">
+    <h2 class="sec">記録</h2>
+    <div class="stat">
+      <div><div class="n">${l.length}</div><div class="l">USES</div></div>
+      <div><div class="n">${days}</div><div class="l">DAYS</div></div>
+      <div><div class="n">${l.length?Math.round(auto/l.length*100):0}%</div><div class="l">JUST CAME OUT</div></div>
+    </div>
+    ${l.length?l.map(e=>{
+      const u=SERIES.find(x=>x.id===e.unit)||{n:"--",t:e.unit};
+      return `<div class="entry">
+        <div class="top"><b>${u.n} ${u.t}</b><span>${new Date(e.ts).toLocaleDateString("ja-JP")}</span></div>
+        <div class="txt">${e.txt.replace(/</g,"&lt;")}</div>
+        <div class="tags"><span class="f${e.f}">${F[e.f]}</span><span class="l">／ ${L[e.l]||"—"}</span></div>
+      </div>`;}).join("")
+    :`<div class="empty">まだ記録がありません。<br>TODAY の1枚を、今日のどこかで実際に使ってから戻ってきてください。</div>`}
+    ${l.length?`<div class="btnrow">
+      <button class="btn gold" onclick="exportMd()">Markdownでコピー</button>
+      <button class="btn ghost" onclick="wipe()">記録を消す</button>
+    </div>`:""}
+  </div>`;
+}
+function exportMd(){
+  const d=load(), F=["問いを回して作った","少し詰まって出た","ただ出てきた"];
+  const L={ok:"通じた",again:"言い直した",none:"—"};
+  let out="## 英語スキーマ 運用ログ（THE FIELD）\n\n";
+  d.log.slice().reverse().forEach(e=>{
+    const u=SERIES.find(x=>x.id===e.unit)||{n:"--",t:e.unit};
+    out+=`- **${new Date(e.ts).toLocaleDateString("ja-JP")}** ｜ ${u.n} ${u.t} ｜ ${F[e.f]} ／ ${L[e.l]||"—"}\n`;
+    out+=`  > ${e.txt}\n`;
+  });
+  const arr=SERIES.filter(u=>arrived(u.id));
+  if(arr.length) out+=`\n**「で」に入りつつある単元**：${arr.map(u=>u.n+" "+u.t).join("、")}\n`;
+  navigator.clipboard.writeText(out).then(()=>alert("コピーしました。デイリーノートに貼れます。")).catch(()=>{});
+}
+function wipe(){ if(confirm("この場の記録をすべて消しますか？（単元の進捗は消えません）")){save({log:[]});render();} }
+
+function render(){drawTabs();({today:vToday,meter:vMeter,log:vLog})[TAB]();}
+render();
+</script>
+</body>
+</html>
+</content>
