@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2312324a'/><text x='50' y='44' font-size='30' text-anchor='middle' fill='%23f4b942' font-family='Georgia'>a/th</text><text x='50' y='76' font-size='26' text-anchor='middle' fill='%235fb4e0' font-family='Georgia'>in on at</text></svg>" />
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>English Schema — six units, start anywhere</title>
-<meta name="description" content="日本語の訳語を経由せず、英語話者の頭で走っている一つの問いを直接つかむ連作。6つの単元は相互に連結していて、どこから始めてもよい。">
+<title>English Schema — seven units, start anywhere</title>
+<meta name="description" content="日本語の訳語を経由せず、英語話者の頭で走っている一つの問いを直接つかむ連作。単元は相互に連結していて、どこから始めてもよい。">
 <!--
   ================= HOW TO ADD A UNIT =================
   1. 新しい単元のフォルダを english-schema/{slug}/ に置く（単一HTML）
-  2. english-schema/_series.py の CANON に1行足す
+  2. このファイルの /* SERIES:BEGIN 〜 END */ に1行足す（唯一の正典）
   3. python3 english-schema/_series.py  を実行
      → このハブと全単元の SERIES 配列が同期される
   4. 進捗キーは localStorage["ens_seen"]（オリジン共有）。slug がそのままキーになる
@@ -141,7 +141,7 @@ footer a{color:var(--violet);text-decoration:none;border-bottom:1px solid rgba(1
 
 <header>
   <h1>ENGLISH SCHEMA</h1>
-  <div class="sub">SIX UNITS &middot; START ANYWHERE</div>
+  <div class="sub">SEVEN UNITS &middot; START ANYWHERE</div>
   <div class="subjp">英語スキーマ・シリーズ ── 訳語を経由せずに、英語の切り取り方をそのまま持つ</div>
 </header>
 
@@ -195,7 +195,7 @@ footer a{color:var(--violet);text-decoration:none;border-bottom:1px solid rgba(1
 </div>
 
 <div class="panel">
-  <h2 class="sec">THE SIX UNITS &middot; START ANYWHERE</h2>
+  <h2 class="sec">THE UNITS &middot; START ANYWHERE</h2>
   <div class="units" id="units"></div>
   <div class="pairnote"><b>Order is free.</b> Two pairs are worth taking in order, though:
     <b>02 before 05</b> (where <i>to</i> stops being an arrow) &middot;
@@ -255,7 +255,13 @@ const SERIES=[
   was:"how many ways are still open",
   q:"How much room is left?",
   dev:"the options that survive",
-  kills:"four modals &times; four uses = sixteen"}
+  kills:"four modals &times; four uses = sixteen"},
+ {id:"that",n:"07",t:"that",
+  put:'"over there" &middot; "the fact that" &middot; (not translated)',
+  was:"what is being settled into one",
+  q:"What is being settled into one?",
+  dev:"a clamp that makes one thing",
+  kills:"four names for one word"}
 ];
 /* SERIES:END */
 
@@ -276,21 +282,22 @@ function verdictHTML(n){
    3:["THREE","Three units — three unrelated corners of the grammar — and the same thing happened in every one.<br><b>Three is where a coincidence stops being one.</b>"],
    4:["FOUR","Four. Different words, different chapters, different centuries.<br><b>The same shape of failure, four times over.</b><br>It is beginning to look as though the failure was never in the words."],
    5:["FIVE","Five out of six.<br><b>What are the odds that five unrelated topics all happen to be badly explained in exactly the same way?</b>"],
-   6:["SIX OF SIX","<b>It was never the words. It was the method.</b>"]
+   6:["SIX","Six.<br><b>It was never the words. It was the method.</b>"],
+   7:["SEVEN OF SEVEN","<b>It was never the words. It was the method.</b>"]
   };
-  const k=Math.min(Math.max(n,0),6), tag=L[k][0], msg=L[k][1];
-  const why = k>=3 ? `<div class="why">
+  const k=Math.min(Math.max(n,0),SERIES.length), tag=L[k][0], msg=L[k][1];
+  const why = n>=3 ? `<div class="why">
     <b>Why a translation gets in the way.</b> It is not wrong. It is <i>one occasion</i> — frozen, and then sold to you
     as the meaning. You cannot catch it failing, because it works often enough. And on the day it does fail you are told:
     <i>that one is an exception — memorise it.</i> So the list grows, and the day you can build the sentence yourself
     never quite arrives.<br><br>
     <b>Why an English schema instead.</b> One question, asked from inside the language.
     Nothing is left over — because there was never a rule for anything to be an exception to.</div>` : "";
-  const beyond = k>=6 ? `<div class="beyond">
+  const beyond = n>=SERIES.length ? `<div class="beyond">
     <b>And this was never only about English.</b><br>
     Every field you will ever learn hands you the same thing: a translation of something you have not met yet —
     given once, useful often enough, and never checked again. It stays invisible <i>because</i> it mostly works.<br>
-    You have now watched six of them fall.
+    You have now watched all of them fall.
     <b>The transferable part is not the six questions. It is knowing what the falling looks like.</b></div>` : "";
   return `<div class="verdict"><span class="vn">${tag}</span>${msg}${why}${beyond}</div>`;
 }

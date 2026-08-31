@@ -274,7 +274,7 @@ footer{text-align:center;font-size:.65rem;color:var(--mute);margin-top:26px;lett
 <nav class="steps" id="nav"></nav>
 <div id="app"></div>
 
-<footer>an english-schema device &middot; <a href="../" style="color:var(--violet);text-decoration:none;border-bottom:1px solid rgba(168,148,221,.4)">one of six &mdash; start anywhere</a> &middot; no translation inside</footer>
+<footer>an english-schema device &middot; <a href="../" style="color:var(--violet);text-decoration:none;border-bottom:1px solid rgba(168,148,221,.4)">the series &mdash; start anywhere</a> &middot; no translation inside</footer>
 </div>
 
 <script>
@@ -317,7 +317,13 @@ const SERIES=[
   was:"how many ways are still open",
   q:"How much room is left?",
   dev:"the options that survive",
-  kills:"four modals &times; four uses = sixteen"}
+  kills:"four modals &times; four uses = sixteen"},
+ {id:"that",n:"07",t:"that",
+  put:'"over there" &middot; "the fact that" &middot; (not translated)',
+  was:"what is being settled into one",
+  q:"What is being settled into one?",
+  dev:"a clamp that makes one thing",
+  kills:"four names for one word"}
 ];
 /* SERIES:END */
 const UNIT="ing-to";
@@ -326,14 +332,14 @@ function markSeen(){try{const o=_seen();o[UNIT]=1;localStorage.setItem("ens_seen
 function seenCount(){const o=_seen();return SERIES.filter(u=>o[u.id]).length}
 
 function frameHTML(){
-  const o=_seen(), n=SERIES.filter(u=>o[u.id]&&u.id!==UNIT).length;
+  const o=_seen(), n=SERIES.filter(u=>o[u.id]&&u.id!==UNIT).length, N=SERIES.length;
   const dots=SERIES.map(u=>(o[u.id]||u.id===UNIT)?"●":"<s>●</s>").join("");
   const tail = n===0
     ? "this is your first one"
-    : (n===5 ? "one left — and then the point of all six"
-             : "you have already watched this happen "+n+" time"+(n>1?"s":""));
+    : (n===N-1 ? "one left — and then the point of all of them"
+               : "you have already watched this happen "+n+" time"+(n>1?"s":""));
   return `<div class="frame">
-    <div class="fh">ONE OF SIX &middot; START ANYWHERE</div>
+    <div class="fh">ONE OF ${N} &middot; START ANYWHERE</div>
     <p>Every English word arrives with a translation. That translation is what the word meant
     <b>on one occasion</b>. Take it for the meaning, and every other occasion turns into
     an exception you have to memorise.</p>
@@ -344,16 +350,19 @@ function frameHTML(){
 }
 
 function verdictHTML(n){
+  const N=SERIES.length;
   const L={
    1:["ONE","One unit. One list of exceptions replaced by one question.<br>That could simply be a lucky topic. <b>Try another one and see.</b>"],
    2:["TWO","Two units. Two lists gone.<br>Two could still be a coincidence. <b>Try a third.</b>"],
    3:["THREE","Three units — three unrelated corners of the grammar — and the same thing happened in every one.<br><b>Three is where a coincidence stops being one.</b>"],
    4:["FOUR","Four. Different words, different chapters, different centuries.<br><b>The same shape of failure, four times over.</b><br>It is beginning to look as though the failure was never in the words."],
-   5:["FIVE","Five out of six.<br><b>What are the odds that five unrelated topics all happen to be badly explained in exactly the same way?</b>"],
-   6:["SIX OF SIX","<b>It was never the words. It was the method.</b>"]
+   5:["FIVE","Five.<br><b>What are the odds that five unrelated topics all happen to be badly explained in exactly the same way?</b>"],
+   6:["SIX","Six.<br><b>It was never the words. It was the method.</b>"]
   };
-  const k=Math.min(Math.max(n,1),6), tag=L[k][0], msg=L[k][1];
-  const why = k>=3 ? `<div class="why">
+  const k=Math.min(Math.max(n,1),6);
+  const done=(n>=N);
+  const tag=done?(n+" OF "+N):L[k][0], msg=done?"<b>It was never the words. It was the method.</b>":L[k][1];
+  const why = n>=3 ? `<div class="why">
     <b>Why a translation gets in the way.</b> It is not wrong. It is <i>one occasion</i> — frozen, and then sold to you
     as the meaning. You cannot catch it failing, because it works often enough. And on the day it does fail you are told:
     <i>that one is an exception — memorise it.</i> So the list grows, and the day you can build the sentence yourself
@@ -361,12 +370,12 @@ function verdictHTML(n){
     <b>Why an English schema instead.</b> One question, asked from inside the language.
     Nothing is left over — because there was never a rule for anything to be an exception to.</div>` : "";
   /* beyond-english v1 */
-  const beyond = k>=6 ? `<div class="beyond">
+  const beyond = done ? `<div class="beyond">
     <b>And this was never only about English.</b><br>
     Every field you will ever learn hands you the same thing: a translation of something you have not met yet —
     given once, useful often enough, and never checked again. It stays invisible <i>because</i> it mostly works.<br>
-    You have now watched six of them fall.
-    <b>The transferable part is not the six questions. It is knowing what the falling looks like.</b></div>` : "";
+    You have now watched ${n} of them fall.
+    <b>The transferable part is not the questions. It is knowing what the falling looks like.</b></div>` : "";
   return `<div class="verdict"><span class="vn">${tag}</span>${msg}${why}${beyond}</div>`;
 }
 
@@ -382,14 +391,15 @@ function ledgerHTML(){
   }).join("");
   return `<div class="ledger">
     <h3>The ledger</h3>
-    <div class="lsub">SIX UNITS &middot; ONE QUESTION EACH &middot; NOTHING LEFT TO MEMORISE</div>
+    <div class="lsub">ONE QUESTION EACH &middot; NOTHING LEFT TO MEMORISE</div>
     <table>
       <tr><th>UNIT</th><th>THE TRANSLATION SAID</th><th>IT WAS REALLY ABOUT</th><th>THE ONE QUESTION</th></tr>
       ${rows}
     </table>
-    <div class="pairnote"><b>Order is free.</b> Two pairs are worth taking in order, though:
+    <div class="pairnote"><b>Order is free.</b> Three pairs are worth taking in order, though:
       <b>02 before 05</b> (where <i>to</i> stops being an arrow) &middot;
-      <b>03 before 06</b> (what a modal actually is).</div>
+      <b>03 before 06</b> (what a modal actually is) &middot;
+      <b>01 before 07</b> (<i>the</i> and <i>that</i> are the same word, grown apart).</div>
     ${verdictHTML(seenCount())}
   </div>`;
 }
