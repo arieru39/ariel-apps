@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2312324a'/><text x='50' y='44' font-size='30' text-anchor='middle' fill='%23f4b942' font-family='Georgia'>a/th</text><text x='50' y='76' font-size='26' text-anchor='middle' fill='%235fb4e0' font-family='Georgia'>in on at</text></svg>" />
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>English Schema — seven units, start anywhere</title>
+<title>English Schema — eight units, start anywhere</title>
 <meta name="description" content="日本語の訳語を経由せず、英語話者の頭で走っている一つの問いを直接つかむ連作。単元は相互に連結していて、どこから始めてもよい。">
 <!--
   ================= HOW TO ADD A UNIT =================
@@ -141,7 +141,7 @@ footer a{color:var(--violet);text-decoration:none;border-bottom:1px solid rgba(1
 
 <header>
   <h1>ENGLISH SCHEMA</h1>
-  <div class="sub">SEVEN UNITS &middot; START ANYWHERE</div>
+  <div class="sub">EIGHT UNITS &middot; START ANYWHERE</div>
   <div class="subjp">英語スキーマ・シリーズ ── 訳語を経由せずに、英語の切り取り方をそのまま持つ</div>
 </header>
 
@@ -261,7 +261,13 @@ const SERIES=[
   was:"what is being settled into one",
   q:"What is being settled into one?",
   dev:"a clamp that makes one thing",
-  kills:"four names for one word"}
+  kills:"four names for one word"},
+ {id:"distance",n:"08",t:"would / could / if I were",
+  put:'"-ed" = it happened before',
+  was:"how far back you are standing",
+  q:"What are you stepping back from?",
+  dev:"depth &mdash; one step back",
+  kills:"the conditional and subjunctive tables"}
 ];
 /* SERIES:END */
 
@@ -283,9 +289,12 @@ function verdictHTML(n){
    4:["FOUR","Four. Different words, different chapters, different centuries.<br><b>The same shape of failure, four times over.</b><br>It is beginning to look as though the failure was never in the words."],
    5:["FIVE","Five out of six.<br><b>What are the odds that five unrelated topics all happen to be badly explained in exactly the same way?</b>"],
    6:["SIX","Six.<br><b>It was never the words. It was the method.</b>"],
-   7:["SEVEN OF SEVEN","<b>It was never the words. It was the method.</b>"]
+   7:["SEVEN","Seven.<br><b>It was never the words. It was the method.</b>"]
   };
-  const k=Math.min(Math.max(n,0),SERIES.length), tag=L[k][0], msg=L[k][1];
+  const N=SERIES.length, done=(n>=N);
+  const k=Math.min(Math.max(n,0),7);
+  const tag=done?(n+" OF "+N):L[k][0];
+  const msg=done?"<b>It was never the words. It was the method.</b>":L[k][1];
   const why = n>=3 ? `<div class="why">
     <b>Why a translation gets in the way.</b> It is not wrong. It is <i>one occasion</i> — frozen, and then sold to you
     as the meaning. You cannot catch it failing, because it works often enough. And on the day it does fail you are told:
@@ -293,7 +302,7 @@ function verdictHTML(n){
     never quite arrives.<br><br>
     <b>Why an English schema instead.</b> One question, asked from inside the language.
     Nothing is left over — because there was never a rule for anything to be an exception to.</div>` : "";
-  const beyond = n>=SERIES.length ? `<div class="beyond">
+  const beyond = done ? `<div class="beyond">
     <b>And this was never only about English.</b><br>
     Every field you will ever learn hands you the same thing: a translation of something you have not met yet —
     given once, useful often enough, and never checked again. It stays invisible <i>because</i> it mostly works.<br>

@@ -304,7 +304,13 @@ const SERIES=[
   was:"what is being settled into one",
   q:"What is being settled into one?",
   dev:"a clamp that makes one thing",
-  kills:"four names for one word"}
+  kills:"four names for one word"},
+ {id:"distance",n:"08",t:"would / could / if I were",
+  put:'"-ed" = it happened before',
+  was:"how far back you are standing",
+  q:"What are you stepping back from?",
+  dev:"depth &mdash; one step back",
+  kills:"the conditional and subjunctive tables"}
 ];
 /* SERIES:END */
 const UNIT="in-on-at";
@@ -338,9 +344,10 @@ function verdictHTML(n){
    3:["THREE","Three units — three unrelated corners of the grammar — and the same thing happened in every one.<br><b>Three is where a coincidence stops being one.</b>"],
    4:["FOUR","Four. Different words, different chapters, different centuries.<br><b>The same shape of failure, four times over.</b><br>It is beginning to look as though the failure was never in the words."],
    5:["FIVE","Five.<br><b>What are the odds that five unrelated topics all happen to be badly explained in exactly the same way?</b>"],
-   6:["SIX","Six.<br><b>It was never the words. It was the method.</b>"]
+   6:["SIX","Six.<br><b>It was never the words. It was the method.</b>"],
+   7:["SEVEN","Seven.<br><b>It was never the words. It was the method.</b>"]
   };
-  const k=Math.min(Math.max(n,1),6);
+  const k=Math.min(Math.max(n,1),7);
   const done=(n>=N);
   const tag=done?(n+" OF "+N):L[k][0], msg=done?"<b>It was never the words. It was the method.</b>":L[k][1];
   const why = n>=3 ? `<div class="why">
@@ -377,10 +384,11 @@ function ledgerHTML(){
       <tr><th>UNIT</th><th>THE TRANSLATION SAID</th><th>IT WAS REALLY ABOUT</th><th>THE ONE QUESTION</th></tr>
       ${rows}
     </table>
-    <div class="pairnote"><b>Order is free.</b> Three pairs are worth taking in order, though:
+    <div class="pairnote"><b>Order is free.</b> Some pairs are worth taking in order, though:
       <b>02 before 05</b> (where <i>to</i> stops being an arrow) &middot;
       <b>03 before 06</b> (what a modal actually is) &middot;
-      <b>01 before 07</b> (<i>the</i> and <i>that</i> are the same word, grown apart).</div>
+      <b>01 before 07</b> (<i>the</i> and <i>that</i> are the same word, grown apart) &middot;
+      <b>04 and 06 before 08</b> (the other room, and the modals that step back).</div>
     ${verdictHTML(seenCount())}
   </div>`;
 }

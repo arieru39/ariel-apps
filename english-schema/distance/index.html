@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2312324a'/><rect x='18' y='58' width='64' height='22' rx='5' fill='%23f4b942'/><rect x='30' y='38' width='40' height='15' rx='4' fill='%235fb4e0' opacity='.75'/><rect x='40' y='24' width='20' height='9' rx='3' fill='%23a894dd' opacity='.5'/></svg>" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>one step back — what are you stepping back from?</title>
+<meta name="description" content="An English-schema device. The past form is not about time. It is a step back — from time, from reality, or from the person you are speaking to.">
+<style>
+:root{
+  --ink:#f2ead9; --dim:#bcb39c; --mute:#847c68;
+  --gold:#f4b942; --goldD:#c9931f;
+  --sky:#5fb4e0; --skyD:#2f7fae;
+  --rose:#e8737d;
+  --leaf:#7cc47a;
+  --violet:#a894dd;
+  --card:rgba(255,248,225,.055);
+  --cardHi:rgba(255,248,225,.10);
+  --line:rgba(242,234,217,.16);
+  --sh:0 8px 28px rgba(0,0,0,.38);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:"Georgia","Hiragino Mincho ProN",-apple-system,serif;
+  background:
+    radial-gradient(1100px 700px at 15% -10%, #1b3a58 0%, transparent 60%),
+    radial-gradient(900px 650px at 105% 105%, #3a2350 0%, transparent 55%),
+    linear-gradient(180deg,#0d1b2a 0%,#152a3f 60%,#1b3350 100%);
+  color:var(--ink); line-height:1.7; min-height:100vh; padding:22px 13px 60px;
+}
+.wrap{max-width:720px;margin:0 auto}
+header{text-align:center;padding:6px 0 14px}
+h1{font-size:1.75rem;letter-spacing:.07em;color:var(--gold);font-weight:400}
+.sub{font-size:.76rem;color:var(--dim);letter-spacing:.08em;margin-top:6px;font-family:system-ui,sans-serif}
+.rule{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:16px 0}
+
+.jp{font-family:-apple-system,"Hiragino Sans","Yu Gothic",sans-serif;font-size:.82rem;color:var(--mute);line-height:1.85}
+details.note{background:rgba(0,0,0,.2);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:10px 0 18px}
+details.note summary{cursor:pointer;font-size:.78rem;color:var(--mute);font-family:system-ui,sans-serif;letter-spacing:.04em;list-style:none}
+details.note summary::-webkit-details-marker{display:none}
+details.note summary::before{content:"▸ ";color:var(--gold)}
+details.note[open] summary::before{content:"▾ "}
+details.note .jp{margin-top:10px}
+details.note .jp b{color:var(--dim)}
+
+nav.steps{display:flex;gap:5px;margin:0 0 18px;font-family:system-ui,sans-serif}
+nav.steps button{flex:1;background:rgba(255,255,255,.05);border:1px solid transparent;color:var(--mute);
+  font-size:.55rem;letter-spacing:.02em;padding:7px 2px;border-radius:7px;cursor:pointer;transition:.2s;font-family:inherit}
+nav.steps button.on{background:rgba(244,185,66,.16);color:var(--gold);border-color:rgba(244,185,66,.4)}
+nav.steps button.done{color:var(--leaf)}
+nav.steps button:hover{color:var(--ink)}
+
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 20px;box-shadow:var(--sh);backdrop-filter:blur(6px)}
+.panel h2{font-size:1.06rem;color:var(--gold);letter-spacing:.07em;font-weight:400;margin-bottom:4px}
+.panel h2 small{display:block;font-size:.6rem;color:var(--mute);letter-spacing:.14em;font-family:system-ui,sans-serif;margin-bottom:5px}
+.lead{color:var(--dim);font-size:.92rem;margin:10px 0 16px;font-style:italic}
+
+.counter{display:flex;justify-content:space-between;align-items:baseline;font-family:system-ui,sans-serif;font-size:.72rem;color:var(--mute);letter-spacing:.08em;margin-bottom:12px}
+.counter .sc{color:var(--gold);font-weight:700;font-size:.85rem}
+.counter .streak{color:var(--rose)}
+
+/* ============ THE STEP BACK — the central device ============ */
+.stage{position:relative;height:178px;border-radius:13px;background:rgba(0,0,0,.3);
+  border:1px solid var(--line);overflow:hidden;margin:14px 0}
+.floor i{position:absolute;left:50%;transform:translateX(-50%);border-top:1px solid rgba(242,234,217,.06);display:block}
+.floor i:nth-child(1){width:94%;bottom:9%}
+.floor i:nth-child(2){width:66%;bottom:36%}
+.floor i:nth-child(3){width:42%;bottom:58%}
+.floor i:nth-child(4){width:26%;bottom:72%}
+.stage .card{position:absolute;left:50%;bottom:11%;transform:translateX(-50%) scale(1);
+  padding:11px 17px;border-radius:10px;border:2px solid var(--mute);background:rgba(255,255,255,.06);
+  font-size:1.02rem;color:var(--ink);line-height:1.5;text-align:center;max-width:88%;
+  transition:.75s cubic-bezier(.3,.9,.3,1)}
+.stage .card b{font-style:italic}
+.stage .axis{position:absolute;left:50%;top:10px;transform:translateX(-50%);font-size:.55rem;letter-spacing:.2em;
+  font-family:system-ui,sans-serif;color:var(--mute);border:1px solid var(--line);border-radius:20px;
+  padding:2px 13px;opacity:0;transition:.5s;white-space:nowrap}
+.stage .cap{position:absolute;left:12px;right:12px;bottom:6px;text-align:center;font-size:.56rem;letter-spacing:.13em;
+  font-family:system-ui,sans-serif;color:var(--mute);transition:color .4s}
+.stage .tag{position:absolute;right:12px;top:10px;font-size:.58rem;letter-spacing:.16em;
+  font-family:system-ui,sans-serif;color:var(--mute);transition:color .4s}
+
+.stage.s0 .card{border-color:var(--gold);background:rgba(244,185,66,.17);box-shadow:0 0 30px rgba(244,185,66,.35)}
+.stage.s0 .card b{color:var(--gold)}
+.stage.s0 .cap,.stage.s0 .tag{color:var(--gold)}
+
+.stage.s1 .card{bottom:39%;transform:translateX(-50%) scale(.76);filter:blur(.5px);opacity:.9;
+  border-color:var(--sky);background:rgba(95,180,224,.15);box-shadow:0 0 22px rgba(95,180,224,.28)}
+.stage.s1 .card b{color:var(--sky)}
+.stage.s1 .axis{opacity:1;color:var(--sky);border-color:rgba(95,180,224,.5)}
+.stage.s1 .cap,.stage.s1 .tag{color:var(--sky)}
+
+.stage.s2 .card{bottom:60%;transform:translateX(-50%) scale(.56);filter:blur(1.5px);opacity:.62;
+  border-color:var(--violet);background:rgba(168,148,221,.15)}
+.stage.s2 .card b{color:var(--violet)}
+.stage.s2 .axis{opacity:1;color:var(--violet);border-color:rgba(168,148,221,.5)}
+.stage.s2 .cap,.stage.s2 .tag{color:var(--violet)}
+
+.stage.bad .card{border-color:var(--rose);background:rgba(232,115,125,.14);animation:sh .5s}
+.stage.bad .card b{color:var(--rose)}
+.stage.bad .cap,.stage.bad .tag{color:var(--rose)}
+@keyframes sh{0%,100%{margin-left:0}25%{margin-left:-8px}75%{margin-left:8px}}
+
+.trio{display:grid;grid-template-columns:1fr;gap:10px;margin:14px 0}
+.trio .stage{height:132px;margin:0}
+.trio .stage .card{font-size:.9rem;padding:8px 13px}
+
+/* ============ sentence / choices ============ */
+.situ{font-size:.79rem;color:var(--mute);text-align:center;font-family:system-ui,sans-serif;letter-spacing:.03em}
+.sent{font-size:1.15rem;text-align:center;margin:14px 0 6px}
+.blank{display:inline-block;min-width:76px;border-bottom:2px solid var(--gold);color:var(--gold);
+  text-align:center;padding:0 6px;font-style:italic}
+.blank.filled{border-bottom-color:var(--leaf);color:var(--leaf);font-style:normal}
+.blank.wrong{border-bottom-color:var(--rose);color:var(--rose);font-style:normal;text-decoration:line-through}
+
+.choices{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin:12px 0 10px}
+.ch{background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--ink);border-radius:11px;
+  padding:11px 20px;font-size:1.02rem;font-family:inherit;font-style:italic;cursor:pointer;transition:.16s;min-width:108px}
+.ch:hover:not(:disabled){background:var(--cardHi);border-color:var(--gold);transform:translateY(-2px)}
+.ch:disabled{cursor:default;opacity:.4}
+.ch.right{background:rgba(124,196,122,.2);border-color:var(--leaf);color:#e2f7e1;opacity:1}
+.ch.wrong{background:rgba(232,115,125,.18);border-color:var(--rose);color:#ffdfe2;opacity:1}
+
+.opts{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.opt{text-align:left;background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--ink);
+  border-radius:10px;padding:11px 14px;font-size:.93rem;font-family:inherit;cursor:pointer;transition:.16s}
+.opt:hover:not(:disabled){background:var(--cardHi);border-color:var(--sky)}
+.opt:disabled{cursor:default}
+.opt.right{background:rgba(124,196,122,.18);border-color:var(--leaf)}
+.opt.wrong{background:rgba(232,115,125,.16);border-color:var(--rose)}
+
+.pair{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:8px 0 14px}
+.pair .s{background:rgba(0,0,0,.24);border:1px solid var(--line);border-radius:10px;padding:9px 14px;font-size:1rem}
+.pair .s b{color:var(--gold);font-style:italic}
+.pair .s.alt b{color:var(--sky)}
+.pair .s.dead{border-color:rgba(232,115,125,.4);background:rgba(232,115,125,.08);color:var(--dim)}
+.pair .s.dead b{color:var(--rose)}
+
+.jgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+.jgrid button{background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--ink);border-radius:9px;
+  padding:12px 8px;font-size:.74rem;font-family:system-ui,sans-serif;cursor:pointer;transition:.15s;letter-spacing:.03em}
+.jgrid button:hover:not(:disabled){border-color:var(--sky);background:var(--cardHi)}
+.jgrid button:disabled{opacity:.4;cursor:default}
+.jgrid button.right{background:rgba(124,196,122,.2);border-color:var(--leaf);opacity:1}
+.jgrid button.wrong{background:rgba(232,115,125,.18);border-color:var(--rose);opacity:1}
+
+/* ============ feedback ============ */
+.fb{margin:14px 0 4px;padding:13px 15px;border-radius:10px;font-size:.93rem;border-left:3px solid var(--mute);
+  background:rgba(255,255,255,.045);animation:fade .3s}
+.fb.ok{border-color:var(--leaf);background:rgba(124,196,122,.1)}
+.fb.no{border-color:var(--rose);background:rgba(232,115,125,.1)}
+.fb b{color:var(--gold)} .fb i{color:var(--sky)}
+.fb .head{font-family:system-ui,sans-serif;font-size:.62rem;letter-spacing:.15em;color:var(--mute);display:block;margin-bottom:5px}
+@keyframes fade{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+
+.btnrow{display:flex;gap:10px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
+.btn{background:linear-gradient(180deg,var(--gold),var(--goldD));color:#191204;border:none;border-radius:10px;
+  padding:10px 22px;font-family:system-ui,sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;
+  letter-spacing:.06em;transition:.15s;box-shadow:0 4px 12px rgba(244,185,66,.28)}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(244,185,66,.42)}
+.btn.ghost{background:none;color:var(--dim);border:1px solid var(--line);box-shadow:none}
+.btn.ghost:hover{color:var(--gold);border-color:var(--gold)}
+.btn.sky{background:linear-gradient(180deg,var(--sky),var(--skyD));color:#04161f;box-shadow:0 4px 12px rgba(95,180,224,.28)}
+
+.quote{font-size:1.1rem;text-align:center;margin:16px 0;color:var(--ink)}
+.quote b{color:var(--gold);font-style:italic;border-bottom:2px solid rgba(244,185,66,.45);padding-bottom:1px}
+
+.tool{background:rgba(95,180,224,.1);border:1px solid rgba(95,180,224,.3);border-radius:11px;padding:13px 15px;margin:12px 0;font-size:.9rem}
+.tool .lbl{font-family:system-ui,sans-serif;font-size:.58rem;letter-spacing:.17em;color:var(--sky);display:block;margin-bottom:6px}
+.tool.gold{background:rgba(244,185,66,.09);border-color:rgba(244,185,66,.3)}
+.tool.gold .lbl{color:var(--gold)}
+.tool.rose{background:rgba(232,115,125,.09);border-color:rgba(232,115,125,.32)}
+.tool.rose .lbl{color:var(--rose)}
+.tool.violet{background:rgba(168,148,221,.1);border-color:rgba(168,148,221,.32)}
+.tool.violet .lbl{color:var(--violet)}
+
+table.grid{width:100%;border-collapse:collapse;margin:14px 0;font-size:.85rem}
+table.grid th,table.grid td{border:1px solid var(--line);padding:8px 9px;text-align:left;vertical-align:top}
+table.grid th{font-family:system-ui,sans-serif;font-size:.56rem;letter-spacing:.12em;color:var(--mute);font-weight:600;background:rgba(0,0,0,.18)}
+table.grid td i{font-style:italic;color:var(--ink)}
+table.grid td.x{color:var(--dim);font-style:italic;font-size:.8rem}
+table.grid .g{color:var(--gold)} table.grid .s{color:var(--sky)} table.grid .v{color:var(--violet)}
+
+.bar{height:5px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;margin:0 0 14px}
+.bar div{height:100%;background:linear-gradient(90deg,var(--gold),var(--sky),var(--violet));transition:width .35s}
+
+.score-big{font-size:2.9rem;color:var(--gold);text-align:center;letter-spacing:.04em}
+.score-lab{text-align:center;font-family:system-ui,sans-serif;font-size:.65rem;letter-spacing:.17em;color:var(--mute)}
+textarea{width:100%;background:rgba(0,0,0,.28);color:var(--ink);border:1px solid var(--line);border-radius:10px;
+  padding:12px;font-family:inherit;font-size:1rem;min-height:140px;resize:vertical;line-height:1.9}
+textarea:focus{outline:none;border-color:var(--gold)}
+.check{list-style:none;margin:12px 0}
+.check li{font-size:.89rem;padding:7px 0 7px 26px;position:relative;color:var(--dim);cursor:pointer;transition:.15s}
+.check li::before{content:"○";position:absolute;left:4px;color:var(--mute)}
+.check li.on{color:var(--ink)}
+.check li.on::before{content:"●";color:var(--leaf)}
+footer{text-align:center;font-size:.65rem;color:var(--mute);margin-top:26px;letter-spacing:.08em;font-family:system-ui,sans-serif}
+footer a{color:var(--violet);text-decoration:none;border-bottom:1px solid rgba(168,148,221,.4)}
+@media(max-width:520px){
+  h1{font-size:1.3rem}
+  .sent{font-size:1rem}
+  .jgrid{grid-template-columns:1fr}
+  .ch{min-width:92px;font-size:.94rem;padding:10px 14px}
+  .stage .card{font-size:.9rem}
+}
+
+/* ==== series frame & ledger (shared by all units) ==== */
+.frame{background:linear-gradient(180deg,rgba(168,148,221,.14),rgba(168,148,221,.04));
+  border:1px solid rgba(168,148,221,.34);border-radius:12px;padding:14px 16px;margin:0 0 18px}
+.frame .fh{font-family:system-ui,sans-serif;font-size:.57rem;letter-spacing:.2em;color:var(--violet);margin-bottom:8px}
+.frame p{font-size:.88rem;color:var(--dim);margin:6px 0;line-height:1.75}
+.frame p b{color:var(--ink);font-style:normal}
+.frame .fq{color:var(--ink);font-size:.93rem;margin-top:9px}
+.frame .dots{margin-top:11px;font-family:system-ui,sans-serif;font-size:.61rem;letter-spacing:.11em;color:var(--mute)}
+.frame .dots i{font-style:normal;letter-spacing:.32em;color:var(--violet);margin-right:10px}
+.frame .dots i s{text-decoration:none;color:rgba(242,234,217,.16)}
+
+.ledger{margin-top:22px}
+.ledger h3{font-size:1rem;color:var(--violet);letter-spacing:.05em;font-weight:400;margin-bottom:3px}
+.ledger .lsub{font-size:.56rem;color:var(--mute);font-family:system-ui,sans-serif;letter-spacing:.16em;margin-bottom:11px}
+.ledger table{width:100%;border-collapse:collapse;font-size:.79rem}
+.ledger th,.ledger td{border:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+.ledger th{font-family:system-ui,sans-serif;font-size:.52rem;letter-spacing:.11em;color:var(--mute);
+  font-weight:600;background:rgba(0,0,0,.22)}
+.ledger tr.off td{opacity:.3}
+.ledger tr.now td{background:rgba(124,196,122,.11)}
+.ledger a{color:var(--sky);text-decoration:none;border-bottom:1px solid rgba(95,180,224,.35)}
+.ledger a:hover{color:var(--gold);border-color:var(--gold)}
+.ledger .qq{color:var(--ink);font-style:italic}
+.ledger .put{color:var(--rose);font-style:italic}
+.ledger .was{color:var(--leaf)}
+.pairnote{margin-top:12px;font-size:.76rem;color:var(--mute);font-family:system-ui,sans-serif;letter-spacing:.02em;line-height:1.8}
+.pairnote b{color:var(--dim)}
+.verdict{margin-top:15px;padding:15px 17px;border-radius:11px;font-size:.95rem;
+  background:rgba(244,185,66,.09);border:1px solid rgba(244,185,66,.33);color:var(--ink);line-height:1.8}
+.verdict .vn{font-family:system-ui,sans-serif;font-size:.57rem;letter-spacing:.2em;color:var(--gold);display:block;margin-bottom:8px}
+.verdict b{color:var(--gold)}
+.verdict .why{margin-top:12px;padding-top:12px;border-top:1px solid rgba(244,185,66,.26);font-size:.89rem;color:var(--dim)}
+.verdict .why b{color:var(--ink)}
+.verdict .why i{color:var(--rose);font-style:italic}
+.verdict .beyond{margin-top:13px;padding-top:13px;border-top:1px solid rgba(244,185,66,.26);font-size:.93rem;color:var(--ink)}
+.verdict .beyond b{color:var(--gold)}
+.verdict .beyond i{color:var(--sky);font-style:italic}
+@media(max-width:520px){.ledger table{font-size:.68rem}.ledger th,.ledger td{padding:5px 5px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>one step back</h1>
+  <div class="sub">WHAT ARE YOU STEPPING BACK FROM?</div>
+</header>
+
+<details class="note">
+  <summary>この装置の設計意図（日本語・トレーニング外）</summary>
+  <div class="jp">
+    <b>「〜だった」を捨てる。</b>過去形を時間の語だと思った瞬間、<b>If I were rich</b>（過去形なのに「いま」の話）で即死する。<br><br>
+    <b>Could you help me?</b> はなぜ丁寧なのか。<b>I wish I had more time.</b> はなぜ「いま無い」なのか。<b>It's time you went home.</b> はなぜ「まだ行っていない」なのか。訳語はどれにも答えられず、<b>仮定法過去・仮定法過去完了・直説法</b>という表を暗記させる。<br><br>
+    英語話者が見ているのは一つだけ。<b>一歩下がったかどうか。</b>そして<b>何から下がったか</b>。<br>
+    ・<b>時間</b>から下がる → 本当に前に起きた（I lived in Osaka.）<br>
+    ・<b>現実</b>から下がる → いま事実でない（If I were rich.）<br>
+    ・<b>相手</b>から下がる → 押していない＝丁寧（Could you…?）<br><br>
+    <b>英語の丁寧さは、敬語ではなく距離でできている。</b>だから could・would・I was wondering はすべて同じ一歩である。<br><br>
+    そして<b>仮定法過去完了は新しい文法ではない</b>。同じ一歩を<b>もう一度</b>踏むだけ（STEP 4）。<br><br>
+    以降は全編英語。<b>訳さずに、奥行きとして見ること。</b>
+  </div>
+</details>
+
+<nav class="steps" id="nav"></nav>
+<div id="app"></div>
+
+<footer>an english-schema device &middot; <a href="../">the series &mdash; start anywhere</a> &middot; no translation inside</footer>
+</div>
+
+<script>
+/* == SERIES LAYER v1 == */
+/* SERIES:BEGIN */
+const SERIES=[
+ {id:"a-vs-the",n:"01",t:"a / the",
+  put:'a = "one" &middot; the = "that"',
+  was:"whether your listener can point at it",
+  q:"Can she point at it?",
+  dev:"her shelf",
+  kills:"a page of article exceptions"},
+ {id:"in-on-at",n:"02",t:"in / on / at",
+  put:'"inside" &middot; "on top of" &middot; "at"',
+  was:"the shape you hand over",
+  q:"What shape did you give it?",
+  dev:"a field that changes shape",
+  kills:"the preposition tables"},
+ {id:"will-going-to",n:"03",t:"will / be going to",
+  put:'both = "intend to"',
+  was:"where the sentence came from",
+  q:"Was it already there before you spoke?",
+  dev:"a track through NOW",
+  kills:'"will = future tense"'},
+ {id:"have-done",n:"04",t:"did / have done",
+  put:'"have once done it"',
+  was:"which room you are standing in",
+  q:"Does it reach now?",
+  dev:"two rooms and a nail",
+  kills:"three uses and a forbidden-adverb list"},
+ {id:"ing-to",n:"05",t:"-ing / to ~",
+  put:'both = "the act of doing"',
+  was:"how far away the thing is",
+  q:"In your hand, or at the end of an arrow?",
+  dev:"a hand and an arrow",
+  kills:"two lists of verbs"},
+ {id:"modals",n:"06",t:"can / may / should / must",
+  put:'"be able to" &middot; "maybe" &middot; "have to"',
+  was:"how many ways are still open",
+  q:"How much room is left?",
+  dev:"the options that survive",
+  kills:"four modals &times; four uses = sixteen"},
+ {id:"that",n:"07",t:"that",
+  put:'"over there" &middot; "the fact that" &middot; (not translated)',
+  was:"what is being settled into one",
+  q:"What is being settled into one?",
+  dev:"a clamp that makes one thing",
+  kills:"four names for one word"},
+ {id:"distance",n:"08",t:"would / could / if I were",
+  put:'"-ed" = it happened before',
+  was:"how far back you are standing",
+  q:"What are you stepping back from?",
+  dev:"depth &mdash; one step back",
+  kills:"the conditional and subjunctive tables"}
+];
+/* SERIES:END */
+const UNIT="distance";
+function _seen(){try{return JSON.parse(localStorage.getItem("ens_seen")||"{}")}catch(e){return{}}}
+function markSeen(){try{const o=_seen();o[UNIT]=1;localStorage.setItem("ens_seen",JSON.stringify(o))}catch(e){}}
+function seenCount(){const o=_seen();return SERIES.filter(u=>o[u.id]).length}
+
+function frameHTML(){
+  const o=_seen(), n=SERIES.filter(u=>o[u.id]&&u.id!==UNIT).length, N=SERIES.length;
+  const dots=SERIES.map(u=>(o[u.id]||u.id===UNIT)?"●":"<s>●</s>").join("");
+  const tail = n===0
+    ? "this is your first one"
+    : (n===N-1 ? "one left — and then the point of all of them"
+               : "you have already watched this happen "+n+" time"+(n>1?"s":""));
+  return `<div class="frame">
+    <div class="fh">ONE OF ${N} &middot; START ANYWHERE</div>
+    <p>Every English word arrives with a translation. That translation is what the word meant
+    <b>on one occasion</b>. Take it for the meaning, and every other occasion turns into
+    an exception you have to memorise.</p>
+    <p class="fq">This unit is one demonstration of the same thing:
+    <b>a list of exceptions collapsing into a single question.</b></p>
+    <div class="dots"><i>${dots}</i>${tail}</div>
+  </div>`;
+}
+
+function verdictHTML(n){
+  const N=SERIES.length;
+  const L={
+   1:["ONE","One unit. One list of exceptions replaced by one question.<br>That could simply be a lucky topic. <b>Try another one and see.</b>"],
+   2:["TWO","Two units. Two lists gone.<br>Two could still be a coincidence. <b>Try a third.</b>"],
+   3:["THREE","Three units — three unrelated corners of the grammar — and the same thing happened in every one.<br><b>Three is where a coincidence stops being one.</b>"],
+   4:["FOUR","Four. Different words, different chapters, different centuries.<br><b>The same shape of failure, four times over.</b><br>It is beginning to look as though the failure was never in the words."],
+   5:["FIVE","Five.<br><b>What are the odds that five unrelated topics all happen to be badly explained in exactly the same way?</b>"],
+   6:["SIX","Six.<br><b>It was never the words. It was the method.</b>"],
+   7:["SEVEN","Seven.<br><b>It was never the words. It was the method.</b>"]
+  };
+  const k=Math.min(Math.max(n,1),7);
+  const done=(n>=N);
+  const tag=done?(n+" OF "+N):L[k][0], msg=done?"<b>It was never the words. It was the method.</b>":L[k][1];
+  const why = n>=3 ? `<div class="why">
+    <b>Why a translation gets in the way.</b> It is not wrong. It is <i>one occasion</i> — frozen, and then sold to you
+    as the meaning. You cannot catch it failing, because it works often enough. And on the day it does fail you are told:
+    <i>that one is an exception — memorise it.</i> So the list grows, and the day you can build the sentence yourself
+    never quite arrives.<br><br>
+    <b>Why an English schema instead.</b> One question, asked from inside the language.
+    Nothing is left over — because there was never a rule for anything to be an exception to.</div>` : "";
+  /* beyond-english v1 */
+  const beyond = done ? `<div class="beyond">
+    <b>And this was never only about English.</b><br>
+    Every field you will ever learn hands you the same thing: a translation of something you have not met yet —
+    given once, useful often enough, and never checked again. It stays invisible <i>because</i> it mostly works.<br>
+    You have now watched ${n} of them fall.
+    <b>The transferable part is not the questions. It is knowing what the falling looks like.</b></div>` : "";
+  return `<div class="verdict"><span class="vn">${tag}</span>${msg}${why}${beyond}</div>`;
+}
+
+function ledgerHTML(){
+  const o=_seen();
+  const rows=SERIES.map(u=>{
+    const done=!!o[u.id], now=(u.id===UNIT);
+    return `<tr class="${now?'now':(done?'':'off')}">
+      <td>${now?'▸ ':''}<a href="../${u.id}/">${u.n}&nbsp; ${u.t}</a></td>
+      <td class="put">${u.put}</td>
+      <td class="was">${u.was}</td>
+      <td class="qq">${u.q}</td></tr>`;
+  }).join("");
+  return `<div class="ledger">
+    <h3>The ledger</h3>
+    <div class="lsub">ONE QUESTION EACH &middot; NOTHING LEFT TO MEMORISE</div>
+    <table>
+      <tr><th>UNIT</th><th>THE TRANSLATION SAID</th><th>IT WAS REALLY ABOUT</th><th>THE ONE QUESTION</th></tr>
+      ${rows}
+    </table>
+    <div class="pairnote"><b>Order is free.</b> Some pairs are worth taking in order, though:
+      <b>02 before 05</b> (where <i>to</i> stops being an arrow) &middot;
+      <b>03 before 06</b> (what a modal actually is) &middot;
+      <b>01 before 07</b> (<i>the</i> and <i>that</i> are the same word, grown apart) &middot;
+      <b>04 and 06 before 08</b> (the other room, and the modals that step back).</div>
+    ${verdictHTML(seenCount())}
+  </div>`;
+}
+
+/* ================= THE DEVICE ================= */
+const AXIS={
+  TIME  :{lab:"STEPPED BACK FROM &middot; TIME",     cap:"IT REALLY WAS EARLIER"},
+  REAL  :{lab:"STEPPED BACK FROM &middot; REALITY",  cap:"IT IS NOT THE CASE &middot; AND THE SENTENCE IS ABOUT NOW"},
+  PERSON:{lab:"STEPPED BACK FROM &middot; THE OTHER PERSON", cap:"NOT PRESSING &middot; THIS IS WHAT POLITENESS IS"},
+  TWO   :{lab:"TWO STEPS BACK",                     cap:"NOT THE CASE &middot; AND THAT TIME IS OVER"}
+};
+function stageHTML(id,text){
+  return `<div class="stage" id="${id||''}">
+    <div class="floor"><i></i><i></i><i></i><i></i></div>
+    <span class="tag">&nbsp;</span>
+    <span class="axis">&nbsp;</span>
+    <div class="card">${text||"&nbsp;"}</div>
+    <span class="cap">how far back are you standing?</span>
+  </div>`;
+}
+function setStage(el,steps,axis,text,bad){
+  el.className="stage s"+steps+(bad?" bad":"");
+  if(text!==undefined) el.querySelector(".card").innerHTML=text;
+  const a = bad ? null : (steps===0?null:(steps===2?AXIS.TWO:AXIS[axis]));
+  el.querySelector(".axis").innerHTML = a?a.lab:"&nbsp;";
+  el.querySelector(".tag").innerHTML = bad ? "THAT IS NOT WHERE YOU ARE" : (steps===0?"NO STEP BACK":(steps===2?"TWO STEPS":"ONE STEP"));
+  el.querySelector(".cap").innerHTML = bad ? "THE DISTANCE DOES NOT MATCH THE SITUATION"
+    : (steps===0?"TOUCHING &middot; RIGHT HERE, REAL, DIRECT":a.cap);
+}
+
+/* ================= DATA ================= */
+
+/* STEP 1 — notice */
+const NOTICE=[
+ {a:"I lived in Osaka.", b:"If I lived in Osaka, I'd be happier.",
+  opts:["Which one is about the past.","Whether the past form is about time at all.","Which one is longer."], ok:1,
+  fb:"<b>The same form, twice.</b><br>First: a step back <b>in time</b> — it really was earlier.<br>Second: a step back <b>from reality</b> — you do not live there, and the sentence is about <i>now</i>."},
+ {a:"Can you help me?", b:"Could you help me?",
+  opts:["Whether the help happened in the past.","Whether the speaker is right up against you, or one step back.","Which one is grammatically correct."], ok:1,
+  fb:"Nothing moved in time at all.<br><b>could</b> steps back from <b>you</b> — it stops pressing.<br><i>That is what politeness is in English.</i> Not a special register. <b>Distance.</b>"},
+ {a:"If it rains tomorrow, we'll stay in.", b:"If it rained tomorrow, I'd be surprised.",
+  opts:["Which one is about tomorrow.","How likely the speaker thinks it is.","Which one is a real sentence."], ok:1,
+  fb:"<b>Both are about tomorrow.</b> The past form did not move the day.<br>It moved the sentence <b>away from what is likely</b>."},
+ {a:"I wish I have more time.", b:"I wish I had more time.", dead:"a",
+  opts:["Because <i>wish</i> is followed by the past. That is the rule.","Because wishing means it is not the case — and <i>not the case</i> is a step back.","Because <i>had</i> sounds more formal."], ok:1,
+  fb:"The rule is true, but it is not a reason.<br>To wish is to say <b>this is not how things are</b>. The sentence has to stand back from reality — so the form steps back."},
+ {a:"If I were you, I'd say no.", b:"If I had been you, I'd have said no.",
+  opts:["How polite they are.","How many steps back they take.","Which one is British."], ok:1,
+  fb:"<b>One step:</b> not true <i>now</i>.<br><b>Two steps:</b> not true <i>then</i> — and that time is over.<br>The distance can simply be applied twice. <b>There is no second grammar here.</b>"}
+];
+
+/* STEP 2 — core: no step / one step */
+const CORE=[
+ {situ:"(a fact about your childhood)",pre:"I ",post:" in Osaka until I was ten.",
+  opts:["live","lived"],ok:"lived",steps:1,axis:"TIME",
+  fb:{lived:"It really was earlier. The ordinary step back — <b>in time</b>.",
+      live:"You are standing right up against it, as if it were still going on."}},
+ {situ:"(you are not him, and never will be)",pre:"If I ",post:" you, I'd apologise.",
+  opts:["am","were"],ok:"were",steps:1,axis:"REAL",
+  fb:{were:"Not a step in time — the sentence is about <b>now</b>. The step is <b>away from reality</b>.",
+      am:"That says you actually are him. No distance at all."}},
+ {situ:"(stopping a stranger in the street)",pre:"",post:" you tell me the way?",
+  opts:["Can","Could"],ok:"Could",steps:1,axis:"PERSON",
+  fb:{Could:"Nothing happened in the past. You stepped back <b>from her</b> — so it does not press.",
+      Can:"Direct and fine among friends. To a stranger it arrives with no space around it."}},
+ {situ:"(a plain fact about her, right now)",pre:"She ",post:" a doctor.",
+  opts:["is","was"],ok:"is",steps:0,axis:null,
+  fb:{is:"No step back at all. Touching, real, direct.",
+      was:"That puts her career behind her."}},
+ {situ:"(you are badly short of time)",pre:"I wish I ",post:" more time.",
+  opts:["have","had"],ok:"had",steps:1,axis:"REAL",
+  fb:{had:"To wish is to say <b>this is not how things are</b>. The form steps back from reality.",
+      have:"Then there is nothing to wish for — you already have it."}},
+ {situ:"(it genuinely might rain)",pre:"If it ",post:" tomorrow, we'll stay in.",
+  opts:["rains","rained"],ok:"rains",steps:0,axis:null,
+  fb:{rains:"A real possibility. Stay right up against it — <b>no step back</b>.",
+      rained:"That would push it away, as if you thought it very unlikely."}},
+ {situ:"(you think it extremely unlikely)",pre:"If he ",post:" tomorrow, I'd faint.",
+  opts:["comes","came"],ok:"came",steps:1,axis:"REAL",
+  fb:{came:"Same tomorrow as the last one. <b>Only the distance changed.</b>",
+      comes:"That treats it as a live possibility — and you do not."}},
+ {situ:"(to a close friend, across the table)",pre:"",post:" you pass me the salt?",
+  opts:["Can","Could"],ok:"Can",steps:0,axis:null,
+  fb:{Can:"No space needed. You are already close.",
+      Could:"Not wrong — but you have put a step between you for no reason."}},
+ {situ:"(opening a careful email to someone senior)",pre:"I ",post:" wondering if you could help.",
+  opts:["am","was"],ok:"was",steps:1,axis:"PERSON",
+  fb:{was:"You did not start wondering in the past. <b>The step is away from her</b>, so the request arrives softly.",
+      am:"Direct. Perfectly grammatical, and noticeably more pushy."}},
+ {situ:"(it finished an hour ago)",pre:"The meeting ",post:" at four.",
+  opts:["ends","ended"],ok:"ended",steps:1,axis:"TIME",
+  fb:{ended:"The plain step back in time.",
+      ends:"That is a timetable, not a report."}},
+ {situ:"(it is late and nobody has moved)",pre:"It's time we ",post:" .",
+  opts:["go","went"],ok:"went",steps:1,axis:"REAL",
+  fb:{went:"<b>We have not gone.</b> The form steps back from reality — that is exactly why it means <i>and we still haven't</i>.",
+      go:"Then you would simply be announcing that you are leaving."}},
+ {situ:"(you own no car)",pre:"If I ",post:" a car, I'd drive you.",
+  opts:["have","had"],ok:"had",steps:1,axis:"REAL",
+  fb:{had:"Not the case. One step back from reality.",
+      have:"That says you do own one — and are refusing."}}
+];
+
+/* STEP 3 — three distances */
+const AXQ=[
+ {s:"I <b>saw</b> her yesterday.",ok:"TIME",why:"It really was earlier. The ordinary step."},
+ {s:"If I <b>were</b> taller, I'd play basketball.",ok:"REAL",why:"About now — and not the case."},
+ {s:"<b>Could</b> I ask you something?",ok:"PERSON",why:"Nothing in the past. The space is between you and her."},
+ {s:"I wish I <b>knew</b> the answer.",ok:"REAL",why:"You do not know it, now."},
+ {s:"She <b>worked</b> here for ten years.",ok:"TIME",why:"A stretch that is behind us."},
+ {s:"<b>Would</b> you mind waiting?",ok:"PERSON",why:"<i>will</i>, one step back. The request stops pressing."},
+ {s:"It's time you <b>told</b> him the truth.",ok:"REAL",why:"You have not told him. That is the whole point of the form."},
+ {s:"We <b>moved</b> house in 2019.",ok:"TIME",why:"A date is attached. Plain time."},
+ {s:"I <b>was</b> hoping you might join us.",ok:"PERSON",why:"You are hoping right now. The step is toward her, to soften it."},
+ {s:"If only I <b>had</b> a map.",ok:"REAL",why:"You have no map. One step from reality."}
+];
+
+/* STEP 4 — how many steps */
+const STEPQ=[
+ {mean:"It may well rain tomorrow.",opts:["If it rains","If it rained","If it had rained"],ok:"If it rains",steps:0,
+  why:"A live possibility. Stand right up against it."},
+ {mean:"It probably won't rain — but imagine it did.",opts:["If it rains","If it rained","If it had rained"],ok:"If it rained",steps:1,axis:"REAL",
+  why:"Same tomorrow. One step away from what is likely."},
+ {mean:"You are not rich. Right now.",opts:["If I am rich","If I were rich","If I had been rich"],ok:"If I were rich",steps:1,axis:"REAL",
+  why:"Not the case, now. One step."},
+ {mean:"You were not rich back then, and that time is over.",opts:["If I am rich","If I were rich","If I had been rich"],ok:"If I had been rich",steps:2,
+  why:"Not the case — <b>and</b> behind us. The same step, taken twice."},
+ {mean:"You do not know it, now.",opts:["I wish I know","I wish I knew","I wish I had known"],ok:"I wish I knew",steps:1,axis:"REAL",
+  why:"One step from reality."},
+ {mean:"You did not know it then, and you regret it.",opts:["I wish I know","I wish I knew","I wish I had known"],ok:"I wish I had known",steps:2,
+  why:"Reality plus time. Two steps."},
+ {mean:"He did not call. Imagine that he had.",opts:["If he calls","If he called","If he had called"],ok:"If he had called",steps:2,
+  why:"Undoing something that is already over: two steps."},
+ {mean:"Asking politely, right now.",opts:["Can you","Could you","Could you have"],ok:"Could you",steps:1,axis:"PERSON",
+  why:"One step — and toward the person, not the past."}
+];
+
+/* STEP 5 — live fire */
+const FIRE=[
+ {situ:"(a plain fact)",pre:"Tokyo ",post:" the capital.",opts:["is","was","had been"],ok:"is",steps:0,why:"No distance needed."},
+ {situ:"(last spring)",pre:"We ",post:" in Kyoto.",opts:["are","were","had been"],ok:"were",steps:1,axis:"TIME",why:"Plain time."},
+ {situ:"(stopping a stranger)",pre:"",post:" you spare a moment?",opts:["Can","Could","Had"],ok:"Could",steps:1,axis:"PERSON",why:"Space between you and her."},
+ {situ:"(you are not him)",pre:"If I ",post:" him, I'd resign.",opts:["am","were","had been"],ok:"were",steps:1,axis:"REAL",why:"Not the case, now."},
+ {situ:"(the exam is already over)",pre:"If I ",post:" harder, I'd have passed.",opts:["study","studied","had studied"],ok:"had studied",steps:2,why:"Not the case, and it is over."},
+ {situ:"(she really might arrive)",pre:"If she ",post:" , we'll start.",opts:["arrives","arrived","had arrived"],ok:"arrives",steps:0,why:"A live possibility."},
+ {situ:"(you have no money)",pre:"I wish I ",post:" richer.",opts:["am","were","had been"],ok:"were",steps:1,axis:"REAL",why:"Not the case, now."},
+ {situ:"(you missed this morning's train)",pre:"I wish I ",post:" earlier.",opts:["leave","left","had left"],ok:"had left",steps:2,why:"Undoing something already over."},
+ {situ:"(a careful email)",pre:"I ",post:" wondering if you were free.",opts:["am","was","had been"],ok:"was",steps:1,axis:"PERSON",why:"Softening, not reporting."},
+ {situ:"(from a history book)",pre:"The war ",post:" in 1945.",opts:["ends","ended","had ended"],ok:"ended",steps:1,axis:"TIME",why:"A date is attached."},
+ {situ:"(it is 1 a.m. and you are still working)",pre:"It's time I ",post:" to bed.",opts:["go","went","had gone"],ok:"went",steps:1,axis:"REAL",why:"You have not gone."},
+ {situ:"(you would be amazed)",pre:"If he ",post:" tomorrow, I'd be astonished.",opts:["comes","came","had come"],ok:"came",steps:1,axis:"REAL",why:"Tomorrow, pushed away as unlikely."},
+ {situ:"(to a close friend)",pre:"",post:" you help me for a second?",opts:["Can","Could","Had"],ok:"Can",steps:0,why:"No space needed."},
+ {situ:"(you do not have her number)",pre:"If only I ",post:" her number.",opts:["have","had","had had"],ok:"had",steps:1,axis:"REAL",why:"Not the case, now."},
+ {situ:"(the chance is gone)",pre:"If you ",post:" me, I could have helped.",opts:["tell","told","had told"],ok:"had told",steps:2,why:"Reality plus time."}
+];
+
+/* ================= STATE ================= */
+const STEPS=[
+ {k:"start",n:"START"},{k:"notice",n:"NOTICE"},{k:"core",n:"STEP BACK"},
+ {k:"ax",n:"3 DISTANCES"},{k:"two",n:"TWO STEPS"},{k:"fire",n:"LIVE FIRE"},{k:"you",n:"YOUR TURN"}
+];
+let S={step:0,i:0,score:0,total:0,streak:0,best:0,locked:false,phase:"show"};
+try{S.best=parseInt(localStorage.getItem("ds_best")||"0",10)||0}catch(e){}
+
+const app=document.getElementById("app"), navEl=document.getElementById("nav");
+function drawNav(){
+  navEl.innerHTML=STEPS.map((s,i)=>`<button data-i="${i}" class="${i===S.step?'on':(i<S.step?'done':'')}">${s.n}</button>`).join("");
+  navEl.querySelectorAll("button").forEach(b=>b.onclick=()=>go(parseInt(b.dataset.i,10)));
+}
+function go(i){S.step=i;S.i=0;S.locked=false;S.phase="show";render();window.scrollTo({top:0,behavior:"smooth"})}
+function next(){S.i++;S.locked=false;render();window.scrollTo({top:0,behavior:"smooth"})}
+function tally(g){S.total++;if(g){S.score++;S.streak++}else S.streak=0;
+  if(S.score>S.best){S.best=S.score;try{localStorage.setItem("ds_best",S.best)}catch(e){}}}
+function counter(l,c,n){return `<div class="counter"><span>${l} &nbsp;${c}/${n}</span>
+  <span><span class="sc">${S.score}</span> correct${S.streak>1?` &nbsp;<span class="streak">▲${S.streak} in a row</span>`:""}</span></div>`}
+function optBtns(list){return `<div class="choices">`+list.map(o=>`<button class="ch" data-v="${o}">${o}</button>`).join("")+`</div>`}
+
+function render(){drawNav();({start:rStart,notice:rNotice,core:rCore,ax:rAx,two:rTwo,fire:rFire,you:rYou})[STEPS[S.step].k]()}
+
+/* ---------- START ---------- */
+function rStart(){
+  app.innerHTML=`<div class="panel">
+    ${frameHTML()}
+    <h2><small>STEP 0</small>THE PAST FORM IS NOT ABOUT THE PAST</h2>
+    <p class="lead">It is about <b style="font-style:normal;color:var(--ink)">standing back</b>.<br>
+    What changes from sentence to sentence is only <b style="font-style:normal;color:var(--ink)">what you stepped back from</b>.</p>
+    <div class="trio">
+      <div>${stageHTML("d0","I <b>live</b> in Osaka.")}</div>
+      <div>${stageHTML("d1","If I <b>lived</b> in Osaka, I'd be happier.")}</div>
+    </div>
+    <div class="tool gold">
+      <span class="lbl">THE WHOLE MACHINE</span>
+      no step &nbsp;→&nbsp; touching, real, direct<br>
+      one step back from <b style="color:var(--sky)">TIME</b> &nbsp;→&nbsp; <i>I lived in Osaka.</i><br>
+      one step back from <b style="color:var(--sky)">REALITY</b> &nbsp;→&nbsp; <i>If I lived in Osaka…</i><br>
+      one step back from <b style="color:var(--sky)">THE OTHER PERSON</b> &nbsp;→&nbsp; <i>Could you…?</i><br>
+      two steps &nbsp;→&nbsp; <i>If I had lived there…</i>
+    </div>
+    <div class="tool rose">
+      <span class="lbl">THE FIRST THING TO PUT DOWN</span>
+      <b style="color:var(--rose)">Politeness in English is not a special register. It is distance.</b><br>
+      <i style="color:var(--ink)">Can you…? &rarr; Could you…? &rarr; I was wondering if you could…</i><br>
+      <span style="color:var(--dim);font-size:.87rem">Every one of those is the same single step, taken again. Nothing about them is about the past.</span>
+    </div>
+    <div class="btnrow">
+      ${S.best?`<span style="font-family:system-ui;font-size:.67rem;color:var(--mute);align-self:center;letter-spacing:.1em">BEST ${S.best}</span>`:""}
+      <button class="btn" onclick="go(1)">BEGIN →</button>
+    </div>
+  </div>`;
+  setTimeout(()=>{const a=document.getElementById("d0"),b=document.getElementById("d1");
+    if(a)setStage(a,0,null,undefined,false); if(b)setStage(b,1,"REAL",undefined,false);},400);
+}
+
+/* ---------- NOTICE ---------- */
+function rNotice(){
+  if(S.i>=NOTICE.length) return done("NOTICE",
+    "Five pairs. The form never changed.<br><b>What changed was what it was standing back from.</b>",2);
+  const q=NOTICE[S.i];
+  app.innerHTML=`<div class="panel">
+    <h2><small>STEP 1 · NOTICE</small>${q.dead?"WHY IS ONE IMPOSSIBLE?":"SAME FORM, TWICE. WHAT MOVED?"}</h2>
+    ${counter("PAIR",S.i+1,NOTICE.length)}
+    <div class="pair" style="margin-top:10px">
+      <div class="s ${q.dead==="a"?"dead":""}">${q.dead==="a"?"✗ ":""}${q.a}</div>
+      <div class="s alt">${q.b}</div>
+    </div>
+    <div class="opts">${q.opts.map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join("")}</div>
+    <div id="out"></div>
+  </div>`;
+  app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
+    if(S.locked)return; S.locked=true;
+    const i=parseInt(b.dataset.i,10), good=(i===q.ok);
+    tally(good);
+    app.querySelectorAll(".opt").forEach((x,j)=>{x.disabled=true;
+      if(j===q.ok)x.classList.add("right"); else if(j===i)x.classList.add("wrong")});
+    document.getElementById("out").innerHTML=
+      `<div class="fb ${good?'ok':'no'}"><span class="head">${good?'YES':'LOOK AGAIN'}</span>${q.fb}</div>
+       <div class="btnrow"><button class="btn" onclick="next()">NEXT →</button></div>`;
+  });
+}
+
+/* ---------- generic single ---------- */
+function single(cfg){
+  const q=cfg.q;
+  app.innerHTML=`<div class="panel">
+    <h2><small>${cfg.step}</small>${cfg.title}</h2>
+    ${counter(cfg.unit,S.i+1,cfg.len)}
+    ${cfg.bar?`<div class="bar"><div style="width:${(S.i/cfg.len)*100}%"></div></div>`:""}
+    ${cfg.intro&&S.i===0?cfg.intro:""}
+    <div class="situ">${q.situ||""}</div>
+    <div class="sent">${q.pre}<span class="blank" id="bl">?</span>${q.post}</div>
+    ${stageHTML("f",q.pre+"<b>___</b>"+q.post)}
+    ${optBtns(q.opts)}
+    <div id="out"></div>
+  </div>`;
+  app.querySelectorAll(".choices .ch").forEach(b=>b.onclick=()=>{
+    if(S.locked)return; S.locked=true;
+    const v=b.dataset.v, good=(v===q.ok);
+    tally(good);
+    const bl=document.getElementById("bl"); bl.textContent=v; bl.className="blank "+(good?"filled":"wrong");
+    const f=document.getElementById("f");
+    setStage(f, good?q.steps:0, q.axis, q.pre+"<b>"+v+"</b>"+q.post, !good);
+    app.querySelectorAll(".choices .ch").forEach(x=>{x.disabled=true;
+      if(x.dataset.v===q.ok)x.classList.add("right"); else if(x.dataset.v===v)x.classList.add("wrong")});
+    const msg=(q.fb&&q.fb[v])? q.fb[v] : q.why;
+    const extra=(!good&&q.fb&&q.fb[q.ok])?`<div style="margin-top:9px;padding-top:9px;border-top:1px solid var(--line)"><b>${q.ok}</b> — ${q.fb[q.ok]}</div>`:"";
+    const head=good?(q.steps===0?"NO STEP BACK":(q.steps===2?"TWO STEPS BACK":AXIS[q.axis].lab)):"THAT IS NOT WHERE YOU ARE";
+    document.getElementById("out").innerHTML=
+      `<div class="fb ${good?'ok':'no'}"><span class="head">${head}</span>${msg}${extra}</div>
+       <div class="btnrow"><button class="btn" onclick="next()">NEXT →</button></div>`;
+    if(!good) setTimeout(()=>{const g=document.getElementById("f");
+      if(g)setStage(g,q.steps,q.axis,q.pre+"<b>"+q.ok+"</b>"+q.post,false);},1800);
+  });
+}
+
+/* ---------- STEP 2 ---------- */
+function rCore(){
+  if(S.i>=CORE.length) return done("STEP BACK",
+    "Twelve scenes. <b>Only two of them were about the past.</b><br>The rest used the same form for reality and for the person in front of you.",3);
+  single({step:"STEP 2 · STEP BACK",title:"STAY, OR STAND BACK?",unit:"SCENE",len:CORE.length,q:CORE[S.i],
+    intro:`<div class="tool"><span class="lbl">WHAT A STEP BACK COSTS</span>
+      Taking a step back always does the same thing: <b>it stops the sentence from touching.</b><br>
+      Whether that reads as <i>earlier</i>, <i>not true</i>, or <i>not pushing</i> depends only on
+      <b>what you were touching in the first place</b>.</div>`});
+}
+
+/* ---------- STEP 3 ---------- */
+function rAx(){
+  if(S.phase==="show"){
+    app.innerHTML=`<div class="panel">
+      <h2><small>STEP 3 · THREE DISTANCES</small>ONE STEP, THREE THINGS TO STEP BACK FROM</h2>
+      <p class="lead">Textbooks file these under three different chapters.<br>
+      <b style="font-style:normal;color:var(--ink)">It is one movement, aimed at three different things.</b></p>
+      <table class="grid">
+        <tr><th>STEPPED BACK FROM</th><th>WHAT IT READS AS</th><th>EXAMPLE</th></tr>
+        <tr><td class="s">TIME</td><td class="x">it really was earlier</td><td><i>I saw her yesterday.</i></td></tr>
+        <tr><td class="s">REALITY</td><td class="x">it is not the case — and this is about now</td><td><i>If I were taller…</i><br><i>I wish I knew.</i></td></tr>
+        <tr><td class="s">THE OTHER PERSON</td><td class="x">not pressing</td><td><i>Could you…?</i><br><i>I was wondering if…</i></td></tr>
+      </table>
+      <div class="tool gold">
+        <span class="lbl">A NOTE FROM UNIT 06</span>
+        <i style="color:var(--ink)">could</i> is <i>can</i>, one step back. <i style="color:var(--ink)">would</i> is <i>will</i>, one step back.<br>
+        The scale from unit 06 does not change — <b>the whole scale simply moves back</b>.<br>
+        <span style="color:var(--dim);font-size:.86rem">That is why a stepped-back modal can be either a guess or a polite request. Same step, different thing behind you.</span>
+      </div>
+      <div class="tool violet">
+        <span class="lbl">A NOTE FROM UNIT 04</span>
+        Unit 04 said: <i>did</i> means you walked over to the other room to speak from there.<br>
+        <b>This unit says the other room is not always in the past.</b> It can be a room where things are not true,
+        or a room a polite distance from the person you are addressing.
+      </div>
+      <div class="quote" style="margin-top:16px">One step. <b>Three things to step back from.</b></div>
+      <div class="btnrow"><button class="btn sky" onclick="S.phase='quiz';S.i=0;render()">NAME THE DISTANCE →</button></div>
+    </div>`;
+    return;
+  }
+  if(S.i>=AXQ.length) return done("THREE DISTANCES",
+    "You never asked <i>is this the subjunctive or the past tense?</i><br><b>You asked what was behind you.</b>",4);
+  const q=AXQ[S.i];
+  app.innerHTML=`<div class="panel">
+    <h2><small>STEP 3 · THREE DISTANCES</small>WHAT IS BEHIND YOU?</h2>
+    ${counter("ITEM",S.i+1,AXQ.length)}
+    <div class="sent" style="font-size:1.12rem">${q.s}</div>
+    <div class="jgrid" id="jg" style="margin-top:14px">
+      <button data-k="TIME">TIME<br><span style="font-size:.6rem;color:var(--mute)">it really was earlier</span></button>
+      <button data-k="REAL">REALITY<br><span style="font-size:.6rem;color:var(--mute)">it is not the case</span></button>
+      <button data-k="PERSON">THE OTHER PERSON<br><span style="font-size:.6rem;color:var(--mute)">not pressing</span></button>
+    </div>
+    <div id="out"></div>
+  </div>`;
+  app.querySelectorAll("#jg button").forEach(b=>b.onclick=()=>{
+    if(S.locked)return; S.locked=true;
+    const k=b.dataset.k, good=(k===q.ok);
+    tally(good);
+    app.querySelectorAll("#jg button").forEach(x=>{x.disabled=true;
+      if(x.dataset.k===q.ok)x.classList.add("right"); else if(x.dataset.k===k)x.classList.add("wrong")});
+    document.getElementById("out").innerHTML=
+      `<div class="fb ${good?'ok':'no'}"><span class="head">${AXIS[q.ok].lab}</span>${q.why}</div>
+       <div class="btnrow"><button class="btn" onclick="next()">NEXT →</button></div>`;
+  });
+}
+
+/* ---------- STEP 4 : how many steps ---------- */
+function rTwo(){
+  if(S.i>=STEPQ.length) return done("TWO STEPS",
+    "There was never a second grammar called <i>the past perfect subjunctive</i>.<br><b>It is the same step, taken twice.</b>",5);
+  const q=STEPQ[S.i];
+  app.innerHTML=`<div class="panel">
+    <h2><small>STEP 4 · TWO STEPS</small>HOW FAR BACK?</h2>
+    ${counter("ITEM",S.i+1,STEPQ.length)}
+    ${S.i===0?`<div class="tool rose"><span class="lbl">THE EDGE OF THE SCHEMA</span>
+      Grammar books give this its own chapter and its own tables.<br>
+      <b style="color:var(--rose)">There is no second grammar here.</b> If one step means <i>not the case</i>,
+      then two steps means <i>not the case — and that time is over</i>.<br>
+      <span style="color:var(--dim);font-size:.86rem">You are not learning a new form. You are applying the same one twice.</span></div>`:""}
+    <div class="sent" style="font-size:1.02rem;color:var(--dim);font-style:italic">${q.mean}</div>
+    ${stageHTML("f","&nbsp;")}
+    ${optBtns(q.opts)}
+    <div id="out"></div>
+  </div>`;
+  app.querySelectorAll(".choices .ch").forEach(b=>b.onclick=()=>{
+    if(S.locked)return; S.locked=true;
+    const v=b.dataset.v, good=(v===q.ok);
+    tally(good);
+    const f=document.getElementById("f");
+    setStage(f, good?q.steps:0, q.axis, "<b>"+v+"</b> …", !good);
+    app.querySelectorAll(".choices .ch").forEach(x=>{x.disabled=true;
+      if(x.dataset.v===q.ok)x.classList.add("right"); else if(x.dataset.v===v)x.classList.add("wrong")});
+    const head=good?(q.steps===0?"NO STEP BACK":(q.steps===2?"TWO STEPS BACK":AXIS[q.axis].lab)):"THAT IS NOT WHERE YOU ARE";
+    document.getElementById("out").innerHTML=
+      `<div class="fb ${good?'ok':'no'}"><span class="head">${head}</span>${good?q.why:`The right one is <b>${q.ok}</b> — ${q.why}`}</div>
+       ${S.i===STEPQ.length-1?`<div class="tool gold" style="margin-top:14px"><span class="lbl">THE WHOLE CHAPTER, IN ONE LINE</span>
+         <b>0 steps</b> — it could really happen &nbsp;·&nbsp;
+         <b>1 step</b> — not the case, now &nbsp;·&nbsp;
+         <b>2 steps</b> — not the case, and it is over.<br>
+         <span style="color:var(--dim);font-size:.86rem">Everything the tables listed was one of these three.</span></div>`:""}
+       <div class="btnrow"><button class="btn" onclick="next()">NEXT →</button></div>`;
+    if(!good) setTimeout(()=>{const g=document.getElementById("f");
+      if(g)setStage(g,q.steps,q.axis,"<b>"+q.ok+"</b> …",false);},1800);
+  });
+}
+
+/* ---------- STEP 5 ---------- */
+function rFire(){
+  if(S.i>=FIRE.length) return done("LIVE FIRE",
+    "Not once did you ask <i>which conditional type is this?</i><br><b>You asked how far back you were standing.</b>",6);
+  single({step:"STEP 5 · LIVE FIRE",title:"NO WARNING, NO HINTS",unit:"SHOT",len:FIRE.length,q:FIRE[S.i],bar:true});
+}
+
+/* ---------- STEP 6 ---------- */
+function rYou(){
+  markSeen();
+  const pct=S.total?Math.round(S.score/S.total*100):0;
+  app.innerHTML=`<div class="panel">
+    <h2><small>STEP 6 · YOUR TURN</small>FOUR DISTANCES OF YOUR OWN</h2>
+    <div class="score-big">${S.score}<span style="font-size:.4em;color:var(--mute)"> / ${S.total}</span></div>
+    <div class="score-lab">${pct}% &nbsp;·&nbsp; BEST ${S.best}</div>
+    <div class="rule"></div>
+    <p class="lead">Write four sentences about your own life.</p>
+    <div class="tool gold">
+      <span class="lbl">THE ONLY REQUIREMENT</span>
+      1 — one step back from <b style="color:var(--sky)">TIME</b>: something that really did happen<br>
+      2 — one step back from <b style="color:var(--sky)">REALITY</b>: <i>If I were… / I wish I…</i><br>
+      3 — one step back from <b style="color:var(--sky)">THE OTHER PERSON</b>: ask someone for something<br>
+      4 — <b style="color:var(--violet)">two steps</b>: something that was not true back then
+    </div>
+    <textarea id="ta" placeholder="I moved to this flat three years ago.&#10;If I had more time, I would learn the piano.&#10;Could you let me know by Friday?&#10;If I had started earlier, I would have finished it."></textarea>
+    <p class="lead" style="margin-top:16px">Now check the <b style="color:var(--violet);font-style:normal">distance</b>, not the translation.</p>
+    <ul class="check" id="ck">
+      <li>For every past form: <b>what exactly are you standing back from</b> — time, reality, or the person?</li>
+      <li>Did I put a step back anywhere that should have been <b>touching</b> (a plain fact, a live possibility)?</li>
+      <li>Sentence 4 — is it really <b>two</b> steps? Is that time genuinely over?</li>
+      <li>Did I decide anything by <i>〜だった／もし〜なら</i>? (if yes, redo that line)</li>
+      <li>Sentence 3 — with the step back, has the request stopped pressing?</li>
+    </ul>
+    <div class="btnrow">
+      <button class="btn ghost" onclick="copyOut()">COPY</button>
+      <button class="btn ghost" onclick="S.score=0;S.total=0;S.streak=0;go(1)">RUN AGAIN</button>
+      <button class="btn" onclick="go(0)">↑ TOP</button>
+    </div>
+    ${ledgerHTML()}
+  </div>`;
+  app.querySelectorAll("#ck li").forEach(li=>li.onclick=()=>li.classList.toggle("on"));
+}
+function copyOut(){
+  const t=document.getElementById("ta").value.trim();
+  const c=[...document.querySelectorAll("#ck li")].map(li=>(li.classList.contains("on")?"[x] ":"[ ] ")+li.textContent.trim()).join("\n");
+  navigator.clipboard.writeText(`one step back — four distances\n\n${t}\n\nself-check\n${c}\n\nscore ${S.score}/${S.total}`)
+    .then(()=>alert("copied")).catch(()=>{});
+}
+
+/* ---------- interstitial ---------- */
+function done(title,msg,nx){
+  app.innerHTML=`<div class="panel" style="text-align:center">
+    <h2 style="justify-content:center"><small>CLEARED</small>${title}</h2>
+    <div class="score-big">${S.score}<span style="font-size:.4em;color:var(--mute)"> / ${S.total}</span></div>
+    <div class="rule"></div>
+    <p style="font-size:1rem;color:var(--ink);margin:10px 0 4px">${msg}</p>
+    <div class="btnrow" style="justify-content:center"><button class="btn" onclick="go(${nx})">CONTINUE →</button></div>
+  </div>`;
+}
+
+render();
+</script>
+</body>
+</html>
+</content>
