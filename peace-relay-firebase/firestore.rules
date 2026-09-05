@@ -1,0 +1,84 @@
+rules_version = '2';
+
+// ピースデー地球一周リレー（peace-relay.html）用の Firestore セキュリティルール
+//
+// 前提：このアプリは Firebase Auth を使わない（誰でも参加できる公開リレー）。
+// そのため「本人確認」はできない。ここでできるのは
+//   ①コレクションを participants / updates の2つに限定する
+//   ②1件あたりのサイズと型を検証して、荒らし・巨大データの投入を防ぐ
+//   ③招待フロー（pending → confirmed）だけ所有者の付け替えを許す
+// の3点。
+//
+// ⚠️ 期限つきの「テストモード」ルールは使わないこと。
+//    2026-08 に期限切れで permission-denied となり、全員の表示が 0 になった。
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ---------- 共通ヘルパー ----------
+    function isShortString(v, maxLen) {
+      return v is string && v.size() <= maxLen;
+    }
+
+    // ---------- 参加者 ----------
+    match /participants/{docId} {
+
+      function validParticipant(d) {
+        return d.keys().size() <= 20
+            && d.name is string && d.name.size() > 0 && d.name.size() <= 40
+            && isShortString(d.sessionId, 64)
+            && (!('city' in d)        || isShortString(d.city, 60))
+            && (!('region' in d)      || isShortString(d.region, 40))
+            && (!('status' in d)      || isShortString(d.status, 20))
+            && (!('inviterName' in d) || isShortString(d.inviterName, 40))
+            && (!('offset' in d)      || d.offset == null || (d.offset is number && d.offset >= -14 && d.offset <= 14))
+            && (!('shiftHour' in d)   || d.shiftHour == null || (d.shiftHour is int && d.shiftHour >= 0 && d.shiftHour <= 23))
+            && (!('leaderTier' in d)  || d.leaderTier == null || (d.leaderTier is int && d.leaderTier >= 0 && d.leaderTier <= 4));
+      }
+
+      allow read: if true;
+
+      allow create: if validParticipant(request.resource.data);
+
+      // 通常の更新は sessionId が変わらないこと。
+      // 例外：招待リンク経由（status == 'pending'）のときだけ、承認者へ所有権を移せる。
+      allow update: if validParticipant(request.resource.data)
+                    && (
+                         request.resource.data.sessionId == resource.data.sessionId
+                         || resource.data.get('status', '') == 'pending'
+                       );
+
+      // 参加取り消し。Auth が無いので本人性は検証できない（アプリ側で sessionId を照合）。
+      allow delete: if true;
+    }
+
+    // ---------- 近況ボード ----------
+    match /updates/{docId} {
+
+      allow read: if true;
+
+      allow create: if request.resource.data.keys().size() <= 10
+                    && request.resource.data.text is string
+                    && request.resource.data.text.size() > 0
+                    && request.resource.data.text.size() <= 140   // アプリ側 UPD_MAX と揃える
+                    && request.resource.data.name is string
+                    && request.resource.data.name.size() > 0
+                    && request.resource.data.name.size() <= 40
+                    && isShortString(request.resource.data.city, 60)
+                    && isShortString(request.resource.data.sessionId, 64)
+                    && request.resource.data.cheers == 0;
+
+      // 更新は「👏 の +1」だけ。本文・投稿者は書き換えさせない。
+      allow update: if request.resource.data.diff(resource.data).affectedKeys().hasOnly(['cheers'])
+                    && request.resource.data.cheers is int
+                    && request.resource.data.cheers == resource.data.cheers + 1;
+
+      allow delete: if true;
+    }
+
+    // ---------- 上記以外は全面禁止 ----------
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
