@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>論文構造とありえるシートの関係 ｜ ありえる楽考</title>
+<meta name="description" content="論文とありえるシートは同じ骨格をしている。違うのはレンズの向きである。8枠↔論文セクション、4象限↔論文を書く技術の対応を図解3枚で整理。">
+<meta property="og:title" content="論文構造とありえるシートの関係 ｜ ありえる楽考"><meta property="og:type" content="article">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232a6a4a'/><text x='50' y='60' font-size='58' text-anchor='middle' dominant-baseline='central'>📐</text></svg>">
+<style>
+:root{--ink:#223;--dim:#5a6270;--line:#e3e3dc;--bg:#fafaf6;--paper:#fff;
+--blue:#2d6da0;--blueBg:#eaf2fa;--or:#d9832a;--orBg:#fdf0e0;--gr:#2a6a4a;--grBg:#e8f4ee;--gold:#c8860a;--goldBg:#fff8e6;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+background:var(--bg);color:var(--ink);line-height:1.9;padding:32px 16px 96px;font-size:16px;
+-webkit-font-smoothing:antialiased}
+.wrap{max-width:1020px;margin:0 auto}
+header{text-align:center;padding:12px 0 30px;border-bottom:3px solid var(--gr);margin-bottom:34px}
+header h1{font-size:1.9rem;line-height:1.5;color:var(--gr);letter-spacing:.02em}
+header .sub{color:var(--dim);font-size:.9rem;margin-top:12px}
+header .src{display:inline-block;margin-top:14px;padding:5px 14px;border-radius:14px;
+background:var(--grBg);color:var(--gr);font-size:.78rem}
+h1,h2,h3,h4{line-height:1.5}
+h2{font-size:1.4rem;margin:52px 0 18px;padding:10px 0 10px 16px;border-left:7px solid var(--gr);
+background:linear-gradient(90deg,var(--grBg),transparent)}
+h3{font-size:1.14rem;margin:34px 0 12px;color:var(--gr)}
+h4{font-size:1rem;margin:22px 0 8px;color:var(--dim)}
+p{margin:14px 0}
+ul{margin:14px 0 14px 26px} li{margin:7px 0}
+hr{border:0;border-top:1px dashed var(--line);margin:40px 0}
+strong{font-weight:700;background:linear-gradient(transparent 62%,#ffe9a8 62%);padding:0 1px}
+code{background:#f0f0ea;padding:2px 7px;border-radius:5px;font-size:.87em;
+font-family:"SF Mono",Menlo,monospace;color:#8a4a10}
+pre{background:#2a2e35;color:#e8e8e0;padding:18px 20px;border-radius:10px;overflow-x:auto;margin:18px 0}
+pre code{background:none;color:inherit;padding:0}
+figure{margin:30px 0;background:var(--paper);border:1px solid var(--line);border-radius:14px;
+padding:14px;box-shadow:0 3px 16px rgba(0,0,0,.06);overflow-x:auto}
+figure svg{display:block;min-width:820px}
+table{width:100%;border-collapse:collapse;margin:20px 0;font-size:.93rem;background:var(--paper);
+border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+th{background:var(--gr);color:#fff;padding:11px 13px;text-align:left;font-weight:700;font-size:.9rem}
+td{padding:11px 13px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:#fbfbf7}
+blockquote{margin:20px 0;padding:14px 20px;border-left:5px solid #c8cdd4;background:#f5f6f3;
+border-radius:0 8px 8px 0;color:var(--dim)}
+.cal{margin:22px 0;padding:16px 20px;border-radius:10px;border-left:6px solid}
+.cal-t{font-weight:700;margin-bottom:7px}
+.cal-important{background:var(--goldBg);border-color:var(--gold)} .cal-important .cal-t{color:var(--gold)}
+.cal-note{background:var(--blueBg);border-color:var(--blue)} .cal-note .cal-t{color:var(--blue)}
+.cal-warning{background:var(--orBg);border-color:var(--or)} .cal-warning .cal-t{color:var(--or)}
+.cal-danger{background:#fdeaea;border-color:#c0392b} .cal-danger .cal-t{color:#c0392b}
+.cal-tip{background:var(--grBg);border-color:var(--gr)} .cal-tip .cal-t{color:var(--gr)}
+.wl{color:var(--gr);border-bottom:1px dotted var(--gr)}
+a{color:var(--blue)}
+.star{color:var(--gold);font-weight:700}
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);
+text-align:center;color:#9a9a90;font-size:.8rem;line-height:2}
+@media(max-width:780px){body{padding:18px 10px 70px;font-size:15px}header h1{font-size:1.4rem}
+h2{font-size:1.2rem}figure{padding:8px}}
+</style></head><body><div class="wrap">
+<header><h1>論文構造とありえるシートの関係<br><span style="font-size:.6em;font-weight:400;color:#5a6270">同じ骨格を、正反対の向きに使う</span></h1><div class="sub">論文はレンズを外の現象に向け、観察者を消す。ありえるシートはレンズを自分の判断に向け、消さずに主題にする。</div><div class="src">出典：鈴木利和「これはその論文の構造でもありますけれども」（2026-07-05）</div></header>
+<h2>0. 出発点 ── 本人が言っている</h2>
+<blockquote>どんなふうに状況を見て、どう考えてどう判断して、どう行動して、どんな結果になったのか。<br>その<strong>仮説と実際に起きたことの差分</strong>から、自分なりの気づき発見を書いて、次どういうふうに展開していくのか。<br><strong>これはその論文の構造でもありますけれども</strong><br>── 鈴木利和、<span class="wl">日八20260705</span> 17:48</blockquote>
+<p><strong>この発言が出た文脈が重要である。</strong> 直前で話していたのは <strong>TTP（他の人がやっているのを真似る）</strong> だった。 「他の人がやっているのを読む」→「自分で仮説を立てて書く」→「差分から気づく」という流れを説明する途中で、論文が引き合いに出されている。</p>
+<p>つまりこの対比は、<strong>形が似ているという指摘ではなく、「なぜシートを共有するのか」の説明として出てきた</strong>。ここを外すと、ただの形式のアナロジーになる。</p>
+<hr>
+<h2>1. なぜ同じ形になるのか</h2>
+<p>根が同じだからである。どちらも次の1サイクルでできている。</p>
+<pre><code> ① いまの状況を見る      → 観察
+ ② こうなるはずだと置く    → 仮説（アブダクション）
+ ③ 実際にやる          → 検証
+ ④ ずれを見る          → 差分
+ ⑤ 何が言えるか書く       → 気づき
+ ⑥ 次にどうするか置く      → 展開</code></pre>
+<p>論文はこのサイクルを <strong>専門家の共同体に対して</strong> 回す。 ありえるシートはこのサイクルを <strong>自分の認知に対して</strong> 回す。</p>
+<p><strong>回す相手が違うだけで、回しているものは同じ。</strong> だから構造が一致する。</p>
+<hr>
+<hr>
+<h2>図解1｜同じ骨格 ── 論文のセクションと、シートの8枠</h2>
+<figure><svg viewBox="0 0 1400 880" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;background:#fafaf6;border-radius:12px;">
+  <defs>
+    <marker id="ahR" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <polygon points="0,0 10,4 0,8" fill="#d9832a"/>
+    </marker>
+  </defs>
+
+  <text x="700" y="42" text-anchor="middle" font-size="25" font-weight="700" fill="#223" font-family="'Hiragino Sans','Yu Gothic',sans-serif">同じ骨格 ── 論文とありえるシートは、同じ1サイクルを回している</text>
+
+  <!-- column headers -->
+  <text x="250"  y="100" text-anchor="middle" font-size="20" font-weight="700" fill="#1d4e78" font-family="'Hiragino Sans','Yu Gothic',sans-serif">論文</text>
+  <text x="250"  y="122" text-anchor="middle" font-size="12" fill="#6a8aa8" font-family="'Hiragino Sans','Yu Gothic',sans-serif">レンズを外の現象に向ける</text>
+  <text x="700"  y="100" text-anchor="middle" font-size="20" font-weight="700" fill="#2a6a4a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">共通の骨格</text>
+  <text x="700"  y="122" text-anchor="middle" font-size="12" fill="#6a9a80" font-family="'Hiragino Sans','Yu Gothic',sans-serif">観察→仮説→検証→差分→展開</text>
+  <text x="1130" y="100" text-anchor="middle" font-size="20" font-weight="700" fill="#8a4a10" font-family="'Hiragino Sans','Yu Gothic',sans-serif">ありえるシート</text>
+  <text x="1130" y="122" text-anchor="middle" font-size="12" fill="#b08a60" font-family="'Hiragino Sans','Yu Gothic',sans-serif">レンズを自分の判断に向ける</text>
+
+  <!-- ===== row 0 ===== -->
+  <line x1="440" y1="181" x2="520" y2="181" stroke="#bbb" stroke-width="1.5"/>
+  <line x1="880" y1="181" x2="940" y2="181" stroke="#bbb" stroke-width="1.5"/>
+  <rect x="60" y="145" width="380" height="72" rx="10" fill="#eaf2fa" stroke="#2d6da0" stroke-width="2"/>
+  <text x="250" y="176" text-anchor="middle" font-size="16" font-weight="700" fill="#1d4e78" font-family="'Hiragino Sans','Yu Gothic',sans-serif">問題設定・リサーチクエスチョン</text>
+  <text x="250" y="198" text-anchor="middle" font-size="12" fill="#6a8aa8" font-family="'Hiragino Sans','Yu Gothic',sans-serif">なぜこの問いか</text>
+  <rect x="520" y="145" width="360" height="72" rx="10" fill="#2a6a4a"/>
+  <circle cx="556" cy="181" r="15" fill="rgba(255,255,255,0.22)"/>
+  <text x="556" y="187" text-anchor="middle" font-size="15" font-weight="700" fill="white" font-family="'Hiragino Sans','Yu Gothic',sans-serif">1</text>
+  <text x="712" y="176" text-anchor="middle" font-size="17" font-weight="700" fill="white" font-family="'Hiragino Sans','Yu Gothic',sans-serif">観察・範囲づけ</text>
+  <text x="712" y="198" text-anchor="middle" font-size="12" fill="rgba(255,255,255,0.8)" font-family="'Hiragino Sans','Yu Gothic',sans-serif">誰の何に、を切る</text>
+  <rect x="940" y="145" width="380" height="72" rx="10" fill="#fdf0e0" stroke="#d9832a" stroke-width="2"/>
+  <text x="1130" y="176" text-anchor="middle" font-size="16" font-weight="700" fill="#8a4a10" font-family="'Hiragino Sans','Yu Gothic',sans-serif">① 目的</text>
+  <text x="1130" y="198" text-anchor="middle" font-size="12" fill="#b08a60" font-family="'Hiragino Sans','Yu Gothic',sans-serif">どんな変化を意図しているか</text>
+
+  <!-- ===== row 1 ===== -->
+  <line x1="440" y1="269" x2="520" y2="269" stroke="#bbb" stroke-width="1.5"/>
+  <line x1="880" y1="269" x2="940" y2="269" stroke="#bbb" stroke-width="1.5"/>
+  <rect x="60" y="233" width="380" height="72" rx="10" fill="#eaf2fa" stroke="#2d6da0" stroke-width="2"/>
+  <text x="250" y="264" text-anchor="middle" font-size="16" font-weight="700" fill="#1d4e78" font-family="'Hiragino Sans','Yu Gothic',sans-serif">仮説</text>
+  <text x="250" y="286" text-anchor="middle" font-size="12" fill="#6a8aa8" font-family="'Hiragino Sans','Yu Gothic',sans-serif">検証前に言い切っておく</text>
+  <rect x="520" y="233" width="360" height="72" rx="10" fill="#2a6a4a"/>
+  <circle cx="556" cy="269" r="15" fill="rgba(255,255,255,0.22)"/>
+  <text x="556" y="275" text-anchor="middle" font-size="15" font-weight="700" fill="white" font-family="'Hiragino Sans','Yu Gothic',sans-serif">2</text>
+  <text x="712" y="264" text-anchor="middle" font-size="17" font-weight="700" fill="white" font-family="'Hiragino Sans','Yu Gothic',sans-serif">仮説を置く</text>
+  <text x="712" y="286" text-anchor="middle" font-size="12" fill="rgba(255,255,255,0.8)" font-family="'Hiragino Sans','Yu Gothic',sans-serif">アブダクション</text>
+  <rect x="940" y="233" width="380" height="72" rx="10" fill="#fdf0e0" stroke="#d9832a" stroke-width="2"/>
+  <text x="1130" y="264" text-anchor="middle" font-size="16" font-weight="700" fill="#8a4a10" font-family="'Hiragino Sans','Yu Gothic',sans-serif">② 最初の状態 ＝ Pre 仮説</text>
+  <text x="1130" y="286" text-anchor="middle" font-size="12" fill="#b08a60" font-family="'Hiragino Sans','Yu Gothic',sans-serif">What</text>
+
+  <!-- ===== row 2 ===== -->
+  <line x1="440" y1="357" x2="520" y2="357" stroke="#bbb" stroke-width="1.5"/>
+  <line x1="880" y1="357" x2="940" y2="357" stroke="#bbb" stroke-width="1.5"/>
+  <rect x="60" y="321" width="380" height="72" rx="10" fill="#eaf2fa" stroke="#2d6da0" stroke-width="2"/>
+  <text x="250" y="352" text-anchor="middle" font-size="16" font-weight="700" fill="#1d4e78" font-family="'Hiragino Sans','Yu Gothic',sans-serif">方法（Method）</text>
+  <text x="250" y="374" text-anchor="middle" font-size="12" fill="#6a8aa8" font-family="'Hiragino Sans','Yu Gothic',sans-serif">誰がやっても同じになる手続き</text>
+  <rect x="520" y="321" width="360" height="72" rx="10" fill="#2a6a4a"/>
+  <circle cx="556" cy="357" r="15" fill="rgba(255,255,255,0.22)"/>
+  <text x="556" y="363" text-anchor="middle" font-size="15" font-weight="700" fill="white" font-family="'Hiragino Sans','Yu Gothic',sans-serif">3</text>
+  <text x="712" y="352" text-anchor="middle" font-size="17" font-weight="700" fill="white" font-family="'Hiragino Sans','Yu Gothic',sans-serif">検証する</text>
+  <text x="712" y="374" text-anchor="middle" font-size="12" fill="rgba(255,255,255,0.8)" font-family="'Hiragino Sans','Yu Gothic',sans-serif">実際にやってみる</text>
+  <rect x="940" y="321" width="380" height="72" rx="10" fill="#fdf0e0" stroke="#d9832a" stroke-width="2"/>
+  <text x="1130" y="352" text-anchor="middle" font-size="16" font-weight="700" fill="#8a4a10" font-family="'Hiragino Sans','Yu Gothic',sans-serif">④⑤⑥ プロセス1・2・3</text>
+  <text x="1130" y="374" text-anchor="middle" font-size="12" fill="#b08a60" font-family="'Hiragino Sans','Yu Gothic',sans-serif">入力 → 精緻化 → 出力（私の判断）</text>
+
+  <!-- ===== row 3 ===== -->
+  <line x1="440" y1="445" x2="520" y2="445" stroke="#bbb" stroke-width="1.5"/>
+  <line x1="880" y1="445" x2="940" y2="445" stroke="#bbb" stroke-width="1.5"/>
+  <rect x="60" y="409" width="380" height="72" rx="10" fill="#eaf2fa" stroke="#2d6da0" stroke-width="2"/>
+  <text x="250" y="440" text-anchor="middle" font-size="16" font-weight="700" fill="#1d4e78" font-family="'Hiragino Sans','Yu Gothic',sans-serif">結果（Results）</text>
+  <text x="250" y="462" text-anchor="middle" font-size="12" fill="#6a8aa8" font-family="'Hiragino Sans','Yu Gothic',sans-serif">起きたこと</text>
+  <rect x="520" y="409" width="360" height="72" rx="10" fill="#2a6a4a"/>
+  <circle cx="556" cy="445" r="15" fill="rgba(255,255,255,0.22)"/>
+  <text x="556" y="451" text-anchor="middle" font-size="15" font-weight="700" fill="white" font-family="'Hiragino Sans','Yu Gothic',sans-serif">4</text>
+  <text x="712" y="440" text-anchor="middle" font-size="17" font-weight="700" fill="white" font-family="'Hiragino Sans','Yu Gothic',sans-serif">結果を見る</text>
+  <text x="712" y="462" text-anchor="middle" font-size="12" fill="rgba(255,255,255,0.8)" font-family="'Hiragino Sans','Yu Gothic',sans-serif">事実として置く</text>
+  <rect x="940" y="409" width="380" height="72" rx="10" fill="#fdf0e0" stroke="#d9832a" stroke-width="2"/>
+  <text x="1130" y="440" text-anchor="middle" font-size="16" font-weight="700" fill="#8a4a10" font-family="'Hiragino Sans','Yu Gothic',sans-serif">③ 結果の状態（On）</text>
+  <text x="1130" y="462" text-anchor="middle" font-size="12" fill="#b08a60" font-family="'Hiragino Sans','Yu Gothic',sans-serif">Have</text>
+
+  <!-- ===== row 4 : HIGHLIGHT ===== -->
+  <rect x="44" y="490" width="1292" height="86" rx="14" fill="#fff8e6" stroke="#d9a01f" stroke-width="2" stroke-dasharray="7 5"/>
+  <line x1="440" y1="533" x2="520" y2="533" stroke="#d9a01f" stroke-width="2"/>
+  <line x1="880" y1="533" x2="940" y2="533" stroke="#d9a01f" stroke-width="2"/>
+  <rect x="60" y="497" width="380" height="72" rx="10" fill="#dbe9f6" stroke="#2d6da0" stroke-width="3"/>
+  <text x="250" y="528" text-anchor="middle" font-size="16" font-weight="700" fill="#1d4e78" font-family="'Hiragino Sans','Yu Gothic',sans-serif">考察（Discussion）</text>
+  <text x="250" y="550" text-anchor="middle" font-size="12" fill="#5a7a98" font-family="'Hiragino Sans','Yu Gothic',sans-serif">ずれの理由を解く</text>
+  <rect x="520" y="497" width="360" height="72" rx="10" fill="#c8860a"/>
+  <text x="700" y="527" text-anchor="middle" font-size="18" font-weight="700" fill="white" font-family="'Hiragino Sans','Yu Gothic',sans-serif">★ 差分（②と④のずれ）</text>
+  <text x="700" y="550" text-anchor="middle" font-size="12" fill="rgba(255,255,255,0.9)" font-family="'Hiragino Sans','Yu Gothic',sans-serif">ここが本体。両方ともここで価値が決まる</text>
+  <rect x="940" y="497" width="380" height="72" rx="10" fill="#fbe3c4" stroke="#d9832a" stroke-width="3"/>
+  <text x="1130" y="528" text-anchor="middle" font-size="16" font-weight="700" fill="#8a4a10" font-family="'Hiragino Sans','Yu Gothic',sans-serif">② ↔ ③ のずれ</text>
+  <text x="1130" y="550" text-anchor="middle" font-size="12" fill="#a06a30" font-family="'Hiragino Sans','Yu Gothic',sans-serif">ここが無いと日記になる</text>
+
+  <!-- ===== row 5 ===== -->
+  <line x1="440" y1="621" x2="520" y2="621" stroke="#bbb" stroke-width="1.5"/>
+  <line x1="880" y1="621" x2="940" y2="621" stroke="#bbb" stroke-width="1.5"/>
+  <rect x="60" y="585" width="380" height="72" rx="10" fill="#eaf2fa" stroke="#2d6da0" stroke-width="2"/>
+  <text x="250" y="616" text-anchor="middle" font-size="16" font-weight="700" fill="#1d4e78" font-family="'Hiragino Sans','Yu Gothic',sans-serif">結論</text>
+  <text x="250" y="638" text-anchor="middle" font-size="12" fill="#6a8aa8" font-family="'Hiragino Sans','Yu Gothic',sans-serif">差分から何が言えるか</text>
+  <rect x="520" y="585" width="360" height="72" rx="10" fill="#2a6a4a"/>
+  <circle cx="556" cy="621" r="15" fill="rgba(255,255,255,0.22)"/>
+  <text x="556" y="627" text-anchor="middle" font-size="15" font-weight="700" fill="white" font-family="'Hiragino Sans','Yu Gothic',sans-serif">6</text>
+  <text x="712" y="616" text-anchor="middle" font-size="17" font-weight="700" fill="white" font-family="'Hiragino Sans','Yu Gothic',sans-serif">気づきを言語化</text>
+  <rect x="940" y="585" width="380" height="72" rx="10" fill="#fdf0e0" stroke="#d9832a" stroke-width="2"/>
+  <text x="1130" y="616" text-anchor="middle" font-size="16" font-weight="700" fill="#8a4a10" font-family="'Hiragino Sans','Yu Gothic',sans-serif">⑦ 気づき・発見（Post）</text>
+  <text x="1130" y="638" text-anchor="middle" font-size="12" fill="#b08a60" font-family="'Hiragino Sans','Yu Gothic',sans-serif">ここで止めると日記</text>
+
+  <!-- ===== row 6 ===== -->
+  <line x1="440" y1="709" x2="520" y2="709" stroke="#bbb" stroke-width="1.5"/>
+  <line x1="880" y1="709" x2="940" y2="709" stroke="#bbb" stroke-width="1.5"/>
+  <rect x="60" y="673" width="380" height="72" rx="10" fill="#eaf2fa" stroke="#2d6da0" stroke-width="2"/>
+  <text x="250" y="704" text-anchor="middle" font-size="16" font-weight="700" fill="#1d4e78" font-family="'Hiragino Sans','Yu Gothic',sans-serif">今後の課題</text>
+  <text x="250" y="726" text-anchor="middle" font-size="12" fill="#6a8aa8" font-family="'Hiragino Sans','Yu Gothic',sans-serif">別の研究に渡して、この論文は閉じる</text>
+  <rect x="520" y="673" width="360" height="72" rx="10" fill="#2a6a4a"/>
+  <circle cx="556" cy="709" r="15" fill="rgba(255,255,255,0.22)"/>
+  <text x="556" y="715" text-anchor="middle" font-size="15" font-weight="700" fill="white" font-family="'Hiragino Sans','Yu Gothic',sans-serif">7</text>
+  <text x="712" y="704" text-anchor="middle" font-size="17" font-weight="700" fill="white" font-family="'Hiragino Sans','Yu Gothic',sans-serif">次へ展開する</text>
+  <rect x="940" y="673" width="380" height="72" rx="10" fill="#fdf0e0" stroke="#d9832a" stroke-width="2"/>
+  <text x="1130" y="704" text-anchor="middle" font-size="16" font-weight="700" fill="#8a4a10" font-family="'Hiragino Sans','Yu Gothic',sans-serif">⑧ 次の最初の一歩</text>
+  <text x="1130" y="726" text-anchor="middle" font-size="12" fill="#b08a60" font-family="'Hiragino Sans','Yu Gothic',sans-serif">24時間以内・次の①になる</text>
+
+  <!-- return loop on the sheet side -->
+  <path d="M 1320 709 C 1378 709, 1378 181, 1326 181" fill="none" stroke="#d9832a" stroke-width="2.5" marker-end="url(#ahR)"/>
+  <text x="1388" y="450" text-anchor="middle" font-size="13" font-weight="700" fill="#d9832a" transform="rotate(90 1388 450)" font-family="'Hiragino Sans','Yu Gothic',sans-serif">閉じずに回り続ける</text>
+
+  <!-- close bar on the paper side -->
+  <line x1="60" y1="752" x2="440" y2="752" stroke="#2d6da0" stroke-width="4"/>
+  <text x="250" y="772" text-anchor="middle" font-size="13" font-weight="700" fill="#2d6da0" font-family="'Hiragino Sans','Yu Gothic',sans-serif">ここで閉じる</text>
+
+  <!-- footer row : 巨人の肩 -->
+  <rect x="60" y="795" width="380" height="58" rx="10" fill="#f4f8fc" stroke="#9bb8d0" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="250" y="822" text-anchor="middle" font-size="15" font-weight="700" fill="#1d4e78" font-family="'Hiragino Sans','Yu Gothic',sans-serif">先行研究レビュー</text>
+  <text x="250" y="841" text-anchor="middle" font-size="11" fill="#6a8aa8" font-family="'Hiragino Sans','Yu Gothic',sans-serif">引用という形で乗る</text>
+  <rect x="520" y="795" width="360" height="58" rx="10" fill="#e8f4ee" stroke="#2a6a4a" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="700" y="828" text-anchor="middle" font-size="16" font-weight="700" fill="#2a6a4a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">巨人の肩に乗る</text>
+  <rect x="940" y="795" width="380" height="58" rx="10" fill="#fdf7ef" stroke="#d9a878" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="1130" y="822" text-anchor="middle" font-size="15" font-weight="700" fill="#8a4a10" font-family="'Hiragino Sans','Yu Gothic',sans-serif">他の人のシートを読む</text>
+  <text x="1130" y="841" text-anchor="middle" font-size="11" fill="#b08a60" font-family="'Hiragino Sans','Yu Gothic',sans-serif">TTP という形で乗る</text>
+</svg></figure>
+<blockquote><strong>読み方</strong>：中央の緑が共通の骨格。左右はその同じ1ステップが、論文では何と呼ばれ、シートではどの枠になるかを示している。<br><strong>金色の帯（<span class="star">★</span>差分）が本体。</strong> 両方とも、ここを書けたかどうかで価値が決まる。<br>右端のオレンジの矢印に注目 ── <strong>シートだけが ⑧ から ① へ戻る。論文は「ここで閉じる」で止まる。</strong></blockquote>
+<hr>
+<h2>2. 対応表①｜シートの8枠 ↔ 論文のセクション</h2>
+<p>ありえるシート1の記入欄は8つある（<span class="wl">ありえるシートとは何か？</span> の「記入用紙との対応」より）。</p>
+<table><thead><tr><th>#</th><th>シートの枠</th><th>論文のセクション</th><th>何をする場所か</th></tr></thead><tbody><tr><td>①</td><td><strong>目的</strong>（今回どんな変化を意図しているか）</td><td><strong>問題設定・リサーチクエスチョン</strong></td><td>「誰の何に」で範囲を切る</td></tr><tr><td>②</td><td><strong>最初の状態</strong>（Pre 仮説・What）</td><td><strong>仮説</strong></td><td>検証前に、こうなるはずだと言い切っておく</td></tr><tr><td>④⑤⑥</td><td><strong>プロセス1・2・3</strong></td><td><strong>方法（Method）</strong></td><td>実際にどう動いたか</td></tr><tr><td>③</td><td><strong>結果の状態</strong>（On・Have）</td><td><strong>結果（Results）</strong></td><td>起きたことを書く</td></tr><tr><td>②↔③ の差</td><td><strong>仮説と結果の差分</strong></td><td><strong>考察（Discussion）</strong></td><td>ここが本体。ずれの理由を解く</td></tr><tr><td>⑦</td><td><strong>気づき・発見</strong>（Post）</td><td><strong>結論</strong></td><td>差分から何が言えるか</td></tr><tr><td>⑧</td><td><strong>次の最初の一歩</strong>（24時間以内）</td><td><strong>今後の課題</strong></td><td>次のサイクルの① になる</td></tr><tr><td>—</td><td><strong>他の人のシートを読む</strong></td><td><strong>先行研究レビュー</strong></td><td>＝TTP。巨人の肩に乗る</td></tr></tbody></table>
+<div class="cal cal-important"><div class="cal-t">◆ いちばん大事な対応は「②↔③の差分」＝考察</div><div>論文で価値があるのは Results ではなく Discussion である。データを並べただけの論文は通らない。<br>シートも同じで、<strong>③結果の状態を書いただけでは日記になる</strong>。②で置いた仮説と③のずれを見て、⑦で言語化したところで初めて「効いた」ことになる。<br><strong>②を書かずに③から書き始めるのが、いちばんよくある壊れ方。</strong> 仮説がなければ差分も出ない。</div></div>
+<hr>
+<h2>3. 対応表②｜4象限（あ・り・え・る） ↔ 論文を書くときの技術</h2>
+<p>4象限は8枠とは<strong>別のレイヤー</strong>である（<span class="wl">ありえるシートとは何か？</span> より：「記入用紙の骨格は感情→思考→行動。4象限は用紙の上に別レイヤーとして重なっている」）。 こちらは「どの欄を書くか」ではなく「<strong>どう考えるか</strong>」＝<span class="wl">認知方略</span> にあたる。</p>
+<p>論文執筆で実際に使う技術と、そのまま重なる。</p>
+<table><thead><tr><th>象限</th><th>認知方略</th><th>論文で対応する技術</th><th>具体的に何をするか</th></tr></thead><tbody><tr><td><strong>あ</strong></td><td>アナロジー</td><td><strong>先行研究との対比</strong></td><td>あるもの／ないものを並べ、<strong>まだ埋まっていない穴（gap）</strong> を見つける</td></tr><tr><td><strong>り</strong></td><td>カテゴリー</td><td><strong>概念の定義と適用範囲</strong></td><td>用語を定義し、「本稿では〜に限る」と範囲を切る</td></tr><tr><td><strong>え</strong></td><td>マトリックス</td><td><strong>分析枠組み・変数の軸</strong></td><td>2軸以上を同時に立てて、現象を置く場所を作る</td></tr><tr><td><strong>る</strong></td><td>プログレッション</td><td><strong>論証の順序・手続き</strong></td><td>順番に分解し、飛ばさずに次へ進める</td></tr></tbody></table>
+<figure><svg viewBox="0 0 1400 500" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;background:#fafaf6;border-radius:12px;">
+  <text x="700" y="38" text-anchor="middle" font-size="24" font-weight="700" fill="#223" font-family="'Hiragino Sans','Yu Gothic',sans-serif">4象限は「どう考えるか」── 論文を書くときに使う技術と重なる</text>
+  <text x="700" y="64" text-anchor="middle" font-size="13" fill="#667" font-family="'Hiragino Sans','Yu Gothic',sans-serif">8枠が「どの欄を書くか」なのに対し、4象限は用紙の上に重なる別レイヤー（＝認知方略）</text>
+
+  <!-- あ -->
+  <rect x="60" y="90" width="315" height="370" rx="14" fill="white" stroke="#5aa0d8" stroke-width="2.5"/>
+  <circle cx="217" cy="155" r="42" fill="#5aa0d8"/>
+  <text x="217" y="170" text-anchor="middle" font-size="40" font-weight="700" fill="white" font-family="'Hiragino Sans','Yu Gothic',sans-serif">あ</text>
+  <text x="217" y="228" text-anchor="middle" font-size="17" font-weight="700" fill="#2d6da0" font-family="'Hiragino Sans','Yu Gothic',sans-serif">アナロジー</text>
+  <line x1="85" y1="248" x2="350" y2="248" stroke="#dde6ee" stroke-width="1.5"/>
+  <text x="217" y="272" text-anchor="middle" font-size="11" fill="#99a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">論文で使う技術</text>
+  <text x="217" y="297" text-anchor="middle" font-size="15" font-weight="700" fill="#223" font-family="'Hiragino Sans','Yu Gothic',sans-serif">先行研究との対比</text>
+  <text x="217" y="320" text-anchor="middle" font-size="12" fill="#667" font-family="'Hiragino Sans','Yu Gothic',sans-serif">まだ埋まっていない穴を探す</text>
+  <line x1="85" y1="342" x2="350" y2="342" stroke="#dde6ee" stroke-width="1.5"/>
+  <text x="217" y="366" text-anchor="middle" font-size="11" fill="#c87a5a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">効いていないと</text>
+  <text x="217" y="392" text-anchor="middle" font-size="13" fill="#a05a3a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">「先行研究は読んだが、</text>
+  <text x="217" y="414" text-anchor="middle" font-size="13" fill="#a05a3a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">自分の新しさが言えない」</text>
+
+  <!-- り -->
+  <rect x="395" y="90" width="315" height="370" rx="14" fill="white" stroke="#4fa578" stroke-width="2.5"/>
+  <circle cx="552" cy="155" r="42" fill="#4fa578"/>
+  <text x="552" y="170" text-anchor="middle" font-size="40" font-weight="700" fill="white" font-family="'Hiragino Sans','Yu Gothic',sans-serif">り</text>
+  <text x="552" y="228" text-anchor="middle" font-size="17" font-weight="700" fill="#2a6a4a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">カテゴリー</text>
+  <line x1="420" y1="248" x2="685" y2="248" stroke="#dde9e2" stroke-width="1.5"/>
+  <text x="552" y="272" text-anchor="middle" font-size="11" fill="#99a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">論文で使う技術</text>
+  <text x="552" y="297" text-anchor="middle" font-size="15" font-weight="700" fill="#223" font-family="'Hiragino Sans','Yu Gothic',sans-serif">定義と適用範囲</text>
+  <text x="552" y="320" text-anchor="middle" font-size="12" fill="#667" font-family="'Hiragino Sans','Yu Gothic',sans-serif">「本稿では〜に限る」</text>
+  <line x1="420" y1="342" x2="685" y2="342" stroke="#dde9e2" stroke-width="1.5"/>
+  <text x="552" y="366" text-anchor="middle" font-size="11" fill="#c87a5a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">効いていないと</text>
+  <text x="552" y="392" text-anchor="middle" font-size="13" fill="#a05a3a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">「話が広がりすぎて、</text>
+  <text x="552" y="414" text-anchor="middle" font-size="13" fill="#a05a3a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">何の話か分からなくなる」</text>
+
+  <!-- え -->
+  <rect x="730" y="90" width="315" height="370" rx="14" fill="white" stroke="#a06fb8" stroke-width="2.5"/>
+  <circle cx="887" cy="155" r="42" fill="#a06fb8"/>
+  <text x="887" y="170" text-anchor="middle" font-size="40" font-weight="700" fill="white" font-family="'Hiragino Sans','Yu Gothic',sans-serif">え</text>
+  <text x="887" y="228" text-anchor="middle" font-size="17" font-weight="700" fill="#6a3f80" font-family="'Hiragino Sans','Yu Gothic',sans-serif">マトリックス</text>
+  <line x1="755" y1="248" x2="1020" y2="248" stroke="#e6dcec" stroke-width="1.5"/>
+  <text x="887" y="272" text-anchor="middle" font-size="11" fill="#99a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">論文で使う技術</text>
+  <text x="887" y="297" text-anchor="middle" font-size="15" font-weight="700" fill="#223" font-family="'Hiragino Sans','Yu Gothic',sans-serif">分析枠組み・変数の軸</text>
+  <text x="887" y="320" text-anchor="middle" font-size="12" fill="#667" font-family="'Hiragino Sans','Yu Gothic',sans-serif">2軸以上を同時に立てる</text>
+  <line x1="755" y1="342" x2="1020" y2="342" stroke="#e6dcec" stroke-width="1.5"/>
+  <text x="887" y="366" text-anchor="middle" font-size="11" fill="#c87a5a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">効いていないと</text>
+  <text x="887" y="392" text-anchor="middle" font-size="13" fill="#a05a3a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">「事例は集めたが、</text>
+  <text x="887" y="414" text-anchor="middle" font-size="13" fill="#a05a3a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">整理する枠がない」</text>
+
+  <!-- る -->
+  <rect x="1065" y="90" width="315" height="370" rx="14" fill="white" stroke="#e0904a" stroke-width="2.5"/>
+  <circle cx="1222" cy="155" r="42" fill="#e0904a"/>
+  <text x="1222" y="170" text-anchor="middle" font-size="40" font-weight="700" fill="white" font-family="'Hiragino Sans','Yu Gothic',sans-serif">る</text>
+  <text x="1222" y="228" text-anchor="middle" font-size="17" font-weight="700" fill="#a85f14" font-family="'Hiragino Sans','Yu Gothic',sans-serif">プログレッション</text>
+  <line x1="1090" y1="248" x2="1355" y2="248" stroke="#f0e2d2" stroke-width="1.5"/>
+  <text x="1222" y="272" text-anchor="middle" font-size="11" fill="#99a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">論文で使う技術</text>
+  <text x="1222" y="297" text-anchor="middle" font-size="15" font-weight="700" fill="#223" font-family="'Hiragino Sans','Yu Gothic',sans-serif">論証の順序・手続き</text>
+  <text x="1222" y="320" text-anchor="middle" font-size="12" fill="#667" font-family="'Hiragino Sans','Yu Gothic',sans-serif">飛ばさずに次へ進める</text>
+  <line x1="1090" y1="342" x2="1355" y2="342" stroke="#f0e2d2" stroke-width="1.5"/>
+  <text x="1222" y="366" text-anchor="middle" font-size="11" fill="#c87a5a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">効いていないと</text>
+  <text x="1222" y="392" text-anchor="middle" font-size="13" fill="#a05a3a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">「結論に飛ぶ。</text>
+  <text x="1222" y="414" text-anchor="middle" font-size="13" fill="#a05a3a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">途中が書けない」</text>
+</svg></figure>
+<p><strong>論文が書けない人の詰まり方も、この4つで名指しできる。</strong></p>
+<table><thead><tr><th>詰まり方</th><th>効いていない象限</th></tr></thead><tbody><tr><td>「先行研究は読んだが、自分の新しさが言えない」</td><td><strong>あ</strong>（対比が効いていない）</td></tr><tr><td>「話が広がりすぎて、何の話か分からなくなる」</td><td><strong>り</strong>（範囲が切れていない）</td></tr><tr><td>「事例は集めたが、整理する枠がない」</td><td><strong>え</strong>（軸が立っていない）</td></tr><tr><td>「結論に飛ぶ。途中が書けない」</td><td><strong>る</strong>（順序に割れていない）</td></tr></tbody></table>
+<hr>
+<h2>4. 決定的に違う3点</h2>
+<p>ここを混ぜると、両方が壊れる。<strong>似ているところより、この3つのほうが大事である。</strong></p>
+<figure><svg viewBox="0 0 1400 800" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;background:#fafaf6;border-radius:12px;">
+  <defs>
+    <marker id="aB" markerWidth="12" markerHeight="9" refX="11" refY="4.5" orient="auto"><polygon points="0,0 12,4.5 0,9" fill="#2d6da0"/></marker>
+    <marker id="aO" markerWidth="12" markerHeight="9" refX="11" refY="4.5" orient="auto"><polygon points="0,0 12,4.5 0,9" fill="#d9832a"/></marker>
+  </defs>
+
+  <text x="700" y="40" text-anchor="middle" font-size="25" font-weight="700" fill="#223" font-family="'Hiragino Sans','Yu Gothic',sans-serif">決定的に違うのは、レンズの向き</text>
+  <text x="700" y="66" text-anchor="middle" font-size="14" fill="#667" font-family="'Hiragino Sans','Yu Gothic',sans-serif">骨格は同じ。だが、何を写しているかが正反対である</text>
+
+  <!-- LEFT: 論文 -->
+  <rect x="60" y="90" width="620" height="280" rx="16" fill="#eaf2fa" stroke="#2d6da0" stroke-width="2"/>
+  <text x="370" y="126" text-anchor="middle" font-size="21" font-weight="700" fill="#1d4e78" font-family="'Hiragino Sans','Yu Gothic',sans-serif">論文</text>
+  <circle cx="175" cy="238" r="44" fill="white" stroke="#2d6da0" stroke-width="2.5" stroke-dasharray="6 4" opacity="0.55"/>
+  <text x="175" y="234" text-anchor="middle" font-size="14" font-weight="700" fill="#2d6da0" opacity="0.7" font-family="'Hiragino Sans','Yu Gothic',sans-serif">書き手</text>
+  <text x="175" y="254" text-anchor="middle" font-size="11" fill="#6a8aa8" opacity="0.8" font-family="'Hiragino Sans','Yu Gothic',sans-serif">（消す）</text>
+  <line x1="228" y1="238" x2="455" y2="238" stroke="#2d6da0" stroke-width="3" marker-end="url(#aB)"/>
+  <rect x="475" y="196" width="170" height="86" rx="12" fill="#2d6da0"/>
+  <text x="560" y="234" text-anchor="middle" font-size="18" font-weight="700" fill="white" font-family="'Hiragino Sans','Yu Gothic',sans-serif">外の現象</text>
+  <text x="560" y="258" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.85)" font-family="'Hiragino Sans','Yu Gothic',sans-serif">誰が見ても同じもの</text>
+  <text x="370" y="332" text-anchor="middle" font-size="14" font-weight="700" fill="#1d4e78" font-family="'Hiragino Sans','Yu Gothic',sans-serif">観察者を消して、現象だけを残す</text>
+  <text x="370" y="354" text-anchor="middle" font-size="12" fill="#6a8aa8" font-family="'Hiragino Sans','Yu Gothic',sans-serif">だから “I” を使わない慣習がある</text>
+
+  <!-- RIGHT: シート -->
+  <rect x="720" y="90" width="620" height="280" rx="16" fill="#fdf0e0" stroke="#d9832a" stroke-width="2"/>
+  <text x="1030" y="126" text-anchor="middle" font-size="21" font-weight="700" fill="#8a4a10" font-family="'Hiragino Sans','Yu Gothic',sans-serif">ありえるシート</text>
+  <circle cx="835" cy="238" r="44" fill="white" stroke="#d9832a" stroke-width="3"/>
+  <text x="835" y="244" text-anchor="middle" font-size="14" font-weight="700" fill="#d9832a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">書き手</text>
+  <line x1="888" y1="238" x2="1055" y2="238" stroke="#d9832a" stroke-width="3" marker-end="url(#aO)"/>
+  <rect x="1075" y="196" width="200" height="86" rx="12" fill="#d9832a"/>
+  <text x="1175" y="230" text-anchor="middle" font-size="18" font-weight="700" fill="white" font-family="'Hiragino Sans','Yu Gothic',sans-serif">自分の判断</text>
+  <text x="1175" y="254" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.9)" font-family="'Hiragino Sans','Yu Gothic',sans-serif">さっき無意識に下したもの</text>
+  <path d="M 1175 194 C 1175 150, 900 150, 862 200" fill="none" stroke="#b06010" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#aO)"/>
+  <text x="1020" y="166" text-anchor="middle" font-size="12" font-weight="700" fill="#b06010" font-family="'Hiragino Sans','Yu Gothic',sans-serif">同じ人</text>
+  <text x="1030" y="332" text-anchor="middle" font-size="14" font-weight="700" fill="#8a4a10" font-family="'Hiragino Sans','Yu Gothic',sans-serif">観察者を消さない。観察者こそが主題</text>
+  <text x="1030" y="354" text-anchor="middle" font-size="12" fill="#b08a60" font-family="'Hiragino Sans','Yu Gothic',sans-serif">書く対象は出来事ではなく、頭の中の動き</text>
+
+  <!-- comparison table -->
+  <text x="250" y="425" text-anchor="middle" font-size="14" font-weight="700" fill="#667" font-family="'Hiragino Sans','Yu Gothic',sans-serif">くらべる観点</text>
+  <text x="680" y="425" text-anchor="middle" font-size="16" font-weight="700" fill="#1d4e78" font-family="'Hiragino Sans','Yu Gothic',sans-serif">論文</text>
+  <text x="1130" y="425" text-anchor="middle" font-size="16" font-weight="700" fill="#8a4a10" font-family="'Hiragino Sans','Yu Gothic',sans-serif">ありえるシート</text>
+  <line x1="60" y1="437" x2="1340" y2="437" stroke="#ccc" stroke-width="1.5"/>
+
+  <rect x="60" y="447" width="1280" height="48" rx="8" fill="#f4f4ef"/>
+  <text x="250" y="477" text-anchor="middle" font-size="15" font-weight="700" fill="#334" font-family="'Hiragino Sans','Yu Gothic',sans-serif">被写体</text>
+  <text x="680" y="477" text-anchor="middle" font-size="14" fill="#1d4e78" font-family="'Hiragino Sans','Yu Gothic',sans-serif">外の現象</text>
+  <text x="1130" y="477" text-anchor="middle" font-size="14" fill="#8a4a10" font-family="'Hiragino Sans','Yu Gothic',sans-serif">自分の判断</text>
+
+  <rect x="60" y="499" width="1280" height="48" rx="8" fill="#fff8e6" stroke="#d9a01f" stroke-width="1.5"/>
+  <text x="250" y="529" text-anchor="middle" font-size="15" font-weight="700" fill="#334" font-family="'Hiragino Sans','Yu Gothic',sans-serif">「方法」欄の性格</text>
+  <text x="680" y="529" text-anchor="middle" font-size="14" fill="#1d4e78" font-family="'Hiragino Sans','Yu Gothic',sans-serif">誰がやっても同じ手続き</text>
+  <text x="1130" y="529" text-anchor="middle" font-size="14" fill="#8a4a10" font-family="'Hiragino Sans','Yu Gothic',sans-serif">私にしか書けない判断の中身</text>
+  <text x="1352" y="527" text-anchor="middle" font-size="18" fill="#d9a01f" font-family="'Hiragino Sans','Yu Gothic',sans-serif">★</text>
+
+  <rect x="60" y="551" width="1280" height="48" rx="8" fill="#fff8e6" stroke="#d9a01f" stroke-width="1.5"/>
+  <text x="250" y="581" text-anchor="middle" font-size="15" font-weight="700" fill="#334" font-family="'Hiragino Sans','Yu Gothic',sans-serif">歪み（バイアス）</text>
+  <text x="680" y="581" text-anchor="middle" font-size="14" fill="#1d4e78" font-family="'Hiragino Sans','Yu Gothic',sans-serif">統制して取り除く</text>
+  <text x="1130" y="581" text-anchor="middle" font-size="14" fill="#8a4a10" font-family="'Hiragino Sans','Yu Gothic',sans-serif">主題。1箇所に絞って名指す</text>
+  <text x="1352" y="579" text-anchor="middle" font-size="18" fill="#d9a01f" font-family="'Hiragino Sans','Yu Gothic',sans-serif">★</text>
+
+  <rect x="60" y="603" width="1280" height="48" rx="8" fill="#f4f4ef"/>
+  <text x="250" y="633" text-anchor="middle" font-size="15" font-weight="700" fill="#334" font-family="'Hiragino Sans','Yu Gothic',sans-serif">n（件数）</text>
+  <text x="680" y="633" text-anchor="middle" font-size="14" fill="#1d4e78" font-family="'Hiragino Sans','Yu Gothic',sans-serif">増やして一般化する</text>
+  <text x="1130" y="633" text-anchor="middle" font-size="14" fill="#8a4a10" font-family="'Hiragino Sans','Yu Gothic',sans-serif">1のまま、時間で積む</text>
+
+  <rect x="60" y="655" width="1280" height="48" rx="8" fill="#f4f4ef"/>
+  <text x="250" y="685" text-anchor="middle" font-size="15" font-weight="700" fill="#334" font-family="'Hiragino Sans','Yu Gothic',sans-serif">終わり方</text>
+  <text x="680" y="685" text-anchor="middle" font-size="14" fill="#1d4e78" font-family="'Hiragino Sans','Yu Gothic',sans-serif">結論で閉じる</text>
+  <text x="1130" y="685" text-anchor="middle" font-size="14" fill="#8a4a10" font-family="'Hiragino Sans','Yu Gothic',sans-serif">⑧ で必ず開く</text>
+
+  <rect x="60" y="707" width="1280" height="48" rx="8" fill="#f4f4ef"/>
+  <text x="250" y="737" text-anchor="middle" font-size="15" font-weight="700" fill="#334" font-family="'Hiragino Sans','Yu Gothic',sans-serif">「うまく書けない」</text>
+  <text x="680" y="737" text-anchor="middle" font-size="14" fill="#1d4e78" font-family="'Hiragino Sans','Yu Gothic',sans-serif">欠陥</text>
+  <text x="1130" y="737" text-anchor="middle" font-size="14" font-weight="700" fill="#8a4a10" font-family="'Hiragino Sans','Yu Gothic',sans-serif">効いている証拠</text>
+
+  <text x="700" y="785" text-anchor="middle" font-size="16" font-weight="700" fill="#223" font-family="'Hiragino Sans','Yu Gothic',sans-serif">論文は閉じるために書く。ありえるシートは閉じないために書く。</text>
+</svg></figure>
+<blockquote><strong><span class="star">★</span>の2行が、ただの違いではなく「入れ替わり」になっている箇所。</strong><br>論文が消そうとするもの（書き手の判断・歪み）を、シートは逆に取り出す。ここを取り違えると、シートが「客観的な報告書」になって機能しなくなる。</blockquote>
+<h3>違い① ── 観察対象が、外か内か</h3>
+<table><thead><tr><th></th><th>論文</th><th>ありえるシート</th></tr></thead><tbody><tr><td>被写体</td><td><strong>外の現象</strong></td><td><strong>自分の判断</strong></td></tr><tr><td>書き手</td><td>消す（"I" を使わない慣習）</td><td><strong>主題にする</strong></td></tr></tbody></table>
+<p>論文はレンズを外に向ける。シートは<strong>レンズを、自分がさっき下した判断に向ける</strong>。 <span class="wl">ありえるシートとは何か？</span> が「書く対象は出来事ではなく自分の頭の中の動き」と言っているのは、これである。</p>
+<h3>違い② ── 「方法」欄の性格が正反対</h3>
+<table><thead><tr><th></th><th>論文の Method</th><th>シートの ④⑤⑥</th></tr></thead><tbody><tr><td>目指すもの</td><td><strong>誰がやっても同じ結果になる</strong>手続き</td><td><strong>私にしか書けない</strong>判断の中身</td></tr><tr><td>書くこと</td><td>対象・手順・条件</td><td>何を見て（入力）／どう解釈して（精緻化）／どう動いたか（出力）</td></tr></tbody></table>
+<p><strong>論文は「私がどう判断したか」を書かない。むしろ消す。</strong> シートの④⑤⑥は、そこだけを3枠に割って書く。ここは対応ではなく、<strong>入れ替わり</strong>である。</p>
+<h3>違い③ ── 歪み（バイアス）の扱いが逆</h3>
+<table><thead><tr><th></th><th>論文</th><th>ありえるシート</th></tr></thead><tbody><tr><td>歪みは</td><td><strong>取り除く対象</strong>（統制する）</td><td><strong>主題</strong>（1箇所に絞って名指しする）</td></tr><tr><td>n</td><td>増やして一般化する</td><td>1のまま、時間で積む</td></tr><tr><td>終わり方</td><td>結論で<strong>閉じる</strong></td><td>⑧次の一歩で必ず<strong>開く</strong></td></tr><tr><td>読み手</td><td>査読者（正しさを判定する）</td><td>場の仲間（媒介する）</td></tr><tr><td>「うまく書けない」</td><td>欠陥</td><td><strong>効いている証拠</strong></td></tr></tbody></table>
+<div class="cal cal-important"><div class="cal-t">◆ 論文は閉じるために書く。ありえるシートは閉じないために書く。</div><div>論文は1本ごとに完結する。シートは⑧が次の①になるので、原理的に終わらない。<br>だから<strong>⑦気づきで止めると日記になる</strong>。⑧まで書いて初めてサイクルが閉じずに回る。</div></div>
+<hr>
+<h2>5. だから、どう使えるか</h2>
+<h3>A. 論文を書いたことがある人に、シートを説明するとき</h3>
+<p><strong>「これは研究の型と同じです」の一言で、8枠の意味が一度に通る。</strong> 「日記を書いてください」と言うと身構えられるが、「仮説を置いて、結果とのずれを見る」と言えば、やったことがある人には即座に伝わる。</p>
+<p>ただし<strong>違い①〜③を必ず添える</strong>。添えないと「客観的に正しく書かなければ」と身構え、<strong>書けなくなる</strong>。 シートは正しく書く紙ではない。歪みを出す紙である。</p>
+<h3>B. シートを回している人が、論文や報告書を書くとき</h3>
+<p><strong>詰まった場所を、シートの枠で名指しできる。</strong></p>
+<table><thead><tr><th>書けない箇所</th><th>シートで言えば</th></tr></thead><tbody><tr><td>「新規性が書けない」</td><td><strong>あ</strong> が効いていない（対比がない）</td></tr><tr><td>「考察が薄い」</td><td><strong>② 仮説を書いていない</strong>（だから差分が出ない）</td></tr><tr><td>「結論が感想になる」</td><td><strong>⑦だけ書いて⑧がない</strong>（次に渡していない）</td></tr></tbody></table>
+<h3>C. 場に対して</h3>
+<p>論文の<strong>先行研究レビュー</strong>にあたるものが、シートでは「<strong>他の人のシートを読むこと</strong>」である。 どちらも「巨人の肩に乗る」動作だが、論文は<strong>引用</strong>という形で、シートは<strong>TTP</strong>という形で乗る。 鈴木さんが論文を引き合いに出したのが TTP の話の途中だったのは、偶然ではない。</p>
+<hr>
+<h2>6. 混同すると壊れること（注意）</h2>
+<table><thead><tr><th>やってはいけないこと</th><th>なぜ壊れるか</th></tr></thead><tbody><tr><td>シートを<strong>客観的に</strong>書こうとする</td><td>主題である自分の歪みが消える。書く意味がなくなる</td></tr><tr><td>シートで <strong>n を増やそう</strong>とする（一般化を狙う）</td><td>単位は自分1人。一般化した瞬間に他人事になる</td></tr><tr><td>論文の Method のつもりで ④⑤⑥ を書く</td><td>「手順」を書いてしまい、判断の中身が出ない</td></tr><tr><td>③結果 と ⑦気づき を混ぜる</td><td>Results と Discussion を混ぜた論文と同じ。何が事実で何が解釈か分からなくなる</td></tr><tr><td>3段（入力・精緻化・出力）のすべてに印をつける</td><td>「全部だめ」に戻り、直せる場所が消える。<strong>歪みは1箇所に絞る</strong>（<span class="wl">ありえるシートとは何か？</span>）</td></tr></tbody></table>
+<hr>
+<h2>7. ひとことでまとめると</h2>
+<blockquote><strong>論文とありえるシートは、同じ骨格をしている。</strong><br><strong>違うのは、レンズの向きである。</strong><br>論文はレンズを外の現象に向け、観察者である自分を消す。<br>ありえるシートはレンズを自分の判断に向け、消さずに主題にする。<br>だから論文は「閉じる」ために書き、シートは「閉じない」ために書く。</blockquote>
+<footer>ありえる楽考 ／ Vault: <span class="wl">論文構造とありえるシートの関係</span><br>2026-09-18 作成</footer>
+</div></body></html>
