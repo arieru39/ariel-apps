@@ -57,6 +57,7 @@ text-align:center;color:#9a9a90;font-size:.8rem;line-height:2}
 h2{font-size:1.2rem}figure{padding:8px}}
 </style></head><body><div class="wrap">
 <header><h1>論文構造とありえるシートの関係<br><span style="font-size:.6em;font-weight:400;color:#5a6270">同じ骨格を、正反対の向きに使う</span></h1><div class="sub">論文はレンズを外の現象に向け、観察者を消す。ありえるシートはレンズを自分の判断に向け、消さずに主題にする。</div><div class="src">出典：鈴木利和「これはその論文の構造でもありますけれども」（2026-07-05）</div></header>
+<div class="cal cal-tip"><div class="cal-t">✦ 共有用のリンク（2026-09-18 書き出し）</div><div>| 形式 | URL | 図解 | 用途 |<br>|---|---|---|---|<br>| <strong>公開ページ</strong> | https://arieru39.github.io/ariel-apps/paper-structure.html | <strong>3枚とも表示される</strong> | 人に渡す・Notionに埋め込む |<br>| <strong>Googleドキュメント</strong> | <a href="https://docs.google.com/document/d/1jQrHRcpBNdr86_iP9i25r8xfqRbvwDP4UdcYbvxllps/edit?usp=drivesdk" target="_blank" rel="noopener">開く</a> | 表示されない（リンクに置換） | コメント・共同編集・NotebookLMのSource |<br><strong>SVGはGoogleドキュメントに持ち込めない</strong>（<code>gdoc_publish.py</code> はHTMLをエスケープするため、図のソースが本文に流れ込む）。<br>書き出し時に、3つのSVGブロックを<strong>公開ページへのリンクに置換</strong>してから変換してある。図が要る場面では公開ページのほうを渡すこと。</div></div>
 <h2>0. 出発点 ── 本人が言っている</h2>
 <blockquote>どんなふうに状況を見て、どう考えてどう判断して、どう行動して、どんな結果になったのか。<br>その<strong>仮説と実際に起きたことの差分</strong>から、自分なりの気づき発見を書いて、次どういうふうに展開していくのか。<br><strong>これはその論文の構造でもありますけれども</strong><br>── 鈴木利和、<span class="wl">日八20260705</span> 17:48</blockquote>
 <p><strong>この発言が出た文脈が重要である。</strong> 直前で話していたのは <strong>TTP（他の人がやっているのを真似る）</strong> だった。 「他の人がやっているのを読む」→「自分で仮説を立てて書く」→「差分から気づく」という流れを説明する途中で、論文が引き合いに出されている。</p>
@@ -388,7 +389,170 @@ h2{font-size:1.2rem}figure{padding:8px}}
 <h2>6. 混同すると壊れること（注意）</h2>
 <table><thead><tr><th>やってはいけないこと</th><th>なぜ壊れるか</th></tr></thead><tbody><tr><td>シートを<strong>客観的に</strong>書こうとする</td><td>主題である自分の歪みが消える。書く意味がなくなる</td></tr><tr><td>シートで <strong>n を増やそう</strong>とする（一般化を狙う）</td><td>単位は自分1人。一般化した瞬間に他人事になる</td></tr><tr><td>論文の Method のつもりで ④⑤⑥ を書く</td><td>「手順」を書いてしまい、判断の中身が出ない</td></tr><tr><td>③結果 と ⑦気づき を混ぜる</td><td>Results と Discussion を混ぜた論文と同じ。何が事実で何が解釈か分からなくなる</td></tr><tr><td>3段（入力・精緻化・出力）のすべてに印をつける</td><td>「全部だめ」に戻り、直せる場所が消える。<strong>歪みは1箇所に絞る</strong>（<span class="wl">ありえるシートとは何か？</span>）</td></tr></tbody></table>
 <hr>
-<h2>7. ひとことでまとめると</h2>
-<blockquote><strong>論文とありえるシートは、同じ骨格をしている。</strong><br><strong>違うのは、レンズの向きである。</strong><br>論文はレンズを外の現象に向け、観察者である自分を消す。<br>ありえるシートはレンズを自分の判断に向け、消さずに主題にする。<br>だから論文は「閉じる」ために書き、シートは「閉じない」ために書く。</blockquote>
+<h2>7. 素朴理論 ── 仮説の、さらに下の層</h2>
+<p>ここまでは「意識して立てた仮説」の話だった。<strong>だが、仮説を立てる前に、すでに立ってしまっている仮説がある。</strong></p>
+<h3>7-1. 素朴理論とは何か</h3>
+<blockquote><strong>素朴理論とは、誰にも教わっていないのに、自分の経験から作り上げ、そうと気づかないまま使い続けている「世界はこうなっている」という理論のことです。</strong><br><strong>あなたはそれを考えているのではありません。それで世界を見ています。だから、自分では見えません。</strong><br>── <span class="wl">素朴理論とは何か_渡す側のための1本</span></blockquote>
+<p>5つの性質がある（<span class="wl">受験における素朴理論の発見と克服</span> §1-2）。</p>
+<table><thead><tr><th>#</th><th>性質</th><th>意味</th></tr></thead><tbody><tr><td>①</td><td>経験から帰納されている</td><td>自分の<strong>成功体験</strong>から作った。だから強い</td></tr><tr><td>②</td><td><strong>部分的に正しい</strong></td><td>ある範囲では確かに機能した。<strong>ここが最も厄介</strong></td></tr><tr><td>③</td><td>明示されていない</td><td>言葉になっていないので、検証の対象にならない</td></tr><tr><td>④</td><td>反証に強い</td><td>「今回は例外だった」で処理される</td></tr><tr><td>⑤</td><td>否定だけでは書き換わらない</td><td>代わりの理論がなければ元に戻る</td></tr></tbody></table>
+<div class="cal cal-important"><div class="cal-t">◆ ②が核心</div><div><strong>素朴理論は、間違っているのではない。射程を超えて使われているだけである。</strong><br>だから「間違い」と呼んだ瞬間に、この作業は失敗する。相手は防衛に入り、理論は元に戻る。</div></div>
+<h3>7-2. 論文にも、ありえるシートにも、これを書く欄が無い</h3>
+<p><strong>ここが、この節でいちばん言いたいことである。</strong></p>
+<table><thead><tr><th></th><th>素朴理論を書く欄</th><th>なぜ無いのか</th></tr></thead><tbody><tr><td><strong>論文</strong></td><td><strong>無い</strong>（標準的な仮説検証型では）</td><td><strong>書き手を消す設計</strong>だから、書き手が無自覚に持っている理論は、原理的に書く場所がない。むしろ「バイアス」として<strong>統制・除去の対象</strong>になる</td></tr><tr><td><strong>ありえるシート</strong></td><td><strong>無い</strong>（8枠のどこにも）</td><td>3段（入力・精緻化・出力）は「<strong>機能が育っていない</strong>」側を直す道具。素朴理論は「<strong>理論が在りすぎる</strong>」側の問題で、担当が違う</td></tr></tbody></table>
+<p>論文側の唯一の例外は、<strong>質的研究のポジショナリティ（reflexivity）の記述</strong>である。「筆者は〜という立場から対象に関わっている」と明示する慣習がここだけにある。裏を返せば、<strong>それを別立てで書く必要があるほど、標準の論文構造には居場所がない</strong>ということでもある。</p>
+<div class="cal cal-warning"><div class="cal-t">▲ シート側の根拠と、その確からしさ</div><div><strong>「8枠に素朴理論の欄が無い」は事実</strong>（①目的／②最初の状態／③結果の状態／④⑤⑥プロセス／⑦気づき・発見／⑧次の一歩 ── 数えれば分かる）。<br>一方、<strong>「なぜ無いのか＝シートはフォイヤーシュタイン側の道具だから」は Vault 内で立てられた読みであって、まだ検証されていない</strong>。<span class="wl">素朴理論×認知不全_探究のヒント</span> §9・§10 自身が「ここでは判断しない」と明記している。<strong>確定事項として扱わないこと。</strong></div></div>
+<figure><svg viewBox="0 0 1400 640" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;background:#fafaf6;border-radius:12px;">
+  <defs>
+    <marker id="aG" markerWidth="11" markerHeight="8" refX="10" refY="4" orient="auto"><polygon points="0,0 11,4 0,8" fill="#c8860a"/></marker>
+  </defs>
+  <text x="700" y="40" text-anchor="middle" font-size="25" font-weight="700" fill="#223" font-family="'Hiragino Sans','Yu Gothic',sans-serif">素朴理論はどこにあるか ── 仮説の、さらに下</text>
+  <text x="700" y="68" text-anchor="middle" font-size="14" fill="#667" font-family="'Hiragino Sans','Yu Gothic',sans-serif">論文にも、ありえるシートにも、この層を書く欄は無い</text>
+
+  <!-- プロセス -->
+  <rect x="560" y="105" width="280" height="62" rx="10" fill="#e8f4ee" stroke="#2a6a4a" stroke-width="2"/>
+  <text x="700" y="132" text-anchor="middle" font-size="15" font-weight="700" fill="#2a6a4a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">④⑤⑥ プロセス</text>
+  <text x="700" y="153" text-anchor="middle" font-size="11" fill="#6a9a80" font-family="'Hiragino Sans','Yu Gothic',sans-serif">入力 → 精緻化 → 出力</text>
+
+  <!-- 仮説 / 結果 -->
+  <rect x="150" y="196" width="260" height="80" rx="10" fill="#fdf0e0" stroke="#d9832a" stroke-width="2.5"/>
+  <text x="280" y="228" text-anchor="middle" font-size="17" font-weight="700" fill="#8a4a10" font-family="'Hiragino Sans','Yu Gothic',sans-serif">② 立てた仮説</text>
+  <text x="280" y="252" text-anchor="middle" font-size="12" fill="#b08a60" font-family="'Hiragino Sans','Yu Gothic',sans-serif">意識して置いた／論文の「仮説」</text>
+  <rect x="990" y="196" width="260" height="80" rx="10" fill="#fdf0e0" stroke="#d9832a" stroke-width="2.5"/>
+  <text x="1120" y="228" text-anchor="middle" font-size="17" font-weight="700" fill="#8a4a10" font-family="'Hiragino Sans','Yu Gothic',sans-serif">③ 実際の結果</text>
+  <text x="1120" y="252" text-anchor="middle" font-size="12" fill="#b08a60" font-family="'Hiragino Sans','Yu Gothic',sans-serif">起きたこと</text>
+
+  <path d="M 280 280 L 620 310" stroke="#c8860a" stroke-width="2.5" fill="none"/>
+  <path d="M 1120 280 L 780 310" stroke="#c8860a" stroke-width="2.5" fill="none"/>
+
+  <!-- 差分バッジ -->
+  <rect x="580" y="296" width="240" height="46" rx="23" fill="#c8860a"/>
+  <text x="700" y="325" text-anchor="middle" font-size="16" font-weight="700" fill="white" font-family="'Hiragino Sans','Yu Gothic',sans-serif">★ 差分 ＝ 驚き</text>
+
+  <!-- 水面 -->
+  <line x1="60" y1="372" x2="1340" y2="372" stroke="#4a5a6a" stroke-width="3"/>
+  <text x="76" y="363" font-size="13" font-weight="700" fill="#4a5a6a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">意識の水面 ── ここから上は言葉になる／欄がある</text>
+
+  <!-- 亀裂 -->
+  <path d="M 700 342 L 684 372 L 712 372 L 690 410 L 716 400 L 700 438" stroke="#c8860a" stroke-width="4" fill="none" stroke-linejoin="round" marker-end="url(#aG)"/>
+  <text x="790" y="400" font-size="13" font-weight="700" fill="#c8860a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">驚いた、ということは</text>
+  <text x="790" y="420" font-size="13" font-weight="700" fill="#c8860a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">無自覚な予測があった、ということ</text>
+
+  <!-- 素朴理論 -->
+  <rect x="400" y="448" width="600" height="112" rx="14" fill="#3a3f48" stroke="#c8860a" stroke-width="2.5" stroke-dasharray="9 5"/>
+  <text x="700" y="486" text-anchor="middle" font-size="21" font-weight="700" fill="#f2d68a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">素朴理論</text>
+  <text x="700" y="514" text-anchor="middle" font-size="15" fill="white" font-family="'Hiragino Sans','Yu Gothic',sans-serif">「え、普通そうでしょう」</text>
+  <text x="700" y="540" text-anchor="middle" font-size="12" fill="#b8bec8" font-family="'Hiragino Sans','Yu Gothic',sans-serif">立てた覚えがないのに、すでに立っている仮説</text>
+  <text x="76" y="500" font-size="13" font-weight="700" fill="#6a7280" font-family="'Hiragino Sans','Yu Gothic',sans-serif">水面から下は</text>
+  <text x="76" y="520" font-size="13" font-weight="700" fill="#6a7280" font-family="'Hiragino Sans','Yu Gothic',sans-serif">背景に沈んでいる</text>
+  <text x="1324" y="500" text-anchor="end" font-size="13" font-weight="700" fill="#6a7280" font-family="'Hiragino Sans','Yu Gothic',sans-serif">だから、自分では</text>
+  <text x="1324" y="520" text-anchor="end" font-size="13" font-weight="700" fill="#6a7280" font-family="'Hiragino Sans','Yu Gothic',sans-serif">見つけられない</text>
+
+  <!-- 欄が無い注記 -->
+  <rect x="150" y="582" width="500" height="44" rx="9" fill="#eaf2fa" stroke="#2d6da0" stroke-width="1.5"/>
+  <text x="400" y="610" text-anchor="middle" font-size="13" fill="#1d4e78" font-family="'Hiragino Sans','Yu Gothic',sans-serif">論文：書き手を消す設計だから、書く場所が無い</text>
+  <rect x="750" y="582" width="500" height="44" rx="9" fill="#fdf0e0" stroke="#d9832a" stroke-width="1.5"/>
+  <text x="1000" y="610" text-anchor="middle" font-size="13" fill="#8a4a10" font-family="'Hiragino Sans','Yu Gothic',sans-serif">シート：8枠のどこにも、この欄は無い</text>
+</svg></figure>
+<blockquote><strong>図の読みどころは、金色の亀裂である。</strong><br>素朴理論は水面下にあって直接は見えない。だが <strong><span class="star">★</span>差分（驚き）だけが、水面を割って下まで届いている。</strong><br>図解1で「本体」として強調した金色の帯は、<strong>素朴理論への唯一の入口</strong>でもあった。</blockquote>
+<h3>7-3. どうやって見つけるか ── 差分こそが入口</h3>
+<p>正典は5つの検出器を挙げている（<span class="wl">受験における素朴理論の発見と克服</span> §4）。<strong>うち2つが、この論文構造の話と直結する。</strong></p>
+<table><thead><tr><th>#</th><th>検出器</th><th>論文／シートのどこに現れるか</th></tr></thead><tbody><tr><td>①</td><td><strong>「え、普通そうでしょう」</strong></td><td>理由を聞かれて詰まったところ。①目的を書くときに出る</td></tr><tr><td>②</td><td>他人のやり方への違和感</td><td><strong>先行研究レビュー／他の人のシートを読む</strong>とき。「他人は、自分の素朴理論を映す鏡である」</td></tr><tr><td>③</td><td>口ぐせ</td><td>「とりあえず回します」「まだ実力が足りないので」</td></tr><tr><td>④</td><td><strong>迷わずやっている選択</strong></td><td>「迷ったことのある選択には、理論が要らない。<strong>迷ったことのない選択に、理論が入っている</strong>」</td></tr><tr><td>⑤</td><td><strong>予測が外れたときの驚き</strong></td><td><strong><span class="star">★</span>差分そのもの。</strong>「あれだけやったのに」の<strong>「あれだけ」に理論が入っている</strong></td></tr></tbody></table>
+<div class="cal cal-important"><div class="cal-t">◆ ⑤が、この note の骨格とつながる</div><div><strong>「驚いた」ということは、無自覚な予測があった、ということである。</strong><br>論文で言えば考察、シートで言えば ② ↔ ③ のずれ。<strong>差分が大きいほど、その下に素朴理論がある。</strong><br>だから ② を書かずに ③ から書き始めると、差分が出ないだけでなく、<strong>素朴理論への唯一の通路も塞がる。</strong></div></div>
+<h3>7-4. 修正の4ステップ ── 論文は「3」で止まる</h3>
+<figure><svg viewBox="0 0 1400 530" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;background:#fafaf6;border-radius:12px;">
+  <text x="700" y="38" text-anchor="middle" font-size="24" font-weight="700" fill="#223" font-family="'Hiragino Sans','Yu Gothic',sans-serif">修正の4ステップと、論文が3で止まる理由</text>
+  <text x="700" y="64" text-anchor="middle" font-size="13" fill="#667" font-family="'Hiragino Sans','Yu Gothic',sans-serif">上段＝素朴理論の克服手順　／　下段＝論文にそれがあるか</text>
+
+  <!-- step 1 -->
+  <rect x="60" y="88" width="315" height="245" rx="14" fill="white" stroke="#5aa0d8" stroke-width="2.5"/>
+  <circle cx="217" cy="132" r="26" fill="#5aa0d8"/><text x="217" y="140" text-anchor="middle" font-size="22" font-weight="700" fill="white" font-family="'Hiragino Sans','Yu Gothic',sans-serif">1</text>
+  <text x="217" y="184" text-anchor="middle" font-size="18" font-weight="700" fill="#2d6da0" font-family="'Hiragino Sans','Yu Gothic',sans-serif">発見</text>
+  <text x="217" y="213" text-anchor="middle" font-size="13" fill="#223" font-family="'Hiragino Sans','Yu Gothic',sans-serif">言葉にして、外に出す</text>
+  <text x="217" y="234" text-anchor="middle" font-size="12" fill="#667" font-family="'Hiragino Sans','Yu Gothic',sans-serif">「私は『＿＿』だと思っている」</text>
+  <line x1="90" y1="254" x2="345" y2="254" stroke="#e3e3dc" stroke-width="1.5"/>
+  <text x="217" y="277" text-anchor="middle" font-size="11" fill="#c87a5a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">外すと</text>
+  <text x="217" y="300" text-anchor="middle" font-size="12" fill="#a05a3a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">頭の中で「あるな」と</text>
+  <text x="217" y="320" text-anchor="middle" font-size="12" fill="#a05a3a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">思うだけで終わる</text>
+
+  <!-- step 2 -->
+  <rect x="395" y="88" width="315" height="245" rx="14" fill="white" stroke="#4fa578" stroke-width="2.5"/>
+  <circle cx="552" cy="132" r="26" fill="#4fa578"/><text x="552" y="140" text-anchor="middle" font-size="22" font-weight="700" fill="white" font-family="'Hiragino Sans','Yu Gothic',sans-serif">2</text>
+  <text x="552" y="184" text-anchor="middle" font-size="18" font-weight="700" fill="#2a6a4a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">射程の確定</text>
+  <text x="552" y="213" text-anchor="middle" font-size="13" font-weight="700" fill="#223" font-family="'Hiragino Sans','Yu Gothic',sans-serif">「間違い」ではなく</text>
+  <text x="552" y="234" text-anchor="middle" font-size="13" font-weight="700" fill="#223" font-family="'Hiragino Sans','Yu Gothic',sans-serif">「どこまで有効だったか」</text>
+  <line x1="425" y1="254" x2="680" y2="254" stroke="#e3e3dc" stroke-width="1.5"/>
+  <text x="552" y="277" text-anchor="middle" font-size="11" fill="#c87a5a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">外すと</text>
+  <text x="552" y="300" text-anchor="middle" font-size="12" fill="#a05a3a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">否定された人は防衛に入り</text>
+  <text x="552" y="320" text-anchor="middle" font-size="12" font-weight="700" fill="#a05a3a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">理論は必ず元に戻る</text>
+
+  <!-- step 3 -->
+  <rect x="730" y="88" width="315" height="245" rx="14" fill="white" stroke="#a06fb8" stroke-width="2.5"/>
+  <circle cx="887" cy="132" r="26" fill="#a06fb8"/><text x="887" y="140" text-anchor="middle" font-size="22" font-weight="700" fill="white" font-family="'Hiragino Sans','Yu Gothic',sans-serif">3</text>
+  <text x="887" y="184" text-anchor="middle" font-size="18" font-weight="700" fill="#6a3f80" font-family="'Hiragino Sans','Yu Gothic',sans-serif">書き換え</text>
+  <text x="887" y="213" text-anchor="middle" font-size="13" font-weight="700" fill="#223" font-family="'Hiragino Sans','Yu Gothic',sans-serif">代わりの理論を必ず置く</text>
+  <text x="887" y="234" text-anchor="middle" font-size="12" fill="#667" font-family="'Hiragino Sans','Yu Gothic',sans-serif">空席を作らない</text>
+  <line x1="760" y1="254" x2="1015" y2="254" stroke="#e3e3dc" stroke-width="1.5"/>
+  <text x="887" y="277" text-anchor="middle" font-size="11" fill="#c87a5a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">外すと</text>
+  <text x="887" y="300" text-anchor="middle" font-size="12" fill="#a05a3a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">空席は、古い理論が</text>
+  <text x="887" y="320" text-anchor="middle" font-size="12" fill="#a05a3a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">埋め戻す</text>
+
+  <!-- step 4 -->
+  <rect x="1065" y="88" width="315" height="245" rx="14" fill="#fff8e6" stroke="#c8860a" stroke-width="3.5"/>
+  <circle cx="1222" cy="132" r="26" fill="#c8860a"/><text x="1222" y="140" text-anchor="middle" font-size="22" font-weight="700" fill="white" font-family="'Hiragino Sans','Yu Gothic',sans-serif">4</text>
+  <text x="1222" y="184" text-anchor="middle" font-size="18" font-weight="700" fill="#a86a08" font-family="'Hiragino Sans','Yu Gothic',sans-serif">沈め直し</text>
+  <text x="1222" y="213" text-anchor="middle" font-size="13" font-weight="700" fill="#223" font-family="'Hiragino Sans','Yu Gothic',sans-serif">使い込んで背景に戻す</text>
+  <text x="1222" y="234" text-anchor="middle" font-size="12" fill="#667" font-family="'Hiragino Sans','Yu Gothic',sans-serif">意識しながらは、まだ途中</text>
+  <line x1="1095" y1="254" x2="1350" y2="254" stroke="#ecdcb8" stroke-width="1.5"/>
+  <text x="1222" y="277" text-anchor="middle" font-size="11" fill="#c87a5a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">外すと</text>
+  <text x="1222" y="300" text-anchor="middle" font-size="12" fill="#a05a3a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">現場では、古い理論が</text>
+  <text x="1222" y="320" text-anchor="middle" font-size="12" font-weight="700" fill="#a05a3a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">勝つ</text>
+
+  <text x="700" y="372" text-anchor="middle" font-size="15" font-weight="700" fill="#1d4e78" font-family="'Hiragino Sans','Yu Gothic',sans-serif">論文に、これはあるか</text>
+
+  <rect x="60" y="388" width="315" height="96" rx="12" fill="#eaf2fa" stroke="#9bb8d0" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="217" y="424" text-anchor="middle" font-size="14" font-weight="700" fill="#5a7a98" font-family="'Hiragino Sans','Yu Gothic',sans-serif">ほぼ無い</text>
+  <text x="217" y="450" text-anchor="middle" font-size="11" fill="#6a8aa8" font-family="'Hiragino Sans','Yu Gothic',sans-serif">質的研究のポジショナリティ</text>
+  <text x="217" y="468" text-anchor="middle" font-size="11" fill="#6a8aa8" font-family="'Hiragino Sans','Yu Gothic',sans-serif">記述だけが、例外的にこれ</text>
+
+  <rect x="395" y="388" width="315" height="96" rx="12" fill="#2d6da0"/>
+  <text x="552" y="424" text-anchor="middle" font-size="14" font-weight="700" fill="white" font-family="'Hiragino Sans','Yu Gothic',sans-serif">◎ ある。最も得意</text>
+  <text x="552" y="450" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.88)" font-family="'Hiragino Sans','Yu Gothic',sans-serif">先行研究の批判的検討＝</text>
+  <text x="552" y="468" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.88)" font-family="'Hiragino Sans','Yu Gothic',sans-serif">否定せず、射程を切る作法</text>
+
+  <rect x="730" y="388" width="315" height="96" rx="12" fill="#2d6da0"/>
+  <text x="887" y="424" text-anchor="middle" font-size="14" font-weight="700" fill="white" font-family="'Hiragino Sans','Yu Gothic',sans-serif">◎ ある</text>
+  <text x="887" y="450" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.88)" font-family="'Hiragino Sans','Yu Gothic',sans-serif">本研究の主張。批判だけの</text>
+  <text x="887" y="468" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.88)" font-family="'Hiragino Sans','Yu Gothic',sans-serif">論文は通らない</text>
+
+  <rect x="1065" y="388" width="315" height="96" rx="12" fill="#3a3f48"/>
+  <text x="1222" y="424" text-anchor="middle" font-size="15" font-weight="700" fill="#f2d68a" font-family="'Hiragino Sans','Yu Gothic',sans-serif">✕ 無い</text>
+  <text x="1222" y="450" text-anchor="middle" font-size="11" fill="#c8cdd4" font-family="'Hiragino Sans','Yu Gothic',sans-serif">論文は書き終えたら閉じる。</text>
+  <text x="1222" y="468" text-anchor="middle" font-size="11" fill="#c8cdd4" font-family="'Hiragino Sans','Yu Gothic',sans-serif">沈める場所を持っていない</text>
+
+  <text x="700" y="514" text-anchor="middle" font-size="16" font-weight="700" fill="#223" font-family="'Hiragino Sans','Yu Gothic',sans-serif">「4」は、閉じない器でしかできない。だから毎日回すシートの側にある。</text>
+</svg></figure>
+<p><strong>ステップ2に注目してほしい。</strong>「否定せず、射程を切る」── これは<strong>論文が最も得意とする作法そのもの</strong>である。先行研究を「間違いだ」とは書かない。「〜という条件では有効だが、本稿が扱う〜には適用できない」と書く。</p>
+<p>つまり、<strong>論文で他人の理論に対してやっていることを、自分の素朴理論に対してやる</strong>。これが 4象限でいう <strong>り（カテゴリー＝範囲を区切る）</strong> にあたる。</p>
+<p>そして <strong>ステップ4「沈め直し」は、論文には無い</strong>。論文は閉じるので、沈める場所がない。 図解1の右端で見た「<strong>シートだけが ⑧ から ① へ戻る</strong>」という構造が、ここで効いてくる。</p>
+<h3>7-5. 自己診断の4段階 ── 第2段階の誤診</h3>
+<table><thead><tr><th>段階</th><th>状態</th><th>口ぐせ</th><th>何が起きているか</th></tr></thead><tbody><tr><td>第1 <strong>無自覚</strong></td><td>持っていること自体に気づいていない</td><td>「え、普通そうでしょう」</td><td>選択肢だと思っていない</td></tr><tr><td>第2 <strong>言語化</strong></td><td>言葉にできる。<strong>ただし行動は変わらない</strong></td><td>「わかってるんですけどね」</td><td>引きずり出せたが、書き換えと沈め直しが済んでいない</td></tr><tr><td>第3 <strong>現場捕捉</strong></td><td>発動する瞬間を、その場で捕まえられる</td><td>「あ、いま量で解決しようとした」</td><td>まだ意識的</td></tr><tr><td>第4 <strong>選び分け</strong></td><td>道具として使い分けられる</td><td>「今週は意図的に量で押す」</td><td>理論が道具の位置にある</td></tr></tbody></table>
+<div class="cal cal-warning"><div class="cal-t">▲ 第2段階を「意志が弱い」と誤診しない</div><div>「わかっているのに、できない」という状態そのものが、<strong>第2段階の定義</strong>である。<br><strong>多くの人は、ここを「意志が弱い」と誤診する。違う。引きずり出したところで止まっているだけである。</strong><br>── <span class="wl">受験における素朴理論の発見と克服</span> §7</div></div>
+<h3>7-6. やってはいけないこと</h3>
+<table><thead><tr><th>❌</th><th>なぜダメか</th></tr></thead><tbody><tr><td>素朴理論を「<strong>間違い</strong>」「無知」「思考停止」と呼ぶ</td><td>防衛に入り、必ず元に戻る。先に「どの範囲では正しかったか」を言う</td></tr><tr><td>「<strong>才能</strong>」「センス」「向き不向き」「地頭」で説明する</td><td>説明した気になって、書き換えの対象が消える</td></tr><tr><td>代わりの理論を置かずに手放させる</td><td>空席は、古い理論が埋め戻す（性質⑤）</td></tr><tr><td>引きずり出しただけで満足する</td><td>第2段階で止まる</td></tr><tr><td>「素朴理論に気をつけよう」と決意する</td><td><strong>意志では注意を動かせない</strong></td></tr><tr><td><strong>一人で完結させる</strong></td><td>自分の素朴理論は、自分では見えない</td></tr><tr><td>1回に2つ以上の実例を出す</td><td>「たくさんある」という印象は、当事者性を消す</td></tr></tbody></table>
+<div class="cal cal-note"><div class="cal-t">● 概念名を「先に」渡さない（場で使うとき）</div><div>「素朴理論」という語を渡した瞬間、相手は<strong>それを対象として参照し始める</strong>。つまり <strong>新しい「について」が1つ増えるだけ</strong>になる。<br><strong>自転車は、乗り方を考えると逆に転ぶ。</strong><br>ただし<strong>本ノートは概念名を全部使っている</strong>。読み手が「渡す側」だからである（<span class="wl">素朴理論とは何か_渡す側のための1本</span> と同じ立場）。<strong>場で使うときは、働きだけを入れて、名前はあとで渡す。</strong></div></div>
+<h3>7-7. この整理そのものにも、刃を向けておく</h3>
+<p>正典の「やってはいけないこと」に、次の一行がある。</p>
+<blockquote><strong>AIにきれいに整理させて読む → 新種の素朴理論を、毎日強化している</strong></blockquote>
+<p><strong>本ノートは、まさにそれで作られている。</strong> 図解3枚つきで、きれいに整理されている。読むと分かった気になる。だが、正典はこう判定する。</p>
+<blockquote><strong>AIが喋っている時間が長いなら、まだ「について」。自分が喋っている時間が長いなら、「で」に向かっている。</strong></blockquote>
+<p>だからこのノートの正しい使い方は、<strong>読んで納得することではない</strong>。</p>
+<blockquote><strong>いま自分が「え、普通そうでしょう」と言いたくなる一文を、1つだけ書き出す。</strong><br><strong>そして「その理論は、何年目まで有効でしたか」に答える。</strong></blockquote>
+<p>書かなければ、このノートは第1段階のまま終わる。</p>
+<hr>
+<h2>8. ひとことでまとめると</h2>
+<blockquote><strong>論文とありえるシートは、同じ骨格をしている。</strong><br><strong>違うのは、レンズの向きである。</strong><br>論文はレンズを外の現象に向け、観察者である自分を消す。<br>ありえるシートはレンズを自分の判断に向け、消さずに主題にする。<br>だから論文は「閉じる」ために書き、シートは「閉じない」ために書く。<br><strong>そして、どちらのレンズにも写らない層がある。</strong><br><strong>立てた覚えがないのに、すでに立っている仮説 ── 素朴理論である。</strong><br>論文にも8枠にも、それを書く欄は無い。<br><strong>唯一それが顔を出すのは、仮説と結果がずれて「驚いた」瞬間だけ。</strong><br>だから両方とも、差分を書けたかどうかで価値が決まる。</blockquote>
+<h3>3層に整理すると</h3>
+<table><thead><tr><th>層</th><th>何が書いてあるか</th><th>論文では</th><th>シートでは</th></tr></thead><tbody><tr><td><strong>表層</strong></td><td>起きたこと</td><td>結果（Results）</td><td>③ 結果の状態</td></tr><tr><td><strong>中層</strong></td><td>意識して立てた仮説</td><td>仮説</td><td>② 最初の状態（Pre）</td></tr><tr><td><strong>深層</strong></td><td><strong>立てた覚えのない仮説</strong></td><td><strong>欄が無い</strong></td><td><strong>欄が無い</strong></td></tr></tbody></table>
+<p><strong>深層への通路は1本しかない ── <span class="star">★</span>差分（驚き）。</strong></p>
 <footer>ありえる楽考 ／ Vault: <span class="wl">論文構造とありえるシートの関係</span><br>2026-09-18 作成</footer>
 </div></body></html>
