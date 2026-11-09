@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='#3f7d58'/><text x='50' y='58' font-size='58' text-anchor='middle' dominant-baseline='central'>🌿</text></svg>" />
+<title>🌿 わたしの活かし方 — 教わらずに育った力を、意図して使う90分</title>
+<meta name="description" content="ありえる楽考の入口になる90分ワークショップ。オンライン実施に対応した進行つきワークシート。抜かれても生えてきたものを見つけ、それが活きる条件を仲間から受け取り、「わたしの活かし方」を1行にして持ち帰ります。">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f5f1e8; --card:#fff; --ink:#2a2a2a; --sub:#6b6b6b;
+  --green:#3f7d58; --green-d:#2e5e42; --soil:#8a6a45; --soil-l:#f3ece1;
+  --line:#e3dccf; --warn:#b4462f; --gold:#b5872a;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:var(--bg);color:var(--ink);line-height:1.75;padding:0 0 120px}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+
+/* ---------- topbar ---------- */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(245,241,232,.96);
+  backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.topbar .inner{max-width:760px;margin:0 auto;padding:8px 16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.brand{font-weight:700;color:var(--green);font-size:.95rem;flex:none}
+.modes{display:flex;gap:4px;margin-left:auto;flex:none}
+.modes button{border:1px solid var(--line);background:#fff;color:var(--sub);
+  padding:5px 10px;border-radius:999px;font-size:.78rem;cursor:pointer;font-family:inherit}
+.modes button.on{background:var(--green);color:#fff;border-color:var(--green)}
+.tbar-timer{font-variant-numeric:tabular-nums;font-weight:700;font-size:1rem;color:var(--soil);
+  background:var(--soil-l);padding:3px 10px;border-radius:8px;flex:none}
+.tbar-timer.run{color:#fff;background:var(--green)}
+.tbar-timer.over{color:#fff;background:var(--warn)}
+
+/* ---------- steps nav ---------- */
+.stepnav{display:flex;gap:4px;overflow-x:auto;padding:10px 0 2px}
+.stepnav button{flex:none;border:1px solid var(--line);background:#fff;border-radius:10px;
+  padding:6px 11px;font-size:.8rem;cursor:pointer;color:var(--sub);font-family:inherit;white-space:nowrap}
+.stepnav button.on{background:var(--soil);color:#fff;border-color:var(--soil)}
+.stepnav button.done{border-color:var(--green);color:var(--green)}
+
+/* ---------- cards ---------- */
+.card{background:var(--card);border-radius:14px;padding:22px;margin:16px 0;
+  box-shadow:0 2px 10px rgba(0,0,0,.05)}
+h1{font-size:1.5rem;color:var(--green);line-height:1.5;margin-bottom:6px}
+h2{font-size:1.15rem;color:var(--green);margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+h3{font-size:1rem;color:var(--soil);margin:18px 0 8px}
+.sub{color:var(--sub);font-size:.9rem}
+.lead{font-size:1.02rem;margin:10px 0}
+p{margin:8px 0}
+.badge{background:var(--soil-l);color:var(--soil);border-radius:999px;padding:2px 10px;
+  font-size:.74rem;font-weight:700;flex:none}
+.q{font-size:1.12rem;font-weight:700;color:var(--green-d);background:#f0f6f2;
+  border-left:4px solid var(--green);padding:12px 14px;border-radius:0 8px 8px 0;margin:14px 0}
+.note{background:var(--soil-l);border-radius:10px;padding:12px 14px;font-size:.9rem;margin:12px 0}
+.note.warn{background:#fdf0ec;border-left:4px solid var(--warn)}
+.note.star{background:#fdf7e6;border-left:4px solid var(--gold)}
+.note b{color:var(--ink)}
+ul,ol{margin:8px 0 8px 1.4em}
+li{margin:5px 0}
+table{width:100%;border-collapse:collapse;font-size:.9rem;margin:10px 0}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+th{background:var(--soil-l);font-weight:700;color:var(--soil)}
+.ok{color:var(--green);font-weight:700}
+.ng{color:var(--warn);font-weight:700}
+
+/* ---------- form ---------- */
+label.fl{display:block;font-weight:700;font-size:.9rem;margin:14px 0 5px}
+label.fl .hint{font-weight:400;color:var(--sub);font-size:.82rem}
+textarea,input[type=text]{width:100%;border:1px solid var(--line);border-radius:9px;
+  padding:10px 12px;font-family:inherit;font-size:1rem;line-height:1.7;background:#fffdf8;color:var(--ink)}
+textarea{resize:vertical;min-height:72px}
+textarea:focus,input:focus{outline:2px solid var(--green);outline-offset:1px}
+.radios{display:flex;flex-direction:column;gap:6px;margin:8px 0}
+.radios label{display:flex;gap:9px;align-items:flex-start;border:1px solid var(--line);
+  border-radius:9px;padding:9px 12px;cursor:pointer;background:#fffdf8;font-size:.95rem}
+.radios label:has(input:checked){border-color:var(--green);background:#f0f6f2}
+.radios input{margin-top:5px;flex:none}
+.radios b{color:var(--green-d)}
+.btn{border:0;background:var(--green);color:#fff;border-radius:9px;padding:10px 16px;
+  font-size:.92rem;font-weight:700;cursor:pointer;font-family:inherit}
+.btn:hover{background:var(--green-d)}
+.btn.sec{background:#fff;color:var(--soil);border:1px solid var(--line)}
+.btn.sec:hover{background:var(--soil-l)}
+.btn.sm{padding:6px 11px;font-size:.82rem}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0}
+.saved{font-size:.78rem;color:var(--green);opacity:0;transition:.3s}
+.saved.on{opacity:1}
+
+/* ---------- reading ---------- */
+.sent{border:1px solid var(--line);border-radius:10px;padding:11px 13px;margin:7px 0;
+  background:#fffdf8;display:flex;gap:11px;align-items:flex-start;cursor:pointer}
+.sent:hover{background:var(--soil-l)}
+.sent.mine{border-color:var(--green);border-width:2px;background:#f0f6f2}
+.sent.all{border-color:var(--gold);background:#fdf7e6}
+.sent .n{font-weight:700;color:var(--soil);flex:none;width:1.7em;text-align:center}
+.sent .tx{flex:1}
+.sent .hand{color:var(--soil);opacity:.55;padding:0 .15em}
+.mine-tag{font-size:.72rem;background:var(--green);color:#fff;border-radius:999px;padding:1px 8px;flex:none}
+
+/* ---------- 1行 ---------- */
+.oneline{background:#f0f6f2;border:2px solid var(--green);border-radius:12px;padding:18px;margin:14px 0;font-size:1.05rem;line-height:2.2}
+.slot{display:inline-block;min-width:170px;border-bottom:2px solid var(--green);
+  padding:0 6px;font-weight:700;color:var(--green-d)}
+.slot.empty{border-bottom-style:dashed;color:#bbb;font-weight:400}
+
+/* ---------- timer panel ---------- */
+.tpanel{background:var(--soil-l);border-radius:12px;padding:14px;margin:14px 0}
+.tbig{font-size:2.6rem;font-weight:700;font-variant-numeric:tabular-nums;color:var(--soil);text-align:center;line-height:1.2}
+.tbig.run{color:var(--green)}.tbig.over{color:var(--warn)}
+.tlab{text-align:center;font-size:.88rem;color:var(--sub);margin-bottom:4px}
+.tctl{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+
+/* ---------- facil / screen ---------- */
+body.m-screen .wrap{max-width:1040px}
+body.m-screen .card{padding:34px}
+body.m-screen h1{font-size:2.2rem}
+body.m-screen h2{font-size:1.8rem}
+body.m-screen .q{font-size:2rem;padding:22px}
+body.m-screen .sent{font-size:1.35rem}
+body.m-screen .solo-only,body.m-screen .facil-only{display:none}
+body.m-screen table{font-size:1.15rem}
+body.m-screen .lead,body.m-screen p,body.m-screen li{font-size:1.2rem}
+body:not(.m-facil) .facil-only{display:none}
+body.m-facil .solo-only{display:none}
+.chip{display:inline-block;background:var(--soil);color:#fff;border-radius:999px;
+  padding:2px 10px;font-size:.78rem;margin:2px 3px 2px 0}
+footer{text-align:center;color:var(--sub);font-size:.82rem;padding:28px 16px 10px;line-height:1.9}
+footer a{color:var(--green)}
+
+@media print{
+  .topbar,.stepnav,.tpanel,.btn,.modes,.no-print{display:none!important}
+  body{background:#fff;padding:0}
+  .card{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid;margin:10px 0}
+  .step{display:block!important}
+}
+.step{display:none}
+.step.on{display:block}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="inner">
+    <span class="brand">🌿 わたしの活かし方</span>
+    <span class="tbar-timer" id="tbar">--:--</span>
+    <span class="modes">
+      <button data-mode="solo" class="on">参加者</button>
+      <button data-mode="facil">進行役</button>
+      <button data-mode="screen">投影</button>
+    </span>
+  </div>
+</div>
+
+<div class="wrap">
+  <nav class="stepnav" id="stepnav"></nav>
+
+  <!-- ============ STEP 0 ============ -->
+  <section class="step on" data-step="0">
+    <div class="card">
+      <h1>わたしの活かし方</h1>
+      <p class="sub">教わらずに育った力を、意図して使う90分 ／ ありえる楽考の入口</p>
+      <p class="lead">抜かれても生えてきたものを見つけ、<b>それが活きる条件を仲間から受け取り</b>、「わたしの活かし方」を1行にして持ち帰ります。</p>
+      <div class="note star">
+        <b>今日、持ち帰るもの</b>
+        <ol>
+          <li><b>わたしの活かし方</b>（3つの空欄が埋まった形で）</li>
+          <li><b>その真ん中は、自分では埋められなかった、という発見</b></li>
+        </ol>
+      </div>
+      <label class="fl">お名前またはニックネーム <span class="hint">（受け取った条件が誰宛てか分かるようにするためだけに使います）</span></label>
+      <input type="text" id="f_name" placeholder="例：ありえる">
+      <div class="note">
+        <b>書いたものはこの端末の中だけに保存されます。</b>サーバーには送られません。別の端末で開くと空です。<br>
+        最後に「持ち帰りカード」をコピー／ダウンロードできます。<b>終わったら必ず持ち出してください。</b>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>今日の約束 <span class="badge">いちばん最初に読みます</span></h2>
+      <table>
+        <tr><th style="width:42%">やらないこと</th><th>なぜ</th></tr>
+        <tr><td><b>前書きを要約しない。賛成も反対も言わない</b></td><td>要約すると、感じたことが消えます。今日は意見を集めません</td></tr>
+        <tr><td><b>欠点を長所に言い換えない</b></td><td>「おせっかい → 気配りができる」は、言い換えであって発見ではありません</td></tr>
+        <tr><td><b>「ありのままでいい」で終わらせない</b></td><td>自然農は、放っておくことではありません。活かし方は、決めるものです</td></tr>
+        <tr><td><b>「あなたは○○な人ですね」と人を括らない</b></td><td>括られた瞬間に、人は変わらなくていいことになります</td></tr>
+        <tr><td><b>90分で全部を決めきらない</b></td><td>真ん中の欄は、1回では埋まりきりません。<b>埋まりきらないと分かることが、今日の成果です</b></td></tr>
+      </table>
+      <h3>90分の流れ</h3>
+      <table>
+        <tr><td style="width:2.5em">①</td><td>読み合わせと語り合い</td><td style="width:4em">17分</td></tr>
+        <tr><td>②</td><td>教わらずに育った力と、いま生えているもの</td><td>20分</td></tr>
+        <tr><td>③</td><td>活きる関係を見つける</td><td>24分</td></tr>
+        <tr><td>④</td><td><b>わたしの活かし方を1行にする</b></td><td>16分</td></tr>
+        <tr><td>⑤</td><td>なりたいものと、第一歩</td><td>10分</td></tr>
+      </table>
+      <div class="row"><button class="btn" onclick="go(1)">① 読み合わせへ →</button></div>
+    </div>
+  </section>
+
+  <!-- ============ STEP 1 ============ -->
+  <section class="step" data-step="1">
+    <div class="card">
+      <h2>① 読み合わせ <span class="badge">5分</span></h2>
+      <p>順番に、声に出して読みます。<b>①から⑦を1人ずつ。⑧は、全員で声を合わせて読みます。</b></p>
+      <div class="note solo-only">
+        <b>オンラインのとき</b> ── 下の文をクリックすると「自分の担当」になります。担当の文だけ大きく表示されるので、<b>読む順番が来たらそれを読んでください。</b>
+        <div class="row"><button class="btn sec sm" onclick="clearMine()">担当をはずす</button></div>
+      </div>
+      <div id="sentences"></div>
+      <div id="mineBox"></div>
+      <h3>読み方のめやす</h3>
+      <ul>
+        <li><b>／</b> は、長い文を次の人に渡してよい場所です。人数が少なければ、そのまま1人で読み切ってください</li>
+        <li>読み方：unschooled mind（アンスクールド・マインド）／ Beyond Smarter（ビヨンド・スマーター）／ retrain your business brain（リトレイン・ユア・ビジネス・ブレイン）</li>
+        <li>読み終わったら、<b>解説をしません。3秒、黙ります</b></li>
+      </ul>
+      <div class="row no-print"><button class="btn sec sm" onclick="copyPreface()">前書きの全文をコピー（チャットに貼る用）</button><span class="saved" id="sv_pre">コピーしました</span></div>
+    </div>
+
+    <div class="card">
+      <h2>① 語り合い <span class="badge">7分・1人2分</span></h2>
+      <div class="q">「どの一節で、手が止まりましたか。そのとき、何を思い出しましたか」</div>
+      <div class="note warn"><b>聞く人は、何も返しません。うなずくだけです。</b><br>「私もそう思います」も、「それはつまり〜ですね」も、今日は要りません。</div>
+      <div data-timer="420" data-label="語り合い（7分）"></div>
+      <div class="solo-only">
+        <label class="fl">手が止まった一節 <span class="hint">番号と、その言葉をそのまま</span></label>
+        <textarea id="f_stop" placeholder="例：⑥　規格品をつくる教育は人の活力を奪い…"></textarea>
+        <label class="fl">そのとき、思い出したこと</label>
+        <textarea id="f_recall"></textarea>
+        <label class="fl">他の人が止まった一節 <span class="hint">番号だけでよい</span></label>
+        <input type="text" id="f_others" placeholder="例：②、⑧">
+      </div>
+      <div class="row"><button class="btn" onclick="go(2)">② へ →</button></div>
+    </div>
+  </section>
+
+  <!-- ============ STEP 2 ============ -->
+  <section class="step" data-step="2">
+    <div class="card">
+      <h2>② 教わらずに育った力 <span class="badge">6分</span></h2>
+      <div class="q">「あなたは、母語を文法書で習いませんでした。それでも使えるようになりました。そのとき、あなたは何をしていたでしょうか」</div>
+      <p><b>いまの自分がよくやるのは、どれですか。1つだけ選んでください。</b></p>
+      <div class="radios" id="powers"></div>
+      <div class="solo-only">
+        <label class="fl">自分の言葉で言うと</label>
+        <textarea id="f_power_own"></textarea>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>② いま生えているもの <span class="badge">6分</span></h2>
+      <div class="q">「抜かれても、生えてきたものは何ですか」</div>
+      <ul>
+        <li>「やめなさい」「直しなさい」と言われ続けたのに、<b>今もやってしまう</b>こと</li>
+        <li>頼まれていないのに、<b>つい手が出てしまう</b>こと</li>
+        <li>自分では当たり前だったのに、<b>助かったと言われた</b>こと</li>
+      </ul>
+      <div class="note star">
+        <b>書き方の決まりは1つだけ ── 性格の説明で終わらせず、場面を1つ書いてください。</b><br>
+        <span class="ng">✗</span> 私は世話好きです<br>
+        <span class="ok">○</span> 初めて参加した会で、発言していない人が気になって、休憩時間に声をかけた
+      </div>
+      <div class="solo-only">
+        <label class="fl">いつ・どこで・何をした <span class="hint">★この欄が、あとで「活かし方」の①になります</span></label>
+        <textarea id="f_scene" style="min-height:110px" placeholder="いつ／どこで／何をしたか。場面を1つ。"></textarea>
+        <label class="fl">その場面で、上で選んだ力は働いていましたか</label>
+        <textarea id="f_link"></textarea>
+        <div class="note">つながらなければ、<b>「つながらなかった」と書いてください。</b>そこは、あとで他の人が見つけます。</div>
+      </div>
+      <div data-timer="1200" data-label="② 全体（20分）"></div>
+      <div class="row"><button class="btn" onclick="go(3)">③ へ →</button></div>
+    </div>
+  </section>
+
+  <!-- ============ STEP 3 ============ -->
+  <section class="step" data-step="3">
+    <div class="card">
+      <h2>札1 ｜ 理由の置き場</h2>
+      <p>人は、<b>自分のことは「状況のせい」、他人のことは「性格のせい」</b>で説明します。</p>
+      <ul>
+        <li>私が返信を遅らせたのは、<b>立て込んでいたから</b></li>
+        <li>あの人が返信しないのは、<b>ああいう人だから</b></li>
+      </ul>
+      <p>同じふるまいでも、見る位置で理由の置き場が変わります。</p>
+      <div class="note star"><b>だから、自分の活かし方は、自分では見えません。</b>見えないのは注意不足ではなく、<b>理由の置き場が、もともとずれている</b>からです。</div>
+      <p class="sub">（出典：『The Unschooled Mind』）</p>
+    </div>
+
+    <div class="card">
+      <h2>③ 活きる関係を見つける <span class="badge">3人で・1人7分</span></h2>
+      <table>
+        <tr><th style="width:6.5em">1分</th><td>本人が、②の場面を話す</td></tr>
+        <tr><th>1分30秒</th><td>聞く人は、<b>事実を確かめる質問だけ</b>（「それは何人いる場でしたか」など）</td></tr>
+        <tr><th>1分30秒</th><td><b>理由を3つ、書き取る</b>（本人が1つ、聞く人が2つ）。<b>どれが正しいかは決めません</b></td></tr>
+        <tr><th>2分</th><td>聞く人が、<b>活きる条件</b>を1つずつ返す</td></tr>
+        <tr><th>1分</th><td>本人が、<b>採る1つ</b>を選ぶ</td></tr>
+      </table>
+      <div id="rotTimer"></div>
+    </div>
+
+    <div class="card solo-only">
+      <h2>③-a 理由の2枚取り</h2>
+      <div class="note">どれが正しいかは決めません。<b>3つとも書き取るだけです。</b></div>
+      <label class="fl">自分が挙げた理由</label><input type="text" id="f_r_self">
+      <label class="fl">他の人が見た理由 A</label><input type="text" id="f_r_a">
+      <label class="fl">他の人が見た理由 B</label><input type="text" id="f_r_b">
+    </div>
+
+    <div class="card">
+      <h2>③-b 聞く人の返し方 <span class="badge">この形を破らない</span></h2>
+      <div class="q" style="font-size:1rem">「その場面で、あなたは <b>◯◯</b> していました。<br>　それは、<b>△△</b> という条件がそろっているときに、いちばん活きると思います」</div>
+      <table>
+        <tr><th style="width:6em"><span class="ok">○ よい例</span></th><td>相手が助けを求めていて、断る自由もあるとき ／ その場の人数が10人より少ないとき</td></tr>
+        <tr><th><span class="ng">✗ ちがう例</span></th><td>「あなたは気配りの人ですね」（＝人を括っている）／「営業に向いてますよ」（＝条件ではなく、職種の助言）</td></tr>
+      </table>
+      <p><b>「活きない条件」でもかまいません。</b>条件が分かることが成果で、よい条件である必要はありません。</p>
+    </div>
+
+    <div class="card solo-only">
+      <h2>③-c 条件をつくって渡す <span class="badge">聞き手になったとき</span></h2>
+      <div class="note"><b>オンラインのときは、ここで作った文をコピーして、チャット（Zoom／Discord／Meet）に貼ってください。</b>相手は下の「受け取る」欄に貼り付けるだけで取り込めます。</div>
+      <label class="fl">誰に渡す？</label><input type="text" id="g_to" placeholder="相手のお名前">
+      <label class="fl">観察 <span class="hint">その場面で、その人がしていたこと</span></label>
+      <textarea id="g_obs" placeholder="発言していない人に、休憩時間に声をかけていた"></textarea>
+      <label class="fl">条件 <span class="hint">それがいちばん活きるのは、どんな条件がそろっているとき？</span></label>
+      <textarea id="g_cond" placeholder="相手が助けを求めていて、断る自由もあるとき"></textarea>
+      <div class="row">
+        <button class="btn" onclick="buildCard()">貼り付け用の文をつくる</button>
+        <span class="saved" id="sv_gen">つくりました</span>
+      </div>
+      <textarea id="g_out" style="min-height:130px;background:#f0f6f2" readonly></textarea>
+      <div class="row"><button class="btn sec sm" onclick="copyEl('g_out','sv_cp')">コピーする</button><span class="saved" id="sv_cp">コピーしました</span></div>
+    </div>
+
+    <div class="card solo-only">
+      <h2>③-d 条件を受け取る <span class="badge">★ここが今日の心臓</span></h2>
+      <div class="note star"><b>チャットに貼られた文を、そのままここに貼り付けてください。</b>自分で打ち直さないでください ──<b>「他の人の言葉のまま」であることが、このワークの条件です。</b></div>
+      <textarea id="f_inbox_paste" style="min-height:110px" placeholder="チャットに貼られた「▼活きる条件」の文を、まるごと貼り付け"></textarea>
+      <div class="row">
+        <button class="btn" onclick="takeIn()">受け取る</button>
+        <button class="btn sec sm" onclick="manualIn()">手で1つ足す（対面のとき）</button>
+      </div>
+      <div id="inboxList"></div>
+    </div>
+    <div class="row"><button class="btn" onclick="go(4)">④ へ →</button></div>
+  </section>
+
+  <!-- ============ STEP 4 ============ -->
+  <section class="step" data-step="4">
+    <div class="card">
+      <h2>札2 ｜ 手を引くことと、活かすことは別</h2>
+      <p>抜かない・撒かない・矯正しない ── これは正しいことです。<b>でも、引き算です。</b>活かすには、<b>足す仕事が3つ</b>あります。</p>
+      <ol>
+        <li><b>意図を見せて、返しをもらう</b>（言わずにやると、独り言になります）</li>
+        <li><b>その場だけで終わらせない</b>（ここでうまくできても、外で使えなければ渡っていません）</li>
+        <li><b>なぜこれが大事かを渡す</b>（答えを渡さないことと、意味を渡さないことは別です）</li>
+      </ol>
+      <p>「おいしいよ」と言って差し出すのと、黙って皿を置くのは違います。同じ料理でも、片方だけが<b>意図と意味</b>を渡しています。</p>
+      <p class="sub">（出典：『Beyond Smarter』）</p>
+    </div>
+
+    <div class="card">
+      <h2>札3 ｜ 距離があるから、関係が深くなる</h2>
+      <p>「関係が成り立つには、距離がなければならない。<b>したがって、距離が大きいほど、関係は深くなりうる</b>」（マルティン・ブーバー）</p>
+      <div class="note"><b>毎日見るのは、過保護です。</b>間隔は、手抜きではなく設計です。</div>
+    </div>
+
+    <div class="card solo-only">
+      <h2>④ わたしの活かし方 <span class="badge">★この90分の出力</span></h2>
+      <div class="oneline" id="oneline"></div>
+      <label class="fl">① 抜かれても生えてくるもの <span class="hint">②の場面から、短く</span></label>
+      <input type="text" id="f_o1" placeholder="例：発言していない人に声をかけること">
+      <label class="fl">② それが活きる条件 <span class="hint">★受け取ったものから選びます。自分では書けません</span></label>
+      <div id="pick2"></div>
+      <label class="fl">③ 教わらずに育った力の使い方</label>
+      <div id="pick3"></div>
+      <div class="note star"><b>①と③は、一人でも書けます。②だけは書けません。</b><br><b>だから今日は、3人でやりました。</b></div>
+      <div class="row"><button class="btn sec sm" onclick="copyOneline()">1行をコピー</button><span class="saved" id="sv_one">コピーしました</span></div>
+    </div>
+
+    <div class="card solo-only">
+      <h2>④ 一区画を決める</h2>
+      <p><b>畑を全部やりません。一区画だけです。</b></p>
+      <label class="fl">誰の <span class="hint">固有名詞で1人。「みなさん」「若手」は不可</span></label><input type="text" id="f_who">
+      <label class="fl">何に <span class="hint">その人がいま困っていること。推測なら「推測」と書く</span></label><textarea id="f_what"></textarea>
+      <label class="fl">どう <span class="hint">札2の①②③から、ひとつだけ</span></label>
+      <div class="radios" id="pickHow"></div>
+      <label class="fl">間隔 <span class="hint">どのくらい離れて・どの頻度で手を入れるか</span></label><input type="text" id="f_gap">
+      <label class="fl">この区画で捨てる1つ</label><input type="text" id="f_drop">
+      <div class="note warn"><b>隣の人に、2つだけ確かめてもらってください。</b>
+        <ol><li>②の欄は、<b>他の人の言葉のまま</b>入っていますか</li>
+        <li>この先の第一歩は、<b>1人で終わってしまいませんか</b></li></ol></div>
+      <div data-timer="960" data-label="④ 全体（16分）"></div>
+      <div class="row"><button class="btn" onclick="go(5)">⑤ へ →</button></div>
+    </div>
+  </section>
+
+  <!-- ============ STEP 5 ============ -->
+  <section class="step" data-step="5">
+    <div class="card solo-only">
+      <h2>⑤ 24時間以内の第一歩 <span class="badge">1人30秒で宣言</span></h2>
+      <p><b>言うのは3つだけです。動詞で始めてください。</b></p>
+      <label class="fl">いつ <span class="hint">24時間以内</span></label><input type="text" id="f_when" placeholder="例：明日の朝9時">
+      <label class="fl">誰に</label><input type="text" id="f_to">
+      <label class="fl">何をする <span class="hint">動詞で始める。「〜について考える」は第一歩になりません</span></label><textarea id="f_do"></textarea>
+      <label class="fl">★どこで、他の人の目が入るか <span class="hint">送る・聞く・見てもらう・一緒にやる</span></label><textarea id="f_eyes"></textarea>
+      <div class="note warn" id="eyesWarn"><b>1人で全部終わる第一歩は、採りません。</b>どこかで、他の人の目が1回入る形にしてください。</div>
+    </div>
+
+    <div class="card">
+      <h3>なりたいもの</h3>
+      <div class="note">遠い目標は、近い目標より達成しにくいから価値が低い ── ということはありません。逆です。<b>遠くに置いた目標だけが、まだ存在しないものを思い描く力を使わせます。</b></div>
+      <div class="solo-only"><textarea id="f_become"></textarea></div>
+    </div>
+
+    <div class="card">
+      <h3>最後に</h3>
+      <div class="note star">
+        <b>イナゴマメの木を植えている人に、通りかかった人が尋ねました。</b><br>
+        「その木は、70年後にしか実がならないでしょう。なぜ植えるのですか」<br><br>
+        <b>植えていた人は答えました。</b><br>
+        「知っています。けれど、私の親が今日の私と同じことをしていなければ、私はイナゴマメを食べられなかったのです」
+      </div>
+      <p><b>あなたの活かし方は、1行になりました。</b><br><b>ただ、その真ん中を埋めたのは、あなたではありませんでした。</b></p>
+      <div class="q">── あなたは、誰の真ん中の欄を、埋められるでしょうか</div>
+      <div class="solo-only"><textarea id="f_last" style="min-height:90px"></textarea></div>
+    </div>
+
+    <div class="card solo-only">
+      <h2>🎁 持ち帰りカード</h2>
+      <div class="note warn"><b>書いたものはこの端末にしか残りません。</b>必ずコピーかダウンロードをして持ち出してください。</div>
+      <div class="row">
+        <button class="btn" onclick="buildTakeaway()">カードをつくる</button>
+        <button class="btn sec" onclick="copyEl('t_out','sv_t')">コピー</button>
+        <button class="btn sec" onclick="dlTakeaway()">テキストで保存</button>
+        <button class="btn sec" onclick="window.print()">印刷／PDF</button>
+        <span class="saved" id="sv_t">コピーしました</span>
+      </div>
+      <textarea id="t_out" style="min-height:260px;background:#f0f6f2"></textarea>
+      <div class="row"><button class="btn sec sm" onclick="resetAll()">入力を全部消す（次の人に貸すとき）</button></div>
+    </div>
+  </section>
+
+  <!-- ============ FACIL ============ -->
+  <section class="step" data-step="9">
+    <div class="card">
+      <h2>進行役の手元 <span class="badge">オンライン実施</span></h2>
+      <div class="note warn"><b>この画面を参加者に共有しないでください。</b>この下には「どう壊れるか」が書いてあります。</div>
+
+      <h3>全体タイマー</h3>
+      <div id="masterTimer"></div>
+      <div class="row">
+        <button class="btn sec sm" onclick="setT('mt',180,'⓪ 約束（3分）')">⓪ 3分</button>
+        <button class="btn sec sm" onclick="setT('mt',1020,'① 読み合わせと語り合い（17分）')">① 17分</button>
+        <button class="btn sec sm" onclick="setT('mt',1200,'② 力と、生えているもの（20分）')">② 20分</button>
+        <button class="btn sec sm" onclick="setT('mt',1440,'③ 活きる関係（24分）')">③ 24分</button>
+        <button class="btn sec sm" onclick="setT('mt',960,'④ 活かし方を1行に（16分）')">④ 16分</button>
+        <button class="btn sec sm" onclick="setT('mt',600,'⑤ 第一歩とイナゴマメ（10分）')">⑤ 10分</button>
+      </div>
+
+      <h3>① 読み上げの担当を配る</h3>
+      <div class="row">
+        <span>参加人数</span>
+        <input type="text" id="f_n" value="6" style="width:5em">
+        <button class="btn sm" onclick="assign()">配る</button>
+        <button class="btn sec sm" onclick="copyEl('a_out','sv_a')">コピー</button>
+        <span class="saved" id="sv_a">コピーしました</span>
+      </div>
+      <textarea id="a_out" style="min-height:150px"></textarea>
+      <div class="note"><b>⑧は必ず全員で読みます。</b>⑧は「一緒につくってゆきたいのです」で終わるので、1人の声にしません。</div>
+
+      <h3>ブレイクアウトに貼る指示文</h3>
+      <div class="row">
+        <button class="btn sec sm" onclick="inst('r1')">① 語り合い（7分）</button>
+        <button class="btn sec sm" onclick="inst('r3')">③ 活きる関係（22分）</button>
+        <button class="btn sec sm" onclick="inst('r4')">④ ペア確認（6分）</button>
+        <button class="btn sec sm" onclick="copyEl('i_out','sv_i')">コピー</button>
+        <span class="saved" id="sv_i">コピーしました</span>
+      </div>
+      <textarea id="i_out" style="min-height:190px"></textarea>
+
+      <h3>オンラインでやるときの段取り</h3>
+      <table>
+        <tr><th style="width:7em">枠</th><th>オンラインでの形</th></tr>
+        <tr><td>① 音読</td><td><b>メインルームで、番号順に1人ずつミュートを外して読む。</b>担当表をチャットに貼る。⑧は全員でミュートを外す（音が重なってよい ── <b>重なることが、この文の意味です</b>）</td></tr>
+        <tr><td>① 語り合い</td><td>3人のブレイクアウト・7分。<b>聞く人は返さない</b>ので、カメラはオンのままにしてもらう（うなずきが唯一の返しになる）</td></tr>
+        <tr><td>②</td><td><b>メインルームで各自が書く。</b>ブレイクアウトにしない（1人で書く時間なので、他人の画面があると手が止まる）</td></tr>
+        <tr><td>③</td><td>同じ3人のブレイクアウト・22分。<b>条件はチャットに貼って渡す</b>（アプリの「貼り付け用の文をつくる」を使う）。ブレイクアウト内チャットは<b>退出すると消えるので、メインに戻ってから貼り直させない</b> ── ブレイクアウト中に本人が受け取るところまでやらせる</td></tr>
+        <tr><td>④</td><td>各自で書く → ペアのブレイクアウト6分</td></tr>
+        <tr><td>⑤</td><td>メインルームで1人30秒。<b>チャットではなく声で言わせる</b></td></tr>
+      </table>
+
+      <h3>★ オンライン固有の致命傷（3つ）</h3>
+      <table>
+        <tr><th style="width:40%">起きること</th><th>手当て</th></tr>
+        <tr><td><b>条件が渡らないまま③が終わる</b>（チャットに貼る手間で止まる）</td><td>③のブレイクアウトに入る前に、<b>「渡す側のやり方」を画面共有で1回やってみせる。</b>説明だけで入れると、半分の組で渡らない</td></tr>
+        <tr><td><b>ブレイクアウトのチャットが消えて、受け取りが失われる</b></td><td>残り3分で「<b>受け取り欄に貼り付けましたか</b>」とブロードキャストする</td></tr>
+        <tr><td><b>④の②欄を、自分で打ち直す</b></td><td>アプリ側で<b>受け取ったものからしか選べない</b>ようにしてある。「書けない」と言われたら<b>それが正常</b>だと答える</td></tr>
+      </table>
+
+      <h3>ファシリが必ず守ること</h3>
+      <ul>
+        <li>①の全体共有では<b>まとめない。</b>「つまり規格品にされてきたということですね」と言った瞬間に、この枠は要らなくなる。出す結論は<b>「止まった場所が違った」という事実だけ</b></li>
+        <li>②後半は弱さが出る。<b>ファシリが最初に自分の「抜かれても生えてきたもの」を場面1つで話す。</b>先に出さないと安全が立たない</li>
+        <li>3人組は<b>同じ職場・同じ業種で組ませない。</b>聞き手が自分の知識で穴を埋めてしまい、理由のズレが出なくなる</li>
+        <li>⑤の応答は<b>1人につき最大1問。</b>既定は「それは、いつ、誰の目が入りますか」</li>
+        <li><b>90分で解決して閉じない。</b>気持ちよく畳んだ瞬間に、次の場が要らなくなる</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    🌿 <b>わたしの活かし方</b> ── ありえる楽考の入口になる90分<br>
+    参照：<i>The Unschooled Mind</i>（Gardner）／<i>Beyond Smarter</i>（Feuerstein）／『賢い人の秘密』（Adams）<br>
+    <a href="../">← ariel-apps の一覧へ</a>
+  </footer>
+</div>
+
+<script>
+/* ========== データ ========== */
+var SENTENCES=[
+ {n:'①',parts:['かつて、自然農に触れたことがありました。']},
+ {n:'②',parts:['そこには雑草も害虫もなくて、窒素を固定して、菌の温床になり、土を柔らかくしエコシステムを担っています。']},
+ {n:'③',parts:['人にとって美味しく、お金になる実が多くなったりはしませんが、','多品種少量自分が食べて少しだけマルシェに出すということは可能で、充分生活ができるお金を稼ぐことができ、','何より農作業の手間が在来農法に比べて少ない。']},
+ {n:'④',parts:['これを知った時、学校のようだと感じました。']},
+ {n:'⑤',parts:['社会で高く売れる換金作物を大量につくろうと化学肥料を与えると虫が大量発生するので、','農薬を撒いて抑えようとすると土の中の微生物や受粉を担う益虫まで殺してしまい、','さらに肥料が必要になり、土は硬くなり、さらにお金や手間が必要になるという悪循環になります。']},
+ {n:'⑥',parts:['規格品をつくる教育は人の活力を奪い、似たような人が過競争する社会をつくります。']},
+ {n:'⑦',parts:['自然の恵みをわけてもらうような多様な品種が共生するようなあり方はないかと探してきて、','教えない自分で学ぶということを探求していて、unschooled mind と Beyond Smarter に retrain your business brain を通じて出会いました。']},
+ {n:'⑧',parts:['そこであなたが持っている言葉を学習した際に発揮した能力を自分で意図的に活用できるようにすることで、自分がなりたいものになるという希望をもって現代社会で、自然本来が持つ活力でもって生きていける学び方を一緒につくってゆきたいのです。'],all:true}
+];
+var POWERS=[
+ {k:'imitate',t:'真似た',d:'誰かの言い方を、そのまま持ってきた'},
+ {k:'try',t:'試した',d:'通じるかどうか、使ってみて確かめた'},
+ {k:'keep',t:'間違えても続けた',d:'直されても、やめなかった'},
+ {k:'guess',t:'意味を推測した',d:'教わる前に、前後から当てにいった'}
+];
+var HOWS=[
+ {k:'h1',t:'意図を見せて、返しをもらう'},
+ {k:'h2',t:'その場だけで終わらせない'},
+ {k:'h3',t:'なぜこれが大事かを渡す'}
+];
+var STEPS=[
+ {i:0,t:'はじめに'},{i:1,t:'① 読み合わせ'},{i:2,t:'② 力と草'},
+ {i:3,t:'③ 活きる関係'},{i:4,t:'④ 活かし方'},{i:5,t:'⑤ 第一歩'}
+];
+var KEY='ikashikata.v1';
+
+/* ========== 状態 ========== */
+var S={fields:{},inbox:[],mine:null,power:'',o2:'',o3:'',how:'',step:0,mode:'solo'};
+function load(){try{var r=localStorage.getItem(KEY);if(r){var o=JSON.parse(r);for(var k in o)S[k]=o[k];}}catch(e){}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function flash(id){var e=$(id);if(!e)return;e.classList.add('on');setTimeout(function(){e.classList.remove('on');},1400);}
+
+/* ========== モード・ステップ ========== */
+function setMode(m){
+  S.mode=m;save();
+  document.body.className='m-'+m;
+  var bs=document.querySelectorAll('.modes button');
+  for(var i=0;i<bs.length;i++)bs[i].classList.toggle('on',bs[i].getAttribute('data-mode')===m);
+  go(m==='facil'?9:(S.step===9?0:S.step));
+  renderNav();
+}
+function go(n){
+  S.step=n;save();
+  var ss=document.querySelectorAll('.step');
+  for(var i=0;i<ss.length;i++)ss[i].classList.toggle('on',+ss[i].getAttribute('data-step')===n);
+  renderNav();window.scrollTo(0,0);
+}
+function renderNav(){
+  var nav=$('stepnav');
+  if(S.mode==='facil'){nav.innerHTML='<button class="on">進行役の手元</button>'+
+    '<button onclick="setMode(\'solo\')">参加者の画面を見る</button>';return;}
+  var h='';
+  for(var i=0;i<STEPS.length;i++){
+    var s=STEPS[i];
+    h+='<button class="'+(S.step===s.i?'on':'')+'" onclick="go('+s.i+')">'+s.t+'</button>';
+  }
+  nav.innerHTML=h;
+}
+
+/* ========== 入力の保存 ========== */
+function bindFields(){
+  var es=document.querySelectorAll('input[type=text],textarea');
+  for(var i=0;i<es.length;i++){
+    var e=es[i];
+    if(!e.id||e.readOnly)continue;
+    if(S.fields[e.id]!=null)e.value=S.fields[e.id];
+    e.addEventListener('input',function(){
+      S.fields[this.id]=this.value;save();
+      if(this.id==='f_scene'||this.id==='f_o1')renderOneline();
+      if(this.id==='f_eyes')checkEyes();
+    });
+  }
+  checkEyes();
+}
+function F(id){return (S.fields[id]||'').trim();}
+function checkEyes(){var w=$('eyesWarn');if(w)w.style.display=F('f_eyes')?'none':'';}
+
+/* ========== ① 読み合わせ ========== */
+function renderSentences(){
+  var h='';
+  for(var i=0;i<SENTENCES.length;i++){
+    var s=SENTENCES[i],tx='';
+    for(var j=0;j<s.parts.length;j++){
+      if(j)tx+='<span class="hand">／</span>';
+      tx+=esc(s.parts[j]);
+    }
+    var cls='sent'+(s.all?' all':'')+(S.mine===i?' mine':'');
+    h+='<div class="'+cls+'" onclick="pickMine('+i+')"><span class="n">'+s.n+'</span>'+
+       '<span class="tx">'+(s.all?'<b>（全員で）</b>':'')+tx+'</span>'+
+       (S.mine===i?'<span class="mine-tag">担当</span>':'')+'</div>';
+  }
+  $('sentences').innerHTML=h;
+  var mb=$('mineBox');
+  if(S.mine!=null&&SENTENCES[S.mine]){
+    var s=SENTENCES[S.mine];
+    mb.innerHTML='<div class="note star" style="font-size:1.25rem;line-height:1.9">'+
+      '<b>あなたの担当 '+s.n+'</b><br>'+esc(s.parts.join(''))+'</div>';
+  }else{mb.innerHTML='';}
+}
+function pickMine(i){S.mine=(S.mine===i?null:i);save();renderSentences();}
+function clearMine(){S.mine=null;save();renderSentences();}
+function prefaceText(){
+  var a=[];for(var i=0;i<SENTENCES.length;i++)a.push(SENTENCES[i].n+' '+SENTENCES[i].parts.join(''));
+  return a.join('\n\n');
+}
+function copyPreface(){copyText(prefaceText(),'sv_pre');}
+
+/* ========== ② 力 ========== */
+function renderPowers(){
+  var h='';
+  for(var i=0;i<POWERS.length;i++){
+    var p=POWERS[i];
+    h+='<label><input type="radio" name="pw" value="'+p.k+'"'+(S.power===p.k?' checked':'')+
+       ' onchange="setPower(\''+p.k+'\')"><span><b>'+p.t+'</b> ── '+p.d+'</span></label>';
+  }
+  $('powers').innerHTML=h;
+}
+function setPower(k){S.power=k;save();renderPick3();renderOneline();}
+function powerLabel(k){for(var i=0;i<POWERS.length;i++)if(POWERS[i].k===k)return POWERS[i].t;return '';}
+
+/* ========== ③ 条件の送受 ========== */
+function buildCard(){
+  var to=F('g_to'),obs=F('g_obs'),cond=F('g_cond'),from=F('f_name');
+  if(!obs||!cond){$('g_out').value='観察と条件の両方を書いてください。';return;}
+  var t='▼活きる条件'+(to?'（'+to+'さんへ）':'')+'\n'+
+        '観察：'+obs+'\n'+'条件：'+cond+'\n'+'差出人：'+(from||'（名前）');
+  $('g_out').value=t;flash('sv_gen');
+}
+function takeIn(){
+  var raw=$('f_inbox_paste').value;
+  if(!raw.trim()){alert('貼り付けてから「受け取る」を押してください。');return;}
+  var blocks=raw.split(/(?=▼活きる条件)/);var added=0;
+  for(var i=0;i<blocks.length;i++){
+    var b=blocks[i];if(!b.trim())continue;
+    var obs=pick(b,'観察'),cond=pick(b,'条件'),from=pick(b,'差出人');
+    if(!cond){cond=b.trim();}
+    S.inbox.push({obs:obs,cond:cond,from:from});added++;
+  }
+  if(added){$('f_inbox_paste').value='';S.fields['f_inbox_paste']='';save();renderInbox();renderPick2();}
+}
+function pick(t,label){
+  var re=new RegExp(label+'\\s*[：:]\\s*(.+)');
+  var m=t.match(re);return m?m[1].trim():'';
+}
+function manualIn(){
+  var c=prompt('受け取った「条件」を、言われたとおりに入れてください');
+  if(c==null||!c.trim())return;
+  var f=prompt('誰から？（空でもよい）')||'';
+  S.inbox.push({obs:'',cond:c.trim(),from:f.trim()});save();renderInbox();renderPick2();
+}
+function renderInbox(){
+  var e=$('inboxList');if(!e)return;
+  if(!S.inbox.length){e.innerHTML='<div class="note">まだ受け取っていません。<b>②の欄は、ここに入ったものからしか選べません。</b></div>';return;}
+  var h='<h3>受け取った条件（'+S.inbox.length+'）</h3>';
+  for(var i=0;i<S.inbox.length;i++){
+    var x=S.inbox[i];
+    h+='<div class="sent"><span class="tx">'+
+      (x.obs?'<span class="sub">観察：'+esc(x.obs)+'</span><br>':'')+
+      '<b>'+esc(x.cond)+'</b>'+(x.from?' <span class="sub">── '+esc(x.from)+'</span>':'')+
+      '</span><button class="btn sec sm" onclick="delIn('+i+')">消す</button></div>';
+  }
+  e.innerHTML=h;
+}
+function delIn(i){S.inbox.splice(i,1);if(S.o2>=S.inbox.length)S.o2='';save();renderInbox();renderPick2();renderOneline();}
+
+/* ========== ④ 1行 ========== */
+function renderPick2(){
+  var e=$('pick2');if(!e)return;
+  if(!S.inbox.length){
+    e.innerHTML='<div class="note warn"><b>まだ受け取っていないので、ここは埋められません。</b><br>'+
+      'これは不具合ではありません。<b>②欄は、自分では書けない欄です。</b>③に戻って、仲間から受け取ってください。'+
+      '<div class="row"><button class="btn sec sm" onclick="go(3)">③ に戻る</button></div></div>';return;
+  }
+  var h='<div class="radios">';
+  for(var i=0;i<S.inbox.length;i++){
+    h+='<label><input type="radio" name="o2" value="'+i+'"'+(String(S.o2)===String(i)?' checked':'')+
+      ' onchange="setO2('+i+')"><span>'+esc(S.inbox[i].cond)+
+      (S.inbox[i].from?' <span class="sub">── '+esc(S.inbox[i].from)+'</span>':'')+'</span></label>';
+  }
+  e.innerHTML=h+'</div>';
+}
+function setO2(i){S.o2=i;save();renderOneline();}
+function renderPick3(){
+  var e=$('pick3');if(!e)return;
+  var h='<div class="radios">';
+  for(var i=0;i<POWERS.length;i++){
+    var p=POWERS[i];
+    h+='<label><input type="radio" name="o3" value="'+p.k+'"'+((S.o3||S.power)===p.k?' checked':'')+
+      ' onchange="setO3(\''+p.k+'\')"><span>'+p.t+'</span></label>';
+  }
+  e.innerHTML=h+'</div><p class="sub">②で選んだのは「'+(powerLabel(S.power)||'まだ未選択')+'」です。変えてもかまいません。</p>';
+}
+function setO3(k){S.o3=k;save();renderOneline();}
+function renderHow(){
+  var e=$('pickHow');if(!e)return;
+  var h='';
+  for(var i=0;i<HOWS.length;i++){
+    h+='<label><input type="radio" name="how" value="'+HOWS[i].k+'"'+(S.how===HOWS[i].k?' checked':'')+
+      ' onchange="setHow(\''+HOWS[i].k+'\')"><span>'+HOWS[i].t+'</span></label>';
+  }
+  e.innerHTML=h;
+}
+function setHow(k){S.how=k;save();}
+function howLabel(k){for(var i=0;i<HOWS.length;i++)if(HOWS[i].k===k)return HOWS[i].t;return '';}
+
+function o1(){return F('f_o1')||F('f_scene');}
+function o2(){var x=S.inbox[S.o2];return x?x.cond:'';}
+function o3(){return powerLabel(S.o3||S.power);}
+function slot(v,ph){return v?'<span class="slot">'+esc(v)+'</span>':'<span class="slot empty">'+ph+'</span>';}
+function renderOneline(){
+  var e=$('oneline');if(!e)return;
+  e.innerHTML='わたしの活かし方は、<br>　'+slot(o1(),'① 生えてくるもの')+' を、<br>　'+
+    slot(o2(),'② 活きる条件（受け取る）')+' に置いて、<br>　'+
+    slot(o3(),'③ 力の使い方')+' で使うことである。';
+}
+function onelineText(){
+  return 'わたしの活かし方は、\n　'+(o1()||'（①未記入）')+' を、\n　'+
+    (o2()||'（②未受領）')+' に置いて、\n　'+(o3()||'（③未選択）')+' で使うことである。';
+}
+function copyOneline(){copyText(onelineText(),'sv_one');}
+
+/* ========== 持ち帰り ========== */
+function buildTakeaway(){
+  var L=[];
+  L.push('🌿 わたしの活かし方 ── 90分の持ち帰りカード');
+  L.push((F('f_name')?F('f_name')+' / ':'')+new Date().toLocaleString('ja-JP'));
+  L.push('');L.push('── 活かし方の1行 ──');L.push(onelineText());
+  L.push('');L.push('★ この1行の真ん中（②）は、自分では埋められなかった。');
+  var x=S.inbox[S.o2];if(x&&x.from)L.push('　埋めてくれたのは：'+x.from);
+  L.push('');L.push('── 受け取った条件（全部）──');
+  if(S.inbox.length){for(var i=0;i<S.inbox.length;i++){
+    var y=S.inbox[i];L.push('・'+y.cond+(y.from?'（'+y.from+'）':''));}}
+  else L.push('（なし）');
+  L.push('');L.push('── 理由の2枚取り ──');
+  L.push('自分が挙げた理由：'+F('f_r_self'));
+  L.push('他の人が見た理由A：'+F('f_r_a'));
+  L.push('他の人が見た理由B：'+F('f_r_b'));
+  L.push('');L.push('── 一区画 ──');
+  L.push('誰の：'+F('f_who'));L.push('何に：'+F('f_what'));
+  L.push('どう：'+howLabel(S.how));L.push('間隔：'+F('f_gap'));
+  L.push('捨てる1つ：'+F('f_drop'));
+  L.push('');L.push('── 24時間以内の第一歩 ──');
+  L.push('いつ：'+F('f_when'));L.push('誰に：'+F('f_to'));
+  L.push('何をする：'+F('f_do'));
+  L.push('他の人の目が入るところ：'+(F('f_eyes')||'★まだ空です。1人で終わる第一歩は採りません'));
+  L.push('');L.push('なりたいもの：'+F('f_become'));
+  L.push('');L.push('── 手が止まった一節（①）──');
+  L.push(F('f_stop'));L.push(F('f_recall'));
+  L.push('');L.push('── 誰の真ん中の欄を、埋められるか ──');
+  L.push(F('f_last'));
+  L.push('');L.push('いま生えているもの（場面）：');L.push(F('f_scene'));
+  $('t_out').value=L.join('\n');
+}
+function dlTakeaway(){
+  if(!$('t_out').value)buildTakeaway();
+  var b=new Blob([$('t_out').value],{type:'text/plain;charset=utf-8'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(b);
+  a.download='わたしの活かし方_'+(F('f_name')||'me')+'.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+}
+function resetAll(){
+  if(!confirm('入力を全部消します。よろしいですか？'))return;
+  localStorage.removeItem(KEY);location.reload();
+}
+function copyText(t,flashId){
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(function(){flash(flashId);},function(){fallbackCopy(t,flashId);});
+  }else fallbackCopy(t,flashId);
+}
+function fallbackCopy(t,flashId){
+  var ta=document.createElement('textarea');ta.value=t;
+  ta.style.position='fixed';ta.style.left='-9999px';
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy');flash(flashId);}catch(e){alert('コピーできませんでした。手で選択してください。');}
+  document.body.removeChild(ta);
+}
+function copyEl(id,flashId){
+  var e=$(id);if(!e)return;
+  if(id==='t_out'&&!e.value)buildTakeaway();
+  copyText(e.value,flashId);
+}
+
+/* ========== タイマー ========== */
+var T={};
+function mkTimer(host,sec,label,id){
+  T[id]={left:sec,base:sec,run:false,label:label};
+  host.innerHTML='<div class="tpanel"><div class="tlab" id="tl_'+id+'"></div>'+
+    '<div class="tbig" id="tb_'+id+'">--:--</div><div class="tctl">'+
+    '<button class="btn sm" onclick="tToggle(\''+id+'\')" id="tg_'+id+'">開始</button>'+
+    '<button class="btn sec sm" onclick="tReset(\''+id+'\')">戻す</button></div></div>';
+  paint(id);
+}
+function setT(id,sec,label){T[id].base=sec;T[id].left=sec;T[id].label=label;T[id].run=false;paint(id);}
+function tToggle(id){T[id].run=!T[id].run;paint(id);}
+function tReset(id){T[id].left=T[id].base;T[id].run=false;paint(id);}
+function fmt(s){
+  var neg=s<0;s=Math.abs(s);
+  var m=Math.floor(s/60),x=s%60;
+  return (neg?'-':'')+m+':'+(x<10?'0':'')+x;
+}
+function paint(id){
+  var t=T[id],b=$('tb_'+id),l=$('tl_'+id),g=$('tg_'+id);
+  if(!b)return;
+  b.textContent=fmt(t.left);
+  b.className='tbig'+(t.left<0?' over':(t.run?' run':''));
+  if(l)l.textContent=t.label;
+  if(g)g.textContent=t.run?'一時停止':'開始';
+  if(id==='mt'||Object.keys(T).length===1){
+    var tb=$('tbar');
+    if(tb){tb.textContent=fmt(t.left);tb.className='tbar-timer'+(t.left<0?' over':(t.run?' run':''));}
+  }
+}
+setInterval(function(){
+  var any=null;
+  for(var id in T){
+    if(T[id].run){T[id].left--;paint(id);if(T[id].left===0)beep();any=id;}
+  }
+  if(any){var tb=$('tbar');if(tb){tb.textContent=fmt(T[any].left);
+    tb.className='tbar-timer'+(T[any].left<0?' over':' run');}}
+},1000);
+function beep(){
+  try{
+    var C=window.AudioContext||window.webkitAudioContext;if(!C)return;
+    var c=new C(),o=c.createOscillator(),g=c.createGain();
+    o.connect(g);g.connect(c.destination);o.frequency.value=880;
+    g.gain.setValueAtTime(.18,c.currentTime);
+    g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.7);
+    o.start();o.stop(c.currentTime+.7);
+  }catch(e){}
+}
+
+/* ========== ③ 7分ローテーション ========== */
+var ROT=[{s:60,t:'本人が場面を話す'},{s:90,t:'事実を確かめる質問だけ'},
+  {s:90,t:'★理由を3つ書き取る（正しさを決めない）'},{s:120,t:'★活きる条件を1つずつ返す'},
+  {s:60,t:'本人が「採る1つ」を選ぶ'}];
+var rot={i:0,left:ROT[0].s,run:false,person:1};
+function renderRot(){
+  var h='<div class="tpanel"><div class="tlab">③ 7分ローテーション ── <b>'+rot.person+'人目</b></div>'+
+    '<div class="tbig'+(rot.run?' run':'')+'">'+fmt(rot.left)+'</div>'+
+    '<div style="text-align:center;font-weight:700;color:var(--soil);margin-top:4px">'+esc(ROT[rot.i].t)+'</div>'+
+    '<div class="tctl">'+
+    '<button class="btn sm" onclick="rotToggle()">'+(rot.run?'一時停止':'開始')+'</button>'+
+    '<button class="btn sec sm" onclick="rotNext()">次の段へ</button>'+
+    '<button class="btn sec sm" onclick="rotPerson()">次の人へ</button>'+
+    '<button class="btn sec sm" onclick="rotReset()">戻す</button></div><div style="margin-top:8px">';
+  for(var i=0;i<ROT.length;i++)h+='<span class="chip" style="'+(i===rot.i?'':'opacity:.35')+'">'+(i+1)+'. '+esc(ROT[i].t)+'</span>';
+  $('rotTimer').innerHTML=h+'</div></div>';
+}
+function rotToggle(){rot.run=!rot.run;renderRot();}
+function rotNext(){rot.i=(rot.i+1)%ROT.length;rot.left=ROT[rot.i].s;renderRot();}
+function rotPerson(){rot.person=rot.person>=3?1:rot.person+1;rot.i=0;rot.left=ROT[0].s;rot.run=false;renderRot();}
+function rotReset(){rot.i=0;rot.left=ROT[0].s;rot.run=false;rot.person=1;renderRot();}
+setInterval(function(){
+  if(!rot.run)return;
+  rot.left--;
+  if(rot.left<=0){beep();if(rot.i<ROT.length-1){rot.i++;rot.left=ROT[rot.i].s;}else{rot.run=false;rot.left=0;}}
+  renderRot();
+},1000);
+
+/* ========== 進行役ツール ========== */
+function assign(){
+  var n=parseInt(F('f_n'),10);if(!n||n<1)n=6;
+  var slots=[];
+  for(var i=0;i<7;i++){
+    var s=SENTENCES[i];
+    for(var j=0;j<s.parts.length;j++)slots.push({n:s.n,k:j+1,of:s.parts.length,tx:s.parts[j]});
+  }
+  var out=['【読み上げの担当】① 〜 ⑦ を順番に読みます。⑧は全員で声を合わせます。',''];
+  if(n>=slots.length){
+    for(var i=0;i<slots.length;i++){
+      var x=slots[i];
+      out.push((i+1)+'人目：'+x.n+(x.of>1?'（'+x.k+'/'+x.of+'）':''));
+    }
+    if(n>slots.length)out.push('（'+(n-slots.length)+'名は⑧の斉読に加わってください）');
+  }else{
+    var per=Math.ceil(slots.length/n),k=0;
+    for(var p=1;p<=n;p++){
+      var a=[];
+      for(var q=0;q<per&&k<slots.length;q++,k++){
+        var x=slots[k];a.push(x.n+(x.of>1?'（'+x.k+'/'+x.of+'）':''));
+      }
+      if(a.length)out.push(p+'人目：'+a.join('、'));
+    }
+  }
+  out.push('');out.push('⑧：全員で（ミュートを外してください。音が重なってよいです）');
+  out.push('');out.push('── 本文 ──');out.push(prefaceText());
+  $('a_out').value=out.join('\n');
+}
+var INST={
+ r1:'【① 語り合い・7分／1人2分】\n問いは1つだけです。\n「どの一節で、手が止まりましたか。そのとき、何を思い出しましたか」\n\n・一節を名指しして、そのまま読み上げてください\n・次に、思い出したことを1つ\n・聞く人は何も返しません。うなずくだけです\n　（「私もそう思います」「それはつまり〜ですね」は今日は要りません）\n\nカメラはオンのままにしてください。うなずきが唯一の返しになります。',
+ r3:'【③ 活きる関係・22分／1人7分】\n順番と時間を守ってください。\n\n1分　　本人が②の場面を話す\n1分30　聞く人は、事実を確かめる質問だけ\n1分30　理由を3つ書き取る（本人が1つ、聞く人が2つ）。どれが正しいかは決めません\n2分　　聞く人が「活きる条件」を1つずつ返す\n1分　　本人が「採る1つ」を選ぶ\n\n■ 返し方（この形を破らないでください）\n「その場面で、あなたは ◯◯ していました。\n　それは、△△ という条件がそろっているときに、いちばん活きると思います」\n\n✗「あなたは気配りの人ですね」（人を括っている）\n✗「営業に向いてますよ」（条件ではなく職種の助言）\n○「相手が助けを求めていて、断る自由もあるとき」\n\n■ 渡し方（★ここを飛ばさないでください）\nアプリの「③-c 条件をつくって渡す」で文をつくり、\nコピーして【このブレイクアウトのチャット】に貼ってください。\n相手は「③-d 条件を受け取る」に貼り付けて取り込みます。\n\n★ブレイクアウトを出るとチャットは消えます。\n　出る前に、受け取りまで終わらせてください。',
+ r4:'【④ ペア確認・6分／1人3分】\n確かめてもらうのは2つだけです。\n\n1. ②の欄は、他の人の言葉のまま入っていますか（自分で書き換えていませんか）\n2. この先の第一歩は、1人で終わってしまいませんか'
+};
+function inst(k){$('i_out').value=INST[k]||'';}
+
+/* ========== 初期化 ========== */
+function initTimers(){
+  var hs=document.querySelectorAll('[data-timer]');
+  for(var i=0;i<hs.length;i++){
+    mkTimer(hs[i],+hs[i].getAttribute('data-timer'),hs[i].getAttribute('data-label'),'t'+i);
+  }
+  mkTimer($('masterTimer'),1020,'① 読み合わせと語り合い（17分）','mt');
+}
+load();
+bindFields();
+renderSentences();renderPowers();renderPick3();renderHow();
+renderInbox();renderPick2();renderOneline();renderRot();
+initTimers();
+var mbs=document.querySelectorAll('.modes button');
+for(var i=0;i<mbs.length;i++){
+  mbs[i].addEventListener('click',function(){setMode(this.getAttribute('data-mode'));});
+}
+if(location.hash==='#facil')S.mode='facil';
+if(location.hash==='#screen')S.mode='screen';
+setMode(S.mode||'solo');
+</script>
+</body>
+</html>
